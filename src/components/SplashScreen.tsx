@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// --- LOGO YOLLARI (Traxle Yazısı) ---
+// --- KORUNAN LOGO YOLLARI (Traxle Yazısı) ---
 const logoPaths = [
   "M57.8 149.8h25.9l19.7.1 28.7.2a9872 9872 0 0 1 91.5.4h16.8l115.6.5c.9 3.8 1.1 5.6-.8 9.2l-1.2 2.3-1.4 2.4-1.4 2.6q-4.5 8.4-9.8 16.3-4.4 6.7-8.3 13.6-5.2 9-10.7 17.6l-1.3 2c-3 4.9-3 4.9-4.1 6l-4.1.2h-2.7l-3 .1H304l-10.3.3h-3.5q-39.6.7-79.2.4l-.1 1.9c-1.5 28-4.1 55.9-6.6 83.8L195.6 410l-1.4 17.5q-1.6 19.6-3.7 39.3l-.4 3.3-.3 3.1-.3 2.7c-.5 2.2-.5 2.2-2.5 4.2-2.9.2-2.9.2-6.6.2h-60.6c-2.8-.2-2.8-.2-3.8-1.2a69 69 0 0 1 .5-7.7l.2-3.5.3-3.6 4.6-56 7-79.2q3.1-32.5 5.8-65.1l.2-3.1.7-8.6.2-2.3q.8-13 1.5-25.9l-115.2.1h-3.6A138 138 0 0 1 0 223c.5-5.4 3.4-9.2 6.3-13.6l3.3-5.2 1.7-2.6 7.7-12.1 13.6-21.8L37 161l1.6-2.6c5.5-8 9.8-8.8 19.2-8.6",
   "M409.9 149.9h58.5a4867 4867 0 0 1 86.1.5c29.7.4 57 4.4 81.5 22.6l2.8 2c19 14.6 29.1 37.4 32.8 60.6q.9 8.8.7 17.5v6.3c.1 12.7-1.5 25.2-6 37.1l-.8 2.1a118 118 0 0 1-20.9 36.1 58 58 0 0 1-13.7 12.2A114 114 0 0 1 603 362c.6 4.5 2.4 7.9 4.8 11.7l1.1 2 13 21.3q1.5 2.7 3.2 5.4 8.2 13.6 16.7 27.3 9.6 15.4 18.7 31l2 3.4 1.8 3 4.7 7.6c2 3.3 2 3.3 2 5.3-3 1.5-6.4 1.2-9.8 1.2h-13.1l-46.3.4H592c-4 0-5.7-.4-8.8-3a68 68 0 0 1-6.9-10.4l-3.2-5.6-25.3-43.1q-9-15-17.2-30.2l-1.3-2.3-1-2-1.2-2-1-2c-3.4-3.3-7.5-2.6-12-2.5h-3l-17.3-.2H475l-19-.1-37.1-.2-.2 3.3a978 978 0 0 1-3.8 50.5l-3.3 37.7-.1 2.2c-.3 3-.7 5.5-1.6 8.3q-6.1 1.1-12.4 1.1h-53.8q-3.5 0-6.8-1.1-.2-12.4.9-24.8l.3-3.4a4202 4202 0 0 1 7.3-78.5 2056 2056 0 0 0 5.2-59.3q.4-4 1.3-8c3.7-1.2 7-1.1 10.8-1.1h10.5l38.3-.2 125.3-.3c17.7 0 34.8-1 48.5-13.6 9.9-11.1 12.1-24.5 11.9-38.8q-.8-11.3-8.5-19.5c-12.4-10.1-32.1-9-47.1-9h-41.5l-72.7-.3-79.5-.2c1.1-3.5 2.1-6.6 4.2-9.6l1.3-2 1.4-2 3-4.6 1.5-2.4q4-6 7.9-12.3a316 316 0 0 1 11-16.5l8.2-13 5-8c4-4.2 12.9-2.7 18.4-2.7",
@@ -22,46 +22,29 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // 1. Sadece oturumda ilk kez mi kontrol et
+    // Sadece oturumda ilk kez mi kontrol et
     const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
 
     if (hasSeenSplash) {
-      // Daha önce görüldüyse hiç açma ve callback'i tetikle
       setIsVisible(false);
       if (onFinished) onFinished();
       return;
     }
 
-    // Gösterilmediyse başlat
     setIsVisible(true);
     sessionStorage.setItem('hasSeenSplash', 'true');
 
-    // Yükleme animasyonu
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 30);
-
+    // Tam 3.5 saniye sonra ekranı kaldır
     const timer = setTimeout(() => {
       setIsVisible(false);
       if (onFinished) onFinished();
     }, 3500);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(interval);
-    };
+    return () => clearTimeout(timer);
   }, [onFinished]);
 
-  // Eğer görünür değilse hiçbir şey render etme
   if (!isVisible) return null;
 
   return (
@@ -69,85 +52,84 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
       <motion.div
         key="splash"
         initial={{ opacity: 1 }}
-        exit={{ 
-          opacity: 0, 
-          scale: 1.1, 
+        exit={{
+          opacity: 0,
+          scale: 1.1,
           filter: "blur(20px)",
           transition: { duration: 0.8, ease: "easeInOut" }
         }}
         className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050814] overflow-hidden"
       >
-        {/* ARKA PLAN EFEKTLERİ */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e3a8a20_0%,transparent_70%)]"></div>
-        <div className="absolute inset-0 opacity-10 bg-[url('/grid.svg')] bg-center"></div>
+        {/* --- ARKAPLAN DERİNLİK EFEKTLERİ --- */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e3a8a30_0%,transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
 
-        <div className="relative flex flex-col items-center justify-center w-full max-w-4xl">
-          
-          {/* 1. HOLOGRAFİK DÖNEN DÜNYA */}
-          <div className="relative w-[280px] h-[280px] flex justify-center items-center mb-12 perspective-container">
-              
-              {/* Dış Glow */}
-              <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-[60px] animate-pulse"></div>
+        {/* --- MERKEZİ ANİMASYON GRUBU --- */}
+        <div className="relative flex flex-col items-center justify-center w-full max-w-4xl z-10">
 
-              <svg width="300" height="300" viewBox="0 0 400 400" fill="none" className="relative z-10">
-                  <defs>
-                      <radialGradient id="globeGrad" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0.4" />
-                          <stop offset="100%" stopColor="#0f172a" stopOpacity="0.8" />
-                      </radialGradient>
-                      <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
-                          <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
-                      </linearGradient>
-                  </defs>
+          {/* 1. SOYUT RADAR / TELEMETRİ HALKALARI */}
+          <div className="absolute w-[400px] h-[400px] flex items-center justify-center pointer-events-none opacity-40">
 
-                  {/* Ana Küre Tabanı */}
-                  <circle cx="200" cy="200" r="140" fill="url(#globeGrad)" stroke="#1e3a8a" strokeWidth="1" />
+            {/* Ortadaki Derin Glow */}
+            <div className="absolute w-32 h-32 bg-blue-600/20 rounded-full blur-[40px] animate-pulse"></div>
 
-                  {/* Enlem Çizgileri (Sabit) */}
-                  <ellipse cx="200" cy="200" rx="140" ry="140" stroke="url(#lineGrad)" strokeWidth="1" fill="none" className="opacity-30" />
-                  <ellipse cx="200" cy="200" rx="140" ry="80" stroke="url(#lineGrad)" strokeWidth="1" fill="none" className="opacity-30" />
-                  <ellipse cx="200" cy="200" rx="140" ry="30" stroke="url(#lineGrad)" strokeWidth="1" fill="none" className="opacity-30" />
+            {/* Dış Halka (Kesikli - Yavaş Saat Yönünde Döner) */}
+            <svg className="absolute w-full h-full animate-spin-slow" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="url(#radar-grad)" strokeWidth="0.5" strokeDasharray="2 6" />
+            </svg>
 
-                  {/* Boylam Çizgileri (Dönen Grup) */}
-                  <g className="animate-spin-globe">
-                      <ellipse cx="200" cy="200" rx="40" ry="140" stroke="url(#lineGrad)" strokeWidth="2" fill="none" strokeDasharray="10 10" />
-                      <ellipse cx="200" cy="200" rx="90" ry="140" stroke="url(#lineGrad)" strokeWidth="1" fill="none" strokeDasharray="20 20" />
-                      <ellipse cx="200" cy="200" rx="140" ry="140" stroke="url(#lineGrad)" strokeWidth="1" fill="none" strokeDasharray="40 40" />
-                  </g>
+            {/* Orta Halka (Çizgili - Saat Yönünün Tersine Döner) */}
+            <svg className="absolute w-[75%] h-[75%] animate-spin-reverse" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#22D3EE" strokeWidth="1" strokeDasharray="30 20 5 20" opacity="0.6" />
+            </svg>
 
-                  {/* Uydu/Nokta Efektleri */}
-                  <circle cx="200" cy="60" r="3" fill="#60a5fa" className="animate-ping" />
-                  <circle cx="340" cy="200" r="2" fill="#60a5fa" className="animate-pulse" />
-              </svg>
+            {/* İç Halka (Sürekli) */}
+            <svg className="absolute w-[50%] h-[50%]" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#3B82F6" strokeWidth="0.5" opacity="0.3" />
+            </svg>
+
+            {/* Dönen Radar Tarayıcı Işığı (Conic Gradient) */}
+            <div className="absolute inset-0 rounded-full animate-radar-sweep [mask-image:radial-gradient(transparent_50%,black_51%)]">
+              <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_270deg,#3b82f6_360deg)] opacity-30"></div>
+            </div>
+
+            {/* Merkez Hedef (Crosshair) */}
+            <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+            <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"></div>
           </div>
 
-          {/* 2. LOGO ALANI (Lazer Efekti) */}
-          <svg 
-            width="300" 
-            height="80" 
-            viewBox="0 0 2038 603" 
-            fill="none" 
-            className="overflow-visible z-20"
+          {/* 2. LOGO ÇİZİMİ (Traxle Yazısı) */}
+          <svg
+            width="300"
+            height="80"
+            viewBox="0 0 2038 603"
+            fill="none"
+            className="relative z-20 overflow-visible"
           >
             <defs>
               <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="50%" stopColor="#22D3EE" />
                 <stop offset="100%" stopColor="#06b6d4" />
               </linearGradient>
+
+              <linearGradient id="radar-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+
               <filter id="glow">
-                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="8" result="coloredBlur" />
                 <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
             </defs>
 
             {logoPaths.map((pathCode, index) => (
               <React.Fragment key={index}>
-                {/* Neon Stroke Animasyonu */}
+                {/* Dış Parlak Çizgi Animasyonu */}
                 <motion.path
                   d={pathCode}
                   stroke="url(#neon-grad)"
@@ -156,60 +138,53 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                   strokeLinejoin="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ 
-                    duration: 1.8,
+                  transition={{
+                    duration: 1.5,
                     ease: "easeInOut",
-                    delay: index * 0.1 
+                    delay: index * 0.1
                   }}
                   filter="url(#glow)"
                 />
-                {/* Dolgu Animasyonu */}
+                {/* İç Dolgu Animasyonu */}
                 <motion.path
                   d={pathCode}
                   fill="url(#neon-grad)"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ 
-                    duration: 1,
+                  transition={{
+                    duration: 0.8,
                     ease: "easeOut",
-                    delay: 1.5 + (index * 0.1) 
+                    delay: 1.2 + (index * 0.1)
                   }}
                 />
               </React.Fragment>
             ))}
           </svg>
 
-          {/* 3. İNCE İLERLEME ÇUBUĞU (Minimalist) */}
-          <div className="w-64 mt-10 h-[2px] bg-gray-800 rounded-full overflow-hidden relative">
-             <motion.div 
-               className="h-full bg-gradient-to-r from-blue-600 via-cyan-400 to-white"
-               initial={{ width: "0%" }}
-               animate={{ width: `${progress}%` }}
-               transition={{ ease: "linear" }}
-             />
-             {/* Parlayan uç nokta */}
-             <motion.div 
-               className="absolute top-1/2 -translate-y-1/2 w-8 h-1 bg-white blur-[4px]"
-               initial={{ left: "0%" }}
-               animate={{ left: `${progress}%` }}
-               transition={{ ease: "linear" }}
-             />
-          </div>
-
         </div>
-        
+
+        {/* CSS Keyframes */}
         <style jsx>{`
-          @keyframes spin-globe {
-              0% { transform: rotate3d(0, 1, 0, 0deg); }
-              100% { transform: rotate3d(0, 1, 0, 360deg); }
+          @keyframes spin-slow {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
           }
-          .animate-spin-globe {
-              animation: spin-globe 10s linear infinite;
-              transform-origin: center;
-              transform-box: fill-box;
+          @keyframes spin-reverse {
+              0% { transform: rotate(360deg); }
+              100% { transform: rotate(-360deg); }
           }
-          .perspective-container {
-              perspective: 1000px;
+          @keyframes radar-sweep {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+          }
+          .animate-spin-slow {
+              animation: spin-slow 15s linear infinite;
+          }
+          .animate-spin-reverse {
+              animation: spin-reverse 20s linear infinite;
+          }
+          .animate-radar-sweep {
+              animation: radar-sweep 4s linear infinite;
           }
         `}</style>
       </motion.div>
