@@ -21,197 +21,194 @@ interface SplashScreenProps {
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
 
     if (hasSeenSplash) {
-      setIsVisible(false);
+      setShowSplash(false);
       if (onFinished) onFinished();
       return;
     }
 
-    setIsVisible(true);
     sessionStorage.setItem('hasSeenSplash', 'true');
-
-    // 3.8 Saniyede Tamamlanıp Kapanıyor
     const timer = setTimeout(() => {
-      setIsVisible(false);
+      setShowSplash(false);
       if (onFinished) onFinished();
     }, 3800);
 
     return () => clearTimeout(timer);
   }, [onFinished]);
 
-  if (!isVisible) return null;
+  // 🔥 ÇÖZÜM: Sunucu tarafında veya client'ın ilk milisaniyesinde FOUC engellemek için simsiyah perde
+  if (!isMounted) {
+    return <div className="fixed inset-0 z-[9999] bg-[#02040A]"></div>;
+  }
 
   return (
     <AnimatePresence>
-      <motion.div
-        key="splash"
-        initial={{ opacity: 1 }}
-        exit={{
-          opacity: 0,
-          scale: 1.15,
-          filter: "blur(25px)",
-          transition: { duration: 0.8, ease: "easeInOut" }
-        }}
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#02040A] overflow-hidden"
-      >
-        {/* --- ARKAPLAN DERİNLİK EFEKTLERİ --- */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e3a8a25_0%,transparent_60%)]"></div>
+      {showSplash && (
+        <motion.div
+          key="splash"
+          initial={{ opacity: 1 }}
+          exit={{
+            opacity: 0,
+            scale: 1.15,
+            filter: "blur(25px)",
+            transition: { duration: 0.8, ease: "easeInOut" }
+          }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#02040A] overflow-hidden"
+        >
+          {/* --- ARKAPLAN DERİNLİK EFEKTLERİ --- */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e3a8a25_0%,transparent_60%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_80%,transparent_100%)] animate-pan-grid"></div>
 
-        {/* Hareketli Noktalı Blueprint Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_80%,transparent_100%)] animate-pan-grid"></div>
+          {/* --- MERKEZİ HUD / RADAR ÇEKİRDEĞİ --- */}
+          <div className="relative flex items-center justify-center w-full max-w-2xl z-10 perspective-[1000px]">
 
-        {/* --- MERKEZİ HUD / RADAR ÇEKİRDEĞİ --- */}
-        <div className="relative flex items-center justify-center w-full max-w-2xl z-10 perspective-[1000px]">
+            {/* RADAR HALKALARI VE OPTİK KATMANLAR (Boyut Küçültüldü: w-[340px]) */}
+            <div className="absolute w-[340px] h-[340px] flex items-center justify-center pointer-events-none opacity-80" style={{ transformStyle: 'preserve-3d' }}>
 
-          {/* RADAR HALKALARI VE OPTİK KATMANLAR (Boyut Küçültüldü: w-[340px]) */}
-          <div className="absolute w-[340px] h-[340px] flex items-center justify-center pointer-events-none opacity-80" style={{ transformStyle: 'preserve-3d' }}>
+              {/* Merkezdeki Derin Volumetrik Işık */}
+              <div className="absolute w-24 h-24 bg-blue-500/30 rounded-full blur-[40px] animate-pulse-glow"></div>
 
-            {/* Merkezdeki Derin Volumetrik Işık */}
-            <div className="absolute w-24 h-24 bg-blue-500/30 rounded-full blur-[40px] animate-pulse-glow"></div>
+              {/* Dış Halka: İnce, Kesikli, Yavaş Döner */}
+              <svg className="absolute w-[100%] h-[100%] animate-spin-slow opacity-30" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="95" fill="none" stroke="#60A5FA" strokeWidth="0.3" strokeDasharray="1 4" />
+                <circle cx="100" cy="100" r="92" fill="none" stroke="#3B82F6" strokeWidth="0.5" strokeDasharray="20 15 5 15" />
+              </svg>
 
-            {/* Dış Halka: İnce, Kesikli, Yavaş Döner */}
-            <svg className="absolute w-[100%] h-[100%] animate-spin-slow opacity-30" viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="95" fill="none" stroke="#60A5FA" strokeWidth="0.3" strokeDasharray="1 4" />
-              <circle cx="100" cy="100" r="92" fill="none" stroke="#3B82F6" strokeWidth="0.5" strokeDasharray="20 15 5 15" />
-            </svg>
+              {/* Orta Halka: Veri Akışı, Asimetrik, Ters Döner */}
+              <svg className="absolute w-[80%] h-[80%] animate-spin-reverse-medium opacity-60" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#22D3EE" strokeWidth="1.2" strokeDasharray="40 20 2 10" />
+                <circle cx="10" cy="100" r="2.5" fill="#22D3EE" className="animate-pulse shadow-[0_0_10px_#22D3EE]" />
+                <circle cx="190" cy="100" r="1.5" fill="#3B82F6" className="animate-pulse" />
+              </svg>
 
-            {/* Orta Halka: Veri Akışı, Asimetrik, Ters Döner */}
-            <svg className="absolute w-[80%] h-[80%] animate-spin-reverse-medium opacity-60" viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="90" fill="none" stroke="#22D3EE" strokeWidth="1.2" strokeDasharray="40 20 2 10" />
-              {/* Radardaki Ufak Sensör Noktaları */}
-              <circle cx="10" cy="100" r="2.5" fill="#22D3EE" className="animate-pulse shadow-[0_0_10px_#22D3EE]" />
-              <circle cx="190" cy="100" r="1.5" fill="#3B82F6" className="animate-pulse" />
-            </svg>
+              {/* İç Halka: Hassas Odak, Mor/Indigo Karışımlı */}
+              <svg className="absolute w-[60%] h-[60%] animate-spin-fast opacity-50" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#8B5CF6" strokeWidth="0.5" strokeDasharray="50 20" />
+              </svg>
 
-            {/* İç Halka: Hassas Odak, Mor/Indigo Karışımlı */}
-            <svg className="absolute w-[60%] h-[60%] animate-spin-fast opacity-50" viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="90" fill="none" stroke="#8B5CF6" strokeWidth="0.5" strokeDasharray="50 20" />
-            </svg>
+              {/* Gerçek Radar Işık Taraması (Sweep Effect) */}
+              <div className="absolute inset-0 rounded-full animate-radar-sweep [mask-image:radial-gradient(transparent_52%,black_53%)]">
+                <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_270deg,rgba(34,211,238,0.5)_360deg)]"></div>
+              </div>
 
-            {/* Gerçek Radar Işık Taraması (Sweep Effect) */}
-            <div className="absolute inset-0 rounded-full animate-radar-sweep [mask-image:radial-gradient(transparent_52%,black_53%)]">
-              <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_270deg,rgba(34,211,238,0.5)_360deg)]"></div>
+              {/* İnce Hedefleme Çizgileri (Crosshair) */}
+              <div className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+              <div className="absolute h-full w-[0.5px] bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent"></div>
+
+              {/* Köşe Hedefleme İşaretçileri (Optik Hissiyat) */}
+              <div className="absolute top-[15%] left-[15%] w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-sm"></div>
+              <div className="absolute top-[15%] right-[15%] w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 rounded-tr-sm"></div>
+              <div className="absolute bottom-[15%] left-[15%] w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-sm"></div>
+              <div className="absolute bottom-[15%] right-[15%] w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 rounded-br-sm"></div>
             </div>
 
-            {/* İnce Hedefleme Çizgileri (Crosshair) */}
-            <div className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-            <div className="absolute h-full w-[0.5px] bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent"></div>
+            {/* --- LOGO ÇİZİMİ (KÜÇÜLTÜLDÜ VE MERKEZLENDİ) --- */}
+            <motion.div
+              className="relative z-20 flex items-center justify-center mt-2"
+              initial={{ scale: 0.85 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 2.5, ease: "easeOut" }}
+            >
+              <svg
+                width="180"
+                height="50"
+                viewBox="0 0 2038 603"
+                fill="none"
+                className="overflow-visible drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+              >
+                <defs>
+                  <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="50%" stopColor="#22D3EE" />
+                    <stop offset="100%" stopColor="#06b6d4" />
+                  </linearGradient>
 
-            {/* Köşe Hedefleme İşaretçileri (Optik Hissiyat) */}
-            <div className="absolute top-[15%] left-[15%] w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-sm"></div>
-            <div className="absolute top-[15%] right-[15%] w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 rounded-tr-sm"></div>
-            <div className="absolute bottom-[15%] left-[15%] w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-sm"></div>
-            <div className="absolute bottom-[15%] right-[15%] w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 rounded-br-sm"></div>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="12" result="coloredBlur" />
+                    <feMerge>
+                      <feMergeNode in="coloredBlur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                {logoPaths.map((pathCode, index) => (
+                  <React.Fragment key={index}>
+                    <motion.path
+                      d={pathCode}
+                      stroke="url(#neon-grad)"
+                      strokeWidth="18"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 1 }}
+                      transition={{
+                        duration: 1.5,
+                        ease: "easeInOut",
+                        delay: index * 0.1
+                      }}
+                      filter="url(#glow)"
+                    />
+                    <motion.path
+                      d={pathCode}
+                      fill="url(#neon-grad)"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: 0.8,
+                        ease: "easeOut",
+                        delay: 1.2 + (index * 0.1)
+                      }}
+                    />
+                  </React.Fragment>
+                ))}
+              </svg>
+            </motion.div>
+
           </div>
 
-          {/* --- LOGO ÇİZİMİ (DAHA KOMPAKT) --- */}
-          <motion.div
-            className="relative z-20 flex items-center justify-center mt-2"
-            initial={{ scale: 0.85 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 2.5, ease: "easeOut" }}
-          >
-            {/* Orijinal 300px'den 180px'e düşürüldü */}
-            <svg
-              width="180"
-              height="50"
-              viewBox="0 0 2038 603"
-              fill="none"
-              className="overflow-visible drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]"
-            >
-              <defs>
-                <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3b82f6" />
-                  <stop offset="50%" stopColor="#22D3EE" />
-                  <stop offset="100%" stopColor="#06b6d4" />
-                </linearGradient>
-
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="12" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {logoPaths.map((pathCode, index) => (
-                <React.Fragment key={index}>
-                  {/* Dış Parlak Çizgi Animasyonu */}
-                  <motion.path
-                    d={pathCode}
-                    stroke="url(#neon-grad)"
-                    strokeWidth="18"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{
-                      duration: 1.5,
-                      ease: "easeInOut",
-                      delay: index * 0.1
-                    }}
-                    filter="url(#glow)"
-                  />
-                  {/* İç Dolgu Animasyonu */}
-                  <motion.path
-                    d={pathCode}
-                    fill="url(#neon-grad)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{
-                      duration: 0.8,
-                      ease: "easeOut",
-                      delay: 1.2 + (index * 0.1)
-                    }}
-                  />
-                </React.Fragment>
-              ))}
-            </svg>
-          </motion.div>
-
-        </div>
-
-        {/* Özel CSS Keyframes & Sınıflar */}
-        <style jsx>{`
-          @keyframes spin-slow {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-          }
-          @keyframes spin-reverse-medium {
-              0% { transform: rotate(360deg); }
-              100% { transform: rotate(0deg); }
-          }
-          @keyframes spin-fast {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-          }
-          @keyframes radar-sweep {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-          }
-          @keyframes pan-grid {
-              0% { background-position: 0% 0%; }
-              100% { background-position: 100px 100px; }
-          }
-          @keyframes pulse-glow {
-              0%, 100% { opacity: 0.6; transform: scale(1); }
-              50% { opacity: 1; transform: scale(1.2); }
-          }
-          
-          .animate-spin-slow { animation: spin-slow 20s linear infinite; }
-          .animate-spin-reverse-medium { animation: spin-reverse-medium 15s linear infinite; }
-          .animate-spin-fast { animation: spin-fast 10s linear infinite; }
-          .animate-radar-sweep { animation: radar-sweep 4s linear infinite; }
-          .animate-pan-grid { animation: pan-grid 40s linear infinite; }
-          .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-        `}</style>
-      </motion.div>
+          <style jsx>{`
+            @keyframes spin-slow {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @keyframes spin-reverse-medium {
+                0% { transform: rotate(360deg); }
+                100% { transform: rotate(0deg); }
+            }
+            @keyframes spin-fast {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @keyframes radar-sweep {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @keyframes pan-grid {
+                0% { background-position: 0% 0%; }
+                100% { background-position: 100px 100px; }
+            }
+            @keyframes pulse-glow {
+                0%, 100% { opacity: 0.6; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.2); }
+            }
+            
+            .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+            .animate-spin-reverse-medium { animation: spin-reverse-medium 15s linear infinite; }
+            .animate-spin-fast { animation: spin-fast 10s linear infinite; }
+            .animate-radar-sweep { animation: radar-sweep 4s linear infinite; }
+            .animate-pan-grid { animation: pan-grid 40s linear infinite; }
+            .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+          `}</style>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 };
