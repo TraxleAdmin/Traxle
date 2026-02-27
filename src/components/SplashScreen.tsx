@@ -43,7 +43,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
     return () => clearTimeout(timer);
   }, [onFinished]);
 
-  // 🔥 ÇÖZÜM: Sunucu tarafında veya client'ın ilk milisaniyesinde FOUC engellemek için simsiyah perde
+  // 🔥 Sunucu tarafında veya client'ın ilk milisaniyesinde FOUC engellemek için simsiyah perde
   if (!isMounted) {
     return <div className="fixed inset-0 z-[9999] bg-[#02040A]"></div>;
   }
@@ -64,6 +64,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
         >
           {/* --- ARKAPLAN DERİNLİK EFEKTLERİ --- */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e3a8a25_0%,transparent_60%)]"></div>
+
+          {/* Hareketli Noktalı Blueprint Grid */}
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_80%,transparent_100%)] animate-pan-grid"></div>
 
           {/* --- MERKEZİ HUD / RADAR ÇEKİRDEĞİ --- */}
@@ -102,11 +104,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
               <div className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
               <div className="absolute h-full w-[0.5px] bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent"></div>
 
-              {/* Köşe Hedefleme İşaretçileri (Optik Hissiyat) */}
-              <div className="absolute top-[15%] left-[15%] w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-sm"></div>
-              <div className="absolute top-[15%] right-[15%] w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 rounded-tr-sm"></div>
-              <div className="absolute bottom-[15%] left-[15%] w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-sm"></div>
-              <div className="absolute bottom-[15%] right-[15%] w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 rounded-br-sm"></div>
+              {/* Köşe Hedefleme İşaretçileri (Optik Hissiyat) --- 🔥 KALDIRILDI 🔥 */}
+              {/* <div className="absolute top-[15%] left-[15%] w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-sm"></div> */}
+              {/* <div className="absolute top-[15%] right-[15%] w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 rounded-tr-sm"></div> */}
+              {/* <div className="absolute bottom-[15%] left-[15%] w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-sm"></div> */}
+              {/* <div className="absolute bottom-[15%] right-[15%] w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 rounded-br-sm"></div> */}
             </div>
 
             {/* --- LOGO ÇİZİMİ (KÜÇÜLTÜLDÜ VE MERKEZLENDİ) --- */}
