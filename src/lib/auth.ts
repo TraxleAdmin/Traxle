@@ -1,7 +1,7 @@
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
   sendEmailVerification,
   deleteUser,
@@ -19,7 +19,7 @@ import { auth, db } from "./firebase";
 
 const getDeviceInfo = () => {
   if (typeof window === 'undefined') return 'Bilinmeyen Cihaz';
-  
+
   const ua = navigator.userAgent;
   let browser = 'Bilinmeyen Tarayıcı';
   let os = 'Bilinmeyen OS';
@@ -57,11 +57,11 @@ const logLoginAttempt = async (email: string, status: 'success' | 'failed', uid?
 
     let ip = 'Bilinmiyor';
     try {
-        const ipRes = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipRes.json();
-        ip = ipData.ip;
+      const ipRes = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipRes.json();
+      ip = ipData.ip;
     } catch (e) {
-        console.warn("IP Adresi alınamadı.");
+      console.warn("IP Adresi alınamadı.");
     }
 
     const device = getDeviceInfo();
@@ -94,12 +94,12 @@ export const registerUser = async (email: string, password: string, userData: an
     } catch (authError: any) {
       if (authError.code === 'auth/email-already-in-use') {
         if (auth.currentUser && auth.currentUser.email === email) {
-            user = auth.currentUser;
+          user = auth.currentUser;
         } else {
-            return { success: false, error: "Bu e-posta zaten kullanımda. Lütfen Giriş Yap sayfasını kullanın." };
+          return { success: false, error: "Bu e-posta zaten kullanımda. Lütfen Giriş Yap sayfasını kullanın." };
         }
       } else {
-        throw authError; 
+        throw authError;
       }
     }
 
@@ -155,8 +155,7 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-// 🔥 EKLENDİ: GOOGLE VE APPLE GİRİŞ FONKSİYONU
-export const socialLogin = async (providerType: 'google' | 'apple', role: string = 'shipper') => {
+export const socialLogin = async (providerType: 'google' | 'apple', role: string = 'customer') => {
   try {
     let provider;
     if (providerType === 'google') {
@@ -168,21 +167,19 @@ export const socialLogin = async (providerType: 'google' | 'apple', role: string
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Kullanıcı veritabanında var mı diye kontrol et
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
-      // Eğer yoksa seçilen rol ile yeni hesap oluştur
       await setDoc(userRef, {
         uid: user.uid,
         name: user.displayName || "Kullanıcı",
         email: user.email,
         phone: user.phoneNumber || null,
-        role: role, 
+        role: role,
         createdAt: new Date().toISOString(),
         isActive: true,
-        emailVerified: true // Sosyal hesaplarda mail onaylanmış kabul edilir
+        emailVerified: true
       }, { merge: true });
     }
 

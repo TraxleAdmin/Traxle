@@ -1,27 +1,26 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { FiDollarSign, FiTruck, FiAlertTriangle, FiDatabase, FiTerminal, FiCheckCircle } from 'react-icons/fi';
+import { FiDollarSign, FiTool, FiAlertTriangle, FiDatabase, FiTerminal, FiCheckCircle } from 'react-icons/fi';
 import UnifiedCard from '@/components/ui/UnifiedCard';
-import { Load } from './OperationsView'; 
+import { Load } from './OperationsView';
 import { db } from '@/lib/firebase';
 import { collection, query, where, onSnapshot, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
-export interface WebhookLog { 
-    id: string; gateway: string; status: number; loadId?: string; error?: string; createdAt: any; 
+export interface WebhookLog {
+    id: string; gateway: string; status: number; loadId?: string; error?: string; createdAt: any;
 }
 
 interface FinanceViewProps {
     loads: Load[];
-    webhooks: WebhookLog[]; 
+    webhooks: WebhookLog[];
     logAction?: (action: string, targetId: string, details: string) => Promise<void>;
 }
 
 export default function FinanceView({ loads, webhooks, logAction }: FinanceViewProps) {
     const totalRevenue = loads.reduce((acc, l) => acc + l.price, 0);
-    const estimatedCommission = totalRevenue * 0.10; 
+    const estimatedCommission = totalRevenue * 0.10;
 
-    // 🔥 GERÇEK PARA ÇEKME TALEPLERİNİ DİNLEME
     const [withdrawals, setWithdrawals] = useState<any[]>([]);
 
     useEffect(() => {
@@ -33,14 +32,14 @@ export default function FinanceView({ loads, webhooks, logAction }: FinanceViewP
     }, []);
 
     const handleApproveWithdrawal = async (id: string, amount: number, userId: string) => {
-        if(!confirm(`Bu sürücüye ₺${amount} EFT/Havale işlemini gerçekleştirdiniz mi? Sistemde "Ödendi" olarak işaretlenecek.`)) return;
-        
+        if (!confirm(`Bu tedarikçiye ₺${amount} EFT/Havale işlemini gerçekleştirdiniz mi? Sistemde "Ödendi" olarak işaretlenecek.`)) return;
+
         try {
-            await updateDoc(doc(db, "transactions", id), { 
-                status: "completed", 
-                processedAt: serverTimestamp() 
+            await updateDoc(doc(db, "transactions", id), {
+                status: "completed",
+                processedAt: serverTimestamp()
             });
-            
+
             if (logAction) {
                 await logAction("APPROVE_WITHDRAWAL", id, `Approved withdrawal of ₺${amount} for user ${userId}`);
             }
@@ -53,17 +52,16 @@ export default function FinanceView({ loads, webhooks, logAction }: FinanceViewP
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <h2 className="text-2xl font-bold flex items-center gap-2">
-                <FiDollarSign className="text-green-500"/> Finansal Analiz & Ödeme İzleme
+                <FiDollarSign className="text-green-500" /> Finansal Analiz & Ödeme İzleme
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <UnifiedCard type="stat" title="Toplam İşlem Hacmi (GMV)" value={`₺${totalRevenue.toLocaleString()}`} icon={<FiTruck />} color="from-blue-500 to-indigo-600" />
+                <UnifiedCard type="stat" title="Toplam İşlem Hacmi (GMV)" value={`₺${totalRevenue.toLocaleString()}`} icon={<FiTool />} color="from-blue-500 to-indigo-600" />
                 <UnifiedCard type="stat" title="Tahmini Kasa Girişi" value={`₺${estimatedCommission.toLocaleString()}`} icon={<FiDollarSign />} color="from-green-500 to-emerald-600" />
-                <UnifiedCard type="stat" title="Bekleyen Ödeme" value={`₺${withdrawals.reduce((a,b) => a + b.amount, 0).toLocaleString()}`} icon={<FiAlertTriangle />} color="from-orange-500 to-red-600" />
+                <UnifiedCard type="stat" title="Bekleyen Ödeme" value={`₺${withdrawals.reduce((a, b) => a + b.amount, 0).toLocaleString()}`} icon={<FiAlertTriangle />} color="from-orange-500 to-red-600" />
             </div>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Sol Taraf: GERÇEK Para Çekme Talepleri */}
                 <div className="bg-white dark:bg-[#0A0A0A] p-6 rounded-3xl border border-gray-200 dark:border-white/5 shadow-xl flex flex-col h-[400px]">
                     <h3 className="font-bold mb-6 flex items-center gap-2 text-lg">
                         <FiDatabase className="text-blue-500" /> EFT/Havale Bekleyenler
@@ -78,7 +76,7 @@ export default function FinanceView({ loads, webhooks, logAction }: FinanceViewP
                             <table className="w-full text-sm text-left">
                                 <thead className="text-gray-500 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-[#0A0A0A] z-10">
                                     <tr>
-                                        <th className="pb-4 font-semibold uppercase text-xs">Sürücü ID</th>
+                                        <th className="pb-4 font-semibold uppercase text-xs">Tedarikçi ID</th>
                                         <th className="pb-4 font-semibold uppercase text-xs">Tutar</th>
                                         <th className="pb-4 font-semibold uppercase text-xs text-right">İşlem</th>
                                     </tr>
@@ -86,7 +84,7 @@ export default function FinanceView({ loads, webhooks, logAction }: FinanceViewP
                                 <tbody className="divide-y divide-gray-100 dark:divide-white/5">
                                     {withdrawals.map(w => (
                                         <tr key={w.id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-                                            <td className="py-4 font-mono text-xs">{w.userId.substring(0,8)}...</td>
+                                            <td className="py-4 font-mono text-xs">{w.userId.substring(0, 8)}...</td>
                                             <td className="font-mono font-bold py-4 text-red-500">-₺{w.amount}</td>
                                             <td className="py-4 text-right">
                                                 <button onClick={() => handleApproveWithdrawal(w.id, w.amount, w.userId)} className="px-4 py-2 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 rounded-lg text-xs font-bold hover:bg-green-100 transition-colors">
@@ -101,7 +99,6 @@ export default function FinanceView({ loads, webhooks, logAction }: FinanceViewP
                     </div>
                 </div>
 
-                {/* Sağ Taraf: WEBHOOK LOGLARI */}
                 <div className="bg-[#1e1e1e] border border-gray-700 p-6 rounded-3xl shadow-2xl flex flex-col h-[400px]">
                     <h3 className="font-bold mb-6 flex items-center justify-between text-gray-300 font-mono text-lg">
                         <div className="flex items-center gap-2"><FiTerminal className="text-purple-400" /> Webhook_Stream</div>
