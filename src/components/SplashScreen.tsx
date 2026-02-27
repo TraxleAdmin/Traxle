@@ -132,8 +132,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                     <stop offset="100%" stopColor="#06b6d4" />
                   </linearGradient>
 
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="12" result="coloredBlur" />
+                  {/* 🔥 HATA ÇÖZÜMÜ: Filtre sınırlarını genişlettik (x, y, width, height) 🔥 */}
+                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="18" result="coloredBlur" />
                     <feMerge>
                       <feMergeNode in="coloredBlur" />
                       <feMergeNode in="SourceGraphic" />
@@ -143,6 +144,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
 
                 {logoPaths.map((pathCode, index) => (
                   <React.Fragment key={index}>
+                    {/* Dış Parlak Çizgi Animasyonu */}
                     <motion.path
                       d={pathCode}
                       stroke="url(#neon-grad)"
@@ -158,6 +160,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                       }}
                       filter="url(#glow)"
                     />
+                    {/* İç Dolgu Animasyonu */}
                     <motion.path
                       d={pathCode}
                       fill="url(#neon-grad)"
