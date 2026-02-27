@@ -1,4 +1,4 @@
-// src/middleware.ts
+// src/proxy.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -7,7 +7,8 @@ import type { NextRequest } from 'next/server'
 const ADMIN_PATHS = ['/panel/admin', '/api/auth', '/api/admin'];
 const PUBLIC_ASSETS = ['/_next', '/favicon.ico', '/public', '/images'];
 
-export async function middleware(request: NextRequest) {
+// 🔥 KRİTİK DEĞİŞİKLİK BURADA: "export default async function proxy" olarak güncellendi.
+export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ----------------------------------------------------------------------
@@ -28,14 +29,7 @@ export async function middleware(request: NextRequest) {
   // ----------------------------------------------------------------------
   // KURAL 3: Killswitch (Bakım Modu) Kontrolü
   // ----------------------------------------------------------------------
-  
-  // NOT: Gerçek senaryoda bu değeri Veritabanından (Redis/DB) veya 
-  // Environment variable'dan çekmen gerekecek.
-  // Şimdilik admin panelinden bir API ile bu durumu kontrol ettiğini varsayıyoruz.
-  
-  // Örnek: const maintenanceMode = await checkDatabaseForMaintenance();
-  // Şimdilik "false" diyerek sistemi açık tutuyorum. 
-  // Admin panelindeki butona bağlayacağımız yer burası.
+
   const isMaintenanceActive = false; // <-- BU DEĞER DB'DEN GELECEK
 
   // Eğer Bakım Modu AÇIKSA ve kullanıcı Bakım Sayfasında DEĞİLSE -> Yönlendir
