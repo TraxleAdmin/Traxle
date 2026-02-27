@@ -43,7 +43,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
     return () => clearTimeout(timer);
   }, [onFinished]);
 
-  // 🔥 Sunucu tarafında veya client'ın ilk milisaniyesinde FOUC engellemek için simsiyah perde
   if (!isMounted) {
     return <div className="fixed inset-0 z-[9999] bg-[#02040A]"></div>;
   }
@@ -100,18 +99,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                 <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_270deg,rgba(34,211,238,0.5)_360deg)]"></div>
               </div>
 
-              {/* İnce Hedefleme Çizgileri (Crosshair) */}
-              <div className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-              <div className="absolute h-full w-[0.5px] bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent"></div>
-
-              {/* Köşe Hedefleme İşaretçileri (Optik Hissiyat) --- 🔥 KALDIRILDI 🔥 */}
-              {/* <div className="absolute top-[15%] left-[15%] w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-sm"></div> */}
-              {/* <div className="absolute top-[15%] right-[15%] w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 rounded-tr-sm"></div> */}
-              {/* <div className="absolute bottom-[15%] left-[15%] w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-sm"></div> */}
-              {/* <div className="absolute bottom-[15%] right-[15%] w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 rounded-br-sm"></div> */}
             </div>
 
-            {/* --- LOGO ÇİZİMİ (KÜÇÜLTÜLDÜ VE MERKEZLENDİ) --- */}
+            {/* --- LOGO ÇİZİMİ --- */}
             <motion.div
               className="relative z-20 flex items-center justify-center mt-2"
               initial={{ scale: 0.85 }}
@@ -123,7 +113,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                 height="50"
                 viewBox="0 0 2038 603"
                 fill="none"
-                className="overflow-visible drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+                /* 🔥 YUMUŞATILMIŞ, YAYILMIŞ DIŞ CSS PARLAMASI 🔥 */
+                className="overflow-visible drop-shadow-[0_0_40px_rgba(59,130,246,0.3)]"
               >
                 <defs>
                   <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -132,9 +123,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
                     <stop offset="100%" stopColor="#06b6d4" />
                   </linearGradient>
 
-                  {/* 🔥 HATA ÇÖZÜMÜ: Filtre sınırlarını genişlettik (x, y, width, height) 🔥 */}
-                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="18" result="coloredBlur" />
+                  {/* 🔥 KUSURSUZLAŞTIRILMIŞ, GENİŞLETİLMİŞ İÇ SVG FİLTRESİ 🔥 */}
+                  <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="25" result="coloredBlur" />
                     <feMerge>
                       <feMergeNode in="coloredBlur" />
                       <feMergeNode in="SourceGraphic" />
