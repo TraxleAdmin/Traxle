@@ -11,7 +11,7 @@ import {
   useSpring
 } from 'framer-motion';
 
-// Ekran Bileşenleri (Artık hepsi dışarıdan geliyor)
+// Ekran Bileşenleri (Artık hepsi dışarıdan temiz geliyor)
 import ScreenHome from './screens/ScreenHome';
 import ScreenMap from './screens/ScreenMap';
 import ScreenWallet from './screens/ScreenWallet';

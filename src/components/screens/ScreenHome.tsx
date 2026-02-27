@@ -47,7 +47,6 @@ export default function ScreenHome() {
                    bg-white border-gray-200 
                    dark:bg-[#151515] dark:border-white/10 dark:shadow-none"
       >
-        {/* Arka plan glow efekti (Dark mode için) */}
         <div className="absolute right-0 top-0 w-20 h-20 bg-blue-500/10 blur-2xl opacity-0 dark:opacity-100"></div>
 
         <div className="flex justify-between items-start mb-3 relative z-10">

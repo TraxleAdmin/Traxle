@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 
 function Counter({ value }: { value: number }) {
   const ref = React.useRef<HTMLSpanElement>(null);
-  const motionValue = useMotionValue(value - 45000); // Animasyon başlangıcı
+  const motionValue = useMotionValue(value - 45000);
   const springValue = useSpring(motionValue, { damping: 100, stiffness: 100 });
   const rounded = useTransform(springValue, (latest) => Math.round(latest));
 
@@ -27,7 +27,6 @@ export default function ScreenWallet() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Yeni Kiralama Bedeli Havuzdan Geçer
       setBalance(prev => prev + 45000);
       setTransactions(prev => [
         { id: 99, title: "Rönesans İnşaat", amount: "+₺45.000", time: "Şimdi", type: "in", highlight: true },

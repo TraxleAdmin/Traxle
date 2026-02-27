@@ -41,10 +41,7 @@ export default function ScreenMap() {
                         </filter>
                     </defs>
 
-                    {/* Pasif Yol */}
                     <path d={routePath} fill="none" stroke="#1F2937" strokeWidth="14" strokeLinecap="round" />
-
-                    {/* Aktif Rota (Neon) */}
                     <path d={routePath} fill="none" stroke="url(#routeGradient)" strokeWidth="6" strokeLinecap="round" filter="url(#glow)" />
 
                     <circle cx="160" cy="550" r="6" fill="#3B82F6" />
@@ -57,14 +54,13 @@ export default function ScreenMap() {
                     className="absolute top-0 left-0 w-12 h-12 z-20 flex items-center justify-center"
                     style={{
                         offsetPath: `path("${routePath}")`,
-                        animation: 'driveRoute 16s linear infinite normal', // Lowbed biraz daha yavaş gider (16s)
+                        animation: 'driveRoute 16s linear infinite normal', // Lowbed biraz daha yavaş gider
                     }}
                 >
                     <div className="relative">
                         <div className="bg-white text-blue-700 p-2 rounded-lg shadow-[0_0_25px_rgba(59,130,246,0.6)] z-20 relative transform -scale-x-100">
                             <FiTruck size={20} />
                         </div>
-
                         <div className="absolute top-1/2 left-full -translate-y-1/2 w-32 h-16 bg-gradient-to-r from-white/30 to-transparent -z-10 clip-path-beam"></div>
                     </div>
                 </div>
