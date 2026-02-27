@@ -3,17 +3,192 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // This rule allows anyone with your Firestore database reference to view, edit,
-    // and delete all data in your Firestore database. It is useful for getting
-    // started, but it is configured to expire after 30 days because it
-    // leaves your app open to attackers. At that time, all client
-    // requests to your Firestore database will be denied.
-    //
-    // Make sure to write security rules for your app before that time, or else
-    // all client requests to your Firestore database will be denied until you Update
-    // your rules
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2026, 3, 19);
+    // =========================================================================
+    // 1. GENEL YARDIMCI FONKSİYONLAR (HELPER FUNCTIONS)
+    // =========================================================================
+    
+    // Kullanıcı giriş yapmış mı?
+    function isAuthenticated() {
+      return request.auth != null;
     }
+
+    // İşlem yapan kişi, verinin sahibi mi?
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Veritabanından anlık kullanıcı verisini ve rolünü çekme
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function getUserRole() {
+      return getUserData().role;
+    }
+
+    // Rol Kontrolleri (B2B İş Makinesi Modeli)
+    function isAdmin() {
+      return isAuthenticated() && (getUserRole() == 'admin' || getUserRole().matches('^admin_.*'));
+    }
+
+    function isCustomer() {
+      return isAuthenticated() && getUserRole() == 'customer'; // Şantiye
+    }
+
+    function isSupplier() {
+      return isAuthenticated() && getUserRole() == 'supplier'; // Makine Sahibi / Tedarikçi
+    }
+
+
+    // =========================================================================
+    // 2. KULLANICI (USERS) KOLEKSİYONU
+    // =========================================================================
+    match /users/{userId} {
+      // Herkes kendi profilini okuyabilir. Platformdaki diğer kullanıcıların sadece temel bilgilerini okuyabilir.
+      allow read: if isAuthenticated();
+      
+      // Kayıt anında oluşturmaya izin ver (Firebase Auth tarafından tetiklenir)
+      allow create: if isOwner(userId);
+      
+      // Kullanıcı kendi profilini güncelleyebilir ancak Cüzdan Bakiyesi, Rol ve Onay Durumunu DEĞİŞTİREMEZ (Siber Güvenlik)
+      allow update: if isOwner(userId) 
+                    && !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny(['walletBalance', 'credits', 'role', 'isVerified', 'isBanned', 'subscriptionPlan'])
+                    || isAdmin();
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+
+    // =========================================================================
+    // 3. KİRALAMA TALEPLERİ / İLANLAR (LOADS) KOLEKSİYONU
+    // =========================================================================
+    match /loads/{loadId} {
+      // İlanları tüm giriş yapmış kullanıcılar görebilir
+      allow read: if isAuthenticated();
+      
+      // SADECE Şantiyeler (Müşteri) yeni kiralama ilanı oluşturabilir
+      allow create: if isCustomer() 
+                    && request.resource.data.createdBy == request.auth.uid;
+      
+      // Şantiye kendi ilanını güncelleyebilir, Tedarikçi (atanmışsa) durumunu güncelleyebilir, Admin her şeyi yapabilir
+      allow update: if (isCustomer() && resource.data.createdBy == request.auth.uid)
+                    || (isSupplier() && resource.data.driverId == request.auth.uid)
+                    || isAdmin();
+                    
+      // Sadece ilanı oluşturan Şantiye (henüz eşleşmemişse) veya Admin silebilir
+      allow delete: if (isCustomer() && resource.data.createdBy == request.auth.uid && resource.data.status == 'Bekliyor') 
+                    || isAdmin();
+    }
+
+
+    // =========================================================================
+    // 4. TEKLİFLER (OFFERS) KOLEKSİYONU
+    // =========================================================================
+    match /offers/{offerId} {
+      // İlan sahibi veya Teklifi veren okuyabilir
+      allow read: if isAuthenticated() && (
+        resource.data.bidderId == request.auth.uid || 
+        get(/databases/$(database)/documents/loads/$(resource.data.loadId)).data.createdBy == request.auth.uid ||
+        isAdmin()
+      );
+      
+      // SADECE Tedarikçiler (Makine Sahipleri) teklif verebilir
+      allow create: if isSupplier() && request.resource.data.bidderId == request.auth.uid;
+      
+      // Tedarikçi kendi teklifini güncelleyebilir, Şantiye teklifi Kabul/Red olarak güncelleyebilir
+      allow update: if (isSupplier() && resource.data.bidderId == request.auth.uid)
+                    || (isCustomer() && get(/databases/$(database)/documents/loads/$(resource.data.loadId)).data.createdBy == request.auth.uid)
+                    || isAdmin();
+                    
+      // Sadece teklifi veren veya Admin silebilir
+      allow delete: if (isSupplier() && resource.data.bidderId == request.auth.uid) || isAdmin();
+    }
+
+
+    // =========================================================================
+    // 5. CÜZDAN VE FİNANS (TRANSACTIONS) KOLEKSİYONU (KRİTİK)
+    // =========================================================================
+    match /transactions/{transactionId} {
+      // Kullanıcılar sadece kendi ekstrelerini görebilir
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      
+      // KULLANICILAR PARA YARATAMAZ VEYA SİLEMEZ. SADECE ADMİN VEYA CLOUD FUNCTIONS YAZABİLİR.
+      allow create: if isAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid && request.resource.data.category == 'withdrawal');
+      allow update, delete: if isAdmin();
+    }
+
+    match /payment_logs/{logId} {
+      // İyzico/Param webhook logları. Sadece Admin okuyup yazabilir.
+      allow read, write: if isAdmin();
+    }
+
+
+    // =========================================================================
+    // 6. KYC VE RESMİ BELGELER (DOCUMENTS) KOLEKSİYONU
+    // =========================================================================
+    match /documents/{docId} {
+      // Sadece belge sahibi veya Admin okuyabilir
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      
+      // Kullanıcı kendi belgesini yükleyebilir
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      
+      // Kullanıcı sadece "pending" veya "rejected" olan belgelerini güncelleyebilir/silebilir
+      allow update, delete: if (isOwner(resource.data.userId) && (resource.data.status == 'pending' || resource.data.status == 'rejected')) 
+                            || isAdmin();
+    }
+
+
+    // =========================================================================
+    // 7. SOHBET VE MESAJLAŞMA (CHATS) KOLEKSİYONU
+    // =========================================================================
+    match /chats/{chatId} {
+      // Sadece sohbetin katılımcıları (participants array) okuyup yazabilir
+      allow read, update: if isAuthenticated() && request.auth.uid in resource.data.participants || isAdmin();
+      allow create: if isAuthenticated() && request.auth.uid in request.resource.data.participants;
+      allow delete: if isAdmin();
+      
+      match /messages/{messageId} {
+        allow read: if isAuthenticated() && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants || isAdmin();
+        allow create: if isAuthenticated() 
+                      && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants
+                      && request.resource.data.senderId == request.auth.uid;
+        allow update, delete: if isAdmin();
+      }
+    }
+
+
+    // =========================================================================
+    // 8. SİSTEM VE LOG KOLEKSİYONLARI
+    // =========================================================================
+    
+    // Sistem Ayarları (Maintenance, WAF, Stats)
+    match /system/{document=**} {
+      // Herkes okuyabilir (Bakım modunda mıyız kontrolü için gerekli)
+      allow read: if true;
+      // Sadece Admin değiştirebilir
+      allow write: if isAdmin();
+    }
+
+    // Admin Logları
+    match /admin_logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Kullanıcı Giriş Logları (auth.ts üzerinden tetiklenir)
+    match /user_login_logs/{logId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // Bildirimler
+    match /notifications/{notificationId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isAdmin() || isAuthenticated();
+      allow update, delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+
   }
 }

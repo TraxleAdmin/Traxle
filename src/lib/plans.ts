@@ -39,7 +39,7 @@ export const PLANS: Record<PlanType, PlanConfig> = {
     id: 'free',
     name: 'Free',
     label: 'Başlangıç',
-    description: 'Sistemi keşfetmek ve ilk yüklerini taşımak için.',
+    description: 'Sistemi keşfetmek ve ilk makinenizi kiralamak için.',
     price: 0,
     commissionRate: 12,
     limits: {
@@ -56,7 +56,7 @@ export const PLANS: Record<PlanType, PlanConfig> = {
       apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Ayda 2 Yük İlanı', included: true },
+      { text: 'Ayda 2 Kiralama Talebi', included: true },
       { text: 'Standart Listeleme', included: true },
       { text: 'Mesajlaşma Erişimi', included: true },
       { text: 'Temel Profil Sayfası', included: true },
@@ -91,9 +91,9 @@ export const PLANS: Record<PlanType, PlanConfig> = {
       apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Ayda 15 Yük İlanı', included: true },
+      { text: 'Ayda 15 Kiralama Talebi', included: true },
       { text: 'Öncelikli Sıralama', included: true },
-      { text: 'Doğrulanmış Rozet (Mavi Tik)', included: true },
+      { text: 'Doğrulanmış Rozet', included: true },
       { text: 'Düşük Komisyon (%10)', included: true },
       { text: 'E-posta Destek Önceliği', included: true },
       { text: 'Gelişmiş Analizler', included: false },
@@ -126,9 +126,9 @@ export const PLANS: Record<PlanType, PlanConfig> = {
       apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Sınırsız Yük İlanı', included: true },
+      { text: 'Sınırsız Kiralama Talebi', included: true },
       { text: 'Arama Sonuçlarında En Üstte', included: true },
-      { text: 'Pro Rozeti (Altın Tik)', included: true },
+      { text: 'Pro Rozeti (Altın)', included: true },
       { text: 'Minimum Komisyon (%8)', included: true },
       { text: 'Gelişmiş Analiz Paneli', included: true },
       { text: 'Otomatik Eşleşme Önerileri', included: true },
