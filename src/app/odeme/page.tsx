@@ -5,24 +5,21 @@ import { useSearchParams } from 'next/navigation';
 import { FiPackage, FiAlertCircle } from 'react-icons/fi';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { PLANS, PlanType } from '@/lib/plans';
 
 function PaymentContent() {
   const searchParams = useSearchParams();
-  const planType = searchParams.get('plan') || 'starter';
+  const planQuery = searchParams.get('plan') as PlanType;
+
+  // URL'den gelen plan tipi geçerli değilse varsayılan olarak 'pro' paketini seç
+  const planType: PlanType = PLANS[planQuery] ? planQuery : 'pro';
+  const selectedPlan = PLANS[planType];
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [htmlContent, setHtmlContent] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [authChecked, setAuthChecked] = useState(false);
-
-  const planDetails: any = {
-    free: { name: 'Deneme Paketi', price: '0.1', period: 'Ömür Boyu' },
-    starter: { name: 'Başlangıç Paketi', price: '149', period: 'Aylık' },
-    pro: { name: 'Profesyonel Paket', price: '299', period: 'Aylık' },
-  };
-
-  const selectedPlan = planDetails[planType] || planDetails['starter'];
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -116,18 +113,18 @@ function PaymentContent() {
           <div className="bg-white dark:bg-[#0F1629] border border-gray-200 dark:border-white/10 p-6 rounded-3xl shadow-sm">
             <h3 className="text-lg font-bold mb-4 flex items-center gap-2"><FiPackage className="text-blue-500" /> Sipariş Özeti</h3>
             <div className="flex justify-between items-center py-4 border-b border-gray-100 dark:border-white/5">
-              <div><p className="font-bold text-lg">{selectedPlan.name}</p><span className="text-xs text-gray-500">{selectedPlan.period}</span></div>
-              <div className="text-right"><span className="block font-bold text-xl">₺{selectedPlan.price}</span></div>
+              <div><p className="font-bold text-lg">{selectedPlan.name}</p><span className="text-xs text-gray-500">Abonelik Paketi</span></div>
+              <div className="text-right"><span className="block font-bold text-xl">₺{selectedPlan.price.toLocaleString()}</span></div>
             </div>
             <div className="flex justify-between items-center py-4">
               <span className="text-gray-600 dark:text-gray-400">Toplam Tutar</span>
-              <span className="font-black text-2xl text-blue-600 dark:text-blue-400">₺{selectedPlan.price}</span>
+              <span className="font-black text-2xl text-blue-600 dark:text-blue-400">₺{selectedPlan.price.toLocaleString()}</span>
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-[#0F1629] border border-gray-200 dark:border-white/10 rounded-[2.5rem] p-8 min-h-[500px] shadow-2xl flex flex-col justify-center items-center">
+          <div className="bg-white dark:bg-[#0F1629] border border-gray-200 dark:border-white/10 rounded-[2.5rem] p-8 min-h-[500px] shadow-2xl flex flex-col justify-center items-center relative overflow-hidden">
             {loading && (
               <div className="text-center space-y-4 absolute inset-0 flex flex-col items-center justify-center bg-white/90 dark:bg-[#0F1629]/90 z-20 backdrop-blur-sm">
                 <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
@@ -141,7 +138,7 @@ function PaymentContent() {
                 <button onClick={() => window.location.reload()} className="mt-6 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-lg">Tekrar Dene</button>
               </div>
             ) : (
-              <div id="iyzipay-checkout-form" className="w-full responsive"></div>
+              <div id="iyzipay-checkout-form" className="w-full responsive relative z-10"></div>
             )}
           </div>
         </div>

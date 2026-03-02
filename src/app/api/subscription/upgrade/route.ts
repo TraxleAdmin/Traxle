@@ -1,8 +1,7 @@
-// src/app/api/subscription/upgrade/route.ts
-
-import { adminDb } from '@/lib/firebase-admin'; // ✅ Doğru dosya adı
+import { adminDb } from '@/lib/firebase-admin';
 import { NextResponse } from 'next/server';
-import * as admin from 'firebase-admin'; 
+import * as admin from 'firebase-admin';
+import { PLANS, PlanType } from '@/lib/plans';
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +16,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Güvenlik Kontrolü (Veritabanı bağlantısı var mı?)
+    // 2. Güvenlik Kontrolü
     if (!adminDb) {
       console.error("🔴 HATA: Firebase Admin (adminDb) başlatılamadı.");
       return NextResponse.json(
@@ -26,52 +25,37 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Kredi ve Paket Mantığı
-    const PLAN_CREDITS: Record<string, number> = {
-      'free': 10,
-      'starter': 100,
-      'pro': 500,
-      'enterprise': 1000
-    };
-
-    // Eğer geçersiz bir plan tipi gelirse işlem yapma
-    if (!PLAN_CREDITS[planType]) {
-        return NextResponse.json({ error: 'Geçersiz paket tipi.' }, { status: 400 });
+    // 3. Plan Doğrulama
+    const selectedPlan = PLANS[planType as PlanType];
+    if (!selectedPlan) {
+      return NextResponse.json({ error: 'Geçersiz paket tipi.' }, { status: 400 });
     }
-
-    const addedCredits = PLAN_CREDITS[planType as string];
 
     // 4. Transaction ile Güvenli Veritabanı İşlemi
     await adminDb.runTransaction(async (transaction) => {
-      // TypeScript'e adminDb'nin var olduğunu (!) ile söylüyoruz
       const userRef = adminDb!.collection('users').doc(userId);
-      
-      // 🔥 KRİTİK: "as any" kullanarak TypeScript'in "List mi? Doküman mı?" kafa karışıklığını çözüyoruz.
       const userDoc = await transaction.get(userRef) as any;
 
       if (!userDoc.exists) {
         throw new Error("Kullanıcı bulunamadı!");
       }
 
-      const userData = userDoc.data();
-      const currentCredits = userData?.credits || 0;
-
-      // Kullanıcıyı güncelle
+      // Kullanıcıyı yeni B2B mantığıyla güncelle
       transaction.update(userRef, {
-        plan: planType,
-        credits: currentCredits + addedCredits,
+        subscriptionPlan: planType,
+        remainingAds: selectedPlan.limits.loadPost,
+        freeDopings: selectedPlan.limits.freeDopings,
         subscriptionStatus: 'active',
-        // Sunucu zamanını kullanmak daha güvenilirdir
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(), 
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       });
     });
 
-    console.log(`✅ Kullanıcı (${userId}) planı yükseltildi: ${planType} (+${addedCredits} kredi)`);
+    console.log(`✅ Kullanıcı (${userId}) planı yükseltildi: ${planType}`);
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: 'Plan başarıyla yükseltildi.',
-      newPlan: planType 
+      newPlan: planType
     });
 
   } catch (error: any) {
