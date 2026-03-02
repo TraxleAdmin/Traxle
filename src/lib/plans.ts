@@ -1,4 +1,4 @@
-export type PlanType = 'free' | 'starter' | 'pro' | 'enterprise';
+export type PlanType = 'free' | 'pro' | 'premium' | 'enterprise';
 
 interface PlanFeature {
   text: string;
@@ -11,19 +11,15 @@ interface PlanConfig {
   label: string;
   description: string;
   price: number;
-  commissionRate: number;
   limits: {
     loadPost: number;
-    offers: number;
+    freeDopings: number;
   };
   logicFeatures: {
     verifiedBadge: boolean;
     proBadge: boolean;
     advancedAnalytics: boolean | 'basic' | 'advanced';
     prioritySupport: boolean;
-    autoMatch: boolean;
-    smsNotification: boolean;
-    apiAccess: boolean;
   };
   displayFeatures: PlanFeature[];
   ui: {
@@ -37,31 +33,25 @@ interface PlanConfig {
 export const PLANS: Record<PlanType, PlanConfig> = {
   free: {
     id: 'free',
-    name: 'Free',
-    label: 'Başlangıç',
-    description: 'Sistemi keşfetmek ve ilk makinenizi kiralamak için.',
+    name: 'Standart',
+    label: 'Standart',
+    description: 'Sistemi keşfetmek ve ilk ilanlarınızı vermek için.',
     price: 0,
-    commissionRate: 12,
     limits: {
       loadPost: 2,
-      offers: 5,
+      freeDopings: 0,
     },
     logicFeatures: {
       verifiedBadge: false,
       proBadge: false,
       advancedAnalytics: false,
       prioritySupport: false,
-      autoMatch: false,
-      smsNotification: false,
-      apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Ayda 2 Kiralama Talebi', included: true },
-      { text: 'Standart Listeleme', included: true },
-      { text: 'Mesajlaşma Erişimi', included: true },
-      { text: 'Temel Profil Sayfası', included: true },
+      { text: 'Ayda 2 İlan Hakkı', included: true },
+      { text: '%0 Komisyon (Tüm Kazanç Sizin)', included: true },
+      { text: 'Hediye Doping', included: false },
       { text: 'Doğrulanmış Rozet', included: false },
-      { text: 'Gelişmiş Analizler', included: false },
     ],
     ui: {
       color: 'gray',
@@ -70,109 +60,94 @@ export const PLANS: Record<PlanType, PlanConfig> = {
       popular: false
     }
   },
-  starter: {
-    id: 'starter',
-    name: 'Starter',
-    label: 'Hızlandırıcı',
-    description: 'Daha fazla görünürlük ve güven rozeti.',
-    price: 350,
-    commissionRate: 10,
+  pro: {
+    id: 'pro',
+    name: 'Pro',
+    label: 'Pro',
+    description: 'Düzenli iş yapan bireysel makine sahipleri.',
+    price: 149,
     limits: {
-      loadPost: 15,
-      offers: 50,
+      loadPost: 10,
+      freeDopings: 0,
     },
     logicFeatures: {
       verifiedBadge: true,
       proBadge: false,
       advancedAnalytics: 'basic',
       prioritySupport: false,
-      autoMatch: false,
-      smsNotification: false,
-      apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Ayda 15 Kiralama Talebi', included: true },
-      { text: 'Öncelikli Sıralama', included: true },
-      { text: 'Doğrulanmış Rozet', included: true },
-      { text: 'Düşük Komisyon (%10)', included: true },
-      { text: 'E-posta Destek Önceliği', included: true },
-      { text: 'Gelişmiş Analizler', included: false },
+      { text: 'Ayda 10 İlan Hakkı', included: true },
+      { text: '%0 Komisyon', included: true },
+      { text: 'Doğrulanmış Rozet (Mavi Tik)', included: true },
+      { text: 'Temel Analizler', included: true },
+      { text: 'Hediye Doping', included: false },
     ],
     ui: {
       color: 'blue',
       badgeIcon: 'FiCheckCircle',
-      buttonText: 'Starter\'a Geç',
+      buttonText: 'Pro\'ya Geç',
       popular: true
     }
   },
-  pro: {
-    id: 'pro',
-    name: 'Pro',
-    label: 'Profesyonel',
-    description: 'Hız, güven ve maksimum kazanç.',
-    price: 1250,
-    commissionRate: 8,
+  premium: {
+    id: 'premium',
+    name: 'Premium',
+    label: 'Premium',
+    description: 'Daha fazla görünürlük isteyen filolar.',
+    price: 499,
     limits: {
-      loadPost: 9999,
-      offers: 9999,
+      loadPost: 30,
+      freeDopings: 2,
     },
     logicFeatures: {
       verifiedBadge: true,
       proBadge: true,
       advancedAnalytics: 'advanced',
       prioritySupport: true,
-      autoMatch: true,
-      smsNotification: true,
-      apiAccess: false,
     },
     displayFeatures: [
-      { text: 'Sınırsız Kiralama Talebi', included: true },
-      { text: 'Arama Sonuçlarında En Üstte', included: true },
-      { text: 'Pro Rozeti (Altın)', included: true },
-      { text: 'Minimum Komisyon (%8)', included: true },
-      { text: 'Gelişmiş Analiz Paneli', included: true },
-      { text: 'Otomatik Eşleşme Önerileri', included: true },
-      { text: 'Özel Telefon Hattı', included: true },
+      { text: 'Ayda 30 İlan Hakkı', included: true },
+      { text: '%0 Komisyon', included: true },
+      { text: 'Her Ay 2 Adet Hediye Doping', included: true },
+      { text: 'Pro Rozeti (Altın Tik)', included: true },
+      { text: 'Öncelikli Canlı Destek', included: true },
     ],
     ui: {
       color: 'purple',
       badgeIcon: 'FiStar',
-      buttonText: 'Pro Ol',
+      buttonText: 'Premium Ol',
       popular: false
     }
   },
   enterprise: {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Kurumsal',
     label: 'Kurumsal',
-    description: 'Büyük operasyonlar için özel çözümler.',
-    price: 0,
-    commissionRate: 5,
+    description: 'Büyük ölçekli şantiye ve makine parkları.',
+    price: 1499,
     limits: {
-      loadPost: 9999,
-      offers: 9999,
+      loadPost: 80,
+      freeDopings: 15,
     },
     logicFeatures: {
       verifiedBadge: true,
       proBadge: true,
       advancedAnalytics: 'advanced',
       prioritySupport: true,
-      autoMatch: true,
-      smsNotification: true,
-      apiAccess: true,
     },
     displayFeatures: [
-      { text: 'Tamamen Sınırsız Erişim', included: true },
-      { text: 'Özel Müşteri Temsilcisi', included: true },
-      { text: 'API Entegrasyonu', included: true },
-      { text: 'SLA (Hizmet Seviyesi Anlaşması)', included: true },
-      { text: 'Özel Raporlama', included: true },
-      { text: 'Marka Giydirme', included: true },
+      { text: 'Ayda 80 İlan Hakkı', included: true },
+      { text: '%0 Komisyon', included: true },
+      { text: 'Her Ay 15 Adet Hediye Doping', included: true },
+      { text: 'Özel Kurumsal Rozet', included: true },
+      { text: 'Gelişmiş Raporlama', included: true },
+      { text: 'Özel Müşteri Temsilcisi (Yakında)', included: false },
     ],
     ui: {
       color: 'black',
       badgeIcon: 'FiShield',
-      buttonText: 'Teklif Al',
+      buttonText: 'Kurumsal Ol',
       popular: false
     }
   }

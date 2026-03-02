@@ -4,7 +4,6 @@ import React from 'react';
 import {
     FiShield,
     FiFileText,
-    FiAlertTriangle,
     FiCreditCard,
     FiXCircle,
     FiLock,
@@ -66,7 +65,7 @@ export default function TermsOfServiceContent() {
                 </div>
             </div>
 
-            {/* --- MADDE 2: HİZMETİN NİTELİĞİ --- */}
+            {/* --- MADDE 2: HİZMETİN NİTELİĞİ VE %0 KOMİSYON İLKESİ --- */}
             <div className="bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-3xl p-8 backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
                     <span className="w-2 h-8 bg-blue-600 rounded-full"></span>
@@ -77,10 +76,11 @@ export default function TermsOfServiceContent() {
                         <FiLayers className="text-xl" />
                     </div>
                     <div className="text-sm text-gray-700 dark:text-gray-300">
-                        <p className="m-0 mb-2 font-bold">Traxle, şantiyeleri (müşterileri) ve makine sahiplerini (tedarikçileri) birbirleriyle buluşturan aracı bir dijital platformdur.</p>
+                        <p className="m-0 mb-2 font-bold">Traxle, şantiyeleri (müşterileri) ve makine sahiplerini (tedarikçileri) birbirleriyle buluşturan aracı bir dijital ilan ve eşleşme platformudur.</p>
                         <ul className="list-disc pl-5 m-0 space-y-1">
-                            <li>TRAXLE; kiralamanın veya saha operasyonunun fiili icracısı değildir,</li>
-                            <li>Makine sahibi, bayisi veya kiralama şirketi sıfatı taşımaz,</li>
+                            <li><strong>%0 Komisyon:</strong> TRAXLE, gerçekleşen kiralama işlemlerinden komisyon talep etmez. Tedarikçi sadece Aylık Abonelik veya Doping özelliklerinden faydalanır.</li>
+                            <li>TRAXLE; kiralamanın veya saha operasyonunun fiili icracısı değildir.</li>
+                            <li>Makine sahibi, bayisi veya kiralama şirketi sıfatı taşımaz.</li>
                             <li>Şantiye ile Tedarikçi arasındaki kiralama sözleşmesinin tarafı değildir.</li>
                         </ul>
                     </div>
@@ -96,10 +96,10 @@ export default function TermsOfServiceContent() {
                     </h3>
                     <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">Platform yalnızca şu amaçlarla kullanılabilir:</p>
                     <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                        <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Kiralama talebi oluşturma</li>
+                        <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Kiralama ilanı oluşturma</li>
                         <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Makine ve iş eşleşmesi sağlama</li>
                         <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Operasyon ve lojistik takibi</li>
-                        <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Güvenli tahsilat ve ödeme aracılığı</li>
+                        <li className="flex items-center gap-2"><FiCheckCircle className="text-green-500" /> Güvenli tahsilat ve ödeme aracılığı (Havuz)</li>
                     </ul>
                     <p className="text-xs text-red-500 mt-3 font-bold">Bu amaçlar dışında kullanım yasaktır.</p>
                 </div>
@@ -115,7 +115,7 @@ export default function TermsOfServiceContent() {
                         <li>İş güvenliği ve mevzuata uygun hareket etmek</li>
                         <li>Başkalarının haklarını ihlal etmemek</li>
                         <li>Platform’u kötüye kullanmamak</li>
-                        <li>Gerçek dışı ilan/talep oluşturmamak</li>
+                        <li>Gerçek dışı ilan oluşturmamak</li>
                     </ul>
                 </div>
             </div>
@@ -128,7 +128,7 @@ export default function TermsOfServiceContent() {
                 </h3>
                 <p className="text-sm text-red-800 dark:text-red-200 mb-3 font-bold">Aşağıdakiler kesin olarak yasaktır:</p>
                 <div className="grid md:grid-cols-2 gap-x-4 gap-y-2 text-sm text-red-800 dark:text-red-200">
-                    <div className="flex items-center gap-2"><FiXCircle /> Platform’u atlayarak harici kiralama yapmak</div>
+                    <div className="flex items-center gap-2"><FiXCircle /> Platform’u suistimal etmek</div>
                     <div className="flex items-center gap-2"><FiXCircle /> Sahte hesap, makine ve evrak yüklemek</div>
                     <div className="flex items-center gap-2"><FiXCircle /> Bot/scraping ile veri çekmek</div>
                     <div className="flex items-center gap-2"><FiXCircle /> Tersine mühendislik</div>
@@ -146,9 +146,9 @@ export default function TermsOfServiceContent() {
                         Ücretler ve Ödeme
                     </h3>
                     <ul className="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                        <li>Komisyon ve kiralama ücretleri işlem öncesi açıkça gösterilir.</li>
+                        <li>Abonelik ve Doping (Öne Çıkarma) ücretleri işlem öncesi açıkça gösterilir.</li>
                         <li>Ödemeler BDDK lisanslı <strong>Güvenli Ödeme Altyapısı</strong> ile alınır.</li>
-                        <li>Kart verileri TRAXLE sunucularında kesinlikle saklanmaz.</li>
+                        <li>Traxle, gerçekleşen kiralama ciro bedelinden <strong>herhangi bir komisyon kesintisi yapmaz.</strong></li>
                     </ul>
                 </div>
 
@@ -160,13 +160,13 @@ export default function TermsOfServiceContent() {
                     <div className="flex gap-3 items-start p-3 border border-blue-100 dark:border-blue-500/20 rounded-xl bg-blue-50/50 dark:bg-blue-900/10">
                         <FiCreditCard className="text-blue-600 text-xl shrink-0 mt-1" />
                         <p className="text-sm text-gray-700 dark:text-gray-300 m-0">
-                            Ücretli hizmetler, ödeme onayıyla derhal başlar. Kullanıcı bu durumu bilerek işlem yapar ve cayma hakkı istisnalarının geçerli olduğunu kabul eder.
+                            Ücretli hizmetler (Abonelik Yenileme veya Doping Uygulama), ödeme onayıyla derhal başlar. Kullanıcı bu durumu bilerek işlem yapar ve cayma hakkı istisnalarının geçerli olduğunu kabul eder.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* --- MADDE 8: İPTAL SÜREÇLERİ --- */}
+            {/* --- MADDE 8: İPTAL SÜREÇLER --- */}
             <div className="bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-3xl p-8 backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
                     <span className="w-2 h-8 bg-blue-600 rounded-full"></span>
@@ -174,13 +174,13 @@ export default function TermsOfServiceContent() {
                 </h3>
                 <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700 dark:text-gray-300">
                     <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
-                        <strong>Abonelik:</strong> Panelden dilediğiniz an iptal edilebilir, yenileme durdurulur.
+                        <strong>Abonelik:</strong> Kontrol panelinden dilediğiniz an iptal edilebilir, otomatik yenileme durdurulur.
                     </div>
                     <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
-                        <strong>Kiralama (İlan):</strong> Makine şantiyeye sevk edilmeden önceki ve sonraki iptallerde ekranda gösterilen kurallar/kesintiler geçerlidir.
+                        <strong>Kiralama İşlemi:</strong> Makine şantiyeye sevk edilmeden önceki iptallerde tarafların anlaştığı ceza koşulları devreye girer. TRAXLE bedel iadesinde aracıdır.
                     </div>
                     <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
-                        <strong>Kötüye Kullanım:</strong> İade reddedilebilir ve hesap dondurulabilir.
+                        <strong>Kötüye Kullanım:</strong> Sistemin kötü niyetle kullanıldığı durumlarda iade reddedilebilir ve hesap dondurulabilir.
                     </div>
                 </div>
             </div>
@@ -191,13 +191,13 @@ export default function TermsOfServiceContent() {
                     <span className="w-2 h-8 bg-orange-600 rounded-full"></span>
                     Sorumluluk Reddi
                 </h3>
-                <p className="text-sm text-orange-800 dark:text-orange-200 mb-2">TRAXLE aşağıdakilerden sorumlu değildir:</p>
+                <p className="text-sm text-orange-800 dark:text-orange-200 mb-2">TRAXLE aracı platform (yer sağlayıcı) statüsünde olup aşağıdakilerden sorumlu değildir:</p>
                 <ul className="list-disc pl-5 text-sm text-orange-800 dark:text-orange-200 space-y-1 mb-3">
                     <li>Operasyonun gecikmesinden veya makinenin arızalanmasından,</li>
                     <li>Şantiye sahasında meydana gelebilecek iş kazaları ve hasarlardan,</li>
                     <li>Taraflar arası hukuki ve ticari uyuşmazlıklardan.</li>
                 </ul>
-                <p className="text-sm font-bold text-orange-800 dark:text-orange-200 m-0">Platformun mali sorumluluğu, tahsil edilen aracı komisyon tutarı ile sınırlıdır.</p>
+                <p className="text-sm font-bold text-orange-800 dark:text-orange-200 m-0">Platformun mali sorumluluğu, kullanıcının yalnızca Traxle'a ödediği (varsa) abonelik/doping tutarı ile sınırlıdır.</p>
             </div>
 
             {/* --- MADDE 10, 11, 12: İÇERİK, KVKK, GÜVENLİK --- */}

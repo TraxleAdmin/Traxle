@@ -15,13 +15,12 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
         <div className="mx-auto max-w-4xl text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-white mb-6">
-            Traxle ile <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Güvenli ve Hızlı</span> <br />
-            Makine Kiralama
+            %0 Komisyon ile <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Maksimum Kazanç</span>
           </h2>
           <div className="flex flex-wrap justify-center gap-4 text-sm md:text-base text-gray-600 dark:text-gray-400 font-medium">
-            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiLayers className="text-blue-500" /> Abonelik = Platforma Erişim</span>
-            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiZap className="text-purple-500" /> İşlem Ücreti = Eşleştirme Hizmeti</span>
-            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiShield className="text-green-500" /> Ödemeler <strong className="text-gray-900 dark:text-white">BDDK Lisanslı</strong> Güvenli Havuz</span>
+            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiLayers className="text-blue-500" /> Sadece Abonelik Ücreti</span>
+            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiZap className="text-purple-500" /> Ekstra Görünürlük İçin Doping</span>
+            <span className="flex items-center gap-2 px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm"><FiShield className="text-green-500" /> Kiralama Kazancının <strong className="text-gray-900 dark:text-white">Tamamı Senin!</strong></span>
           </div>
         </div>
 
@@ -36,20 +35,20 @@ export default function PricingPage() {
         </div>
 
         <div className="isolate grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-20">
-          <PricingCard title="Deneme" description="Platformu keşfetmek ve ilk işleminizi yapmak için." price="₺0" period="/ömür boyu" colorTheme="gray" icon={<FiUser className="w-6 h-6" />} buttonText="Ücretsiz Dene" buttonHref="/kayit-ol?plan=free" features={[{ text: "Yıllık 2 Kiralama Talebi", included: true }, { text: "Standart Eşleştirme", included: true }, { text: "Mobil Uygulama Erişimi", included: true }, { text: "Saha Teslim Doğrulaması", included: false }, { text: "Raporlama", included: false }]} />
-          <PricingCard title="Başlangıç" description="Düzenli kiralama yapan şantiyeler ve makine sahipleri." price={isAnnual ? "₺1.490" : "₺149"} period={isAnnual ? "/yıl" : "/ay"} colorTheme="blue" icon={<FiTruck className="w-6 h-6" />} buttonText="Hemen Başla" buttonHref="/kayit-ol?plan=starter" features={[{ text: "Ayda 50 Kiralama Talebi", included: true }, { text: "Standart Eşleştirme", included: true }, { text: "Saha Teslim Doğrulaması", included: true }, { text: "Temel Raporlar", included: true }, { text: "Öncelikli Destek", included: false }, { text: "API Erişimi", included: false }]} />
-          <PricingCard title="Profesyonel" isPopular={true} description="Büyüyen işler için sınırsız özgürlük ve akıllı özellikler." price={isAnnual ? "₺2.990" : "₺299"} period={isAnnual ? "/yıl" : "/ay"} colorTheme="purple" icon={<FiZap className="w-6 h-6" />} buttonText="Şimdi Yükselt" buttonHref="/kayit-ol?plan=pro" features={[{ text: "Sınırsız Kiralama Talebi", included: true }, { text: "Öncelikli Eşleşme Algoritması", included: true }, { text: "Yapay Zeka Rota Optimizasyonu", included: true }, { text: "Detaylı Raporlama & Analiz", included: true }, { text: "Öncelikli Canlı Destek", included: true }, { text: "API Erişimi", included: false }]} />
-          <PricingCard title="Kurumsal" description="Büyük ölçekli operasyonlar için özel çözümler." price="Teklif Al" period="" colorTheme="red" icon={<FiBriefcase className="w-6 h-6" />} buttonText="Satışla Görüş" buttonHref="/iletisim" features={[{ text: "API Erişimi (Tam Entegrasyon)", included: true }, { text: "Çoklu Şantiye Yönetimi", included: true }, { text: "Özel ERP/CRM Entegrasyonu", included: true }, { text: "SLA Hizmet Garantisi", included: true }, { text: "Dedicated Account Manager", included: true }, { text: "Özel Sunucu Seçeneği", included: true }]} />
+          <PricingCard title="Standart" description="Platformu keşfetmek ve ilk ilanınızı vermek için." price="₺0" period="/ömür boyu" colorTheme="gray" icon={<FiUser className="w-6 h-6" />} buttonText="Ücretsiz Başla" buttonHref="/kayit-ol?plan=free" features={[{ text: "Ayda 2 İlan Hakkı", included: true }, { text: "%0 Komisyon", included: true }, { text: "Hediye Doping", included: false }, { text: "Doğrulanmış Rozet", included: false }]} />
+          <PricingCard title="Pro" description="Düzenli kiralama yapan bireysel makine sahipleri." price={isAnnual ? "₺1.490" : "₺149"} period={isAnnual ? "/yıl" : "/ay"} colorTheme="blue" icon={<FiTruck className="w-6 h-6" />} buttonText="Pro'ya Geç" buttonHref="/kayit-ol?plan=pro" features={[{ text: "Ayda 10 İlan Hakkı", included: true }, { text: "%0 Komisyon", included: true }, { text: "Doğrulanmış Rozet", included: true }, { text: "Hediye Doping", included: false }]} />
+          <PricingCard title="Premium" isPopular={true} description="Daha fazla görünürlük isteyen orta ölçekli filolar." price={isAnnual ? "₺4.990" : "₺499"} period={isAnnual ? "/yıl" : "/ay"} colorTheme="purple" icon={<FiZap className="w-6 h-6" />} buttonText="Premium Ol" buttonHref="/kayit-ol?plan=premium" features={[{ text: "Ayda 30 İlan Hakkı", included: true }, { text: "%0 Komisyon", included: true }, { text: "Aylık 2 Adet Hediye Doping", included: true }, { text: "Pro Rozeti (Altın)", included: true }, { text: "Öncelikli Destek", included: true }]} />
+          <PricingCard title="Kurumsal" description="Büyük ölçekli şantiye ve makine parkları." price={isAnnual ? "₺14.990" : "₺1.499"} period={isAnnual ? "/yıl" : "/ay"} colorTheme="red" icon={<FiBriefcase className="w-6 h-6" />} buttonText="Kurumsal'a Geç" buttonHref="/kayit-ol?plan=enterprise" features={[{ text: "Ayda 80 İlan Hakkı", included: true }, { text: "%0 Komisyon", included: true }, { text: "Aylık 15 Adet Hediye Doping", included: true }, { text: "Özel Kurumsal Rozet", included: true }, { text: "Gelişmiş Raporlama", included: true }, { text: "Özel Temsilci (Yakında)", included: false }]} />
         </div>
 
         <div className="bg-gray-100 dark:bg-[#0f172a] border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 text-sm text-gray-600 dark:text-gray-400">
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 space-y-3">
-              <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2"><FiInfo className="w-4 h-4" /> Ödeme ve Hizmet Bilgilendirmesi</h4>
+              <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2"><FiInfo className="w-4 h-4" /> Sıfır Komisyon ve Doping Bilgilendirmesi</h4>
               <ul className="space-y-2 list-disc pl-4 text-xs md:text-sm marker:text-gray-400">
-                <li>Ücretsiz paket hariç abonelikler, ödeme işleminin başarıyla gerçekleşmesiyle <strong>derhal başlar</strong>.</li>
-                <li>Sunulan hizmet <strong>elektronik ortamda ifa edilen gayri maddi bir mal/hizmettir</strong>.</li>
-                <li>Tüm ödemeler <strong>Güvenli Ödeme Altyapısı</strong> ile alınır. Kart bilginiz saklanmaz.</li>
+                <li>Traxle, makine kiralama işlemlerinizden <strong>asla komisyon kesmez.</strong></li>
+                <li>Abonelik haricinde, ilanınızı öne çıkarmak için dilediğiniz zaman tekil <strong>Doping (Acil İlan, Üstte Çık vb.)</strong> paketleri satın alabilirsiniz.</li>
+                <li>Tüm ödemeler <strong>BDDK Lisanslı Güvenli Ödeme Altyapısı</strong> ile tahsil edilir.</li>
               </ul>
             </div>
           </div>
@@ -64,7 +63,7 @@ function PricingCard({ title, description, price, period, isPopular, colorTheme,
     gray: { bg: 'bg-white dark:bg-white/5', border: 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20', iconBg: 'bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300', button: 'bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 border border-transparent', check: 'text-gray-500' },
     blue: { bg: 'bg-white dark:bg-white/5', border: 'border-gray-200 dark:border-white/10 hover:border-blue-300 dark:hover:border-blue-500/30', iconBg: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400', button: 'bg-white border border-gray-200 text-blue-600 hover:bg-blue-50 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10', check: 'text-blue-500' },
     purple: { bg: 'bg-[#0f172a] dark:bg-[#0f172a]', border: 'border-blue-500 ring-2 ring-blue-500', iconBg: 'bg-blue-500/20 text-blue-400', button: 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30', check: 'text-blue-400' },
-    red: { bg: 'bg-white dark:bg-white/5', border: 'border-gray-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30', iconBg: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400', button: 'bg-white border border-gray-200 text-red-600 hover:bg-red-50 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10', check: 'text-red-500' }
+    red: { bg: 'bg-white dark:bg-white/5', border: 'border-gray-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30', iconBg: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400', button: 'bg-gray-900 dark:bg-white border border-transparent text-white dark:text-black hover:opacity-90', check: 'text-red-500' }
   };
   const theme = themeClasses[colorTheme];
 

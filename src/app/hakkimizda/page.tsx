@@ -99,8 +99,8 @@ export default function AboutPage() {
               </p>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-200 dark:hover:border-blue-500/30 transition-colors">
-                  <div className="flex items-center gap-3 text-base font-bold text-gray-900 dark:text-white mb-2"><FiCheckCircle className="text-emerald-500 text-xl" /> %100 Şeffaflık</div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Gizli ücret yok. Komisyon oranları ve kiralama bedelleri işlem öncesi açıkça gösterilir.</p>
+                  <div className="flex items-center gap-3 text-base font-bold text-gray-900 dark:text-white mb-2"><FiCheckCircle className="text-emerald-500 text-xl" /> Sıfır Komisyon</div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Kazancınıza ortak olmuyoruz. İşinizden elde ettiğiniz kiralama bedelinin %100'ü cebinizde kalır. Sadece abonelik sistemiyle çalışırız.</p>
                 </div>
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-200 dark:hover:border-blue-500/30 transition-colors">
                   <div className="flex items-center gap-3 text-base font-bold text-gray-900 dark:text-white mb-2"><FiLock className="text-blue-500 text-xl" /> Veri Güvenliği</div>
