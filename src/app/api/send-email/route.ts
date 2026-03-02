@@ -1,67 +1,39 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, subject } = await request.json();
 
-    // 1. Veri Kontrolü
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Eksik bilgi.' }, { status: 400 });
     }
 
-    // Konsola ortam değişkenlerinin yüklendiğini teyit etmek için yazdıralım (Şifreyi gizleyerek)
-    console.log("Mail Gönderim Denemesi Başladı...");
-    console.log("SMTP User:", process.env.SMTP_USER);
-    console.log("SMTP Pass Var mı:", process.env.SMTP_PASS ? "Evet" : "Hayır");
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-    // 2. SMTP Transporter
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS, // .env.local dosyasından gelir
-      },
-    });
-
-    // Bağlantıyı test et
-    await new Promise((resolve, reject) => {
-        transporter.verify(function (error, success) {
-            if (error) {
-                console.error("SMTP Bağlantı Hatası:", error);
-                reject(error);
-            } else {
-                console.log("SMTP Sunucusu hazır");
-                resolve(success);
-            }
-        });
-    });
-
-    // 3. Mail İçeriği
-    const mailOptions = {
-      from: `"Traxle Web" <${process.env.SMTP_USER}>`,
-      to: "contact@traxleapp.com", // Sabit alıcı (Senin mailin)
-      replyTo: email,
-      subject: `📩 Yeni Mesaj: ${name}`,
+    const msg = {
+      to: "contact@traxleapp.com", // Sana gelecek olan mail
+      from: { email: 'contact@traxleapp.com', name: 'Traxle Web İletişim' }, // Doğrulanmış gönderici adresin
+      replyTo: email, // Yanıtla deyince müşteriye gitsin
+      subject: `Yeni İletişim Mesajı: ${subject || 'Genel Bilgi'}`,
       html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee;">
-          <h2 style="color: #0057FF;">Yeni İletişim Mesajı</h2>
-          <p><strong>Kimden:</strong> ${name} (${email})</p>
-          <p style="background: #f9f9f9; padding: 10px;">${message}</p>
+        <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #0057FF;">Traxle İletişim Formu</h2>
+          <p><strong>Gönderen:</strong> ${name}</p>
+          <p><strong>E-Posta:</strong> ${email}</p>
+          <p><strong>Konu:</strong> ${subject || 'Belirtilmedi'}</p>
+          <div style="background: #f8f9fa; padding: 20px; border-left: 4px solid #0057FF; border-radius: 4px; margin-top: 20px;">
+            ${message}
+          </div>
         </div>
       `,
     };
 
-    // 4. Gönder
-    await transporter.sendMail(mailOptions);
-    console.log("Mail başarıyla gönderildi.");
-
+    await sgMail.send(msg);
     return NextResponse.json({ success: true });
 
   } catch (error: any) {
-    console.error('GENEL HATA DETAYI:', error);
-    return NextResponse.json({ error: error.message || 'Sunucu hatası' }, { status: 500 });
+    console.error('SendGrid İletişim Formu Hatası:', error);
+    return NextResponse.json({ error: 'Mail gönderilemedi' }, { status: 500 });
   }
 }

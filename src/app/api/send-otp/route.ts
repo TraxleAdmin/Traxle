@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 import crypto from 'crypto';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
-
-export const runtime = 'nodejs'; // ✅ nodemailer için şart
 
 function hashEmail(email: string) {
   return crypto.createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
@@ -16,20 +14,15 @@ function json(body: any, status = 200) {
 
 export async function POST(request: Request) {
   try {
-    const ct = request.headers.get('content-type') || '';
-    if (!ct.includes('application/json')) {
-      return json({ error: 'Content-Type application/json olmalı' }, 400);
-    }
-
     const { email } = await request.json();
     if (!email) return json({ error: 'Mail gerekli' }, 400);
 
-    // OTP üret
+    // 6 Haneli OTP üret
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-
     const key = hashEmail(email);
-    const expiresAt = Date.now() + 3 * 60 * 1000; // 3 dk
+    const expiresAt = Date.now() + 3 * 60 * 1000; // 3 dk geçerli
 
+    // DB'ye kaydet
     await setDoc(doc(db, 'otps', key), {
       email: email.trim().toLowerCase(),
       code,
@@ -37,49 +30,35 @@ export async function POST(request: Request) {
       expiresAt,
     });
 
-    // Env kontrol (çok kritik)
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      return json(
-        { error: 'GMAIL_USER veya GMAIL_APP_PASSWORD env eksik. .env.local kontrol et.' },
-        500
-      );
-    }
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Traxle" <${process.env.GMAIL_USER}>`,
+    const msg = {
       to: email,
-      subject: `Giriş Kodu: ${code}`,
+      from: { email: 'contact@traxleapp.com', name: 'Traxle Güvenlik' },
+      subject: `Traxle Doğrulama Kodunuz: ${code}`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px;">
-          <h2>Traxle Giriş Kodu</h2>
-          <div style="font-size: 34px; letter-spacing: 6px; font-weight: 800;">${code}</div>
-          <p>Kod 3 dakika geçerlidir.</p>
+        <div style="font-family: Arial, sans-serif; padding: 30px; text-align: center; max-width: 500px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #111;">Doğrulama İşlemi</h2>
+          <p style="color: #555;">Hesabınızda yapılan değişikliği onaylamak veya giriş yapmak için aşağıdaki kodu kullanın:</p>
+          <div style="font-size: 36px; font-weight: bold; letter-spacing: 8px; padding: 20px; background: #f4f6f8; border-radius: 12px; margin: 30px auto; color: #0057FF;">
+            ${code}
+          </div>
+          <p style="color: #999; font-size: 12px;">Bu kodun süresi 3 dakika içinde dolacaktır. Eğer bu işlemi siz yapmadıysanız lütfen bu e-postayı dikkate almayın.</p>
         </div>
       `,
-    });
+    };
 
+    await sgMail.send(msg);
     return json({ success: true });
+
   } catch (error: any) {
-    // ✅ Her durumda JSON döndür
-    return json({ error: error?.message || 'Server error' }, 500);
+    console.error("SendGrid OTP Gönderim Hatası:", error);
+    return json({ error: error?.message || 'Kod gönderilemedi' }, 500);
   }
 }
 
 export async function PUT(request: Request) {
   try {
-    const ct = request.headers.get('content-type') || '';
-    if (!ct.includes('application/json')) {
-      return json({ error: 'Content-Type application/json olmalı' }, 400);
-    }
-
     const { email, code } = await request.json();
     if (!email || !code) return json({ success: false, message: 'email ve code gerekli' }, 400);
 
