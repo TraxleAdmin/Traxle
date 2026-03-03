@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { FiArrowRight, FiAlertCircle, FiCheckCircle, FiChevronLeft, FiUser, FiMail } from 'react-icons/fi';
-// 🔥 DEĞİŞİKLİK BURADA: Sadece Firestore kullanıyoruz, Firebase Auth mailini kaldırdık.
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import TextShimmer from '@/components/ui/TextShimmer';
@@ -25,26 +24,19 @@ export default function ForgotPasswordPage() {
         setErrorMessage('');
 
         try {
-            // 🔥 MİMARİ DEVRİM: Firebase'in default mailini pas geçiyoruz. 
-            // Veritabanına kayıt atıyoruz ki arka planda bekleyen SendGrid Cloud Function'ımız (emails.js) uyansın!
+            // 🔥 MİMARİ DEVRİM (B PLANI): Firebase Auth hatasını by-pass ediyoruz!
+            // Şifre sıfırlama talebini doğrudan Firestore'a yazıyoruz.
             await addDoc(collection(db, "password_resets"), {
                 email: email.toLowerCase().trim(),
-                createdAt: serverTimestamp()
+                createdAt: serverTimestamp(),
+                source: "frontend_bypass"
             });
 
-            // Güvenlik standardı gereği her durumda başarılı mesajı gösterilir
             setStatus('success');
-
         } catch (error: any) {
             console.error("Şifre Sıfırlama İsteği Hatası:", error);
-
-            // Eğer Firestore güvenlik kurallarından dolayı hata verirse yakalarız
-            if (error.code === 'permission-denied') {
-                setErrorMessage("Sunucu izni reddedildi. Lütfen sistem yöneticisine başvurun.");
-            } else {
-                setErrorMessage("Bir ağ hatası oluştu. Lütfen tekrar deneyin.");
-            }
             setStatus('error');
+            setErrorMessage("Bir ağ hatası oluştu. Lütfen tekrar deneyin.");
         } finally {
             setIsLoading(false);
         }
