@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "yolla": "git add . && git commit -m \"Hizli guncelleme\" && git push origin main"
+    "yolla": "git add . && git commit -m \"TraxleAPP Ekosistem Guncellemesi\" && git push"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.8",
