@@ -84,11 +84,11 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/5 backdrop-blur-md">
-          <NavLink href="/#products">Ürünlerimiz</NavLink>
+<div className="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/5 backdrop-blur-md">
+          <NavLink href="/kunyex">KünyeX</NavLink>
+          <NavLink href="/molatik">Molatik</NavLink>
+          <NavLink href="/lojistik">Lojistik</NavLink>
           <NavLink href="/hakkimizda">Şirket</NavLink>
-          <NavLink href="/kariyer">Kariyer</NavLink>
-          <NavLink href="/iletisim">İletişim</NavLink>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
