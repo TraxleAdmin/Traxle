@@ -25,7 +25,7 @@ export default function TraxleHoldingPage() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md shadow-sm"
           >
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            TraxleAPP Ekosistemi
+            Traxle Ekosistemi
           </motion.div>
 
           <motion.h1 
@@ -44,7 +44,7 @@ export default function TraxleHoldingPage() {
             transition={{ delay: 0.2 }} 
             className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed"
           >
-            TraxleAPP; lojistik, dijital kimlik ve personel yönetimi alanlarında sınırları zorlayan, yapay zeka destekli yeni nesil SaaS ürünleri geliştirir.
+            Traxle; lojistik, dijital kimlik ve personel yönetimi alanlarında sınırları zorlayan, yapay zeka destekli yeni nesil SaaS ürünleri geliştirir.
           </motion.p>
         </div>
 

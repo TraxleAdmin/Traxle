@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Traxle | İş Makinesi Kiralama Platformu",
-  description: "Türkiye'nin dijital B2B iş makinesi, şantiye ve filo yönetim platformu.",
+  title: "Traxle | Teknoloji Ekosistemi", // 🔥 GÜNCELLENDİ
+  description: "Lojistik, dijital kimlik ve personel yönetimi çözümleri.",
 };
 
 export default function RootLayout({
