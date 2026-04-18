@@ -2,112 +2,119 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiSmartphone, FiShield, FiShare2, FiBarChart2, FiArrowRight } from 'react-icons/fi';
+import { FiDownloadCloud, FiCheckCircle, FiShield, FiCpu, FiZap, FiBox, FiArrowDown } from 'react-icons/fi';
 import TextShimmer from '@/components/ui/TextShimmer';
 
-export default function KunyeXPage() {
+export default function KunyeXDownloadPage() {
   return (
-    <div className="relative min-h-screen bg-[#050814] text-white overflow-hidden selection:bg-cyan-500/30 flex flex-col pt-20">
-
-      {/* --- ARKAPLAN AMBİYANS IŞIKLARI (CYAN THEME) --- */}
-      <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <div className="relative min-h-screen bg-[#050814] text-white pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-cyan-500/30">
+      
+      {/* --- ARKA PLAN EFEKTLERİ --- */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] pointer-events-none"></div>
 
-      <div className="container mx-auto px-6 relative z-10 py-16 md:py-24">
+      <div className="container mx-auto px-6 relative z-10 max-w-5xl">
         
-        {/* --- HERO SECTION --- */}
-        <div className="text-center max-w-4xl mx-auto mb-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)]"
-          >
+        {/* --- ÜST BAŞLIK --- */}
+        <div className="text-center mb-16">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold tracking-wider uppercase border border-cyan-500/20 mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
-            TraxleAPP Orijinal Ürünü
+            Resmi Sürüm Yayında
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.1 }} 
-            className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[1.1] text-white"
-          >
-            Kimliğinizi <br className="hidden md:block" />
-            <TextShimmer className="[--base-color:theme(colors.cyan.600)] [--base-gradient-color:theme(colors.cyan.200)]">Dijitalleştirin.</TextShimmer>
+          <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white">
+            KünyeX <TextShimmer className="[--base-color:theme(colors.cyan.600)] [--base-gradient-color:theme(colors.cyan.200)]">v1.1</TextShimmer> <br className="hidden md:block" />
+            İndirilmeye Hazır.
           </motion.h1>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.2 }} 
-            className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10"
-          >
-            Fiziksel kartvizitleri tarihe gömün. KünyeX ile NFC ve QR teknolojisini kullanarak iletişim bilgilerinizi, portfolyonuzu ve sosyal ağlarınızı tek bir dokunuşla saniyeler içinde paylaşın.
+          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Fiziksel ve dijital dünyayı bağlayan akıllı kimlik sistemimiz artık aktif. KünyeX Master Client'ı bilgisayarınıza kurarak ekosisteme hemen entegre olun.
           </motion.p>
+        </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-cyan-500 hover:bg-cyan-400 text-[#050814] font-black text-sm tracking-wide transition-all shadow-[0_0_30px_rgba(6,182,212,0.3)] active:scale-95 flex items-center justify-center gap-2">
-              Erken Erişime Katıl <FiArrowRight />
-            </button>
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-sm transition-all backdrop-blur-md active:scale-95">
-              Nasıl Çalışır?
-            </button>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* --- SOL: İNDİRME KARTI --- */}
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-5">
+            <div className="bg-[#0a0f1c]/90 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group text-center">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+              
+              <div className="w-24 h-24 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner border border-cyan-500/20 group-hover:scale-110 transition-transform duration-500">
+                <FiDownloadCloud />
+              </div>
+              
+              <h2 className="text-2xl font-bold text-white mb-2">KünyeX Master Client</h2>
+              <p className="text-sm font-medium text-gray-500 mb-8">Windows 10 / 11 Uyumlu • 64-bit</p>
+              
+              <div className="flex items-center justify-center gap-2 text-xs font-bold text-green-400 bg-green-500/10 py-2 px-4 rounded-xl w-fit mx-auto mb-8 border border-green-500/20">
+                <FiShield /> Virüs Taramasından Geçti
+              </div>
+
+              {/* JİLET GİBİ İNDİRME BUTONU */}
+              <a 
+                href="/guncelleme/KunyeX_Master_Client.exe" 
+                download="KunyeX_Kurulum.exe"
+                className="w-full py-4 rounded-2xl font-black text-[#050814] shadow-[0_0_30px_rgba(6,182,212,0.3)] bg-cyan-500 hover:bg-cyan-400 transition-all active:scale-95 flex items-center justify-center gap-3 tracking-wide"
+              >
+                <FiArrowDown className="text-xl" /> Sistemi Hemen İndir
+              </a>
+              <p className="text-[10px] text-gray-500 mt-4 font-bold tracking-wider uppercase">Sürüm: 1.1.0 | Boyut: ~65 MB</p>
+            </div>
+          </motion.div>
+
+          {/* --- SAĞ: SÜRÜM NOTLARI --- */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-7 space-y-6">
+            <div className="bg-[#0a0f1c]/90 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 md:p-10 h-full">
+              <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
+                <FiBox className="text-cyan-500 text-2xl" /> Neler Yeni? (Sürüm Notları)
+              </h3>
+              
+              <div className="space-y-8">
+                <div className="flex gap-5">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 shadow-inner">
+                    <FiCpu className="text-xl" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-2">Kalıcı Bellek Matrisi</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed font-medium">
+                      Sistem artık eski fiyatları unutmuyor. Yeni fiyatlar geldiğinde eskilere dokunmadan üzerine yazar, her zaman en geniş ve en güncel fiyat havuzuna sahip olursunuz.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-5">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0 shadow-inner">
+                    <FiZap className="text-xl" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-2">Havadan Güncelleme (OTA) Motoru</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed font-medium">
+                      Yeni bir versiyon yayınlandığında sistem sizi otomatik uyarır. Böylece tüm şubeleriniz anında en yeni sürüme geçmiş olur.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-5">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-green-500/10 text-green-400 border border-green-500/20 flex items-center justify-center shrink-0 shadow-inner">
+                    <FiCheckCircle className="text-xl" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-2">Performans ve Arayüz</h4>
+                    <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4 marker:text-green-500 font-medium">
+                      <li>Sürükle-bırak (Drag & Drop) fonksiyonundaki güvenlik kısıtlaması aşıldı.</li>
+                      <li>Arka planda yanıp sönen siyah konsol (CMD) ekranları tamamen gizlendi.</li>
+                      <li>Kurulum ekranına masaüstü kısayol tercihi eklendi.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
-
-        {/* --- ÖZELLİKLER (BENTO GRID) --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
-        >
-          <FeatureCard 
-            icon={<FiShare2 />} 
-            title="Temassız Paylaşım" 
-            desc="NFC özellikli telefonlara KünyeX kartınızı yaklaştırarak saniyeler içinde bilgilerinizi aktarın." 
-          />
-          <FeatureCard 
-            icon={<FiSmartphone />} 
-            title="Uygulama Gerekmez" 
-            desc="Karşı tarafın herhangi bir uygulama indirmesine gerek yoktur. Her şey anında tarayıcıda açılır." 
-          />
-          <FeatureCard 
-            icon={<FiShield />} 
-            title="Kusursuz Güvenlik" 
-            desc="Verileriniz askeri düzeyde şifrelenir. Hangi bilgiyi kiminle paylaşacağınıza siz karar verirsiniz." 
-          />
-          <FeatureCard 
-            icon={<FiBarChart2 />} 
-            title="Gelişmiş Analitik" 
-            desc="Profilinizin kaç kez görüntülendiğini ve hangi bağlantılarınızın tıklandığını anlık takip edin." 
-          />
-        </motion.div>
-
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
-  return (
-    <div className="group relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-cyan-500/30 transition-all duration-500">
-      <div className="absolute inset-0 bg-cyan-500/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
-      <div className="relative h-full bg-[#0a0f1c]/90 backdrop-blur-xl rounded-[23px] p-6 border border-white/5 flex flex-col">
-        <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-6 border border-cyan-500/20 group-hover:scale-110 transition-transform duration-300 shadow-inner">
-          {icon}
-        </div>
-        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{title}</h3>
-        <p className="text-sm text-gray-500 font-medium leading-relaxed">{desc}</p>
       </div>
     </div>
   );
