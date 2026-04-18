@@ -1,9 +1,18 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { FiZap } from 'react-icons/fi';
 
 export default function MolatikYakindaPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#050814] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-purple-500/30">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="min-h-screen bg-gray-50 dark:bg-[#050814] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-purple-500/30"
+    >
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 dark:bg-purple-600/10 rounded-full blur-[100px] pointer-events-none animate-pulse-slow" />
       
@@ -21,7 +30,7 @@ export default function MolatikYakindaPage() {
         </h2>
         
         <p className="text-gray-600 dark:text-gray-400 text-lg max-w-lg mx-auto mb-10 leading-relaxed font-medium">
-          Kurumsal işletmeler için tasarladığımız otonom personel takip, mola yönetimi ve verimlilik analizi sistemi "Molatik" yakında TraxleAPP ekosistemine dahil olacak.
+          Kurumsal işletmeler için tasarladığımız personel takip ve mola yönetimi sistemi Molatik yakında TraxleAPP ekosistemine dahil olacak.
         </p>
 
         <Link
@@ -31,6 +40,6 @@ export default function MolatikYakindaPage() {
           <span>←</span> Ana Karargaha Dön
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
