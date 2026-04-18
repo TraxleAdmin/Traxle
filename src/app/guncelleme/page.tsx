@@ -54,14 +54,14 @@ export default function UpdatePage() {
                 <FiShield /> Virüs Taramasından Geçti
               </div>
 
-              {/* DİKKAT: İNDİRME LİNKİNİ BURAYA YAZACAKSIN */}
-              <a 
-                href="/indir/Setup_KunyeX_Merkez.exe" 
-                className="block w-full py-4 rounded-2xl font-bold text-white shadow-lg bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-all active:scale-95 flex items-center justify-center gap-3"
-                download
-              >
-                <FiDownloadCloud className="text-xl" /> Güncellemeyi İndir
-              </a>
+// Next.js (React) Buton Örneği
+<a 
+  href="/guncelleme/KunyeX_Master_Client.exe" 
+  download="KunyeX_Kurulum.exe"
+  className="bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all"
+>
+  Sistemi Hemen İndir
+</a>
               <p className="text-[10px] text-gray-400 mt-4 font-medium">Sürüm: 1.1.0 | Boyut: ~65 MB</p>
             </div>
           </motion.div>
