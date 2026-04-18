@@ -73,8 +73,15 @@ export default function Navbar() {
     }`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
         
-        <Link href="/" className="relative h-8 w-36 hover:opacity-80 transition-opacity">
-          <span className="text-xl font-black tracking-tighter text-gray-900 dark:text-white">Traxle<span className="text-blue-500">APP</span></span>
+{/* LOGO */}
+        <Link href="/" className="relative h-8 w-32 hover:opacity-80 transition-opacity">
+          <Image 
+            src="/logo.png" 
+            alt="TraxleAPP" 
+            fill 
+            className="object-contain object-left dark:invert-0 invert-0 dark:filter-none filter" 
+            priority 
+          />
         </Link>
 
         <div className="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/5 backdrop-blur-md">

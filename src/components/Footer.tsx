@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FiInstagram, FiLinkedin } from 'react-icons/fi';
+import Image from 'next/image';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -14,7 +15,16 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2 space-y-6">
-            <h4 className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">Traxle<span className="text-blue-500">APP</span></h4>
+{/* LOGO */}
+            <Link href="/" className="block relative h-10 w-36 mb-4 hover:opacity-80 transition-opacity">
+              <Image
+                src="/logo.png"
+                alt="TraxleAPP"
+                fill
+                className="object-contain object-left dark:filter-none filter brightness-0 dark:brightness-100 opacity-80 dark:opacity-100 transition-all"
+              />
+            </Link>
+
             <p className="text-sm leading-7 text-gray-500 dark:text-gray-400 max-w-sm">
               Lojistik, dijital kimlik ve personel yönetimi alanlarında sınırları zorlayan, yapay zeka destekli yeni nesil SaaS ürünleri geliştiren bir teknoloji ekosistemi.
             </p>
