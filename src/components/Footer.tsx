@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-          <p>© 2026 TraxleAPP Technology Group. Tüm hakları saklıdır.</p>
+          <p>© 2026 Traxle. Tüm hakları saklıdır.</p>
           <div className="flex gap-6">
             <Link href="/gizlilik-politikasi" className="hover:text-blue-500">Gizlilik</Link>
             <Link href="/kullanim-kosullari" className="hover:text-blue-500">Kullanım Koşulları</Link>
