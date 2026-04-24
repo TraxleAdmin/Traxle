@@ -10,13 +10,23 @@ import { Providers } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: 'swap',
-  adjustFontFallback: false
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
-  title: "Traxle | Teknoloji Ekosistemi", // 🔥 GÜNCELLENDİ
-  description: "Lojistik, dijital kimlik ve personel yönetimi çözümleri.",
+  title: "Traxle | Ağır Operasyonlar İçin Dijital İşletim Sistemi",
+  description: "Traxle; lojistik, iş makinesi, saha doğrulama, ödeme akışları ve kurumsal otomasyon için tasarlanan yeni nesil teknoloji ekosistemidir.",
+  keywords: ["Traxle", "lojistik", "iş makinesi", "yük platformu", "KünyeX", "Molatik", "B2B SaaS"],
+  metadataBase: new URL("https://traxleapp.com"),
+  openGraph: {
+    title: "Traxle | Operation OS",
+    description: "Ağır operasyonlar, lojistik ve saha doğrulama için premium dijital altyapı.",
+    url: "https://traxleapp.com",
+    siteName: "Traxle",
+    locale: "tr_TR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.className} bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white`}>
+      <body className={`${inter.className} bg-[#05070d] text-white`}>
         <Providers>
           <MaintenanceGuard>
             <SplashScreen />
