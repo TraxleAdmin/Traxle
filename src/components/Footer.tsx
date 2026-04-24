@@ -2,62 +2,91 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FiInstagram, FiLinkedin } from 'react-icons/fi';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { FiArrowRight, FiInstagram, FiLinkedin, FiMail, FiMapPin } from 'react-icons/fi';
+
+const ecosystem = [
+  ['Traxle Platform', '/lojistik'],
+  ['KünyeX', '/kunyex'],
+  ['Molatik', '/molatik'],
+];
+
+const company = [
+  ['Hakkımızda', '/hakkimizda'],
+  ['İletişim', '/iletisim'],
+  ['Gizlilik Politikası', '/gizlilik-politikasi'],
+  ['Kullanım Koşulları', '/kullanim-kosullari'],
+];
 
 export default function Footer() {
   const pathname = usePathname();
   if (pathname?.startsWith('/panel')) return null;
 
   return (
-    <footer className="bg-gray-50 dark:bg-[#050814] border-t border-gray-200 dark:border-white/5 pt-20 pb-12 transition-colors duration-500">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-{/* LOGO */}
-            <Link href="/" className="block relative h-10 w-36 mb-4 hover:opacity-80 transition-opacity">
-              <Image
-                src="/logo.png"
-                alt="TraxleAPP"
-                fill
-                className="object-contain object-left dark:filter-none filter brightness-0 dark:brightness-100 opacity-80 dark:opacity-100 transition-all"
-              />
-            </Link>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#05070d] text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute bottom-[-220px] left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[150px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:76px_76px] opacity-[0.05]" />
+      </div>
 
-            <p className="text-sm leading-7 text-gray-500 dark:text-gray-400 max-w-sm">
-              Lojistik, dijital kimlik ve personel yönetimi alanlarında sınırları zorlayan, yapay zeka destekli yeni nesil SaaS ürünleri geliştiren bir teknoloji ekosistemi.
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_.75fr_.75fr_.9fr]">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06]">
+                <Image src="/logo.png" alt="Traxle" fill className="object-contain p-2" />
+              </span>
+              <span>
+                <span className="block text-base font-black tracking-[0.28em]">TRAXLE</span>
+                <span className="mt-1 block text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Operation OS</span>
+              </span>
+            </Link>
+            <p className="mt-6 max-w-md text-sm leading-7 text-slate-400">
+              Ağır operasyonlar, lojistik, saha doğrulama, ödeme kurguları ve kurumsal otomasyon için tasarlanan yeni nesil teknoloji ekosistemi.
             </p>
-            <div className="flex gap-4">
-              <Link href="#" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 hover:text-blue-500 transition-all"><FiLinkedin /></Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 hover:text-pink-500 transition-all"><FiInstagram /></Link>
+            <div className="mt-6 flex gap-3">
+              <Link href="#" className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-slate-300 transition hover:bg-white hover:text-slate-950"><FiLinkedin /></Link>
+              <Link href="#" className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-slate-300 transition hover:bg-white hover:text-slate-950"><FiInstagram /></Link>
             </div>
           </div>
-          <div>
-            <h5 className="font-bold text-gray-900 dark:text-white mb-6">Ekosistem</h5>
-<ul className="space-y-4 text-sm text-gray-500 dark:text-gray-400">
-              <li><Link href="/kunyex" className="hover:text-blue-500 transition-colors">KünyeX (Dijital Kimlik)</Link></li>
-              <li><Link href="/molatik" className="hover:text-blue-500 transition-colors">Molatik (Personel Takip)</Link></li>
-              <li><Link href="/lojistik" className="hover:text-blue-500 transition-colors">Lojistik Çözümleri</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-bold text-gray-900 dark:text-white mb-6">Kurumsal</h5>
-            <ul className="space-y-4 text-sm text-gray-500 dark:text-gray-400">
-              <li><Link href="/hakkimizda" className="hover:text-blue-500 transition-colors">Şirket Hakkında</Link></li>
-              <li><Link href="/kariyer" className="hover:text-blue-500 transition-colors">Kariyer</Link></li>
-              <li><Link href="/iletisim" className="hover:text-blue-500 transition-colors">İletişim</Link></li>
-            </ul>
+
+          <FooterColumn title="Ekosistem" items={ecosystem} />
+          <FooterColumn title="Kurumsal" items={company} />
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl">
+            <h3 className="text-lg font-black tracking-tight">Proje görüşmesi</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-400">Operasyonunu dijitalleştirmek isteyen işletmeler için ürün, ödeme ve saha mimarisini birlikte planlayalım.</p>
+            <div className="mt-5 space-y-3 text-sm text-slate-300">
+              <div className="flex items-center gap-3"><FiMail className="text-blue-300" /> contact@traxleapp.com</div>
+              <div className="flex items-center gap-3"><FiMapPin className="text-blue-300" /> Antalya, Türkiye</div>
+            </div>
+            <Link href="/iletisim" className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5">
+              İletişime geç <FiArrowRight className="transition group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
-        <div className="border-t border-gray-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Traxle. Tüm hakları saklıdır.</p>
-          <div className="flex gap-6">
-            <Link href="/gizlilik-politikasi" className="hover:text-blue-500">Gizlilik</Link>
-            <Link href="/kullanim-kosullari" className="hover:text-blue-500">Kullanım Koşulları</Link>
-          </div>
+          <p>Güvenli, ölçeklenebilir ve operasyon odaklı yazılım altyapısı.</p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, items }: { title: string; items: string[][] }) {
+  return (
+    <div>
+      <h3 className="text-sm font-black uppercase tracking-[0.22em] text-slate-300">{title}</h3>
+      <ul className="mt-6 space-y-4 text-sm text-slate-400">
+        {items.map(([label, href]) => (
+          <li key={href}>
+            <Link href={href} className="transition hover:text-white">{label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
