@@ -3,25 +3,71 @@
 @tailwind utilities;
 
 :root {
-  --background: #0A0F25;
-  --foreground: #E0E6ED;
+  --background: #05070d;
+  --foreground: #f8fafc;
+  --traxle-blue: #0a84ff;
+  --traxle-cyan: #22d3ee;
+  --traxle-panel: rgba(255, 255, 255, 0.045);
+  --traxle-border: rgba(255, 255, 255, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
-  background-color: var(--background);
+  min-height: 100vh;
+  background: var(--background);
   color: var(--foreground);
+  overflow-x: hidden;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/*
-.btn-traxle {
-  @apply bg-traxle-gradient text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all hover:-translate-y-1;
+::selection {
+  background: rgba(10, 132, 255, 0.35);
+  color: #ffffff;
 }
-*/
-/* Yüzen Nesne Animasyonu (Floating Animation) */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border: 2px solid #05070d;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.34);
+}
+
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-18px); }
   100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50% { opacity: .95; transform: scale(1.03); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .animate-float {
@@ -30,5 +76,29 @@ body {
 
 .animate-float-delayed {
   animation: float 7s ease-in-out infinite;
-  animation-delay: 2s; /* Bu biraz daha geç başlasın */
+  animation-delay: 2s;
+}
+
+.animate-pulse-slow {
+  animation: pulse-soft 5s ease-in-out infinite;
+}
+
+.animate-gradient-xy {
+  background-size: 220% 220%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.traxle-glass {
+  border: 1px solid var(--traxle-border);
+  background: var(--traxle-panel);
+  backdrop-filter: blur(24px);
+}
+
+.traxle-gradient-text {
+  background: linear-gradient(90deg, #ffffff, #93c5fd, #22d3ee, #ffffff);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 7s ease infinite;
 }
