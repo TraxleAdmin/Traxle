@@ -5,9 +5,10 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, Float, Preload, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import * as random from 'maath/random/dist/maath-random.esm';
+import { useTheme } from 'next-themes';
 
 // Siberpunk Tarzı Dönen ve Etkileşimli Yıldız/Parçacık Ağı (Particles)
-function CyberParticles(props: any) {
+function CyberParticles({ isDark, ...props }: any) {
   const ref = useRef<THREE.Points>(null);
 
   // Parçacık noktalarını oluştur
@@ -33,7 +34,7 @@ function CyberParticles(props: any) {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
-          color="#00C2FF" // Traxle Cyan
+          color={isDark ? "#00C2FF" : "#0057FF"} // Light modda daha koyu mavi, dark modda cyan
           size={0.005}
           sizeAttenuation={true}
           depthWrite={false}
@@ -45,7 +46,7 @@ function CyberParticles(props: any) {
 }
 
 // Ana obje - Soyut Geometrik Ağ veya Wireframe Küre
-function CyberGlobe() {
+function CyberGlobe({ isDark }: { isDark: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
@@ -65,9 +66,9 @@ function CyberGlobe() {
           color="#0057FF" // Traxle Blue
           wireframe={true}
           transparent
-          opacity={0.3}
+          opacity={isDark ? 0.3 : 0.15}
           emissive="#0057FF"
-          emissiveIntensity={0.5}
+          emissiveIntensity={isDark ? 0.5 : 0.2}
         />
       </mesh>
     </Float>
@@ -75,7 +76,7 @@ function CyberGlobe() {
 }
 
 // İkinci iç içe obje
-function InnerCore() {
+function InnerCore({ isDark }: { isDark: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
@@ -89,9 +90,9 @@ function InnerCore() {
     <mesh ref={meshRef} scale={0.8}>
       <octahedronGeometry args={[1, 0]} />
       <meshPhysicalMaterial
-        color="#050814"
-        emissive="#00C2FF"
-        emissiveIntensity={0.8}
+        color={isDark ? "#050814" : "#ffffff"}
+        emissive={isDark ? "#00C2FF" : "#0057FF"}
+        emissiveIntensity={isDark ? 0.8 : 0.4}
         wireframe={true}
         transparent
         opacity={0.8}
@@ -102,20 +103,28 @@ function InnerCore() {
 
 
 export default function HeroScene() {
+  const { theme, systemTheme } = useTheme();
+
+  // Client-side hydration safety için kontrol (default dark)
+  const isDark = useMemo(() => {
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+    return currentTheme !== 'light';
+  }, [theme, systemTheme]);
+
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+    <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#0057FF" />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#00C2FF" />
+        <ambientLight intensity={isDark ? 0.5 : 1.2} />
+        <pointLight position={[10, 10, 10]} intensity={isDark ? 1 : 2} color={isDark ? "#0057FF" : "#ffffff"} />
+        <pointLight position={[-10, -10, -10]} intensity={isDark ? 1 : 0.5} color={isDark ? "#00C2FF" : "#0057FF"} />
 
         {/* 3D Öğeler */}
-        <CyberGlobe />
-        <InnerCore />
-        <CyberParticles />
+        <CyberGlobe isDark={isDark} />
+        <InnerCore isDark={isDark} />
+        <CyberParticles isDark={isDark} />
 
         <Environment preset="city" />
         <Preload all />

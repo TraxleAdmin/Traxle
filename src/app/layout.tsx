@@ -8,6 +8,9 @@ import CookieBanner from "@/components/CookieBanner";
 import MaintenanceGuard from "@/components/MaintenanceGuard";
 import { Providers } from "./providers";
 import SmoothScroll from "@/components/SmoothScroll";
+import HeroScene from "@/components/canvas/HeroScene";
+import PageTransition from "@/components/PageTransition";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,17 +30,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.className} bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white`}>
+      <body className={`${inter.className} bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white transition-colors duration-500`}>
         <Providers>
           <MaintenanceGuard>
             <SmoothScroll>
-              <SplashScreen />
-              <Navbar />
-              <main className="min-h-screen">
-                {children}
-              </main>
-              <Footer />
-              <CookieBanner />
+              {/* Sitenin tamamı için global 3D arka plan */}
+              <Suspense fallback={null}>
+                <HeroScene />
+              </Suspense>
+
+              {/* İçeriğin 3D objelerin üzerinde (ama tıklanabilir) durması için relative ve z-10 */}
+              <div className="relative z-10">
+                <SplashScreen />
+                <Navbar />
+                <main className="min-h-screen">
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
+                </main>
+                <Footer />
+                <CookieBanner />
+              </div>
             </SmoothScroll>
           </MaintenanceGuard>
         </Providers>
