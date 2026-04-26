@@ -218,7 +218,7 @@ export default function AdminDashboard() {
       </TouchableOpacity>
 
       {/* Add Employee Modal */}
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+      <Modal visible={modalVisible} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Yeni Personel Ekle</Text>
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
       </Modal>
 
       {/* Break Logs Modal */}
-      <Modal visible={logsModalVisible} animationType="slide" transparent={true}>
+      <Modal visible={logsModalVisible} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, {maxHeight: '80%'}]}>
             <Text style={styles.modalTitle}>Mola Geçmişi</Text>

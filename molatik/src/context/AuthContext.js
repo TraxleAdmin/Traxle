@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
       if (currentUser) {
         try {
           const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
@@ -24,8 +23,10 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
+        setUser(currentUser);
       } else {
         setUserData(null);
+        setUser(null);
       }
       setLoading(false);
     });
