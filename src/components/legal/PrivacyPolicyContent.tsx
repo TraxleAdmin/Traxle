@@ -58,8 +58,7 @@ export default function PrivacyPolicyContent() {
                     {[
                         "Ad, soyad, e-posta adresi, telefon numarası",
                         "Üyelik ve hesap bilgileri",
-                        "Oluşturulan ilan ve işlem kayıtları",
-                        "Teslim doğrulama kayıtları",
+                        "Platform içerisindeki işlem kayıtları",
                         "Cihaz, IP, tarayıcı ve kullanım logları",
                         "Destek ve iletişim içerikleri",
                         "Ödeme işlemine ilişkin teknik kayıtlar"

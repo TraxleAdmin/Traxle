@@ -7,26 +7,19 @@ import { FiBriefcase } from 'react-icons/fi';
 
 export default function TermsOfServicePage() {
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
-
-      {/* --- Arka Plan Efektleri (Blue Temalı) --- */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 dark:bg-indigo-900/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none dark:invert"></div>
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none"></div>
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
 
       <div className="container mx-auto px-6 relative z-10 max-w-4xl">
 
         {/* --- Header --- */}
         <div className="mb-16 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase border border-blue-200 dark:border-blue-500/30">
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-white/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase border border-blue-200/50 dark:border-blue-500/30 backdrop-blur-md">
             <FiBriefcase /> Yasal & Kurallar
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 dark:text-white tracking-tight leading-tight">
             Kullanım <br className="md:hidden" />
-            {/* TextShimmer Rengini Mavi Yaptık */}
-            <TextShimmer className='[--base-color:theme(colors.blue.600)] [--base-gradient-color:theme(colors.blue.200)] dark:[--base-color:theme(colors.blue.700)] dark:[--base-gradient-color:theme(colors.blue.400)]'>
+            <TextShimmer className='[--base-color:theme(colors.blue.600)] [--base-gradient-color:theme(colors.blue.300)] dark:[--base-color:theme(colors.blue.400)] dark:[--base-gradient-color:theme(colors.blue.200)]'>
               Koşulları
             </TextShimmer>
           </h1>
@@ -38,9 +31,9 @@ export default function TermsOfServicePage() {
         </div>
 
         {/* --- İçerik Kutusu --- */}
-        <div className="p-8 md:p-12 rounded-[2rem] border shadow-sm transition-all duration-300
-                        bg-white border-gray-100
-                        dark:bg-[#080c14] dark:border-white/5 dark:shadow-none">
+        <div className="p-8 md:p-12 rounded-[2rem] border shadow-xl backdrop-blur-xl transition-all duration-300
+                        bg-white/80 border-gray-200/50
+                        dark:bg-[#0a0f1c]/80 dark:border-white/5 dark:shadow-[0_0_40px_rgba(0,0,0,0.5)]">
 
           <div className="prose prose-lg prose-blue max-w-none
                           prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
