@@ -172,12 +172,9 @@ export default function TermsOfServiceContent() {
                     <span className="w-2 h-8 bg-blue-600 rounded-full"></span>
                     İptal Süreçleri
                 </h3>
-                <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
                     <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
                         <strong>Abonelik:</strong> Kontrol panelinden dilediğiniz an iptal edilebilir, otomatik yenileme durdurulur.
-                    </div>
-                    <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
-                        <strong>Kiralama İşlemi:</strong> Makine şantiyeye sevk edilmeden önceki iptallerde tarafların anlaştığı ceza koşulları devreye girer. TRAXLE bedel iadesinde aracıdır.
                     </div>
                     <div className="p-3 border border-gray-100 dark:border-white/10 rounded-xl bg-white/40 dark:bg-white/[0.02]">
                         <strong>Kötüye Kullanım:</strong> Sistemin kötü niyetle kullanıldığı durumlarda iade reddedilebilir ve hesap dondurulabilir.
@@ -191,13 +188,12 @@ export default function TermsOfServiceContent() {
                     <span className="w-2 h-8 bg-orange-600 rounded-full"></span>
                     Sorumluluk Reddi
                 </h3>
-                <p className="text-sm text-orange-800 dark:text-orange-200 mb-2">TRAXLE aracı platform (yer sağlayıcı) statüsünde olup aşağıdakilerden sorumlu değildir:</p>
+                <p className="text-sm text-orange-800 dark:text-orange-200 mb-2">TRAXLE teknoloji sağlayıcı statüsünde olup aşağıdakilerden sorumlu değildir:</p>
                 <ul className="list-disc pl-5 text-sm text-orange-800 dark:text-orange-200 space-y-1 mb-3">
-                    <li>Operasyonun gecikmesinden veya makinenin arızalanmasından,</li>
-                    <li>Şantiye sahasında meydana gelebilecek iş kazaları ve hasarlardan,</li>
-                    <li>Taraflar arası hukuki ve ticari uyuşmazlıklardan.</li>
+                    <li>Kullanıcılar arası hukuki ve ticari uyuşmazlıklardan,</li>
+                    <li>Sisteme girilen hatalı veya yanıltıcı evraklardan/verilerden.</li>
                 </ul>
-                <p className="text-sm font-bold text-orange-800 dark:text-orange-200 m-0">Platformun mali sorumluluğu, kullanıcının yalnızca Traxle'a ödediği (varsa) abonelik/doping tutarı ile sınırlıdır.</p>
+                <p className="text-sm font-bold text-orange-800 dark:text-orange-200 m-0">Platformun mali sorumluluğu, kullanıcının yalnızca Traxle'a ödediği tutar ile sınırlıdır.</p>
             </div>
 
             {/* --- MADDE 10, 11, 12: İÇERİK, KVKK, GÜVENLİK --- */}
