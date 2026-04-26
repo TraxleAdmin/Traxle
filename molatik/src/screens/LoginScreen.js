@@ -6,6 +6,7 @@ import { collection, query, where, getDocs, updateDoc, doc, getDoc, setDoc, dele
 import * as Application from 'expo-application';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen({ navigation }) {
   const [sicilNo, setSicilNo] = useState('');
@@ -15,6 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [userDocId, setUserDocId] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [deviceHWID, setDeviceHWID] = useState(null);
+  const { triggerRefresh } = useAuth();
 
   useEffect(() => {
     const getHWID = async () => {
@@ -130,6 +132,7 @@ export default function LoginScreen({ navigation }) {
                 throw e;
             }
         }
+        triggerRefresh(); // Force the auth context to refetch the document since we just migrated it
       } else {
         // Normal Login
         await signInWithEmailAndPassword(auth, userEmail, password);
