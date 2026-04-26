@@ -5,12 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Replace with your Firebase config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyB9N699YmiPwpE51VXlVjMFKM_n-o8DrIU",
+  authDomain: "molatik-a4d63.firebaseapp.com",
+  projectId: "molatik-a4d63",
+  storageBucket: "molatik-a4d63.firebasestorage.app",
+  messagingSenderId: "494699597459",
+  appId: "1:494699597459:web:2343ce7109e7fdd7db0766"
 };
 
 const app = initializeApp(firebaseConfig);
