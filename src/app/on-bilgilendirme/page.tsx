@@ -7,7 +7,7 @@ import { FiInfo } from 'react-icons/fi';
 
 export default function PreInfoFormPage() {
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-indigo-500/30">
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-indigo-500/30">
 
       {/* --- Arka Plan Efektleri (Indigo Temalı) --- */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />

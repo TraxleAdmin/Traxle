@@ -12,7 +12,7 @@ function CyberParticles({ isDark, ...props }: any) {
   const ref = useRef<THREE.Points>(null);
 
   // Parçacık noktalarını oluştur
-  const sphere = useMemo(() => random.inSphere(new Float32Array(5000), { radius: 1.5 }), []);
+  const sphere = useMemo(() => random.inSphere(new Float32Array(5000), { radius: 2.5 }), []);
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -58,7 +58,7 @@ function CyberGlobe({ isDark }: { isDark: boolean }) {
 
   return (
     <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
-      <mesh ref={meshRef} scale={1.8}>
+      <mesh ref={meshRef} scale={2.5}>
         {/* Icosahedron (Daha fütüristik ve geometrik) */}
         <icosahedronGeometry args={[1, 1]} />
         {/* Wireframe materyal ile siberpunk ağı görünümü */}
@@ -87,7 +87,7 @@ function InnerCore({ isDark }: { isDark: boolean }) {
   });
 
   return (
-    <mesh ref={meshRef} scale={0.8}>
+    <mesh ref={meshRef} scale={1.2}>
       <octahedronGeometry args={[1, 0]} />
       <meshPhysicalMaterial
         color={isDark ? "#050814" : "#ffffff"}

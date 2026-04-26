@@ -61,7 +61,7 @@ export default function IntegrationsPage() {
   const filteredIntegrations = activeTab === 'all' ? integrations : integrations.filter(item => item.category === activeTab);
 
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white pt-32 pb-20 overflow-hidden">
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white pt-32 pb-20 overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 border border-purple-200 text-xs font-bold uppercase mb-6">Bağlantılı Ekosistem</motion.div>

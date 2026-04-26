@@ -7,7 +7,7 @@ import { FiAlertCircle, FiRefreshCw, FiHeadphones } from 'react-icons/fi';
 
 export default function PaymentError() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#050814] flex items-center justify-center p-6 transition-colors duration-300">
+    <div className="min-h-screen bg-transparent flex items-center justify-center p-6 transition-colors duration-300">
       
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
