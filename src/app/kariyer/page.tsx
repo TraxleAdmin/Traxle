@@ -21,8 +21,7 @@ const benefits = [
 
 export default function CareerPage() {
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-400/30">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-400/30">
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <div className="text-center mb-20">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-block px-3 py-1 mb-6 border rounded-full text-xs font-semibold backdrop-blur-md border-blue-400/30 bg-blue-400/10 text-blue-500">🚀 Kariyer Fırsatları</motion.div>

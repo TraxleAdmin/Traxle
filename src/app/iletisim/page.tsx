@@ -25,7 +25,7 @@ export default function ContactPage() {
   const handleChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white pt-24 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white pt-24 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
       <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-blue-600/10 dark:bg-blue-900/20 rounded-full blur-[120px] pointer-events-none animate-pulse" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 dark:bg-cyan-900/20 rounded-full blur-[100px] pointer-events-none" />
 

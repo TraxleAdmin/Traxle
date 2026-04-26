@@ -11,7 +11,7 @@ export default function MolatikYakindaPage() {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="min-h-screen bg-gray-50 dark:bg-[#050814] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-purple-500/30"
+      className="min-h-screen bg-transparent flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-purple-500/30"
     >
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 dark:bg-purple-600/10 rounded-full blur-[100px] pointer-events-none animate-pulse-slow" />

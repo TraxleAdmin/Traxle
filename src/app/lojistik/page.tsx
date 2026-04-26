@@ -11,7 +11,7 @@ export default function LojistikYakindaPage() {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="min-h-screen bg-gray-50 dark:bg-[#050814] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-blue-500/30"
+      className="min-h-screen bg-transparent flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500 selection:bg-blue-500/30"
     >
       
       {/* Arka Plan Işıkları */}

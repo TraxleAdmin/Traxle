@@ -42,13 +42,8 @@ export default function AboutPage() {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white pt-24 overflow-hidden transition-colors duration-300 selection:bg-blue-400/30"
+      className="relative min-h-screen bg-transparent text-gray-900 dark:text-white pt-24 overflow-hidden transition-colors duration-300 selection:bg-blue-400/30"
     >
-
-      {/* --- ARKAPLAN AMBİYANS IŞIKLARI --- */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 dark:bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 dark:bg-cyan-900/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.04] dark:opacity-[0.06] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         
