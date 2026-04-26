@@ -9,10 +9,10 @@ export default function TraxleHoldingPage() {
   return (
     <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white overflow-hidden selection:bg-blue-500/30 flex flex-col justify-center transition-colors duration-500">
 
-      <div className="container mx-auto px-6 relative z-10 py-24 md:py-32 min-h-screen flex flex-col justify-center">
+      <div className="container mx-auto px-6 relative z-10 min-h-screen flex flex-col justify-center">
         
         {/* --- HERO: ŞİRKET MANİFESTOSU --- */}
-        <div className="text-center max-w-5xl mx-auto mt-20 perspective-1000 stacking-section relative z-10">
+        <div className="text-center max-w-5xl mx-auto perspective-1000 stacking-section relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30, rotateX: 20 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
@@ -54,7 +54,7 @@ export default function TraxleHoldingPage() {
           </motion.div>
         </div>
 
-        <div className="stacking-section relative z-20 py-20 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <div className="stacking-section relative z-20 pt-20 pb-10 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-y-auto max-h-[100vh]">
           {/* --- ÜRÜN KARTLARI (BENTO GRID HUB) --- */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
