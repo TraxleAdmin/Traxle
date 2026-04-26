@@ -12,7 +12,7 @@ export default function TraxleHoldingPage() {
       <div className="container mx-auto px-6 relative z-10 py-24 md:py-32 min-h-screen flex flex-col justify-center">
         
         {/* --- HERO: ŞİRKET MANİFESTOSU --- */}
-        <div className="text-center max-w-5xl mx-auto mb-32 mt-20 perspective-1000">
+        <div className="text-center max-w-5xl mx-auto mt-20 perspective-1000 stacking-section relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30, rotateX: 20 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
@@ -54,14 +54,14 @@ export default function TraxleHoldingPage() {
           </motion.div>
         </div>
 
-        <div className="py-20">
+        <div className="stacking-section relative z-20 py-20 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
           {/* --- ÜRÜN KARTLARI (BENTO GRID HUB) --- */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[350px] max-w-7xl mx-auto perspective-1000"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[350px] max-w-7xl mx-auto perspective-1000 px-6"
           >
 
             {/* ÜRÜN 1: Yeni İsimli Lojistik Uygulaması */}
