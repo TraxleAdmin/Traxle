@@ -60,7 +60,7 @@ function SuccessContent() {
 
 export default function PaymentSuccess() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#050814] flex items-center justify-center p-6 transition-colors duration-300 relative overflow-hidden">
+    <div className="min-h-screen bg-transparent flex items-center justify-center p-6 transition-colors duration-300 relative overflow-hidden">
       
       {/* Konfeti Efekti */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

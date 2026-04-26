@@ -149,7 +149,7 @@ function PaymentContent() {
 
 export default function PaymentPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#050814] pt-32 pb-20 text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-transparent pt-32 pb-20 text-gray-900 dark:text-white transition-colors duration-300">
       <Suspense fallback={<div className="text-center pt-20">Yükleniyor...</div>}><PaymentContent /></Suspense>
     </div>
   );

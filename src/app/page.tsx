@@ -12,22 +12,22 @@ export default function TraxleHoldingPage() {
       <div className="container mx-auto px-6 relative z-10 min-h-screen flex flex-col justify-center">
         
         {/* --- HERO: ŞİRKET MANİFESTOSU --- */}
-        <div className="text-center max-w-5xl mx-auto perspective-1000 stacking-section relative z-10">
+        <div className="text-center max-w-5xl mx-auto perspective-1000 stacking-section relative z-10 flex flex-col items-center">
           <motion.div 
             initial={{ opacity: 0, y: 30, rotateX: 20 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(0,87,255,0.2)]"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(0,87,255,0.2)] mx-auto w-max"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            Traxle Ekosistemi
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse flex-shrink-0"></span>
+            <span className="whitespace-nowrap">Traxle Ekosistemi</span>
           </motion.div>
 
           <motion.h1 
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 leading-[1.0] text-transparent bg-clip-text bg-gradient-to-b from-gray-900 via-gray-800 to-gray-500 dark:from-white dark:via-white/90 dark:to-white/40 drop-shadow-2xl"
+            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 pb-4 leading-[1.0] text-transparent bg-clip-text bg-gradient-to-b from-gray-900 via-gray-800 to-gray-500 dark:from-white dark:via-white/90 dark:to-white/40 drop-shadow-2xl"
           >
             Geleceği <br className="hidden md:block" />
             <span className="text-blue-600 dark:text-blue-500 drop-shadow-[0_0_30px_rgba(0,87,255,0.3)] dark:drop-shadow-[0_0_30px_rgba(0,87,255,0.5)]">İnşa</span> Ediyoruz.
@@ -54,7 +54,7 @@ export default function TraxleHoldingPage() {
           </motion.div>
         </div>
 
-        <div className="stacking-section relative z-20 pt-20 pb-10 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-y-auto max-h-[100vh]">
+        <div className="stacking-section relative z-20 pt-10 pb-10 mt-10 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-y-visible">
           {/* --- ÜRÜN KARTLARI (BENTO GRID HUB) --- */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}

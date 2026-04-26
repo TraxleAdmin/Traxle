@@ -8,7 +8,7 @@ export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] py-24 sm:py-32 text-gray-900 dark:text-white overflow-hidden transition-colors duration-300">
+    <div className="relative min-h-screen bg-transparent py-24 sm:py-32 text-gray-900 dark:text-white overflow-hidden transition-colors duration-300">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 dark:bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.04] dark:opacity-[0.06] pointer-events-none"></div>
 

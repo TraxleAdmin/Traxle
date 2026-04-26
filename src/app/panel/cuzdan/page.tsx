@@ -373,7 +373,7 @@ function PaymentModal({ isOpen, onClose, user }: any) {
                             type="number" 
                             value={amount} 
                             onChange={(e) => { setAmount(e.target.value); setSelectedPlan(null); }} 
-                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#050814] border border-gray-200 dark:border-white/10 rounded-2xl font-bold text-xl text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+                            className="w-full pl-12 pr-4 py-4 bg-transparent border border-gray-200 dark:border-white/10 rounded-2xl font-bold text-xl text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                             required 
                             placeholder="0.00" 
                           />

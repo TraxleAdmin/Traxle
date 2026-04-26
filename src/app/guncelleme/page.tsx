@@ -7,7 +7,7 @@ import TextShimmer from '@/components/ui/TextShimmer';
 
 export default function UpdatePage() {
   return (
-    <div className="relative min-h-screen bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
       
       {/* --- ARKA PLAN EFEKTLERİ --- */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-600/10 dark:bg-blue-900/20 rounded-full blur-[120px] pointer-events-none animate-pulse" />

@@ -63,7 +63,7 @@ function PolicyModal({ isOpen, onClose, onApprove, title, children }: any) {
                         <FiX size={24} />
                     </button>
                 </div>
-                <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto scroll-smooth bg-gray-50 dark:bg-[#050814] relative">
+                <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto scroll-smooth bg-transparent relative">
                     <div className="p-4 md:p-8 transform scale-95 origin-top">{children}</div>
                     <div className="h-24 flex items-center justify-center text-xs text-gray-400 border-t border-dashed border-gray-200 dark:border-white/10 mt-8 pb-8">-- Onaylamak için metnin sonuna geldiniz --</div>
                 </div>
