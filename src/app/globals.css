@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .rotate-y-2 {
+    transform: rotateY(2deg);
+  }
+  .-rotate-y-2 {
+    transform: rotateY(-2deg);
+  }
+}
+
 :root {
   --background: #0A0F25;
   --foreground: #E0E6ED;
@@ -31,4 +43,25 @@ body {
 .animate-float-delayed {
   animation: float 7s ease-in-out infinite;
   animation-delay: 2s; /* Bu biraz daha geç başlasın */
+}
+
+/* Lenis CSS (Smooth Scrolling) */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

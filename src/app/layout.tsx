@@ -7,6 +7,7 @@ import SplashScreen from "@/components/SplashScreen";
 import CookieBanner from "@/components/CookieBanner";
 import MaintenanceGuard from "@/components/MaintenanceGuard";
 import { Providers } from "./providers";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,13 +30,15 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white`}>
         <Providers>
           <MaintenanceGuard>
-            <SplashScreen />
-            <Navbar />
-            <main className="min-h-screen">
-              {children}
-            </main>
-            <Footer />
-            <CookieBanner />
+            <SmoothScroll>
+              <SplashScreen />
+              <Navbar />
+              <main className="min-h-screen">
+                {children}
+              </main>
+              <Footer />
+              <CookieBanner />
+            </SmoothScroll>
           </MaintenanceGuard>
         </Providers>
       </body>
