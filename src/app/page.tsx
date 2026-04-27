@@ -54,7 +54,7 @@ export default function TraxleHoldingPage() {
           </motion.div>
         </div>
 
-        <div className="stacking-section relative z-20 pt-10 pb-10 mt-10 overflow-y-visible">
+        <div className="stacking-section relative z-20 pt-10 pb-10 mt-10 overflow-y-visible bg-white dark:bg-[#0A0F25]">
           {/* --- ÜRÜN KARTLARI (BENTO GRID HUB) --- */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
