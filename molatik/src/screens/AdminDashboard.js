@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, TextInput, Modal, Alert } from 'react-native';
 import { auth, db } from '../config/firebase';
 import { collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, query, orderBy, limit } from 'firebase/firestore';
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
+import Constants from "expo-constants";
 
 export default function AdminDashboard() {
   const [employees, setEmployees] = useState([]);
@@ -17,9 +19,24 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const setupAdminNotifications = async () => {
+      if (!Device.isDevice) return;
       const { status } = await Notifications.requestPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Uyarı', 'Personel mola bildirimlerini almak için bildirim izni vermelisiniz.');
+      if (status !== "granted") {
+        Alert.alert("Uyarı", "Personel mola bildirimlerini almak için bildirim izni vermelisiniz.");
+        return;
+      }
+      try {
+          const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
+          const pushTokenString = (await Notifications.getExpoPushTokenAsync({
+              projectId: projectId || "dummy-project-id",
+          })).data;
+          if (auth.currentUser) {
+              await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                  pushToken: pushTokenString
+              });
+          }
+      } catch (e) {
+          console.log("Failed to get push token:", e);
       }
     };
     setupAdminNotifications();

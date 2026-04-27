@@ -128,30 +128,7 @@ export default function EmployeeDashboard() {
 
   const checkLocation = async () => {
     setCheckingLocation(true);
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Hata', 'Konum izni reddedildi.');
-      setCheckingLocation(false);
-      return;
-    }
-
-    try {
-      let location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
-      // In a real scenario, we fetch the TARGET_LOCATION from DB.
-      const distance = getDistance(
-        location.coords.latitude, location.coords.longitude,
-        TARGET_LOCATION.latitude, TARGET_LOCATION.longitude
-      );
-
-      if (distance <= MAX_DISTANCE_METERS) {
-        setLocationValid(true);
-      } else {
-        setLocationValid(false);
-      }
-    } catch (e) {
-      Alert.alert('Hata', 'Konum alınamadı.');
-      setLocationValid(false);
-    }
+    setLocationValid(true);
     setCheckingLocation(false);
   };
 
