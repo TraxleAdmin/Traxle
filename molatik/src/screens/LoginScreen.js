@@ -46,22 +46,9 @@ export default function LoginScreen({ navigation }) {
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
-        // --- ADMIN INITIALIZATION BACKDOOR ---
-        if (sicilNo.trim().toUpperCase() === 'ADMIN') {
-           const newAdminId = 'admin_init_' + Date.now();
-           await setDoc(doc(db, 'users', newAdminId), {
-             name: 'Sistem Yöneticisi',
-             sicilNo: 'ADMIN',
-             role: 'admin',
-             email: 'admin@molatik.com',
-             needsPasswordSetup: true,
-             hwid: null
-           });
-           Alert.alert('Sistem Kurulumu', 'İlk yönetici hesabı oluşturuldu!\nLütfen DEVAM ET diyerek şifrenizi belirleyin.');
-           setLoading(false);
-           return;
-        }
-        Alert.alert('Hata', 'Bu sicil numarasına ait kullanıcı bulunamadı.');
+        Alert.alert("Hata", "Bu sicil numarasına ait kullanıcı bulunamadı.");
+        setLoading(false);
+        return;
         setLoading(false);
         return;
       }
