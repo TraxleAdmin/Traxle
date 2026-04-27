@@ -7,7 +7,7 @@ import { FiArrowRight, FiLayers, FiShield, FiZap, FiMousePointer } from 'react-i
 import TextShimmer from '@/components/ui/TextShimmer';
 export default function TraxleHoldingPage() {
   return (
-    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white overflow-hidden selection:bg-blue-500/30 flex flex-col justify-center transition-colors duration-500">
+    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-white selection:bg-blue-500/30 flex flex-col justify-center transition-colors duration-500">
 
       <div className="container mx-auto px-6 relative z-10 min-h-screen flex flex-col justify-center">
         
@@ -17,7 +17,7 @@ export default function TraxleHoldingPage() {
             initial={{ opacity: 0, y: 30, rotateX: 20 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(0,87,255,0.2)] mx-auto w-max"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs font-bold tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(0,87,255,0.2)] mx-auto w-max"
           >
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse flex-shrink-0"></span>
             <span className="whitespace-nowrap">Traxle Ekosistemi</span>
@@ -54,7 +54,7 @@ export default function TraxleHoldingPage() {
           </motion.div>
         </div>
 
-        <div className="stacking-section relative z-20 pt-10 pb-10 mt-10 bg-white/20 dark:bg-[#0a0f1c]/40 backdrop-blur-md rounded-t-[3rem] border-t border-white/20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-y-visible">
+        <div className="stacking-section relative z-20 pt-10 pb-10 mt-10 overflow-y-visible">
           {/* --- ÜRÜN KARTLARI (BENTO GRID HUB) --- */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -67,7 +67,7 @@ export default function TraxleHoldingPage() {
             {/* ÜRÜN 1: Yeni İsimli Lojistik Uygulaması */}
             <Link href="/lojistik" className="group relative rounded-[2.5rem] p-[2px] bg-gradient-to-br from-blue-500/10 dark:from-blue-500/20 via-transparent to-transparent hover:from-blue-500/30 dark:hover:from-blue-500/50 transition-all duration-700 block transform-gpu hover:-translate-y-2 hover:rotate-y-2 hover:shadow-[0_20px_40px_rgba(0,87,255,0.1)] dark:hover:shadow-[0_20px_40px_rgba(0,87,255,0.15)]">
               <div className="absolute inset-0 bg-blue-500/5 dark:bg-blue-500/10 blur-2xl group-hover:bg-blue-500/20 dark:group-hover:bg-blue-500/30 transition-all duration-700 rounded-[2.5rem] opacity-0 group-hover:opacity-100"></div>
-              <div className="relative h-full bg-white/80 dark:bg-[#0a0f1c]/60 backdrop-blur-2xl rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-blue-500/20 transition-colors duration-500">
+              <div className="relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-blue-500/20 transition-colors duration-500">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/10 dark:group-hover:bg-blue-500/20 transition-all duration-700"></div>
                 <div className="flex justify-between items-start relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-3xl border border-blue-100 dark:border-blue-500/20 group-hover:scale-110 transition-transform duration-500"><FiLayers /></div>
@@ -86,7 +86,7 @@ export default function TraxleHoldingPage() {
             {/* ÜRÜN 2: KünyeX */}
             <Link href="/kunyex" className="group relative rounded-[2.5rem] p-[2px] bg-gradient-to-br from-cyan-500/10 dark:from-cyan-500/20 via-transparent to-transparent hover:from-cyan-500/30 dark:hover:from-cyan-500/50 transition-all duration-700 block transform-gpu hover:-translate-y-2 hover:-rotate-y-2 hover:shadow-[0_20px_40px_rgba(0,194,255,0.1)] dark:hover:shadow-[0_20px_40px_rgba(0,194,255,0.15)]">
               <div className="absolute inset-0 bg-cyan-500/5 dark:bg-cyan-500/10 blur-2xl group-hover:bg-cyan-500/20 dark:group-hover:bg-cyan-500/30 transition-all duration-700 rounded-[2.5rem] opacity-0 group-hover:opacity-100"></div>
-              <div className="relative h-full bg-white/80 dark:bg-[#0a0f1c]/60 backdrop-blur-2xl rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-cyan-500/20 transition-colors duration-500">
+              <div className="relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-cyan-500/20 transition-colors duration-500">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/10 dark:group-hover:bg-cyan-500/20 transition-all duration-700"></div>
                 <div className="flex justify-between items-start relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-cyan-50 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-3xl border border-cyan-100 dark:border-cyan-500/20 group-hover:scale-110 transition-transform duration-500"><FiShield /></div>
@@ -105,7 +105,7 @@ export default function TraxleHoldingPage() {
             {/* ÜRÜN 3: Molatik */}
             <Link href="/molatik" className="group relative rounded-[2.5rem] p-[2px] bg-gradient-to-br from-purple-500/10 dark:from-purple-500/20 via-transparent to-transparent hover:from-purple-500/30 dark:hover:from-purple-500/50 transition-all duration-700 block transform-gpu hover:-translate-y-2 hover:rotate-y-2 hover:shadow-[0_20px_40px_rgba(168,85,247,0.1)] dark:hover:shadow-[0_20px_40px_rgba(168,85,247,0.15)]">
               <div className="absolute inset-0 bg-purple-500/5 dark:bg-purple-500/10 blur-2xl group-hover:bg-purple-500/20 dark:group-hover:bg-purple-500/30 transition-all duration-700 rounded-[2.5rem] opacity-0 group-hover:opacity-100"></div>
-              <div className="relative h-full bg-white/80 dark:bg-[#0a0f1c]/60 backdrop-blur-2xl rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-purple-500/20 transition-colors duration-500">
+              <div className="relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-purple-500/20 transition-colors duration-500">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/10 dark:group-hover:bg-purple-500/20 transition-all duration-700"></div>
                 <div className="flex justify-between items-start relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-3xl border border-purple-100 dark:border-purple-500/20 group-hover:scale-110 transition-transform duration-500"><FiZap /></div>

@@ -1,0 +1,15 @@
+
+> traxle-web@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 1273ms
+ GET / 200 in 1362ms (compile: 356ms, proxy.ts: 181ms, render: 825ms)
+ GET / 200 in 251ms (compile: 23ms, proxy.ts: 17ms, render: 212ms)
+ GET / 200 in 201ms (compile: 16ms, proxy.ts: 13ms, render: 172ms)
+[?25h
