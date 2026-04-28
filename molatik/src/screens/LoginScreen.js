@@ -188,7 +188,7 @@ export default function LoginScreen({ navigation }) {
             placeholder="Şifre"
             value={password}
             onChangeText={setPassword}
-            secureTextEntry
+            secureTextEntry={true}
           />
           <TouchableOpacity style={styles.button} onPress={handleLoginOrSetup} disabled={loading}>
             {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{isFirstLogin ? 'Şifre Belirle ve Gir' : 'Giriş Yap'}</Text>}
