@@ -25,40 +25,80 @@ export default function MolatikPrivacyPage() {
           </h1>
 
           <div className="space-y-6 text-base leading-relaxed text-gray-600 dark:text-gray-400">
+            <p className="text-sm font-bold text-gray-500 dark:text-gray-500">
+              Son güncelleme: 2026
+            </p>
+
             <p>
-              Molatik uygulaması, kullanıcı deneyimini geliştirmek amacıyla sınırlı veriler toplayabilir.
+              Molatik uygulaması, kullanıcı deneyimini geliştirmek ve uygulama işlevlerini sağlamak amacıyla sınırlı kişisel veri toplayabilir ve işler.
             </p>
 
             <div>
               <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Toplanan Veriler:</h2>
               <ul className="list-disc space-y-2 pl-5">
-                <li>Giriş işlemleri için e-posta veya kullanıcı bilgileri</li>
-                <li>Uygulama içi kullanım verileri (mola süreleri, zaman takibi)</li>
+                <li>Giriş işlemleri için e-posta adresi veya kullanıcı bilgileri</li>
+                <li>Uygulama kullanım verileri (mola süreleri, zaman takibi, kullanım istatistikleri)</li>
               </ul>
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Veri Kullanımı:</h2>
-              <p>
-                Toplanan veriler yalnızca uygulama işlevselliğini sağlamak ve kullanıcı deneyimini geliştirmek amacıyla kullanılır.
-              </p>
+              <p>Toplanan veriler aşağıdaki amaçlarla kullanılır:</p>
+              <ul className="mt-2 list-disc space-y-2 pl-5">
+                <li>Uygulama işlevlerini sağlamak ve sürdürmek</li>
+                <li>Kullanıcı deneyimini geliştirmek</li>
+                <li>Sistem performansını izlemek ve iyileştirmek</li>
+              </ul>
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Veri Paylaşımı:</h2>
-              <p>Molatik, kullanıcı verilerini üçüncü taraflarla paylaşmaz.</p>
+              <p>
+                Molatik, kullanıcı verilerini üçüncü taraflarla satmaz veya ticari amaçla paylaşmaz.
+              </p>
+              <p className="mt-3">
+                Ancak, uygulamanın çalışması için gerekli olan altyapı hizmet sağlayıcılarıyla (örneğin barındırma ve veri depolama hizmetleri) sınırlı veri paylaşımı yapılabilir.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Veri Saklama:</h2>
+              <p>
+                Kullanıcı verileri yalnızca gerekli olduğu süre boyunca saklanır ve ardından silinir veya anonim hale getirilir.
+              </p>
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Veri Güvenliği:</h2>
               <p>
-                Kullanıcı verileri güvenli altyapılarda saklanır ve yetkisiz erişimlere karşı korunur.
+                Kullanıcı verileri güvenli sunucularda saklanır ve yetkisiz erişime karşı korunur.
               </p>
             </div>
 
             <div>
               <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Kullanıcı Hakları:</h2>
-              <p>Kullanıcılar, verilerinin silinmesini talep edebilir.</p>
+              <p>Kullanıcılar:</p>
+              <ul className="mt-2 list-disc space-y-2 pl-5">
+                <li>Verilerine erişim talep edebilir</li>
+                <li>Verilerinin silinmesini isteyebilir</li>
+              </ul>
+              <p className="mt-3">
+                Bu talepler için aşağıdaki iletişim adresi kullanılabilir.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Çocukların Gizliliği:</h2>
+              <p>
+                Molatik, 13 yaş altındaki çocuklara yönelik bir uygulama değildir ve bilerek çocuklardan veri toplamaz.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="mb-2 font-bold text-gray-900 dark:text-white">Politika Değişiklikleri:</h2>
+              <p>
+                Bu gizlilik politikası zaman zaman güncellenebilir. Güncellemeler bu sayfa üzerinden duyurulur.
+              </p>
             </div>
 
             <div>
@@ -70,10 +110,6 @@ export default function MolatikPrivacyPage() {
                 support@traxleapp.com
               </a>
             </div>
-
-            <p className="border-t border-gray-100 pt-6 text-sm font-medium text-gray-500 dark:border-white/5 dark:text-gray-500">
-              Bu politika gerektiğinde güncellenebilir.
-            </p>
           </div>
         </div>
       </div>
