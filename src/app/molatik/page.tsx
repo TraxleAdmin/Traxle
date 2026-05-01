@@ -22,7 +22,7 @@ export default function MolatikYakindaPage() {
 
         <div className="relative z-10 -mt-10 md:-mt-20">
           <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 text-purple-600 dark:text-purple-400 text-sm font-bold mb-6 backdrop-blur-md">
-            <FiZap className="animate-pulse" /> Kodlama yapılıyor...
+            <FiZap className="animate-pulse" /> Kodlama yapılıyor.
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
