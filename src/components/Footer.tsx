@@ -38,6 +38,7 @@ export default function Footer() {
 <ul className="space-y-4 text-sm text-gray-500 dark:text-gray-400">
               <li><Link href="/kunyex" className="hover:text-blue-500 transition-colors">KünyeX (Dijital Kimlik)</Link></li>
               <li><Link href="/molatik" className="hover:text-blue-500 transition-colors">Molatik (Personel Takip)</Link></li>
+              <li><Link href="/barkodx" className="hover:text-blue-500 transition-colors">BarkodX (Barkod Yönetimi)</Link></li>
               <li><Link href="/lojistik" className="hover:text-blue-500 transition-colors">Lojistik Çözümleri</Link></li>
             </ul>
           </div>

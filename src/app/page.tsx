@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiLayers, FiShield, FiZap, FiMousePointer } from 'react-icons/fi';
+import { FiArrowRight, FiBox, FiLayers, FiShield, FiZap, FiMousePointer } from 'react-icons/fi';
 import TextShimmer from '@/components/ui/TextShimmer';
 export default function TraxleHoldingPage() {
   return (
@@ -61,7 +61,7 @@ export default function TraxleHoldingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[350px] max-w-7xl mx-auto perspective-1000 px-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 auto-rows-[360px] max-w-7xl mx-auto perspective-1000 px-6"
           >
 
             {/* ÜRÜN 1: Yeni İsimli Lojistik Uygulaması */}
@@ -90,33 +90,52 @@ export default function TraxleHoldingPage() {
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/10 dark:group-hover:bg-cyan-500/20 transition-all duration-700"></div>
                 <div className="flex justify-between items-start relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-cyan-50 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-3xl border border-cyan-100 dark:border-cyan-500/20 group-hover:scale-110 transition-transform duration-500"><FiShield /></div>
-                  <span className="px-4 py-1.5 bg-cyan-50 dark:bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 text-cyan-600 dark:text-cyan-300 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(0,194,255,0.1)] dark:shadow-[0_0_10px_rgba(0,194,255,0.2)]">Canlıda</span>
+                  <span className="px-4 py-1.5 bg-cyan-50 dark:bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 text-cyan-600 dark:text-cyan-300 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(0,194,255,0.1)] dark:shadow-[0_0_10px_rgba(0,194,255,0.2)]">Geliştiriliyor</span>
                 </div>
                 <div className="relative z-10 transform-gpu group-hover:translate-x-2 transition-transform duration-500">
                   <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">KünyeX</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed">Fiziksel ve dijital dünyayı birbirine bağlayan, yeni nesil NFC/QR tabanlı akıllı kimlik ve profil yönetimi.</p>
+                  <p className="text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed">OCR, QR ve etiket otomasyonu ile evrak süreçlerini şube kontrollü bir enterprise akışa taşıyan sistem.</p>
                 </div>
                 <div className="mt-6 flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-sm font-bold opacity-70 dark:opacity-70 group-hover:opacity-100 transition-opacity">
-                  İncele <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-500" />
+                  Gelişimi incele <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-500" />
                 </div>
               </div>
             </Link>
 
-            {/* ÜRÜN 3: Molatik */}
+            {/* ÜRÜN 3: BarkodX */}
+            <Link href="/barkodx" className="group relative rounded-[2.5rem] p-[2px] bg-gradient-to-br from-amber-500/10 dark:from-amber-500/20 via-transparent to-transparent hover:from-amber-500/30 dark:hover:from-amber-500/50 transition-all duration-700 block transform-gpu hover:-translate-y-2 hover:-rotate-y-2 hover:shadow-[0_20px_40px_rgba(245,158,11,0.1)] dark:hover:shadow-[0_20px_40px_rgba(245,158,11,0.15)]">
+              <div className="absolute inset-0 bg-amber-500/5 dark:bg-amber-500/10 blur-2xl group-hover:bg-amber-500/20 dark:group-hover:bg-amber-500/30 transition-all duration-700 rounded-[2.5rem] opacity-0 group-hover:opacity-100"></div>
+              <div className="relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-amber-500/20 transition-colors duration-500">
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/10 dark:group-hover:bg-amber-500/20 transition-all duration-700"></div>
+                <div className="flex justify-between items-start relative z-10">
+                  <div className="w-16 h-16 rounded-2xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-300 flex items-center justify-center text-3xl border border-amber-100 dark:border-amber-500/20 group-hover:scale-110 transition-transform duration-500"><FiBox /></div>
+                  <span className="px-4 py-1.5 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-full text-[10px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-300">Kodlanıyor</span>
+                </div>
+                <div className="relative z-10 transform-gpu group-hover:translate-x-2 transition-transform duration-500">
+                  <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">BarkodX</h3>
+                  <p className="text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed">Ürün kartları, barkod kayıtları ve etiket hazırlığı için geliştirilen yeni operasyon uygulaması.</p>
+                </div>
+                <div className="mt-6 flex items-center gap-2 text-amber-700 dark:text-amber-300 text-sm font-bold opacity-70 dark:opacity-70 group-hover:opacity-100 transition-opacity">
+                  Kod sürecini gör <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-500" />
+                </div>
+              </div>
+            </Link>
+
+            {/* ÜRÜN 4: Molatik */}
             <Link href="/molatik" className="group relative rounded-[2.5rem] p-[2px] bg-gradient-to-br from-purple-500/10 dark:from-purple-500/20 via-transparent to-transparent hover:from-purple-500/30 dark:hover:from-purple-500/50 transition-all duration-700 block transform-gpu hover:-translate-y-2 hover:rotate-y-2 hover:shadow-[0_20px_40px_rgba(168,85,247,0.1)] dark:hover:shadow-[0_20px_40px_rgba(168,85,247,0.15)]">
               <div className="absolute inset-0 bg-purple-500/5 dark:bg-purple-500/10 blur-2xl group-hover:bg-purple-500/20 dark:group-hover:bg-purple-500/30 transition-all duration-700 rounded-[2.5rem] opacity-0 group-hover:opacity-100"></div>
               <div className="relative h-full rounded-[2.4rem] p-8 md:p-10 flex flex-col justify-between border border-gray-200/50 dark:border-white/5 overflow-hidden group-hover:border-purple-500/20 transition-colors duration-500">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/10 dark:group-hover:bg-purple-500/20 transition-all duration-700"></div>
                 <div className="flex justify-between items-start relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-3xl border border-purple-100 dark:border-purple-500/20 group-hover:scale-110 transition-transform duration-500"><FiZap /></div>
-                  <span className="px-4 py-1.5 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-gray-500 dark:text-gray-300">Geliştiriliyor</span>
+                  <span className="px-4 py-1.5 bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 rounded-full text-[10px] font-bold uppercase tracking-widest text-green-700 dark:text-green-300">Canlıya Hazır</span>
                 </div>
                 <div className="relative z-10 transform-gpu group-hover:translate-x-2 transition-transform duration-500">
                   <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Molatik</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed">Kurumsal işletmeler için tasarlanmış, otonom personel takip, mola yönetimi ve verimlilik analizi sistemi.</p>
+                  <p className="text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed">Personel molası, zaman takibi ve kullanım istatistiklerini canlı kullanıma hazır operasyon ekranına taşır.</p>
                 </div>
                 <div className="mt-6 flex items-center gap-2 text-purple-600 dark:text-purple-400 text-sm font-bold opacity-70 dark:opacity-50 group-hover:opacity-100 transition-opacity">
-                  Yakında <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-500" />
+                  İncele <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-500" />
                 </div>
               </div>
             </Link>

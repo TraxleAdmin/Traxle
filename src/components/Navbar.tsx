@@ -44,6 +44,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/5 backdrop-blur-md">
           <NavLink href="/kunyex">KünyeX</NavLink>
           <NavLink href="/molatik">Molatik</NavLink>
+          <NavLink href="/barkodx">BarkodX</NavLink>
           <NavLink href="/lojistik">Lojistik</NavLink>
           <NavLink href="/hakkimizda">Şirket</NavLink>
         </div>
@@ -62,10 +63,23 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    {mobileMenuOpen && (
+      <div className="fixed left-4 right-4 top-20 z-40 rounded-3xl border border-gray-200 bg-white/95 p-3 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-[#080c14]/95 md:hidden">
+        <MobileNavLink href="/kunyex" onClick={() => setMobileMenuOpen(false)}>KünyeX</MobileNavLink>
+        <MobileNavLink href="/molatik" onClick={() => setMobileMenuOpen(false)}>Molatik</MobileNavLink>
+        <MobileNavLink href="/barkodx" onClick={() => setMobileMenuOpen(false)}>BarkodX</MobileNavLink>
+        <MobileNavLink href="/lojistik" onClick={() => setMobileMenuOpen(false)}>Lojistik</MobileNavLink>
+        <MobileNavLink href="/hakkimizda" onClick={() => setMobileMenuOpen(false)}>Şirket</MobileNavLink>
+      </div>
+    )}
     </>
   );
 }
 
 const NavLink = ({href, children}: {href:string, children:React.ReactNode}) => (
   <Link href={href} className="px-5 py-2 rounded-full text-sm font-medium transition-all text-gray-600 hover:text-black hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10">{children}</Link>
+);
+
+const MobileNavLink = ({href, onClick, children}: {href:string, onClick: () => void, children:React.ReactNode}) => (
+  <Link href={href} onClick={onClick} className="block rounded-2xl px-4 py-3 text-sm font-bold text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/10">{children}</Link>
 );
