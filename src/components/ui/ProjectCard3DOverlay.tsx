@@ -3,11 +3,16 @@ import type { PortfolioProject } from '@/types/portfolio';
 
 type ProjectCard3DOverlayProps = {
   project: PortfolioProject;
+  onSelect: () => void;
 };
 
-export default function ProjectCard3DOverlay({ project }: ProjectCard3DOverlayProps) {
+export default function ProjectCard3DOverlay({ project, onSelect }: ProjectCard3DOverlayProps) {
   return (
-    <div className="w-[260px] rounded-2xl border border-white/10 bg-black/70 p-4 text-left shadow-[0_0_40px_rgba(0,194,255,0.16)] backdrop-blur-2xl">
+    <button
+      type="button"
+      onClick={onSelect}
+      className="pointer-events-auto w-[260px] rounded-2xl border border-white/10 bg-black/70 p-4 text-left shadow-[0_0_40px_rgba(0,194,255,0.16)] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/30 hover:bg-black/80"
+    >
       <div className="mb-3 flex items-center justify-between gap-3">
         <p className="truncate text-xs font-bold uppercase tracking-[0.24em] text-cyan-200/80">{project.platform}</p>
         <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-cyan-100">
@@ -25,6 +30,9 @@ export default function ProjectCard3DOverlay({ project }: ProjectCard3DOverlayPr
           ))}
         </div>
       )}
-    </div>
+      <span className="mt-4 inline-flex text-[10px] font-black uppercase tracking-[0.24em] text-cyan-100/70">
+        Open system
+      </span>
+    </button>
   );
 }

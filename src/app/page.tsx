@@ -3,11 +3,12 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowDown, FiCpu, FiDatabase, FiLayers, FiRadio } from 'react-icons/fi';
-import Scene from '@/components/canvas/Scene';
-import { useFirebaseProjects } from '@/hooks/useFirebaseProjects';
+import { useProjectData } from '@/hooks/useProjectData';
+import { useTransitionManager } from '@/components/animations/TransitionManager';
 
 export default function TraxleLandingPage() {
-  const { projects, loading, error } = useFirebaseProjects();
+  const { projects, loading, error } = useProjectData();
+  const { startProjectTransition } = useTransitionManager();
 
   const metrics = useMemo(() => {
     const techCount = new Set(projects.flatMap((project) => project.techStack)).size;
@@ -24,8 +25,6 @@ export default function TraxleLandingPage() {
 
   return (
     <div id="ecosystem-scroll" className="relative min-h-[440vh] overflow-hidden bg-transparent text-white selection:bg-cyan-400/30">
-      <Scene projects={projects} loading={loading} error={error} />
-
       <section className="relative z-10 flex min-h-screen items-center px-5 pt-28">
         <div className="mx-auto w-full max-w-7xl">
           <motion.div
@@ -122,11 +121,20 @@ export default function TraxleLandingPage() {
             {projects.map((project, index) => (
               <motion.article
                 key={project.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => startProjectTransition(project.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    startProjectTransition(project.id);
+                  }
+                }}
                 initial={{ opacity: 0, y: 36 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 0.55, delay: index * 0.04 }}
-                className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition-colors hover:border-cyan-300/25"
+                className="cursor-pointer rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 text-left backdrop-blur-xl transition-colors hover:border-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
               >
                 <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                   <div>

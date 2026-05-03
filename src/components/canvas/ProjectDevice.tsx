@@ -13,6 +13,9 @@ type ProjectDeviceProps = {
   target: [number, number, number];
   progressRef: MutableRefObject<number>;
   compact: boolean;
+  selected: boolean;
+  transitionProgressRef: MutableRefObject<number>;
+  onSelect: (projectId: string) => void;
 };
 
 function OptionalGltfModel({ url }: { url: string }) {
@@ -60,7 +63,16 @@ function DeviceShell({ platform }: { platform: PortfolioProject['platform'] }) {
   );
 }
 
-export default function ProjectDevice({ project, index, target, progressRef, compact }: ProjectDeviceProps) {
+export default function ProjectDevice({
+  project,
+  index,
+  target,
+  progressRef,
+  compact,
+  selected,
+  transitionProgressRef,
+  onSelect,
+}: ProjectDeviceProps) {
   const groupRef = useRef<THREE.Group>(null);
   const targetVector = useMemo(() => new THREE.Vector3(...target), [target]);
   const glowColor = project.status === 'production' ? '#41ffb6' : '#00c2ff';
@@ -73,6 +85,7 @@ export default function ProjectDevice({ project, index, target, progressRef, com
 
   useFrame((_, delta) => {
     const progress = progressRef.current;
+    const transitionProgress = selected ? transitionProgressRef.current : 0;
     const localProgress = THREE.MathUtils.smoothstep(
       THREE.MathUtils.clamp((progress - 0.1 - index * 0.025) / 0.72, 0, 1),
       0,
@@ -88,12 +101,15 @@ export default function ProjectDevice({ project, index, target, progressRef, com
     );
     groupRef.current.rotation.y = THREE.MathUtils.lerp(0, Math.atan2(targetVector.x, targetVector.z) + Math.PI, localProgress);
     groupRef.current.rotation.x = Math.sin(progress * Math.PI + index) * 0.12;
-    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.08, compact ? 0.72 : 0.92, localProgress));
+    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.08, compact ? 0.72 : 0.92, localProgress) * THREE.MathUtils.lerp(1, 1.18, transitionProgress));
     groupRef.current.position.y += Math.sin(performance.now() * 0.0008 + index) * delta * 0.22;
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} onClick={(event) => {
+      event.stopPropagation();
+      onSelect(project.id);
+    }}>
       <pointLight color={glowColor} intensity={1.1} distance={3.2} />
       <Suspense fallback={<DeviceShell platform={project.platform} />}>
         {project.modelUrl ? <OptionalGltfModel url={project.modelUrl} /> : <DeviceShell platform={project.platform} />}
@@ -103,7 +119,7 @@ export default function ProjectDevice({ project, index, target, progressRef, com
         <meshBasicMaterial color={glowColor} transparent opacity={0.055} />
       </mesh>
       <Html transform center distanceFactor={compact ? 5.8 : 4.8} position={[project.platform === 'desktop' ? 1.55 : 1.05, 0.05, 0.14]}>
-        <ProjectCard3DOverlay project={project} />
+        <ProjectCard3DOverlay project={project} onSelect={() => onSelect(project.id)} />
       </Html>
     </group>
   );

@@ -8,9 +8,12 @@ import type { PortfolioProject } from '@/types/portfolio';
 type DeviceEcosystemProps = {
   projects: PortfolioProject[];
   progressRef: MutableRefObject<number>;
+  selectedProjectId: string | null;
+  transitionProgressRef: MutableRefObject<number>;
+  onProjectSelect: (projectId: string) => void;
 };
 
-function getGoldenSpiralPosition(index: number, total: number, compact: boolean): [number, number, number] {
+export function getGoldenSpiralPosition(index: number, total: number, compact: boolean): [number, number, number] {
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
   const angle = index * goldenAngle;
   const normalized = total <= 1 ? 0.5 : index / (total - 1);
@@ -22,7 +25,13 @@ function getGoldenSpiralPosition(index: number, total: number, compact: boolean)
   return [x, y, z];
 }
 
-export default function DeviceEcosystem({ projects, progressRef }: DeviceEcosystemProps) {
+export default function DeviceEcosystem({
+  projects,
+  progressRef,
+  selectedProjectId,
+  transitionProgressRef,
+  onProjectSelect,
+}: DeviceEcosystemProps) {
   const { viewport } = useThree();
   const compact = viewport.width < 7;
   const positions = useMemo(
@@ -40,6 +49,9 @@ export default function DeviceEcosystem({ projects, progressRef }: DeviceEcosyst
           target={positions[index]}
           progressRef={progressRef}
           compact={compact}
+          selected={selectedProjectId === project.id}
+          transitionProgressRef={transitionProgressRef}
+          onSelect={onProjectSelect}
         />
       ))}
     </group>

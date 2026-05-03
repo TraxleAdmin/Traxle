@@ -9,6 +9,8 @@ import MaintenanceGuard from "@/components/MaintenanceGuard";
 import { Providers } from "./providers";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageTransition from "@/components/PageTransition";
+import Scene from "@/components/canvas/Scene";
+import { TransitionProvider } from "@/components/animations/TransitionManager";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,20 +33,23 @@ export default function RootLayout({
       <body className={`${inter.className} bg-black text-white transition-colors duration-500`}>
         <Providers>
           <MaintenanceGuard>
-            <SmoothScroll>
-              {/* İçeriğin 3D objelerin üzerinde (ama tıklanabilir) durması için relative ve z-10 */}
-              <div className="relative z-10">
-                <SplashScreen />
-                <Navbar />
-                <main className="min-h-screen">
-                  <PageTransition>
-                    {children}
-                  </PageTransition>
-                </main>
-                <Footer />
-                <CookieBanner />
-              </div>
-            </SmoothScroll>
+            <TransitionProvider>
+              <SmoothScroll>
+                <Scene />
+                {/* İçeriğin 3D objelerin üzerinde (ama tıklanabilir) durması için relative ve z-10 */}
+                <div className="relative z-10">
+                  <SplashScreen />
+                  <Navbar />
+                  <main className="min-h-screen">
+                    <PageTransition>
+                      {children}
+                    </PageTransition>
+                  </main>
+                  <Footer />
+                  <CookieBanner />
+                </div>
+              </SmoothScroll>
+            </TransitionProvider>
           </MaintenanceGuard>
         </Providers>
       </body>
