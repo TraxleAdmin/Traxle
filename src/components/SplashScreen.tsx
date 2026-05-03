@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+
+const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
 
 // --- KORUNAN LOGO YOLLARI (Traxle Yazısı) ---
 const logoPaths = [
@@ -21,8 +24,11 @@ interface SplashScreenProps {
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
+  const pathname = usePathname();
   const [showSplash, setShowSplash] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+
+  const isLocalizedRoute = localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`));
 
   useEffect(() => {
     setIsMounted(true);
@@ -42,6 +48,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
 
     return () => clearTimeout(timer);
   }, [onFinished]);
+
+  if (isLocalizedRoute) {
+    return null;
+  }
 
   if (!isMounted) {
     return <div className="fixed inset-0 z-[9999] bg-[#02040A]"></div>;

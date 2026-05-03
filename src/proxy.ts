@@ -1,11 +1,23 @@
 // src/proxy.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { defaultLocale, isLocale } from '@/lib/i18n';
 
 // 1. KİLİTLENMEYECEK ROTALAR (Whitelist)
 // Bu yollar bakım modunda olsa bile ERİŞİLEBİLİR kalacak.
 const ADMIN_PATHS = ['/panel/admin', '/api/auth', '/api/admin'];
 const PUBLIC_ASSETS = ['/_next', '/favicon.ico', '/public', '/images'];
+
+function getRequestHeadersWithLocale(request: NextRequest) {
+  const segment = request.nextUrl.pathname.split('/').filter(Boolean)[0];
+  const locale = isLocale(segment) ? segment : defaultLocale;
+  const requestHeaders = new Headers(request.headers);
+
+  requestHeaders.set('x-traxle-locale', locale);
+  requestHeaders.set('x-traxle-dir', locale === 'ar' ? 'rtl' : 'ltr');
+
+  return requestHeaders;
+}
 
 // 🔥 KRİTİK DEĞİŞİKLİK BURADA: "export default async function proxy" olarak güncellendi.
 export default async function proxy(request: NextRequest) {
@@ -39,7 +51,11 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: getRequestHeadersWithLocale(request),
+    },
+  });
 }
 
 // Hangi yollarda çalışacağını belirtiyoruz (Tüm yollar)

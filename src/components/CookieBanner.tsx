@@ -4,8 +4,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { FiSettings, FiX } from 'react-icons/fi';
+import { usePathname } from 'next/navigation';
+
+const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
 
 export default function CookieBanner() {
+  const pathname = usePathname();
   const [showBanner, setShowBanner] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   
@@ -31,6 +35,10 @@ export default function CookieBanner() {
     setShowBanner(false);
     setShowSettings(false);
   };
+
+  if (localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`))) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

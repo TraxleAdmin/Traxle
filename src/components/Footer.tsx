@@ -6,9 +6,14 @@ import { usePathname } from 'next/navigation';
 import { FiInstagram, FiLinkedin } from 'react-icons/fi';
 import Image from 'next/image';
 
+const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
+
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname?.startsWith('/panel')) return null;
+  if (
+    pathname?.startsWith('/panel') ||
+    localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`))
+  ) return null;
 
   return (
     <footer className="bg-gray-50 dark:bg-[#050814] border-t border-gray-200 dark:border-white/5 pt-20 pb-12 transition-colors duration-500">

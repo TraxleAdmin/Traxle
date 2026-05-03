@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { FiMenu, FiX } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
 
+const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
+
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -18,7 +20,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (pathname?.startsWith('/panel')) return null;
+  if (
+    pathname?.startsWith('/panel') ||
+    localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`))
+  ) return null;
 
   return (
     <>
