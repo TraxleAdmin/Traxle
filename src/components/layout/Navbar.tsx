@@ -3,23 +3,20 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-import { Languages, Menu, Moon, Sun, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/Button';
 import {
   getDictionary,
   getLocaleFromPathname,
-  languageOptions,
-  switchLocalePath,
-  type Locale,
   withLocale,
 } from '@/lib/i18n';
 import { cn } from '@/lib/cn';
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const locale = getLocaleFromPathname(pathname);
   const dictionary = getDictionary(locale);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,15 +33,11 @@ export default function Navbar() {
     [dictionary, locale],
   );
 
-  const onLocaleChange = (nextLocale: Locale) => {
-    router.push(switchLocalePath(pathname, nextLocale));
-  };
-
   const themeIcon = theme === 'light' ? <Moon size={17} /> : <Sun size={17} />;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-slate-200/80 bg-white/78 px-4 py-3 shadow-[0_18px_60px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/45 dark:shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-[1.65rem] border border-slate-200/80 bg-white/76 px-4 py-3 shadow-[0_22px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/48 dark:shadow-[0_22px_80px_rgba(0,0,0,0.42)] lg:rounded-full">
         <Link href={withLocale(locale)} className="relative h-8 w-32 shrink-0" aria-label="Traxle">
           <Image
             src="/logo.png"
@@ -76,22 +69,7 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <label className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-white/8 dark:text-slate-200">
-            <Languages size={16} aria-hidden="true" />
-            <span className="sr-only">{dictionary.languageLabel}</span>
-            <select
-              value={locale}
-              onChange={(event) => onLocaleChange(event.target.value as Locale)}
-              className="bg-transparent text-sm font-bold outline-none"
-              aria-label={dictionary.languageLabel}
-            >
-              {languageOptions.map((language) => (
-                <option key={language.locale} value={language.locale}>
-                  {language.nativeName}
-                </option>
-              ))}
-            </select>
-          </label>
+          <LanguageSwitcher />
           <button
             type="button"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -131,18 +109,7 @@ export default function Navbar() {
             ))}
           </div>
           <div className="mt-3 flex items-center gap-2 border-t border-slate-200 pt-3 dark:border-white/10">
-            <select
-              value={locale}
-              onChange={(event) => onLocaleChange(event.target.value as Locale)}
-              className="min-h-10 flex-1 rounded-full border border-slate-200 bg-white px-3 text-sm font-bold text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-white"
-              aria-label={dictionary.languageLabel}
-            >
-              {languageOptions.map((language) => (
-                <option key={language.locale} value={language.locale}>
-                  {language.nativeName}
-                </option>
-              ))}
-            </select>
+            <LanguageSwitcher compact />
             <button
               type="button"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

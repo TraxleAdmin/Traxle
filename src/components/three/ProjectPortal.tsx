@@ -26,18 +26,32 @@ export default function ProjectPortal({
   accent: string;
 }) {
   const groupRef = useRef<THREE.Group>(null);
+  const portalRef = useRef<THREE.Group>(null);
+  const scannerRef = useRef<THREE.Mesh>(null);
   const reducedMotion = usePrefersReducedMotion();
   const position = useMemo(() => getPortalPosition(index, total), [index, total]);
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (!groupRef.current || reducedMotion) return;
-    groupRef.current.rotation.y += delta * 0.08;
-    groupRef.current.position.y = position[1] + Math.sin(performance.now() * 0.00045 + index) * 0.08;
+    const elapsed = state.clock.elapsedTime;
+
+    groupRef.current.rotation.y = -position[0] * 0.12 + Math.sin(elapsed * 0.42 + index) * 0.16;
+    groupRef.current.rotation.x = Math.sin(elapsed * 0.36 + index) * 0.045;
+    groupRef.current.position.y = position[1] + Math.sin(elapsed * 0.72 + index) * 0.14;
+
+    if (portalRef.current) {
+      portalRef.current.rotation.z += delta * (0.12 + index * 0.025);
+    }
+
+    if (scannerRef.current) {
+      scannerRef.current.position.y = Math.sin(elapsed * 1.5 + index) * 0.46;
+      scannerRef.current.scale.x = 0.82 + Math.sin(elapsed * 1.2 + index) * 0.08;
+    }
   });
 
   return (
     <group ref={groupRef} position={position} rotation={[0.02, -position[0] * 0.12, 0]}>
-      <RoundedBox args={[1.05, 1.42, 0.1]} radius={0.12} smoothness={14}>
+      <RoundedBox args={[1.05, 1.42, 0.14]} radius={0.12} smoothness={14}>
         <meshPhysicalMaterial
           color="#0a1020"
           metalness={0.7}
@@ -49,9 +63,23 @@ export default function ProjectPortal({
       <RoundedBox args={[0.82, 1.08, 0.11]} radius={0.08} smoothness={14} position={[0, 0, 0.035]}>
         <meshPhysicalMaterial color={accent} emissive={accent} emissiveIntensity={0.16} metalness={0.28} roughness={0.1} transparent opacity={0.34} />
       </RoundedBox>
-      <mesh position={[0, 0, -0.05]}>
+      <group ref={portalRef} position={[0, 0, -0.05]}>
+        <mesh>
+          <torusGeometry args={[0.82, 0.025, 18, 140]} />
+          <meshPhysicalMaterial color={accent} emissive={accent} emissiveIntensity={0.45} metalness={0.4} roughness={0.18} />
+        </mesh>
+        <mesh rotation={[0, 0, Math.PI / 2.8]}>
+          <torusGeometry args={[0.62, 0.015, 16, 120]} />
+          <meshPhysicalMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.12} metalness={0.4} roughness={0.18} />
+        </mesh>
+      </group>
+      <mesh ref={scannerRef} position={[0, 0, 0.12]}>
+        <boxGeometry args={[0.78, 0.035, 0.035]} />
+        <meshBasicMaterial color={accent} transparent opacity={0.72} />
+      </mesh>
+      <mesh position={[0, -0.82, 0.08]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.82, 0.025, 18, 140]} />
-        <meshPhysicalMaterial color={accent} emissive={accent} emissiveIntensity={0.45} metalness={0.4} roughness={0.18} />
+        <meshPhysicalMaterial color="#04111d" metalness={0.78} roughness={0.18} transparent opacity={0.7} />
       </mesh>
       <FloatingModel accent={accent} scale={0.34} compact />
     </group>

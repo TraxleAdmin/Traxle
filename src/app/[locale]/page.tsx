@@ -39,16 +39,16 @@ export default async function LocaleHomePage({ params }: PageProps) {
   return (
     <main>
       <section className="relative min-h-screen overflow-hidden pt-28">
-        <LazyHomeHeroScene className="opacity-95" />
-        <SectionShell className="grid min-h-[calc(100vh-7rem)] items-center py-16 lg:grid-cols-[1fr_0.9fr]">
-          <div className="relative z-10 max-w-3xl">
-            <p className="mb-5 text-xs font-black uppercase tracking-[0.32em] text-cyan-700 dark:text-cyan-200">
+        <LazyHomeHeroScene className="opacity-40 [mask-image:linear-gradient(to_bottom,transparent_0%,black_12%,black_88%,transparent_100%)] sm:opacity-55 lg:left-auto lg:right-0 lg:w-[58%] lg:opacity-100 lg:[mask-image:linear-gradient(to_right,transparent_0%,black_22%,black_100%)]" />
+        <SectionShell className="grid min-h-[calc(100vh-7rem)] items-center py-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,1.08fr)] xl:grid-cols-[minmax(0,0.82fr)_minmax(520px,1.18fr)]">
+          <div className="relative z-10 max-w-xl xl:max-w-2xl">
+            <p className="mb-5 text-[11px] font-black uppercase tracking-[0.32em] text-cyan-700 dark:text-cyan-200">
               {dictionary.home.eyebrow}
             </p>
-            <h1 className="text-5xl font-black leading-[0.9] text-slate-950 dark:text-white sm:text-7xl lg:text-8xl">
+            <h1 className="max-w-2xl text-4xl font-black leading-[0.98] text-slate-950 dark:text-white sm:text-5xl lg:text-6xl 2xl:text-7xl">
               {dictionary.home.title}
             </h1>
-            <p className="mt-7 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+            <p className="mt-7 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
               {dictionary.home.description}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
