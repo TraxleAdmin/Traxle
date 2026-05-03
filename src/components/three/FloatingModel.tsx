@@ -61,12 +61,14 @@ export default function FloatingModel({
   const groupRef = useRef<THREE.Group>(null);
   const reducedMotion = usePrefersReducedMotion();
 
-  useFrame((_, delta) => {
-    if (!groupRef.current || reducedMotion) return;
-    groupRef.current.rotation.y += delta * 0.22;
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+    const motionScale = reducedMotion ? 0.28 : 1;
+
+    groupRef.current.rotation.y += delta * 0.22 * motionScale;
     groupRef.current.rotation.x = THREE.MathUtils.damp(
       groupRef.current.rotation.x,
-      Math.sin(performance.now() * 0.00045) * 0.1,
+      Math.sin(state.clock.elapsedTime * 0.42) * 0.1 * motionScale,
       3,
       delta,
     );

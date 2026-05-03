@@ -27,6 +27,13 @@ export type Dictionary = {
     primaryCta: string;
     secondaryCta: string;
     proof: string[];
+    processTitle: string;
+    processDescription: string;
+    process: Array<{
+      value: string;
+      label: string;
+      description: string;
+    }>;
     hubTitle: string;
     hubDescription: string;
   };
@@ -109,6 +116,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Projeleri Keşfet',
       secondaryCta: 'Demo Talep Et',
       proof: ['3D arayüz mimarisi', 'Ürün ekosistemi', 'Performans odaklı mühendislik'],
+      processTitle: 'Kurumsal ürün hattı gibi çalışan dijital vitrin',
+      processDescription:
+        'Traxle; strateji, mimari, arayüz ve canlıya çıkış disiplinlerini tek bir kontrollü deneyim akışına bağlar.',
+      process: [
+        {
+          value: '01',
+          label: 'Strateji',
+          description: 'Ürün portföyü, hedef kitle ve marka algısı tek bir ekosistem vizyonunda hizalanır.',
+        },
+        {
+          value: '02',
+          label: 'Mimari',
+          description: 'Web, mobil ve masaüstü yüzeyleri ölçeklenebilir bir teknik temel üzerinde tasarlanır.',
+        },
+        {
+          value: '03',
+          label: 'Deneyim',
+          description: '3D atmosfer, okunabilir HTML içerik ve erişilebilir navigasyon aynı tasarım diliyle birleşir.',
+        },
+        {
+          value: '04',
+          label: 'Yayın',
+          description: 'Performans, SEO ve responsive davranış canlı ortam beklentilerine göre doğrulanır.',
+        },
+      ],
       hubTitle: 'Tek çatı altında ölçeklenebilir projeler',
       hubDescription:
         'Mevcut ve gelecek ürünler aynı veri yapısı, aynı görsel dil ve aynı erişilebilir web deneyimiyle yönetilir.',
@@ -200,6 +232,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Explore Projects',
       secondaryCta: 'Request Demo',
       proof: ['3D interface architecture', 'Product ecosystem', 'Performance-led engineering'],
+      processTitle: 'A digital front door built like an enterprise product line',
+      processDescription:
+        'Traxle connects strategy, architecture, interface design, and launch readiness into one controlled experience flow.',
+      process: [
+        {
+          value: '01',
+          label: 'Strategy',
+          description: 'Portfolio, audience, and brand perception align under a single ecosystem vision.',
+        },
+        {
+          value: '02',
+          label: 'Architecture',
+          description: 'Web, mobile, and desktop surfaces are shaped on a scalable technical foundation.',
+        },
+        {
+          value: '03',
+          label: 'Experience',
+          description: '3D atmosphere, readable HTML content, and accessible navigation share one design language.',
+        },
+        {
+          value: '04',
+          label: 'Launch',
+          description: 'Performance, SEO, and responsive behavior are checked against production expectations.',
+        },
+      ],
       hubTitle: 'Scalable projects under one roof',
       hubDescription:
         'Existing and future products share the same data structure, visual language, and accessible web experience.',
@@ -291,6 +348,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Projekte entdecken',
       secondaryCta: 'Demo anfragen',
       proof: ['3D-Interface-Architektur', 'Produktökosystem', 'Performance-orientierte Entwicklung'],
+      processTitle: 'Ein digitaler Auftritt wie eine Enterprise-Produktlinie',
+      processDescription:
+        'Traxle verbindet Strategie, Architektur, Interface-Design und Launch-Readiness zu einem kontrollierten Erlebnisfluss.',
+      process: [
+        {
+          value: '01',
+          label: 'Strategie',
+          description: 'Portfolio, Zielgruppe und Markenwirkung werden in einer gemeinsamen Ökosystem-Vision ausgerichtet.',
+        },
+        {
+          value: '02',
+          label: 'Architektur',
+          description: 'Web-, Mobile- und Desktop-Oberflächen entstehen auf einer skalierbaren technischen Grundlage.',
+        },
+        {
+          value: '03',
+          label: 'Erlebnis',
+          description: '3D-Atmosphäre, lesbare HTML-Inhalte und barrierearme Navigation folgen einer Designsprache.',
+        },
+        {
+          value: '04',
+          label: 'Launch',
+          description: 'Performance, SEO und responsives Verhalten werden an Produktionsanforderungen geprüft.',
+        },
+      ],
       hubTitle: 'Skalierbare Projekte unter einem Dach',
       hubDescription:
         'Bestehende und zukünftige Produkte teilen dieselbe Datenstruktur, Designsprache und zugängliche Weberfahrung.',
@@ -382,6 +464,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'استكشف المشاريع',
       secondaryCta: 'اطلب عرضا تجريبيا',
       proof: ['هندسة واجهات ثلاثية الأبعاد', 'منظومة منتجات', 'هندسة عالية الأداء'],
+      processTitle: 'واجهة رقمية تعمل كخط منتجات مؤسسي',
+      processDescription:
+        'تربط Traxle بين الاستراتيجية والبنية وتصميم الواجهة وجاهزية الإطلاق ضمن مسار تجربة واحد ومنضبط.',
+      process: [
+        {
+          value: '01',
+          label: 'الاستراتيجية',
+          description: 'تتوافق محفظة المنتجات والجمهور وانطباع العلامة ضمن رؤية موحدة للمنظومة.',
+        },
+        {
+          value: '02',
+          label: 'البنية',
+          description: 'تصمم واجهات الويب والجوال وسطح المكتب على أساس تقني قابل للتوسع.',
+        },
+        {
+          value: '03',
+          label: 'التجربة',
+          description: 'تجتمع الأجواء ثلاثية الأبعاد ومحتوى HTML المقروء والتنقل الواضح في لغة تصميم واحدة.',
+        },
+        {
+          value: '04',
+          label: 'الإطلاق',
+          description: 'يتم فحص الأداء وSEO والسلوك المتجاوب وفق توقعات بيئة الإنتاج.',
+        },
+      ],
       hubTitle: 'مشاريع قابلة للتوسع تحت سقف واحد',
       hubDescription:
         'المنتجات الحالية والمستقبلية تشترك في بنية بيانات واحدة ولغة بصرية موحدة وتجربة ويب سهلة الوصول.',
@@ -473,6 +580,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Посмотреть проекты',
       secondaryCta: 'Запросить демо',
       proof: ['Архитектура 3D-интерфейсов', 'Экосистема продуктов', 'Инженерия с фокусом на производительность'],
+      processTitle: 'Цифровая витрина, построенная как корпоративная продуктовая линия',
+      processDescription:
+        'Traxle объединяет стратегию, архитектуру, интерфейс и готовность к запуску в единый управляемый поток опыта.',
+      process: [
+        {
+          value: '01',
+          label: 'Стратегия',
+          description: 'Портфель, аудитория и восприятие бренда выстраиваются вокруг единого видения экосистемы.',
+        },
+        {
+          value: '02',
+          label: 'Архитектура',
+          description: 'Веб-, мобильные и настольные поверхности проектируются на масштабируемой технической основе.',
+        },
+        {
+          value: '03',
+          label: 'Опыт',
+          description: '3D-атмосфера, читаемый HTML-контент и доступная навигация работают в одном дизайн-языке.',
+        },
+        {
+          value: '04',
+          label: 'Запуск',
+          description: 'Производительность, SEO и адаптивность проверяются по ожиданиям production-среды.',
+        },
+      ],
       hubTitle: 'Масштабируемые проекты под одной крышей',
       hubDescription:
         'Текущие и будущие продукты используют общую структуру данных, визуальный язык и доступный веб-опыт.',

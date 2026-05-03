@@ -4,7 +4,6 @@ import { Suspense, type ReactNode } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Preload } from '@react-three/drei';
 import { cn } from '@/lib/cn';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import LoadingScene from '@/components/three/LoadingScene';
 import WebGLFallback from '@/components/three/WebGLFallback';
@@ -21,7 +20,6 @@ export default function SceneShell({
   cameraPosition?: [number, number, number];
 }) {
   const webglSupported = useWebGLSupport();
-  const reducedMotion = usePrefersReducedMotion();
 
   if (webglSupported === false) {
     return (
@@ -43,7 +41,7 @@ export default function SceneShell({
     <div className={cn('absolute inset-0', interactive ? 'pointer-events-auto' : 'pointer-events-none', className)} aria-hidden="true">
       <Canvas
         dpr={[1, 1.6]}
-        frameloop={reducedMotion ? 'demand' : 'always'}
+        frameloop="always"
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         camera={{ position: cameraPosition, fov: 42, near: 0.1, far: 80 }}
       >

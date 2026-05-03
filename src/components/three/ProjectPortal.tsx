@@ -32,20 +32,21 @@ export default function ProjectPortal({
   const position = useMemo(() => getPortalPosition(index, total), [index, total]);
 
   useFrame((state, delta) => {
-    if (!groupRef.current || reducedMotion) return;
+    if (!groupRef.current) return;
     const elapsed = state.clock.elapsedTime;
+    const motionScale = reducedMotion ? 0.32 : 1;
 
-    groupRef.current.rotation.y = -position[0] * 0.12 + Math.sin(elapsed * 0.42 + index) * 0.16;
-    groupRef.current.rotation.x = Math.sin(elapsed * 0.36 + index) * 0.045;
-    groupRef.current.position.y = position[1] + Math.sin(elapsed * 0.72 + index) * 0.14;
+    groupRef.current.rotation.y = -position[0] * 0.12 + Math.sin(elapsed * 0.42 + index) * 0.16 * motionScale;
+    groupRef.current.rotation.x = Math.sin(elapsed * 0.36 + index) * 0.045 * motionScale;
+    groupRef.current.position.y = position[1] + Math.sin(elapsed * 0.72 + index) * 0.14 * motionScale;
 
     if (portalRef.current) {
-      portalRef.current.rotation.z += delta * (0.12 + index * 0.025);
+      portalRef.current.rotation.z += delta * (0.12 + index * 0.025) * motionScale;
     }
 
     if (scannerRef.current) {
-      scannerRef.current.position.y = Math.sin(elapsed * 1.5 + index) * 0.46;
-      scannerRef.current.scale.x = 0.82 + Math.sin(elapsed * 1.2 + index) * 0.08;
+      scannerRef.current.position.y = Math.sin(elapsed * 1.5 + index) * 0.46 * motionScale;
+      scannerRef.current.scale.x = 0.82 + Math.sin(elapsed * 1.2 + index) * 0.08 * motionScale;
     }
   });
 

@@ -1,13 +1,49 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ContactShadows, RoundedBox, Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import SceneShell from '@/components/three/SceneShell';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
-function HeroCore() {
+function useScrollProgress(targetId?: string) {
+  const progressRef = useRef(0);
+
+  useEffect(() => {
+    if (!targetId) return;
+
+    let frame = 0;
+
+    const update = () => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const travel = Math.max(rect.height - window.innerHeight, 1);
+      progressRef.current = THREE.MathUtils.clamp(-rect.top / travel, 0, 1);
+    };
+
+    const scheduleUpdate = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+    };
+  }, [targetId]);
+
+  return progressRef;
+}
+
+function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
   const groupRef = useRef<THREE.Group>(null);
   const coreRef = useRef<THREE.Group>(null);
   const shellRef = useRef<THREE.Mesh>(null);
@@ -15,37 +51,47 @@ function HeroCore() {
   const orbitBRef = useRef<THREE.Group>(null);
   const bladeRef = useRef<THREE.Group>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const progressRef = useScrollProgress(scrollTargetId);
 
   useFrame((state, delta) => {
-    if (!groupRef.current || reducedMotion) return;
+    if (!groupRef.current) return;
     const elapsed = state.clock.elapsedTime;
+    const progress = progressRef.current;
+    const eased = THREE.MathUtils.smoothstep(progress, 0, 1);
+    const motionScale = reducedMotion ? 0.28 : 1;
 
-    groupRef.current.rotation.y = Math.sin(elapsed * 0.22) * 0.12 - 0.34;
-    groupRef.current.rotation.x = Math.sin(elapsed * 0.18) * 0.06;
-    groupRef.current.position.y = Math.sin(elapsed * 0.42) * 0.08;
+    groupRef.current.rotation.y = Math.sin(elapsed * 0.22) * 0.12 * motionScale + THREE.MathUtils.lerp(-0.34, 0.48, eased);
+    groupRef.current.rotation.x = Math.sin(elapsed * 0.18) * 0.06 * motionScale + eased * 0.1;
+    groupRef.current.position.x = THREE.MathUtils.lerp(0.62, -0.08, eased);
+    groupRef.current.position.y = THREE.MathUtils.lerp(-0.03, 0.08, eased) + Math.sin(elapsed * 0.42) * 0.08 * motionScale;
+    groupRef.current.position.z = THREE.MathUtils.lerp(-0.1, -0.78, eased);
+    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.92, 0.74, eased));
 
     if (coreRef.current) {
-      coreRef.current.rotation.y += delta * 0.42;
-      coreRef.current.rotation.z -= delta * 0.18;
+      coreRef.current.rotation.y += delta * (0.42 + eased * 0.65) * motionScale;
+      coreRef.current.rotation.z -= delta * (0.18 + eased * 0.28) * motionScale;
     }
 
     if (shellRef.current) {
-      shellRef.current.rotation.y -= delta * 0.18;
-      shellRef.current.scale.setScalar(1 + Math.sin(elapsed * 1.2) * 0.018);
+      shellRef.current.rotation.y -= delta * (0.18 + eased * 0.42) * motionScale;
+      shellRef.current.scale.setScalar(1 + eased * 0.18 + Math.sin(elapsed * 1.2) * 0.018 * motionScale);
     }
 
     if (orbitARef.current) {
-      orbitARef.current.rotation.z += delta * 0.64;
-      orbitARef.current.rotation.y = Math.sin(elapsed * 0.36) * 0.18;
+      orbitARef.current.rotation.z += delta * (0.64 + eased * 0.8) * motionScale;
+      orbitARef.current.rotation.y = Math.sin(elapsed * 0.36) * 0.18 * motionScale + eased * 0.36;
+      orbitARef.current.scale.setScalar(THREE.MathUtils.lerp(1, 1.32, eased));
     }
 
     if (orbitBRef.current) {
-      orbitBRef.current.rotation.x -= delta * 0.48;
-      orbitBRef.current.rotation.z += delta * 0.22;
+      orbitBRef.current.rotation.x -= delta * (0.48 + eased * 0.56) * motionScale;
+      orbitBRef.current.rotation.z += delta * (0.22 + eased * 0.42) * motionScale;
+      orbitBRef.current.scale.setScalar(THREE.MathUtils.lerp(1, 1.18, eased));
     }
 
     if (bladeRef.current) {
-      bladeRef.current.rotation.y -= delta * 0.26;
+      bladeRef.current.rotation.y -= delta * (0.26 + eased * 0.55) * motionScale;
+      bladeRef.current.scale.set(1 + eased * 0.32, 1 + eased * 0.08, 1);
     }
   });
 
@@ -139,10 +185,10 @@ function HeroCore() {
   );
 }
 
-export default function HomeHeroScene({ className }: { className?: string }) {
+export default function HomeHeroScene({ className, scrollTargetId }: { className?: string; scrollTargetId?: string }) {
   return (
     <SceneShell className={className} cameraPosition={[0, 0.25, 5.7]}>
-      <HeroCore />
+      <HeroCore scrollTargetId={scrollTargetId} />
     </SceneShell>
   );
 }
