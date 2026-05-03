@@ -1,74 +1,91 @@
 import { MetadataRoute } from 'next';
+import { locales, withLocale } from '@/lib/i18n';
+import { getProjectSlugs } from '@/lib/projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 🔥 ÖNEMLİ: www eklendi. Metadata ayarlarıyla birebir tutmalı.
   const baseUrl = 'https://www.traxleapp.com';
+  const lastModified = new Date();
+  const localizedPages = ['', '/projects', '/about', '/services', '/contact'];
+  const localizedEntries = locales.flatMap((locale) => [
+    ...localizedPages.map((path) => ({
+      url: `${baseUrl}${withLocale(locale, path)}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: path === '' ? 1 : 0.8,
+    })),
+    ...getProjectSlugs().map((slug) => ({
+      url: `${baseUrl}${withLocale(locale, `/projects/${slug}`)}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]);
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 1,
     },
+    ...localizedEntries,
     {
       url: `${baseUrl}/ozellikler`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/fiyatlandirma`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/iletisim`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/giris`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.6,
     },
     {
       url: `${baseUrl}/kunyex`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/molatik`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/barkodx`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // 👇 HUKUKİ SAYFALAR (Google güveni için önemli)
     {
       url: `${baseUrl}/gizlilik-politikasi`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/kullanim-kosullari`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/iptal-iade`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },

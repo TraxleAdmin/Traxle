@@ -50,7 +50,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-1 rounded-full border border-slate-200 bg-slate-50/70 p-1 dark:border-white/10 dark:bg-white/5 lg:flex">
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = pathname === item.href || (item.href !== withLocale(locale) && pathname.startsWith(`${item.href}/`));
             return (
               <Link
                 key={item.href}

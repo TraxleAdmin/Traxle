@@ -9,6 +9,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const links = [
     { href: withLocale(locale), label: dictionary.nav.home },
     { href: withLocale(locale, '/projects'), label: dictionary.nav.projects },
+    { href: withLocale(locale, '/about'), label: dictionary.nav.about },
     { href: withLocale(locale, '/services'), label: dictionary.nav.services },
     { href: withLocale(locale, '/contact'), label: dictionary.nav.contact },
   ];

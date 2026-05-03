@@ -4,6 +4,41 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'tr';
 
+export type RouteKey = 'projects' | 'about' | 'services' | 'contact';
+
+export const routeKeys = ['projects', 'about', 'services', 'contact'] as const satisfies readonly RouteKey[];
+
+export const localizedRouteSlugs: Record<RouteKey, Record<Locale, string>> = {
+  projects: {
+    tr: 'projeler',
+    en: 'projects',
+    de: 'projekte',
+    ar: 'المشاريع',
+    ru: 'проекты',
+  },
+  about: {
+    tr: 'hakkimizda',
+    en: 'about',
+    de: 'ueber-uns',
+    ar: 'من-نحن',
+    ru: 'о-нас',
+  },
+  services: {
+    tr: 'hizmetler',
+    en: 'services',
+    de: 'dienstleistungen',
+    ar: 'الخدمات',
+    ru: 'услуги',
+  },
+  contact: {
+    tr: 'iletisim',
+    en: 'contact',
+    de: 'kontakt',
+    ar: 'تواصل',
+    ru: 'контакты',
+  },
+};
+
 export type Dictionary = {
   dir: 'ltr' | 'rtl';
   languageLabel: string;
@@ -687,14 +722,70 @@ export function getLocaleFromPathname(pathname: string | null | undefined): Loca
   return isLocale(segment) ? segment : defaultLocale;
 }
 
+function decodeSegment(segment: string) {
+  try {
+    return decodeURIComponent(segment);
+  } catch {
+    return segment;
+  }
+}
+
+function normalizeSegment(segment: string) {
+  return decodeSegment(segment).toLocaleLowerCase();
+}
+
+export function getCanonicalRouteKey(segment: string | undefined): RouteKey | null {
+  if (!segment) return null;
+  const normalizedSegment = normalizeSegment(segment);
+  return routeKeys.find((key) => key === normalizedSegment) ?? null;
+}
+
+export function resolveLocalizedRouteKey(locale: Locale, segment: string | undefined): RouteKey | null {
+  if (!segment) return null;
+  const normalizedSegment = normalizeSegment(segment);
+
+  return (
+    routeKeys.find((key) => {
+      const localizedSlug = localizedRouteSlugs[key][locale];
+      return normalizeSegment(localizedSlug) === normalizedSegment || key === normalizedSegment;
+    }) ?? null
+  );
+}
+
+export function getLocalizedPath(locale: Locale, routeKey: RouteKey, rest: string[] = []) {
+  const localizedSlug = localizedRouteSlugs[routeKey][locale];
+  const suffix = rest.filter(Boolean).join('/');
+  return `/${locale}/${localizedSlug}${suffix ? `/${suffix}` : ''}`;
+}
+
 export function withLocale(locale: Locale, path = '') {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `/${locale}${normalizedPath === '/' ? '' : normalizedPath}`;
+  const segments = normalizedPath.split('/').filter(Boolean);
+  const pathSegments = isLocale(segments[0]) ? segments.slice(1) : segments;
+
+  if (pathSegments.length === 0) {
+    return `/${locale}`;
+  }
+
+  const routeKey = resolveLocalizedRouteKey(locale, pathSegments[0]) ?? getCanonicalRouteKey(pathSegments[0]);
+
+  if (routeKey) {
+    return getLocalizedPath(locale, routeKey, pathSegments.slice(1));
+  }
+
+  return `/${locale}/${pathSegments.join('/')}`;
 }
 
 export function switchLocalePath(pathname: string, nextLocale: Locale) {
   const segments = pathname.split('/').filter(Boolean);
   if (isLocale(segments[0])) {
+    const currentLocale = segments[0];
+    const routeKey = resolveLocalizedRouteKey(currentLocale, segments[1]);
+
+    if (routeKey) {
+      return getLocalizedPath(nextLocale, routeKey, segments.slice(2));
+    }
+
     segments[0] = nextLocale;
     return `/${segments.join('/')}`;
   }

@@ -1,7 +1,7 @@
 // src/proxy.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { defaultLocale, isLocale } from '@/lib/i18n';
+import { defaultLocale, getCanonicalRouteKey, isLocale, localizedRouteSlugs, withLocale } from '@/lib/i18n';
 
 // 1. KİLİTLENMEYECEK ROTALAR (Whitelist)
 // Bu yollar bakım modunda olsa bile ERİŞİLEBİLİR kalacak.
@@ -36,6 +36,16 @@ export default async function proxy(request: NextRequest) {
   // ----------------------------------------------------------------------
   if (PUBLIC_ASSETS.some((path) => pathname.startsWith(path))) {
     return NextResponse.next();
+  }
+
+  const segments = pathname.split('/').filter(Boolean);
+  const locale = segments[0];
+  const canonicalRouteKey = isLocale(locale) ? getCanonicalRouteKey(segments[1]) : null;
+
+  if (isLocale(locale) && locale !== 'en' && canonicalRouteKey && localizedRouteSlugs[canonicalRouteKey][locale] !== segments[1]) {
+    const url = request.nextUrl.clone();
+    url.pathname = withLocale(locale, `/${canonicalRouteKey}/${segments.slice(2).join('/')}`);
+    return NextResponse.redirect(url, 308);
   }
 
   // ----------------------------------------------------------------------

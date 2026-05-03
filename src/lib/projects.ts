@@ -1,5 +1,5 @@
 import type { Locale } from '@/lib/i18n';
-import { defaultLocale } from '@/lib/i18n';
+import { defaultLocale, withLocale } from '@/lib/i18n';
 
 export type ProjectStatus = 'active' | 'development' | 'concept';
 
@@ -241,7 +241,7 @@ export function getProjects(locale: Locale = defaultLocale): Project[] {
     ...copy[project.slug],
     cta: {
       ...copy[project.slug].cta,
-      href: `/${locale}${copy[project.slug].cta.href}`,
+      href: withLocale(locale, copy[project.slug].cta.href),
     },
   }));
 }
