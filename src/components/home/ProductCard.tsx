@@ -18,8 +18,10 @@ export default function ProductCard({
       href={href}
       className="group block h-full rounded-[1.4rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
     >
-      <article className="relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-2xl transition duration-500 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.075] sm:p-5">
+      <article className="relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-2xl transition duration-500 [transform-style:preserve-3d] hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.075] sm:p-5">
         <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] opacity-0 transition duration-500 group-hover:opacity-100" style={{ boxShadow: `inset 0 0 0 1px ${product.accent}55, 0 0 60px ${product.accent}18` }} />
+        <div className="pointer-events-none absolute -left-24 top-10 h-px w-72 rotate-[-16deg] bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 blur-[0.5px] transition duration-700 group-hover:left-10 group-hover:opacity-80" />
+        <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-3xl" style={{ backgroundColor: `${product.accent}18` }} />
         <ProductGlyph kind={product.visualKind} accent={product.accent} />
         <div className="relative mt-5 flex flex-1 flex-col">
           <div className="mb-4 flex items-center justify-between gap-3">

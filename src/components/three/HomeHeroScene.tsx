@@ -62,7 +62,7 @@ function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
 
     groupRef.current.rotation.y = Math.sin(elapsed * 0.22) * 0.12 * motionScale + THREE.MathUtils.lerp(-0.34, 0.48, eased);
     groupRef.current.rotation.x = Math.sin(elapsed * 0.18) * 0.06 * motionScale + eased * 0.1;
-    groupRef.current.position.x = THREE.MathUtils.lerp(0.62, -0.08, eased);
+    groupRef.current.position.x = THREE.MathUtils.lerp(-0.18, -0.62, eased);
     groupRef.current.position.y = THREE.MathUtils.lerp(-0.03, 0.08, eased) + Math.sin(elapsed * 0.42) * 0.08 * motionScale;
     groupRef.current.position.z = THREE.MathUtils.lerp(-0.1, -0.78, eased);
     groupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.92, 0.74, eased));
@@ -96,7 +96,7 @@ function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
   });
 
   return (
-    <group ref={groupRef} position={[0.62, -0.03, -0.1]} rotation={[0.08, -0.34, 0.04]} scale={0.92}>
+    <group ref={groupRef} position={[-0.18, -0.03, -0.1]} rotation={[0.08, -0.34, 0.04]} scale={0.92}>
       <group ref={coreRef}>
         <mesh>
           <dodecahedronGeometry args={[0.82, 1]} />

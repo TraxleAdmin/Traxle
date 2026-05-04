@@ -1,5 +1,7 @@
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
-import ProductGlyph from '@/components/home/ProductGlyph';
+import PremiumLightField from '@/components/effects/PremiumLightField';
+import ProductExperienceScene from '@/components/products/ProductExperienceScene';
+import ProductLiveDemo from '@/components/products/ProductLiveDemo';
 import { Button } from '@/components/ui/Button';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import type { Dictionary, Locale } from '@/lib/i18n';
@@ -16,8 +18,19 @@ export default function ProductHero({
   product: Project;
 }) {
   return (
-    <section className="relative overflow-hidden bg-[#030712] pb-16 pt-32 text-white sm:pt-36 lg:pb-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_20%,rgba(34,211,238,0.22),transparent_34%),linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:auto,42px_42px,42px_42px]" />
+    <section className="relative isolate overflow-hidden bg-[#030712] pb-16 pt-32 text-white sm:pt-36 lg:min-h-screen lg:pb-24">
+      <PremiumLightField accent={product.accent} />
+      <ProductExperienceScene
+        kind={product.visualKind}
+        accent={product.accent}
+        className="inset-x-[-18%] bottom-auto top-14 h-[560px] opacity-42 [mask-image:radial-gradient(circle_at_50%_34%,black,transparent_72%)] lg:bottom-0 lg:left-[27%] lg:right-[31%] lg:top-8 lg:h-auto lg:opacity-90 lg:[mask-image:radial-gradient(circle_at_50%_45%,black,transparent_74%)]"
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `radial-gradient(circle at 78% 22%, ${product.accent}24, transparent 30%), linear-gradient(90deg, #030712 0%, rgba(3,7,18,0.9) 44%, rgba(3,7,18,0.28) 100%)`,
+        }}
+      />
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-10">
         <div>
           <div className="mb-6 flex flex-wrap items-center gap-3">
@@ -45,11 +58,9 @@ export default function ProductHero({
             </Button>
           )}
         </div>
-        <div className="relative">
-          <div className="absolute inset-8 rounded-full blur-3xl" style={{ backgroundColor: `${product.accent}22` }} />
-          <div className="relative rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_28px_110px_rgba(0,0,0,0.38)] backdrop-blur-2xl sm:p-6">
-            <ProductGlyph kind={product.visualKind} accent={product.accent} />
-          </div>
+        <div className="relative min-h-[440px]">
+          <div className="absolute inset-0 rounded-full blur-3xl" style={{ backgroundColor: `${product.accent}1f` }} />
+          <ProductLiveDemo product={product} />
         </div>
       </div>
     </section>

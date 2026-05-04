@@ -11,9 +11,14 @@ export default function ProductCTA({
   product: Project;
 }) {
   return (
-    <SectionShell className="bg-[#030712] pb-24 pt-10 text-white">
-      <div className="rounded-[1.5rem] border border-cyan-300/20 bg-white/[0.06] p-6 backdrop-blur-2xl sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
-        <div className="max-w-3xl">
+    <SectionShell className="overflow-hidden bg-[#030712] pb-24 pt-10 text-white">
+      <div
+        className="relative overflow-hidden rounded-[1.5rem] border border-cyan-300/20 bg-white/[0.06] p-6 shadow-[0_28px_110px_rgba(0,0,0,0.32)] backdrop-blur-2xl sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10"
+        style={{ boxShadow: `0 28px 110px rgba(0,0,0,0.32), inset 0 0 0 1px ${product.accent}18` }}
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-80" style={{ background: `radial-gradient(circle at 84% 22%, ${product.accent}24, transparent 32%)` }} />
+        <span className="pointer-events-none absolute -left-20 top-0 h-px w-80 rotate-[-12deg] bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+        <div className="relative max-w-3xl">
           <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">{dictionary.productDetail.demoTitle}</h2>
           <p className="mt-5 text-base leading-8 text-slate-300">{dictionary.productDetail.demoDescription}</p>
         </div>

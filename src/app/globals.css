@@ -71,6 +71,188 @@ body {
   }
 }
 
+@keyframes premium-aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, -4%, 0) rotate(18deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes premium-curtain-drift {
+  0% {
+    transform: translate3d(-8%, -4%, 0) rotate(-8deg);
+  }
+  50% {
+    transform: translate3d(8%, 3%, 0) rotate(-3deg);
+  }
+  100% {
+    transform: translate3d(-8%, -4%, 0) rotate(-8deg);
+  }
+}
+
+@keyframes premium-sweep {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20vw, 0, 0) rotate(-11deg);
+  }
+  14% {
+    opacity: 0.9;
+  }
+  78% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(130vw, 0, 0) rotate(-11deg);
+  }
+}
+
+@keyframes premium-flare-drift {
+  0%, 100% {
+    opacity: 0.18;
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate3d(18px, -14px, 0) scale(1.14);
+  }
+}
+
+@keyframes premium-glint-pulse {
+  0%, 100% {
+    opacity: 0.24;
+    transform: scale(0.76);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes premium-circuit-flow {
+  0% {
+    background-position: 0 0, 0 0;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.56;
+  }
+  100% {
+    background-position: 72px 0, 0 72px;
+    opacity: 0.2;
+  }
+}
+
+.premium-depth-grid {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--premium-accent) 20%, transparent), transparent 48%);
+  background-size: 46px 46px, 46px 46px, auto;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.premium-aurora {
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 42% 36%, color-mix(in srgb, var(--premium-accent) 36%, transparent), transparent 42%),
+    radial-gradient(circle at 70% 64%, rgba(255, 255, 255, 0.16), transparent 38%);
+  filter: blur(72px);
+  animation: premium-aurora-drift 15s ease-in-out infinite;
+}
+
+.premium-aurora-alt {
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.premium-light-curtain {
+  background:
+    linear-gradient(106deg, transparent 8%, color-mix(in srgb, var(--premium-accent) 24%, transparent) 26%, rgba(255, 255, 255, 0.12) 34%, transparent 47%),
+    linear-gradient(74deg, transparent 52%, rgba(255, 255, 255, 0.1) 60%, color-mix(in srgb, var(--premium-accent) 18%, transparent) 69%, transparent 84%);
+  filter: blur(20px);
+  transform-origin: center;
+  animation: premium-curtain-drift 17s ease-in-out infinite;
+  mask-image: linear-gradient(to bottom, black, transparent 76%);
+}
+
+.premium-flare {
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.12) 15%, color-mix(in srgb, var(--premium-accent) 38%, transparent) 34%, transparent 68%);
+  filter: blur(18px);
+  animation: premium-flare-drift 8.4s ease-in-out infinite;
+}
+
+.premium-flare-alt {
+  animation-duration: 10.8s;
+  animation-delay: -3s;
+}
+
+.premium-sweep {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--premium-accent) 82%, white 18%), rgba(255, 255, 255, 0.88), transparent);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--premium-accent) 52%, transparent);
+  animation: premium-sweep 9.6s linear infinite;
+}
+
+.premium-sweep-b {
+  animation-duration: 12.4s;
+  animation-delay: -4s;
+}
+
+.premium-circuit {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, transparent 0 34%, color-mix(in srgb, var(--premium-accent) 34%, transparent) 34% 36%, transparent 36% 100%),
+    linear-gradient(0deg, transparent 0 48%, rgba(255, 255, 255, 0.12) 48% 50%, transparent 50% 100%);
+  background-size: 72px 72px;
+  filter: drop-shadow(0 0 24px color-mix(in srgb, var(--premium-accent) 22%, transparent));
+  animation: premium-circuit-flow 9.5s linear infinite;
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+
+.premium-circuit-alt {
+  animation-duration: 13s;
+  animation-delay: -5s;
+}
+
+.premium-glint {
+  height: 7px;
+  width: 7px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 18px #ffffff,
+    0 0 42px var(--premium-accent);
+  animation: premium-glint-pulse 3.4s ease-in-out infinite;
+}
+
+.premium-glint-delayed {
+  animation-delay: -1.4s;
+}
+
+.premium-glint-slow {
+  animation-duration: 4.8s;
+  animation-delay: -2.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-aurora,
+  .premium-light-curtain,
+  .premium-flare,
+  .premium-sweep,
+  .premium-circuit,
+  .premium-glint {
+    animation: none;
+  }
+}
+
 /* Lenis CSS (Smooth Scrolling) */
 html.lenis, html.lenis body {
   height: auto;
