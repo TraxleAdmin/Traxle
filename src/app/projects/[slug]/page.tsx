@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { withLocale } from '@/lib/i18n';
 
 export default async function ProjectRedirect({
   params,
@@ -6,5 +7,5 @@ export default async function ProjectRedirect({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  redirect(`/tr/projects/${slug}`);
+  redirect(withLocale('tr', `/projects/${slug}`));
 }

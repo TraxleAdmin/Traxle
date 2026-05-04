@@ -1,7 +1,15 @@
 // src/proxy.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { defaultLocale, getCanonicalRouteKey, isLocale, localizedRouteSlugs, withLocale } from '@/lib/i18n';
+import {
+  defaultLocale,
+  getCanonicalRouteKey,
+  getLocalizedPath,
+  getMolatikPrivacyPath,
+  isLocale,
+  isMolatikPrivacySlug,
+  resolveLocalizedRouteKey,
+} from '@/lib/i18n';
 
 // 1. KİLİTLENMEYECEK ROTALAR (Whitelist)
 // Bu yollar bakım modunda olsa bile ERİŞİLEBİLİR kalacak.
@@ -20,6 +28,14 @@ function getRequestHeadersWithLocale(request: NextRequest) {
 }
 
 // 🔥 KRİTİK DEĞİŞİKLİK BURADA: "export default async function proxy" olarak güncellendi.
+function decodePathname(pathname: string) {
+  try {
+    return decodeURIComponent(pathname);
+  } catch {
+    return pathname;
+  }
+}
+
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -40,12 +56,30 @@ export default async function proxy(request: NextRequest) {
 
   const segments = pathname.split('/').filter(Boolean);
   const locale = segments[0];
-  const canonicalRouteKey = isLocale(locale) ? getCanonicalRouteKey(segments[1]) : null;
+  const decodedPathname = decodePathname(pathname);
 
-  if (isLocale(locale) && locale !== 'en' && canonicalRouteKey && localizedRouteSlugs[canonicalRouteKey][locale] !== segments[1]) {
-    const url = request.nextUrl.clone();
-    url.pathname = withLocale(locale, `/${canonicalRouteKey}/${segments.slice(2).join('/')}`);
-    return NextResponse.redirect(url, 308);
+  if (isLocale(locale) && segments[1] === 'molatik' && isMolatikPrivacySlug(segments[2])) {
+    const target = getMolatikPrivacyPath(locale);
+
+    if (decodedPathname !== target) {
+      const url = request.nextUrl.clone();
+      url.pathname = target;
+      return NextResponse.redirect(url, 308);
+    }
+  }
+
+  const routeKey = isLocale(locale)
+    ? resolveLocalizedRouteKey(locale, segments[1]) ?? getCanonicalRouteKey(segments[1])
+    : null;
+
+  if (isLocale(locale) && routeKey) {
+    const target = getLocalizedPath(locale, routeKey, segments.slice(2));
+
+    if (decodedPathname !== target) {
+      const url = request.nextUrl.clone();
+      url.pathname = target;
+      return NextResponse.redirect(url, 308);
+    }
   }
 
   // ----------------------------------------------------------------------

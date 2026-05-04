@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
-const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
-
 // --- KORUNAN LOGO YOLLARI (Traxle Yazısı) ---
 const logoPaths = [
   "M57.8 149.8h25.9l19.7.1 28.7.2a9872 9872 0 0 1 91.5.4h16.8l115.6.5c.9 3.8 1.1 5.6-.8 9.2l-1.2 2.3-1.4 2.4-1.4 2.6q-4.5 8.4-9.8 16.3-4.4 6.7-8.3 13.6-5.2 9-10.7 17.6l-1.3 2c-3 4.9-3 4.9-4.1 6l-4.1.2h-2.7l-3 .1H304l-10.3.3h-3.5q-39.6.7-79.2.4l-.1 1.9c-1.5 28-4.1 55.9-6.6 83.8L195.6 410l-1.4 17.5q-1.6 19.6-3.7 39.3l-.4 3.3-.3 3.1-.3 2.7c-.5 2.2-.5 2.2-2.5 4.2-2.9.2-2.9.2-6.6.2h-60.6c-2.8-.2-2.8-.2-3.8-1.2a69 69 0 0 1 .5-7.7l.2-3.5.3-3.6 4.6-56 7-79.2q3.1-32.5 5.8-65.1l.2-3.1.7-8.6.2-2.3q.8-13 1.5-25.9l-115.2.1h-3.6A138 138 0 0 1 0 223c.5-5.4 3.4-9.2 6.3-13.6l3.3-5.2 1.7-2.6 7.7-12.1 13.6-21.8L37 161l1.6-2.6c5.5-8 9.8-8.8 19.2-8.6",
@@ -26,18 +24,19 @@ interface SplashScreenProps {
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
   const pathname = usePathname();
   const [showSplash, setShowSplash] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
 
-  const isLocalizedRoute = localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`));
+  const shouldShowSplash = pathname === '/';
 
   useEffect(() => {
-    setIsMounted(true);
     const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
 
     if (hasSeenSplash) {
-      setShowSplash(false);
-      if (onFinished) onFinished();
-      return;
+      const frameId = window.requestAnimationFrame(() => {
+        setShowSplash(false);
+        if (onFinished) onFinished();
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
     }
 
     sessionStorage.setItem('hasSeenSplash', 'true');
@@ -49,12 +48,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinished }) => {
     return () => clearTimeout(timer);
   }, [onFinished]);
 
-  if (isLocalizedRoute) {
+  if (!shouldShowSplash) {
     return null;
-  }
-
-  if (!isMounted) {
-    return <div className="fixed inset-0 z-[9999] bg-[#02040A]"></div>;
   }
 
   return (

@@ -46,7 +46,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
   };
 
   return (
-    <div ref={containerRef} className={cn('relative', compact && 'w-full')}>
+    <div ref={containerRef} className={cn('relative', compact && 'min-w-[88px]')}>
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
@@ -55,7 +55,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         aria-label={dictionary.languageLabel}
         className={cn(
           'group inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/86 px-3 text-sm font-black text-slate-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_12px_34px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition hover:border-cyan-300/70 hover:shadow-[0_0_34px_rgba(0,194,255,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/10 dark:bg-white/8 dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_14px_38px_rgba(0,0,0,0.35)]',
-          compact ? 'w-full justify-between px-4' : 'min-w-[154px]',
+          compact ? 'min-w-[88px] px-3' : 'min-w-[154px]',
         )}
       >
         <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cyan-300/16 text-cyan-700 dark:text-cyan-100">
@@ -73,7 +73,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
           role="menu"
           className={cn(
             'absolute right-0 top-[calc(100%+0.6rem)] z-50 w-64 overflow-hidden rounded-[1.35rem] border border-slate-200/80 bg-white/92 p-2 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#05070d]/92 dark:shadow-[0_24px_90px_rgba(0,0,0,0.62)]',
-            compact && 'left-0 right-auto w-full',
+            compact && 'w-64',
           )}
         >
           <div className="px-3 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.28em] text-slate-400 dark:text-slate-500">

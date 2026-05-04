@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { locales, withLocale } from '@/lib/i18n';
+import { getMolatikPrivacyPath, locales, withLocale } from '@/lib/i18n';
 import { getProjectSlugs } from '@/lib/projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
+    {
+      url: `${baseUrl}${getMolatikPrivacyPath(locale)}`,
+      lastModified,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
   ]);
 
   return [
@@ -52,24 +58,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'yearly',
       priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/kunyex`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/molatik`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/barkodx`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
     },
     {
       url: `${baseUrl}/gizlilik-politikasi`,

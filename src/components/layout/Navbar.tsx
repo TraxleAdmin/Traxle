@@ -83,15 +83,26 @@ export default function Navbar() {
           </Button>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen((open) => !open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 dark:border-white/10 dark:bg-white/8 dark:text-white lg:hidden"
-          aria-label="Menu"
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher compact />
+          <button
+            type="button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/8 text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8 dark:text-white"
+            aria-label={dictionary.themeLabel}
+          >
+            {themeIcon}
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/8 text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8 dark:text-white"
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </nav>
 
       {mobileOpen && (
@@ -108,17 +119,9 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-          <div className="mt-3 flex items-center gap-2 border-t border-slate-200 pt-3 dark:border-white/10">
-            <LanguageSwitcher compact />
-            <button
-              type="button"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 dark:border-white/10 dark:bg-white/10 dark:text-white"
-              aria-label={dictionary.themeLabel}
-            >
-              {themeIcon}
-            </button>
-          </div>
+          <Button href={withLocale(locale, '/contact')} className="mt-3 w-full">
+            {dictionary.home.secondaryCta}
+          </Button>
         </div>
       )}
     </header>

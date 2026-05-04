@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, Variants } from 'framer-motion';
-import { db } from '@/lib/firebase';
-import { doc, getDoc } from 'firebase/firestore';
 import {
   FiCpu, FiGlobe, FiShield, FiActivity, FiLayers, FiDatabase, FiCheckCircle,
   FiTarget, FiLock, FiSmartphone
@@ -11,19 +9,28 @@ import {
 import UnifiedCard from '@/components/ui/UnifiedCard';
 import TextShimmer from '@/components/ui/TextShimmer';
 
-const AnimatedCounter = ({ end, duration = 2000, suffix = '', prefix = '' }: any) => {
+type AnimatedCounterProps = {
+  end: number;
+  duration?: number;
+  suffix?: string;
+  prefix?: string;
+};
+
+const AnimatedCounter = ({ end, duration = 2000, suffix = '', prefix = '' }: AnimatedCounterProps) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (end === 0) { setCount(0); return; }
     let startTimestamp: number | null = null;
+    let frameId = 0;
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
       setCount(Math.floor(progress * end));
-      if (progress < 1) window.requestAnimationFrame(step);
+      if (progress < 1) frameId = window.requestAnimationFrame(step);
     };
-    window.requestAnimationFrame(step);
+    frameId = window.requestAnimationFrame(step);
+
+    return () => window.cancelAnimationFrame(frameId);
   }, [end, duration]);
 
   return <span className="font-mono">{prefix}{count.toLocaleString('tr-TR')}{suffix}</span>;
@@ -31,7 +38,7 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = '', prefix = '' }: any
 
 export default function AboutPage() {
   // Ekosistem metrikleri (Örnek değerler, dilersen veritabanından çekilebilir)
-  const [stats, setStats] = useState({ activeUsers: 4500, transactions: 125000, uptime: 99 });
+  const stats = { activeUsers: 4500, transactions: 125000, uptime: 99 };
 
   const fadeInUp: Variants = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
   const staggerContainer: Variants = { visible: { transition: { staggerChildren: 0.15 } } };
@@ -63,7 +70,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-            Traxle; fiziksel dünyadaki operasyonları dijital evrenle buluşturan, yapay zeka destekli ve askeri düzeyde şifrelenmiş B2B SaaS (Hizmet Olarak Yazılım) ürünleri geliştiren bağımsız bir teknoloji şirketidir.
+            Traxle; stok, personel, belge ve lojistik operasyonlarını daha düzenli yönetmek için B2B SaaS ürünleri geliştiren bağımsız bir teknoloji şirketidir.
           </p>
         </motion.div>
 
@@ -86,7 +93,7 @@ export default function AboutPage() {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-200 dark:hover:border-blue-500/30 transition-colors">
                   <div className="flex items-center gap-3 text-base font-bold text-gray-900 dark:text-white mb-2"><FiCheckCircle className="text-emerald-500 text-xl" /> Zero-Trust Mimarisi</div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Tüm ürünlerimizde "Sıfır Güven" politikası uygularız. Verileriniz donanım kimlikleriyle (HWID) kilitlenir ve uçtan uca şifrelenir.</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Tüm ürünlerimizde Sıfır Güven politikası uygularız. Verileriniz donanım kimlikleriyle (HWID) kilitlenir ve uçtan uca şifrelenir.</p>
                 </div>
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-200 dark:hover:border-blue-500/30 transition-colors">
                   <div className="flex items-center gap-3 text-base font-bold text-gray-900 dark:text-white mb-2"><FiGlobe className="text-blue-500 text-xl" /> Cloud-Native Altyapı</div>

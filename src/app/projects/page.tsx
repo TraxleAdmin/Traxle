@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
+import { withLocale } from '@/lib/i18n';
 
 export default function ProjectsRedirect() {
-  redirect('/tr/projects');
+  redirect(withLocale('tr', '/projects'));
 }

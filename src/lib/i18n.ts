@@ -10,11 +10,11 @@ export const routeKeys = ['projects', 'about', 'services', 'contact'] as const s
 
 export const localizedRouteSlugs: Record<RouteKey, Record<Locale, string>> = {
   projects: {
-    tr: 'projeler',
-    en: 'projects',
-    de: 'projekte',
-    ar: 'المشاريع',
-    ru: 'проекты',
+    tr: 'urunler',
+    en: 'products',
+    de: 'produkte',
+    ar: 'المنتجات',
+    ru: 'продукты',
   },
   about: {
     tr: 'hakkimizda',
@@ -39,6 +39,29 @@ export const localizedRouteSlugs: Record<RouteKey, Record<Locale, string>> = {
   },
 };
 
+const localizedRouteAliases: Record<RouteKey, Partial<Record<Locale, string[]>>> = {
+  projects: {
+    tr: ['projeler'],
+    en: ['projects'],
+    de: ['projekte'],
+    ar: ['المشاريع'],
+    ru: ['проекты'],
+  },
+  about: {},
+  services: {},
+  contact: {},
+};
+
+export const localizedMolatikPrivacySlugs: Record<Locale, string> = {
+  tr: 'gizlilik',
+  en: 'privacy',
+  de: 'datenschutz',
+  ar: 'الخصوصية',
+  ru: 'конфиденциальность',
+};
+
+export type ProductVisualKind = 'barcode' | 'timer' | 'document' | 'logistics';
+
 export type Dictionary = {
   dir: 'ltr' | 'rtl';
   languageLabel: string;
@@ -62,15 +85,17 @@ export type Dictionary = {
     primaryCta: string;
     secondaryCta: string;
     proof: string[];
-    processTitle: string;
-    processDescription: string;
-    process: Array<{
-      value: string;
-      label: string;
+    productsTitle: string;
+    productsDescription: string;
+    howTitle: string;
+    howDescription: string;
+    howSteps: Array<{
+      title: string;
       description: string;
     }>;
-    hubTitle: string;
-    hubDescription: string;
+    demoTitle: string;
+    demoDescription: string;
+    demoLabel: string;
   };
   projects: {
     eyebrow: string;
@@ -82,6 +107,16 @@ export type Dictionary = {
     features: string;
     model: string;
     overview: string;
+  };
+  productDetail: {
+    whatItDoes: string;
+    features: string;
+    useCases: string;
+    demoTitle: string;
+    demoDescription: string;
+    demoLabel: string;
+    backToProducts: string;
+    privacyLabel: string;
   };
   about: {
     eyebrow: string;
@@ -112,6 +147,29 @@ export type Dictionary = {
     description: string;
     label: string;
   };
+  privacy: {
+    title: string;
+    lastUpdated: string;
+    intro: string;
+    collectedTitle: string;
+    collectedItems: string[];
+    useTitle: string;
+    useItems: string[];
+    sharingTitle: string;
+    sharingText: string;
+    retentionTitle: string;
+    retentionText: string;
+    securityTitle: string;
+    securityText: string;
+    rightsTitle: string;
+    rightsItems: string[];
+    childrenTitle: string;
+    childrenText: string;
+    changesTitle: string;
+    changesText: string;
+    contactTitle: string;
+    contactEmail: string;
+  };
   footer: {
     description: string;
     rights: string;
@@ -133,113 +191,148 @@ export const dictionaries: Record<Locale, Dictionary> = {
     themeLabel: 'Tema değiştir',
     nav: {
       home: 'Ana sayfa',
-      projects: 'Projeler',
+      projects: 'Ürünler',
       about: 'Hakkımızda',
-      services: 'Servisler',
+      services: 'Hizmetler',
       contact: 'İletişim',
     },
     status: {
       active: 'Canlı',
       development: 'Geliştiriliyor',
-      concept: 'Konsept',
+      concept: 'Planlanıyor',
     },
     home: {
-      eyebrow: 'Traxle Project Universe',
-      title: 'Mobil ve masaüstü ürünler için 3D teknoloji evreni.',
+      eyebrow: 'Traxle uygulamaları',
+      title: 'İşletmen için geliştirilen 4 güçlü uygulama',
       description:
-        'Traxle; proje platformları, 3D web arayüzleri ve üretim odaklı yazılım mimarilerini aynı premium dijital çatı altında toplar.',
-      primaryCta: 'Projeleri Keşfet',
+        'Stok, personel, belge ve lojistik süreçlerini yöneten bağımsız ama birlikte çalışan sistemler.',
+      primaryCta: 'Ürünleri Keşfet',
       secondaryCta: 'Demo Talep Et',
-      proof: ['3D arayüz mimarisi', 'Ürün ekosistemi', 'Performans odaklı mühendislik'],
-      processTitle: 'Kurumsal ürün hattı gibi çalışan dijital vitrin',
-      processDescription:
-        'Traxle; strateji, mimari, arayüz ve canlıya çıkış disiplinlerini tek bir kontrollü deneyim akışına bağlar.',
-      process: [
+      proof: ['Stok ve fiyat kontrolü', 'Personel zaman takibi', 'Belge ve saha operasyonu'],
+      productsTitle: 'Traxle uygulamaları',
+      productsDescription: 'İşletmenin farklı operasyon ihtiyaçları için geliştirilen ürünleri keşfet.',
+      howTitle: 'Süreci basitleştir, operasyonu görünür hale getir',
+      howDescription: 'Uygulamayı seç, veriyi düzenle ve günlük operasyon akışını daha ölçülebilir yönet.',
+      howSteps: [
         {
-          value: '01',
-          label: 'Strateji',
-          description: 'Ürün portföyü, hedef kitle ve marka algısı tek bir ekosistem vizyonunda hizalanır.',
+          title: 'İhtiyacın olan uygulamayı seç',
+          description: 'Stok, personel, belge veya lojistik süreçlerinden hangisini yönetmek istediğini belirle.',
         },
         {
-          value: '02',
-          label: 'Mimari',
-          description: 'Web, mobil ve masaüstü yüzeyleri ölçeklenebilir bir teknik temel üzerinde tasarlanır.',
+          title: 'Veriyi düzenli şekilde işle',
+          description: 'Uygulamalar, günlük operasyon verilerini daha takip edilebilir hale getirir.',
         },
         {
-          value: '03',
-          label: 'Deneyim',
-          description: '3D atmosfer, okunabilir HTML içerik ve erişilebilir navigasyon aynı tasarım diliyle birleşir.',
-        },
-        {
-          value: '04',
-          label: 'Yayın',
-          description: 'Performans, SEO ve responsive davranış canlı ortam beklentilerine göre doğrulanır.',
+          title: 'Süreci ölç ve iyileştir',
+          description: 'Daha net kayıtlar, daha hızlı kararlar ve daha kontrollü operasyon akışı sağlar.',
         },
       ],
-      hubTitle: 'Tek çatı altında ölçeklenebilir projeler',
-      hubDescription:
-        'Mevcut ve gelecek ürünler aynı veri yapısı, aynı görsel dil ve aynı erişilebilir web deneyimiyle yönetilir.',
+      demoTitle: 'Traxle uygulamalarını işletmende görmek ister misin?',
+      demoDescription:
+        'BarkodX, Molatik, KünyeX ve Lojistik çözümlerinden hangisinin işletmene uygun olduğunu birlikte değerlendirelim.',
+      demoLabel: 'Demo Talep Et',
     },
     projects: {
-      eyebrow: 'Project Hub',
-      title: 'Traxle ekosistemindeki tüm ürün yüzeyleri.',
-      description:
-        'Her proje, canlı bir 3D portal ve okunabilir HTML içerik katmanıyla aynı evrende konumlanır.',
-      openProject: 'Projeyi aç',
+      eyebrow: 'Ürün vitrini',
+      title: 'Barkod, mola, belge ve lojistik operasyonları için Traxle ürünleri.',
+      description: 'Her ürün net bir iş sürecini çözer ve işletme operasyonunu daha görünür hale getirir.',
+      openProject: 'Ürünü incele',
     },
     detail: {
-      features: 'Öne çıkan özellikler',
-      model: '3D model alanı',
-      overview: 'Proje özeti',
+      features: 'Temel özellikler',
+      model: 'Ürün animasyonu',
+      overview: 'Ürün özeti',
+    },
+    productDetail: {
+      whatItDoes: 'Ne işe yarar?',
+      features: 'Temel özellikler',
+      useCases: 'Kullanım senaryoları',
+      demoTitle: 'Bu ürünü işletmende değerlendirelim',
+      demoDescription: 'İhtiyacını birlikte netleştirip ürünün operasyonuna nasıl uyacağını gösterebiliriz.',
+      demoLabel: 'Demo Talep Et',
+      backToProducts: 'Ürünlere dön',
+      privacyLabel: 'Molatik gizlilik politikasını incele',
     },
     about: {
-      eyebrow: 'Vizyon',
-      title: 'Traxle, ürün geliştirmeyi mühendislik ve tasarım seviyesinde bir ekosisteme dönüştürür.',
+      eyebrow: 'Traxle',
+      title: 'Traxle, işletmeler için operasyon yazılımları geliştirir.',
       description:
-        'Şirketin odağı; mobil, masaüstü ve web ürünlerini tutarlı, ölçülebilir ve yüksek kaliteli dijital deneyimlere çevirmektir.',
-      points: ['Geleceğe hazır mimari', 'Tutarlı ürün dili', 'Gerçek kullanıcı akışlarına göre tasarım'],
+        'Barkod, personel zamanı, belge verisi ve lojistik süreçleri gibi günlük iş akışlarını sade, ölçülebilir ve güvenilir yazılımlara dönüştürür.',
+      points: ['Net ürün odağı', 'Mobil ve web deneyimi', 'Operasyon verisine uygun tasarım'],
     },
     services: {
-      eyebrow: 'Servisler',
-      title: 'Premium yazılım ürünleri için uçtan uca tasarım ve mühendislik.',
+      eyebrow: 'Hizmetler',
+      title: 'Operasyon yazılımları için ürün tasarımı ve mühendislik.',
       description:
-        '3D web deneyiminden ürün platformlarına kadar her katman performans, erişilebilirlik ve sürdürülebilir kod yapısı ile tasarlanır.',
+        'Traxle ürünleri; stok, personel, belge ve saha akışlarını gerçek kullanım senaryolarına göre tasarlanmış arayüzlerle yönetir.',
       items: [
         {
-          title: '3D web arayüzleri',
-          description: 'WebGL, React Three Fiber ve HTML UI birleşimiyle premium, erişilebilir arayüzler.',
+          title: 'Ürün arayüzleri',
+          description: 'İşletme ekiplerinin hızlı anlayacağı, mobilde güçlü çalışan ürün ekranları.',
         },
         {
-          title: 'Ürün platformları',
-          description: 'Mobil, masaüstü ve web ürünlerini ortak veri ve tasarım sistemi altında toplama.',
+          title: 'Operasyon platformları',
+          description: 'Stok, personel, belge ve lojistik verilerini düzenli akışlara dönüştüren sistemler.',
         },
         {
           title: 'Yazılım mimarisi',
-          description: 'Ölçeklenebilir Next.js, API, veri ve dağıtım mimarileri.',
+          description: 'Next.js, Firebase ve API katmanlarıyla sürdürülebilir ürün altyapıları.',
         },
         {
           title: 'Dijital deneyim tasarımı',
-          description: 'Kullanıcı akışları, etkileşim dili ve üretime hazır arayüz sistemleri.',
+          description: 'Okunabilir, erişilebilir ve satış odaklı SaaS ürün vitrini deneyimleri.',
         },
       ],
     },
     contact: {
       eyebrow: 'Demo',
-      title: 'Traxle evrenini ürününüz için birlikte kuralım.',
-      description:
-        'Kısa bir not bırakın; proje kapsamı, 3D deneyim seviyesi ve üretim mimarisi için dönüş yapalım.',
+      title: 'Traxle ürünlerini işletmen için değerlendirelim.',
+      description: 'Kısa bir not bırak; BarkodX, Molatik, KünyeX veya Lojistik için uygun çözümü birlikte belirleyelim.',
       name: 'Ad Soyad',
       email: 'E-posta',
       message: 'Mesaj',
       submit: 'Demo talebi gönder',
     },
     cta: {
-      title: 'Yeni proje için premium bir başlangıç yapın.',
-      description: 'Traxle evrenine yeni ürünler, portallar ve 3D model dosyaları kolayca eklenebilir.',
+      title: 'Traxle uygulamalarını işletmende görmek ister misin?',
+      description:
+        'BarkodX, Molatik, KünyeX ve Lojistik çözümlerinden hangisinin işletmene uygun olduğunu birlikte değerlendirelim.',
       label: 'Demo Talep Et',
     },
+    privacy: {
+      title: 'Molatik Gizlilik Politikası',
+      lastUpdated: 'Son güncelleme: 2026',
+      intro:
+        'Molatik uygulaması, kullanıcı deneyimini geliştirmek ve uygulama işlevlerini sağlamak amacıyla sınırlı kişisel veri toplayabilir ve işler.',
+      collectedTitle: 'Toplanan Veriler',
+      collectedItems: [
+        'Giriş işlemleri için e-posta adresi veya kullanıcı bilgileri',
+        'Uygulama kullanım verileri: mola süreleri, zaman takibi ve kullanım istatistikleri',
+      ],
+      useTitle: 'Veri Kullanımı',
+      useItems: [
+        'Uygulama işlevlerini sağlamak ve sürdürmek',
+        'Kullanıcı deneyimini geliştirmek',
+        'Sistem performansını izlemek ve iyileştirmek',
+      ],
+      sharingTitle: 'Veri Paylaşımı',
+      sharingText:
+        'Molatik, kullanıcı verilerini üçüncü taraflarla satmaz veya ticari amaçla paylaşmaz. Uygulamanın çalışması için gerekli altyapı sağlayıcılarıyla sınırlı veri paylaşımı yapılabilir.',
+      retentionTitle: 'Veri Saklama',
+      retentionText: 'Kullanıcı verileri yalnızca gerekli olduğu süre boyunca saklanır ve ardından silinir veya anonim hale getirilir.',
+      securityTitle: 'Veri Güvenliği',
+      securityText: 'Kullanıcı verileri güvenli sunucularda saklanır ve yetkisiz erişime karşı korunur.',
+      rightsTitle: 'Kullanıcı Hakları',
+      rightsItems: ['Verilerine erişim talep edebilir', 'Verilerinin silinmesini isteyebilir'],
+      childrenTitle: 'Çocukların Gizliliği',
+      childrenText: 'Molatik, 13 yaş altındaki çocuklara yönelik bir uygulama değildir ve bilerek çocuklardan veri toplamaz.',
+      changesTitle: 'Politika Değişiklikleri',
+      changesText: 'Bu gizlilik politikası zaman zaman güncellenebilir. Güncellemeler bu sayfa üzerinden duyurulur.',
+      contactTitle: 'İletişim',
+      contactEmail: 'support@traxleapp.com',
+    },
     footer: {
-      description: 'Mobil, masaüstü ve web ürünleri için premium teknoloji ekosistemi.',
+      description: 'Barkod, mola, belge ve lojistik operasyonları için premium SaaS ürünleri.',
       rights: 'Tüm hakları saklıdır.',
     },
   },
@@ -249,113 +342,146 @@ export const dictionaries: Record<Locale, Dictionary> = {
     themeLabel: 'Toggle theme',
     nav: {
       home: 'Home',
-      projects: 'Projects',
+      projects: 'Products',
       about: 'About',
       services: 'Services',
       contact: 'Contact',
     },
     status: {
-      active: 'Active',
-      development: 'Development',
-      concept: 'Concept',
+      active: 'Live',
+      development: 'In development',
+      concept: 'Planned',
     },
     home: {
-      eyebrow: 'Traxle Project Universe',
-      title: 'A 3D technology universe for mobile and desktop products.',
-      description:
-        'Traxle brings project platforms, 3D web interfaces, and production-grade software architecture into one premium digital roof.',
-      primaryCta: 'Explore Projects',
+      eyebrow: 'Traxle applications',
+      title: '4 powerful applications built for your business',
+      description: 'Independent but connected systems for inventory, staff, document, and logistics operations.',
+      primaryCta: 'Explore Products',
       secondaryCta: 'Request Demo',
-      proof: ['3D interface architecture', 'Product ecosystem', 'Performance-led engineering'],
-      processTitle: 'A digital front door built like an enterprise product line',
-      processDescription:
-        'Traxle connects strategy, architecture, interface design, and launch readiness into one controlled experience flow.',
-      process: [
+      proof: ['Inventory and price control', 'Staff time tracking', 'Document and field operations'],
+      productsTitle: 'Traxle applications',
+      productsDescription: 'Explore products built for different operational needs in your business.',
+      howTitle: 'Simplify the process and make operations visible',
+      howDescription: 'Choose the app, organize the data, and manage daily operations with clearer records.',
+      howSteps: [
         {
-          value: '01',
-          label: 'Strategy',
-          description: 'Portfolio, audience, and brand perception align under a single ecosystem vision.',
+          title: 'Choose the application you need',
+          description: 'Decide whether you want to manage inventory, staff, document, or logistics processes.',
         },
         {
-          value: '02',
-          label: 'Architecture',
-          description: 'Web, mobile, and desktop surfaces are shaped on a scalable technical foundation.',
+          title: 'Process data in an organized way',
+          description: 'The applications make daily operational data easier to follow.',
         },
         {
-          value: '03',
-          label: 'Experience',
-          description: '3D atmosphere, readable HTML content, and accessible navigation share one design language.',
-        },
-        {
-          value: '04',
-          label: 'Launch',
-          description: 'Performance, SEO, and responsive behavior are checked against production expectations.',
+          title: 'Measure and improve the process',
+          description: 'Clearer records support faster decisions and a more controlled operation flow.',
         },
       ],
-      hubTitle: 'Scalable projects under one roof',
-      hubDescription:
-        'Existing and future products share the same data structure, visual language, and accessible web experience.',
+      demoTitle: 'Would you like to see Traxle applications in your business?',
+      demoDescription:
+        'Let’s evaluate which of BarkodX, Molatik, KünyeX, and Logistics fits your business needs.',
+      demoLabel: 'Request Demo',
     },
     projects: {
-      eyebrow: 'Project Hub',
-      title: 'Every product surface in the Traxle ecosystem.',
-      description:
-        'Each project lives in the same universe through a live 3D portal and a readable HTML content layer.',
-      openProject: 'Open project',
+      eyebrow: 'Product showcase',
+      title: 'Traxle products for barcode, break, document, and logistics operations.',
+      description: 'Each product solves a clear business process and makes operations easier to see.',
+      openProject: 'View product',
     },
     detail: {
-      features: 'Key features',
-      model: '3D model area',
-      overview: 'Project overview',
+      features: 'Core features',
+      model: 'Product animation',
+      overview: 'Product overview',
+    },
+    productDetail: {
+      whatItDoes: 'What it does',
+      features: 'Core features',
+      useCases: 'Use cases',
+      demoTitle: 'Let’s evaluate this product for your business',
+      demoDescription: 'We can clarify your need and show how the product fits your operation.',
+      demoLabel: 'Request Demo',
+      backToProducts: 'Back to products',
+      privacyLabel: 'View Molatik privacy policy',
     },
     about: {
-      eyebrow: 'Vision',
-      title: 'Traxle turns product development into an engineering and design ecosystem.',
+      eyebrow: 'Traxle',
+      title: 'Traxle builds operations software for businesses.',
       description:
-        'The company focuses on transforming mobile, desktop, and web products into consistent, measurable, high-quality digital experiences.',
-      points: ['Future-ready architecture', 'Consistent product language', 'Design based on real user flows'],
+        'It turns daily workflows such as barcode, staff time, document data, and logistics processes into simple, measurable, and reliable software.',
+      points: ['Clear product focus', 'Mobile and web experience', 'Design shaped by operational data'],
     },
     services: {
       eyebrow: 'Services',
-      title: 'End-to-end design and engineering for premium software products.',
+      title: 'Product design and engineering for operations software.',
       description:
-        'From 3D web experiences to product platforms, every layer is designed for performance, accessibility, and maintainable code.',
+        'Traxle products manage inventory, staff, document, and field flows through interfaces designed around real usage scenarios.',
       items: [
         {
-          title: '3D web interfaces',
-          description: 'Premium, accessible interfaces combining WebGL, React Three Fiber, and HTML UI.',
+          title: 'Product interfaces',
+          description: 'Product screens that business teams can understand quickly and use strongly on mobile.',
         },
         {
-          title: 'Product platforms',
-          description: 'Unifying mobile, desktop, and web products under shared data and design systems.',
+          title: 'Operations platforms',
+          description: 'Systems that turn inventory, staff, document, and logistics data into organized flows.',
         },
         {
           title: 'Software architecture',
-          description: 'Scalable Next.js, API, data, and deployment architecture.',
+          description: 'Sustainable product infrastructure with Next.js, Firebase, and API layers.',
         },
         {
           title: 'Digital experience design',
-          description: 'User flows, interaction language, and production-ready interface systems.',
+          description: 'Readable, accessible, and conversion-focused SaaS product showcase experiences.',
         },
       ],
     },
     contact: {
       eyebrow: 'Demo',
-      title: 'Let’s build the Traxle universe for your product.',
-      description:
-        'Leave a short note and we will respond about scope, 3D experience level, and production architecture.',
+      title: 'Let’s evaluate Traxle products for your business.',
+      description: 'Leave a short note and we will identify the right fit for BarkodX, Molatik, KünyeX, or Logistics.',
       name: 'Full name',
       email: 'Email',
       message: 'Message',
       submit: 'Send demo request',
     },
     cta: {
-      title: 'Start the next project with a premium foundation.',
-      description: 'New products, portals, and 3D model files can be added to the Traxle universe easily.',
+      title: 'Would you like to see Traxle applications in your business?',
+      description: 'Let’s evaluate which of BarkodX, Molatik, KünyeX, and Logistics fits your business needs.',
       label: 'Request Demo',
     },
+    privacy: {
+      title: 'Molatik Privacy Policy',
+      lastUpdated: 'Last updated: 2026',
+      intro:
+        'Molatik may collect and process limited personal data to improve the user experience and provide application functions.',
+      collectedTitle: 'Data Collected',
+      collectedItems: [
+        'Email address or user information for sign-in processes',
+        'Application usage data: break durations, time tracking, and usage statistics',
+      ],
+      useTitle: 'Data Use',
+      useItems: [
+        'Provide and maintain application functions',
+        'Improve the user experience',
+        'Monitor and improve system performance',
+      ],
+      sharingTitle: 'Data Sharing',
+      sharingText:
+        'Molatik does not sell user data or share it for commercial purposes. Limited data may be shared with infrastructure providers required for the application to operate.',
+      retentionTitle: 'Data Retention',
+      retentionText: 'User data is stored only as long as necessary, then deleted or anonymized.',
+      securityTitle: 'Data Security',
+      securityText: 'User data is stored on secure servers and protected against unauthorized access.',
+      rightsTitle: 'User Rights',
+      rightsItems: ['Request access to their data', 'Request deletion of their data'],
+      childrenTitle: 'Children’s Privacy',
+      childrenText: 'Molatik is not intended for children under 13 and does not knowingly collect data from children.',
+      changesTitle: 'Policy Changes',
+      changesText: 'This privacy policy may be updated from time to time. Updates are announced on this page.',
+      contactTitle: 'Contact',
+      contactEmail: 'support@traxleapp.com',
+    },
     footer: {
-      description: 'A premium technology ecosystem for mobile, desktop, and web products.',
+      description: 'Premium SaaS products for barcode, break, document, and logistics operations.',
       rights: 'All rights reserved.',
     },
   },
@@ -365,113 +491,148 @@ export const dictionaries: Record<Locale, Dictionary> = {
     themeLabel: 'Design wechseln',
     nav: {
       home: 'Start',
-      projects: 'Projekte',
+      projects: 'Produkte',
       about: 'Über uns',
-      services: 'Services',
+      services: 'Dienstleistungen',
       contact: 'Kontakt',
     },
     status: {
-      active: 'Aktiv',
-      development: 'Entwicklung',
-      concept: 'Konzept',
+      active: 'Live',
+      development: 'In Entwicklung',
+      concept: 'Geplant',
     },
     home: {
-      eyebrow: 'Traxle Project Universe',
-      title: 'Ein 3D-Technologieuniversum für mobile und Desktop-Produkte.',
+      eyebrow: 'Traxle Anwendungen',
+      title: '4 leistungsstarke Anwendungen für dein Unternehmen',
       description:
-        'Traxle vereint Projektplattformen, 3D-Weboberflächen und produktionsreife Softwarearchitektur unter einem hochwertigen digitalen Dach.',
-      primaryCta: 'Projekte entdecken',
+        'Unabhängige, aber zusammenarbeitende Systeme für Bestand, Personal, Dokumente und Logistik.',
+      primaryCta: 'Produkte entdecken',
       secondaryCta: 'Demo anfragen',
-      proof: ['3D-Interface-Architektur', 'Produktökosystem', 'Performance-orientierte Entwicklung'],
-      processTitle: 'Ein digitaler Auftritt wie eine Enterprise-Produktlinie',
-      processDescription:
-        'Traxle verbindet Strategie, Architektur, Interface-Design und Launch-Readiness zu einem kontrollierten Erlebnisfluss.',
-      process: [
+      proof: ['Bestand und Preise steuern', 'Personalzeiten verfolgen', 'Dokumente und Außendienstprozesse'],
+      productsTitle: 'Traxle Anwendungen',
+      productsDescription: 'Entdecke Produkte für unterschiedliche operative Anforderungen deines Unternehmens.',
+      howTitle: 'Prozesse vereinfachen und Abläufe sichtbar machen',
+      howDescription: 'Wähle die Anwendung, ordne die Daten und steuere tägliche Abläufe mit klareren Einträgen.',
+      howSteps: [
         {
-          value: '01',
-          label: 'Strategie',
-          description: 'Portfolio, Zielgruppe und Markenwirkung werden in einer gemeinsamen Ökosystem-Vision ausgerichtet.',
+          title: 'Wähle die passende Anwendung',
+          description: 'Lege fest, ob du Bestand, Personal, Dokumente oder Logistikprozesse verwalten möchtest.',
         },
         {
-          value: '02',
-          label: 'Architektur',
-          description: 'Web-, Mobile- und Desktop-Oberflächen entstehen auf einer skalierbaren technischen Grundlage.',
+          title: 'Verarbeite Daten strukturiert',
+          description: 'Die Anwendungen machen tägliche Betriebsdaten besser nachvollziehbar.',
         },
         {
-          value: '03',
-          label: 'Erlebnis',
-          description: '3D-Atmosphäre, lesbare HTML-Inhalte und barrierearme Navigation folgen einer Designsprache.',
-        },
-        {
-          value: '04',
-          label: 'Launch',
-          description: 'Performance, SEO und responsives Verhalten werden an Produktionsanforderungen geprüft.',
+          title: 'Miss und verbessere den Prozess',
+          description: 'Klarere Aufzeichnungen ermöglichen schnellere Entscheidungen und kontrolliertere Abläufe.',
         },
       ],
-      hubTitle: 'Skalierbare Projekte unter einem Dach',
-      hubDescription:
-        'Bestehende und zukünftige Produkte teilen dieselbe Datenstruktur, Designsprache und zugängliche Weberfahrung.',
+      demoTitle: 'Möchtest du Traxle Anwendungen in deinem Unternehmen sehen?',
+      demoDescription:
+        'Wir bewerten gemeinsam, welche Lösung aus BarkodX, Molatik, KünyeX und Logistik zu deinem Unternehmen passt.',
+      demoLabel: 'Demo anfragen',
     },
     projects: {
-      eyebrow: 'Project Hub',
-      title: 'Alle Produktoberflächen im Traxle-Ökosystem.',
-      description:
-        'Jedes Projekt erscheint im selben Universum mit einem lebendigen 3D-Portal und lesbarer HTML-Inhaltsebene.',
-      openProject: 'Projekt öffnen',
+      eyebrow: 'Produktübersicht',
+      title: 'Traxle Produkte für Barcode-, Pausen-, Dokumenten- und Logistikprozesse.',
+      description: 'Jedes Produkt löst einen klaren Geschäftsprozess und macht Abläufe sichtbarer.',
+      openProject: 'Produkt ansehen',
     },
     detail: {
       features: 'Kernfunktionen',
-      model: '3D-Modellbereich',
-      overview: 'Projektüberblick',
+      model: 'Produktanimation',
+      overview: 'Produktübersicht',
+    },
+    productDetail: {
+      whatItDoes: 'Wofür es gedacht ist',
+      features: 'Kernfunktionen',
+      useCases: 'Einsatzszenarien',
+      demoTitle: 'Lass uns dieses Produkt für dein Unternehmen bewerten',
+      demoDescription: 'Wir können deinen Bedarf klären und zeigen, wie das Produkt in deinen Ablauf passt.',
+      demoLabel: 'Demo anfragen',
+      backToProducts: 'Zurück zu Produkten',
+      privacyLabel: 'Molatik Datenschutz ansehen',
     },
     about: {
-      eyebrow: 'Vision',
-      title: 'Traxle macht Produktentwicklung zu einem Ökosystem aus Engineering und Design.',
+      eyebrow: 'Traxle',
+      title: 'Traxle entwickelt Operations-Software für Unternehmen.',
       description:
-        'Der Fokus liegt darauf, mobile, Desktop- und Webprodukte in konsistente, messbare und hochwertige digitale Erlebnisse zu verwandeln.',
-      points: ['Zukunftsfähige Architektur', 'Konsistente Produktsprache', 'Design nach realen Nutzerflüssen'],
+        'Tägliche Abläufe wie Barcode, Personalzeit, Dokumentdaten und Logistik werden in einfache, messbare und zuverlässige Software verwandelt.',
+      points: ['Klarer Produktfokus', 'Mobile und Web-Erfahrung', 'Design nach operativen Daten'],
     },
     services: {
-      eyebrow: 'Services',
-      title: 'End-to-End Design und Engineering für Premium-Softwareprodukte.',
+      eyebrow: 'Dienstleistungen',
+      title: 'Produktdesign und Engineering für Operations-Software.',
       description:
-        'Von 3D-Weberlebnissen bis zu Produktplattformen wird jede Ebene auf Performance, Zugänglichkeit und wartbaren Code ausgelegt.',
+        'Traxle Produkte steuern Bestand, Personal, Dokumente und Außendienstflüsse über Oberflächen, die an realen Nutzungsszenarien ausgerichtet sind.',
       items: [
         {
-          title: '3D-Weboberflächen',
-          description: 'Premium-Interfaces mit WebGL, React Three Fiber und HTML UI.',
+          title: 'Produktoberflächen',
+          description: 'Produktbildschirme, die Teams schnell verstehen und mobil zuverlässig nutzen können.',
         },
         {
-          title: 'Produktplattformen',
-          description: 'Mobile, Desktop- und Webprodukte unter gemeinsamen Daten- und Designsystemen vereinen.',
+          title: 'Operations-Plattformen',
+          description: 'Systeme, die Bestands-, Personal-, Dokument- und Logistikdaten in geordnete Abläufe bringen.',
         },
         {
           title: 'Softwarearchitektur',
-          description: 'Skalierbare Next.js-, API-, Daten- und Deployment-Architekturen.',
+          description: 'Nachhaltige Produktinfrastruktur mit Next.js, Firebase und API-Schichten.',
         },
         {
           title: 'Digital Experience Design',
-          description: 'User Flows, Interaktionssprache und produktionsreife Interface-Systeme.',
+          description: 'Lesbare, zugängliche und vertriebsorientierte SaaS-Produktvitrinen.',
         },
       ],
     },
     contact: {
       eyebrow: 'Demo',
-      title: 'Lassen Sie uns das Traxle-Universum für Ihr Produkt bauen.',
-      description:
-        'Hinterlassen Sie eine kurze Nachricht; wir melden uns zu Umfang, 3D-Erlebnis und Produktionsarchitektur.',
+      title: 'Lass uns Traxle Produkte für dein Unternehmen bewerten.',
+      description: 'Hinterlasse eine kurze Nachricht; wir finden die passende Lösung für BarkodX, Molatik, KünyeX oder Logistik.',
       name: 'Name',
       email: 'E-Mail',
       message: 'Nachricht',
       submit: 'Demo-Anfrage senden',
     },
     cta: {
-      title: 'Starten Sie das nächste Projekt mit einer Premium-Basis.',
-      description: 'Neue Produkte, Portale und 3D-Modelldateien lassen sich einfach in das Traxle-Universum integrieren.',
+      title: 'Möchtest du Traxle Anwendungen in deinem Unternehmen sehen?',
+      description:
+        'Wir bewerten gemeinsam, welche Lösung aus BarkodX, Molatik, KünyeX und Logistik zu deinem Unternehmen passt.',
       label: 'Demo anfragen',
     },
+    privacy: {
+      title: 'Molatik Datenschutzrichtlinie',
+      lastUpdated: 'Letzte Aktualisierung: 2026',
+      intro:
+        'Molatik kann begrenzte personenbezogene Daten erheben und verarbeiten, um die Nutzererfahrung zu verbessern und App-Funktionen bereitzustellen.',
+      collectedTitle: 'Erhobene Daten',
+      collectedItems: [
+        'E-Mail-Adresse oder Nutzerinformationen für Anmeldevorgänge',
+        'App-Nutzungsdaten: Pausenzeiten, Zeiterfassung und Nutzungsstatistiken',
+      ],
+      useTitle: 'Datennutzung',
+      useItems: [
+        'App-Funktionen bereitstellen und aufrechterhalten',
+        'Nutzererfahrung verbessern',
+        'Systemleistung überwachen und verbessern',
+      ],
+      sharingTitle: 'Datenweitergabe',
+      sharingText:
+        'Molatik verkauft keine Nutzerdaten und teilt sie nicht zu kommerziellen Zwecken. Begrenzte Daten können mit Infrastruktur-Dienstleistern geteilt werden, die für den Betrieb der App erforderlich sind.',
+      retentionTitle: 'Datenspeicherung',
+      retentionText: 'Nutzerdaten werden nur so lange gespeichert, wie es erforderlich ist, und danach gelöscht oder anonymisiert.',
+      securityTitle: 'Datensicherheit',
+      securityText: 'Nutzerdaten werden auf sicheren Servern gespeichert und gegen unbefugten Zugriff geschützt.',
+      rightsTitle: 'Nutzerrechte',
+      rightsItems: ['Zugriff auf ihre Daten anfordern', 'Löschung ihrer Daten verlangen'],
+      childrenTitle: 'Datenschutz von Kindern',
+      childrenText: 'Molatik richtet sich nicht an Kinder unter 13 Jahren und erhebt wissentlich keine Daten von Kindern.',
+      changesTitle: 'Änderungen der Richtlinie',
+      changesText: 'Diese Datenschutzrichtlinie kann von Zeit zu Zeit aktualisiert werden. Aktualisierungen werden auf dieser Seite bekannt gegeben.',
+      contactTitle: 'Kontakt',
+      contactEmail: 'support@traxleapp.com',
+    },
     footer: {
-      description: 'Ein Premium-Technologieökosystem für mobile, Desktop- und Webprodukte.',
+      description: 'Premium SaaS-Produkte für Barcode-, Pausen-, Dokumenten- und Logistikprozesse.',
       rights: 'Alle Rechte vorbehalten.',
     },
   },
@@ -481,113 +642,145 @@ export const dictionaries: Record<Locale, Dictionary> = {
     themeLabel: 'تبديل المظهر',
     nav: {
       home: 'الرئيسية',
-      projects: 'المشاريع',
-      about: 'عن تراكسل',
+      projects: 'المنتجات',
+      about: 'من نحن',
       services: 'الخدمات',
       contact: 'تواصل',
     },
     status: {
-      active: 'نشط',
+      active: 'متاح',
       development: 'قيد التطوير',
-      concept: 'تصور',
+      concept: 'مخطط',
     },
     home: {
-      eyebrow: 'Traxle Project Universe',
-      title: 'كون تقني ثلاثي الأبعاد لمنتجات الجوال وسطح المكتب.',
-      description:
-        'تجمع Traxle منصات المشاريع وواجهات الويب ثلاثية الأبعاد وبنية البرمجيات الجاهزة للإنتاج ضمن تجربة رقمية فاخرة واحدة.',
-      primaryCta: 'استكشف المشاريع',
+      eyebrow: 'تطبيقات Traxle',
+      title: '4 تطبيقات قوية مصممة لعملك',
+      description: 'أنظمة مستقلة لكنها تعمل معا لإدارة المخزون والموظفين والوثائق والعمليات اللوجستية.',
+      primaryCta: 'استكشف المنتجات',
       secondaryCta: 'اطلب عرضا تجريبيا',
-      proof: ['هندسة واجهات ثلاثية الأبعاد', 'منظومة منتجات', 'هندسة عالية الأداء'],
-      processTitle: 'واجهة رقمية تعمل كخط منتجات مؤسسي',
-      processDescription:
-        'تربط Traxle بين الاستراتيجية والبنية وتصميم الواجهة وجاهزية الإطلاق ضمن مسار تجربة واحد ومنضبط.',
-      process: [
+      proof: ['التحكم في المخزون والأسعار', 'تتبع وقت الموظفين', 'الوثائق والعمليات الميدانية'],
+      productsTitle: 'تطبيقات Traxle',
+      productsDescription: 'اكتشف المنتجات المطورة لاحتياجات التشغيل المختلفة في عملك.',
+      howTitle: 'بسّط العملية واجعل التشغيل أكثر وضوحا',
+      howDescription: 'اختر التطبيق، نظم البيانات، وأدر العمليات اليومية بسجلات أكثر وضوحا.',
+      howSteps: [
         {
-          value: '01',
-          label: 'الاستراتيجية',
-          description: 'تتوافق محفظة المنتجات والجمهور وانطباع العلامة ضمن رؤية موحدة للمنظومة.',
+          title: 'اختر التطبيق الذي تحتاجه',
+          description: 'حدد ما إذا كنت تريد إدارة المخزون أو الموظفين أو الوثائق أو العمليات اللوجستية.',
         },
         {
-          value: '02',
-          label: 'البنية',
-          description: 'تصمم واجهات الويب والجوال وسطح المكتب على أساس تقني قابل للتوسع.',
+          title: 'عالج البيانات بطريقة منظمة',
+          description: 'تجعل التطبيقات بيانات التشغيل اليومية أسهل في المتابعة.',
         },
         {
-          value: '03',
-          label: 'التجربة',
-          description: 'تجتمع الأجواء ثلاثية الأبعاد ومحتوى HTML المقروء والتنقل الواضح في لغة تصميم واحدة.',
-        },
-        {
-          value: '04',
-          label: 'الإطلاق',
-          description: 'يتم فحص الأداء وSEO والسلوك المتجاوب وفق توقعات بيئة الإنتاج.',
+          title: 'قِس العملية وحسّنها',
+          description: 'السجلات الأوضح تدعم قرارات أسرع وتدفقا تشغيليا أكثر تحكما.',
         },
       ],
-      hubTitle: 'مشاريع قابلة للتوسع تحت سقف واحد',
-      hubDescription:
-        'المنتجات الحالية والمستقبلية تشترك في بنية بيانات واحدة ولغة بصرية موحدة وتجربة ويب سهلة الوصول.',
+      demoTitle: 'هل ترغب في رؤية تطبيقات Traxle داخل عملك؟',
+      demoDescription: 'لنقيّم معا أي حلول BarkodX وMolatik وKünyeX واللوجستيات تناسب احتياج عملك.',
+      demoLabel: 'اطلب عرضا تجريبيا',
     },
     projects: {
-      eyebrow: 'Project Hub',
-      title: 'كل أسطح المنتجات داخل منظومة Traxle.',
-      description:
-        'يعيش كل مشروع في الكون نفسه عبر بوابة ثلاثية الأبعاد وطبقة محتوى HTML واضحة وقابلة للقراءة.',
-      openProject: 'افتح المشروع',
+      eyebrow: 'عرض المنتجات',
+      title: 'منتجات Traxle لعمليات الباركود والاستراحات والوثائق واللوجستيات.',
+      description: 'كل منتج يحل عملية عمل واضحة ويجعل التشغيل أكثر قابلية للرؤية.',
+      openProject: 'عرض المنتج',
     },
     detail: {
-      features: 'الميزات الرئيسية',
-      model: 'منطقة النموذج ثلاثي الأبعاد',
-      overview: 'ملخص المشروع',
+      features: 'الميزات الأساسية',
+      model: 'حركة المنتج',
+      overview: 'ملخص المنتج',
+    },
+    productDetail: {
+      whatItDoes: 'ما فائدته؟',
+      features: 'الميزات الأساسية',
+      useCases: 'سيناريوهات الاستخدام',
+      demoTitle: 'لنقيّم هذا المنتج لعملك',
+      demoDescription: 'يمكننا توضيح احتياجك وإظهار كيف يناسب المنتج عملياتك.',
+      demoLabel: 'اطلب عرضا تجريبيا',
+      backToProducts: 'العودة إلى المنتجات',
+      privacyLabel: 'عرض سياسة خصوصية Molatik',
     },
     about: {
-      eyebrow: 'الرؤية',
-      title: 'تحول Traxle تطوير المنتجات إلى منظومة تجمع الهندسة والتصميم.',
+      eyebrow: 'Traxle',
+      title: 'تطوّر Traxle برمجيات تشغيل للشركات.',
       description:
-        'ينصب التركيز على تحويل منتجات الجوال وسطح المكتب والويب إلى تجارب رقمية متسقة وقابلة للقياس وعالية الجودة.',
-      points: ['بنية جاهزة للمستقبل', 'لغة منتجات متسقة', 'تصميم مبني على تدفقات استخدام حقيقية'],
+        'تحول سير العمل اليومي مثل الباركود ووقت الموظفين وبيانات الوثائق والعمليات اللوجستية إلى برمجيات بسيطة وقابلة للقياس وموثوقة.',
+      points: ['تركيز واضح على المنتج', 'تجربة جوال وويب', 'تصميم مبني على بيانات التشغيل'],
     },
     services: {
       eyebrow: 'الخدمات',
-      title: 'تصميم وهندسة شاملة لمنتجات برمجية فاخرة.',
+      title: 'تصميم وهندسة منتجات لبرمجيات التشغيل.',
       description:
-        'من تجارب الويب ثلاثية الأبعاد إلى منصات المنتجات، تصمم كل طبقة للأداء وإمكانية الوصول وقابلية الصيانة.',
+        'تدير منتجات Traxle المخزون والموظفين والوثائق والتدفقات الميدانية عبر واجهات مصممة حول سيناريوهات استخدام حقيقية.',
       items: [
         {
-          title: 'واجهات ويب ثلاثية الأبعاد',
-          description: 'واجهات فاخرة وسهلة الوصول تجمع WebGL وReact Three Fiber وHTML UI.',
+          title: 'واجهات المنتجات',
+          description: 'شاشات منتجات تفهمها فرق العمل بسرعة وتعمل بقوة على الجوال.',
         },
         {
-          title: 'منصات المنتجات',
-          description: 'توحيد منتجات الجوال وسطح المكتب والويب تحت بيانات وأنظمة تصميم مشتركة.',
+          title: 'منصات التشغيل',
+          description: 'أنظمة تحول بيانات المخزون والموظفين والوثائق واللوجستيات إلى تدفقات منظمة.',
         },
         {
           title: 'هندسة البرمجيات',
-          description: 'بنى Next.js وAPI وبيانات ونشر قابلة للتوسع.',
+          description: 'بنية منتجات مستدامة باستخدام Next.js وFirebase وطبقات API.',
         },
         {
-          title: 'تصميم التجارب الرقمية',
-          description: 'تدفقات المستخدم ولغة التفاعل وأنظمة واجهات جاهزة للإنتاج.',
+          title: 'تصميم التجربة الرقمية',
+          description: 'واجهات SaaS واضحة وسهلة الوصول وموجهة لطلب العروض.',
         },
       ],
     },
     contact: {
       eyebrow: 'عرض تجريبي',
-      title: 'لنبن كون Traxle لمنتجك.',
-      description:
-        'اترك رسالة قصيرة وسنعود إليك حول نطاق المشروع ومستوى التجربة ثلاثية الأبعاد وبنية الإنتاج.',
+      title: 'لنقيّم منتجات Traxle لعملك.',
+      description: 'اترك رسالة قصيرة وسنحدد الحل الأنسب من BarkodX أو Molatik أو KünyeX أو اللوجستيات.',
       name: 'الاسم الكامل',
       email: 'البريد الإلكتروني',
       message: 'الرسالة',
       submit: 'إرسال طلب العرض',
     },
     cta: {
-      title: 'ابدأ المشروع التالي بأساس فاخر.',
-      description: 'يمكن إضافة منتجات وبوابات وملفات نماذج ثلاثية الأبعاد جديدة إلى كون Traxle بسهولة.',
+      title: 'هل ترغب في رؤية تطبيقات Traxle داخل عملك؟',
+      description: 'لنقيّم معا أي حلول BarkodX وMolatik وKünyeX واللوجستيات تناسب احتياج عملك.',
       label: 'اطلب عرضا تجريبيا',
     },
+    privacy: {
+      title: 'سياسة خصوصية Molatik',
+      lastUpdated: 'آخر تحديث: 2026',
+      intro:
+        'قد تجمع Molatik وتعالج بيانات شخصية محدودة لتحسين تجربة المستخدم وتوفير وظائف التطبيق.',
+      collectedTitle: 'البيانات التي يتم جمعها',
+      collectedItems: [
+        'البريد الإلكتروني أو معلومات المستخدم لعمليات تسجيل الدخول',
+        'بيانات استخدام التطبيق: مدة الاستراحات وتتبع الوقت وإحصاءات الاستخدام',
+      ],
+      useTitle: 'استخدام البيانات',
+      useItems: [
+        'توفير وظائف التطبيق والحفاظ عليها',
+        'تحسين تجربة المستخدم',
+        'مراقبة أداء النظام وتحسينه',
+      ],
+      sharingTitle: 'مشاركة البيانات',
+      sharingText:
+        'لا تبيع Molatik بيانات المستخدمين ولا تشاركها لأغراض تجارية. قد تتم مشاركة بيانات محدودة مع مزودي البنية التحتية الضروريين لتشغيل التطبيق.',
+      retentionTitle: 'الاحتفاظ بالبيانات',
+      retentionText: 'يتم الاحتفاظ ببيانات المستخدمين فقط للمدة اللازمة، ثم يتم حذفها أو إخفاء هويتها.',
+      securityTitle: 'أمن البيانات',
+      securityText: 'تخزن بيانات المستخدمين على خوادم آمنة وتتم حمايتها من الوصول غير المصرح به.',
+      rightsTitle: 'حقوق المستخدم',
+      rightsItems: ['طلب الوصول إلى بياناته', 'طلب حذف بياناته'],
+      childrenTitle: 'خصوصية الأطفال',
+      childrenText: 'Molatik ليس موجها للأطفال دون سن 13 عاما ولا يجمع بيانات الأطفال عن علم.',
+      changesTitle: 'تغييرات السياسة',
+      changesText: 'قد يتم تحديث سياسة الخصوصية هذه من وقت لآخر. يتم الإعلان عن التحديثات عبر هذه الصفحة.',
+      contactTitle: 'تواصل',
+      contactEmail: 'support@traxleapp.com',
+    },
     footer: {
-      description: 'منظومة تقنية فاخرة لمنتجات الجوال وسطح المكتب والويب.',
+      description: 'منتجات SaaS فاخرة لعمليات الباركود والاستراحات والوثائق واللوجستيات.',
       rights: 'جميع الحقوق محفوظة.',
     },
   },
@@ -597,113 +790,147 @@ export const dictionaries: Record<Locale, Dictionary> = {
     themeLabel: 'Переключить тему',
     nav: {
       home: 'Главная',
-      projects: 'Проекты',
+      projects: 'Продукты',
       about: 'О нас',
       services: 'Услуги',
       contact: 'Контакты',
     },
     status: {
-      active: 'Активно',
+      active: 'Запущено',
       development: 'В разработке',
-      concept: 'Концепт',
+      concept: 'Планируется',
     },
     home: {
-      eyebrow: 'Traxle Project Universe',
-      title: '3D-технологическая вселенная для мобильных и настольных продуктов.',
+      eyebrow: 'Приложения Traxle',
+      title: '4 мощных приложения для вашего бизнеса',
       description:
-        'Traxle объединяет проектные платформы, 3D веб-интерфейсы и production-ready архитектуру в единую премиальную цифровую систему.',
-      primaryCta: 'Посмотреть проекты',
+        'Независимые, но совместно работающие системы для склада, персонала, документов и логистики.',
+      primaryCta: 'Посмотреть продукты',
       secondaryCta: 'Запросить демо',
-      proof: ['Архитектура 3D-интерфейсов', 'Экосистема продуктов', 'Инженерия с фокусом на производительность'],
-      processTitle: 'Цифровая витрина, построенная как корпоративная продуктовая линия',
-      processDescription:
-        'Traxle объединяет стратегию, архитектуру, интерфейс и готовность к запуску в единый управляемый поток опыта.',
-      process: [
+      proof: ['Контроль склада и цен', 'Учет времени персонала', 'Документы и полевые операции'],
+      productsTitle: 'Приложения Traxle',
+      productsDescription: 'Изучите продукты для разных операционных задач вашего бизнеса.',
+      howTitle: 'Упростите процесс и сделайте операции видимыми',
+      howDescription: 'Выберите приложение, упорядочите данные и управляйте ежедневными операциями понятнее.',
+      howSteps: [
         {
-          value: '01',
-          label: 'Стратегия',
-          description: 'Портфель, аудитория и восприятие бренда выстраиваются вокруг единого видения экосистемы.',
+          title: 'Выберите нужное приложение',
+          description: 'Определите, чем нужно управлять: складом, персоналом, документами или логистикой.',
         },
         {
-          value: '02',
-          label: 'Архитектура',
-          description: 'Веб-, мобильные и настольные поверхности проектируются на масштабируемой технической основе.',
+          title: 'Обрабатывайте данные структурированно',
+          description: 'Приложения делают ежедневные операционные данные проще для отслеживания.',
         },
         {
-          value: '03',
-          label: 'Опыт',
-          description: '3D-атмосфера, читаемый HTML-контент и доступная навигация работают в одном дизайн-языке.',
-        },
-        {
-          value: '04',
-          label: 'Запуск',
-          description: 'Производительность, SEO и адаптивность проверяются по ожиданиям production-среды.',
+          title: 'Измеряйте и улучшайте процесс',
+          description: 'Более ясные записи помогают быстрее принимать решения и лучше контролировать поток операций.',
         },
       ],
-      hubTitle: 'Масштабируемые проекты под одной крышей',
-      hubDescription:
-        'Текущие и будущие продукты используют общую структуру данных, визуальный язык и доступный веб-опыт.',
+      demoTitle: 'Хотите увидеть приложения Traxle в вашем бизнесе?',
+      demoDescription:
+        'Давайте вместе оценим, какое решение из BarkodX, Molatik, KünyeX и Логистики подходит вашему бизнесу.',
+      demoLabel: 'Запросить демо',
     },
     projects: {
-      eyebrow: 'Project Hub',
-      title: 'Все продуктовые поверхности экосистемы Traxle.',
-      description:
-        'Каждый проект существует в единой вселенной через 3D-портал и читаемый HTML-слой контента.',
-      openProject: 'Открыть проект',
+      eyebrow: 'Витрина продуктов',
+      title: 'Продукты Traxle для штрихкодов, перерывов, документов и логистики.',
+      description: 'Каждый продукт решает понятный бизнес-процесс и делает операции видимее.',
+      openProject: 'Посмотреть продукт',
     },
     detail: {
-      features: 'Ключевые функции',
-      model: 'Область 3D-модели',
-      overview: 'Обзор проекта',
+      features: 'Основные функции',
+      model: 'Анимация продукта',
+      overview: 'Обзор продукта',
+    },
+    productDetail: {
+      whatItDoes: 'Что делает продукт',
+      features: 'Основные функции',
+      useCases: 'Сценарии использования',
+      demoTitle: 'Давайте оценим этот продукт для вашего бизнеса',
+      demoDescription: 'Мы поможем уточнить задачу и показать, как продукт подойдет вашим операциям.',
+      demoLabel: 'Запросить демо',
+      backToProducts: 'Назад к продуктам',
+      privacyLabel: 'Открыть политику конфиденциальности Molatik',
     },
     about: {
-      eyebrow: 'Видение',
-      title: 'Traxle превращает разработку продуктов в экосистему инженерии и дизайна.',
+      eyebrow: 'Traxle',
+      title: 'Traxle разрабатывает операционное ПО для бизнеса.',
       description:
-        'Фокус компании — превращать мобильные, настольные и веб-продукты в согласованные, измеримые и качественные цифровые впечатления.',
-      points: ['Архитектура, готовая к будущему', 'Единый язык продукта', 'Дизайн на основе реальных пользовательских сценариев'],
+        'Ежедневные процессы, такие как штрихкоды, учет времени персонала, данные документов и логистика, превращаются в простое, измеримое и надежное ПО.',
+      points: ['Четкий продуктовый фокус', 'Мобильный и веб-опыт', 'Дизайн на основе операционных данных'],
     },
     services: {
       eyebrow: 'Услуги',
-      title: 'Дизайн и инженерия полного цикла для премиальных программных продуктов.',
+      title: 'Продуктовый дизайн и инженерия для операционного ПО.',
       description:
-        'От 3D веб-опыта до продуктовых платформ, каждый слой проектируется с учетом производительности, доступности и поддерживаемого кода.',
+        'Продукты Traxle управляют складом, персоналом, документами и полевыми потоками через интерфейсы, созданные под реальные сценарии.',
       items: [
         {
-          title: '3D веб-интерфейсы',
-          description: 'Премиальные доступные интерфейсы на базе WebGL, React Three Fiber и HTML UI.',
+          title: 'Продуктовые интерфейсы',
+          description: 'Экраны продуктов, которые команды быстро понимают и уверенно используют на мобильных устройствах.',
         },
         {
-          title: 'Продуктовые платформы',
-          description: 'Объединение мобильных, настольных и веб-продуктов через общие данные и дизайн-системы.',
+          title: 'Операционные платформы',
+          description: 'Системы, превращающие складские, кадровые, документные и логистические данные в упорядоченные потоки.',
         },
         {
           title: 'Архитектура ПО',
-          description: 'Масштабируемые архитектуры Next.js, API, данных и деплоя.',
+          description: 'Устойчивая продуктовая инфраструктура на Next.js, Firebase и API-слоях.',
         },
         {
           title: 'Дизайн цифрового опыта',
-          description: 'Пользовательские сценарии, язык взаимодействий и production-ready системы интерфейсов.',
+          description: 'Читаемые, доступные и ориентированные на заявку SaaS-витрины продуктов.',
         },
       ],
     },
     contact: {
       eyebrow: 'Демо',
-      title: 'Давайте создадим вселенную Traxle для вашего продукта.',
-      description:
-        'Оставьте короткое сообщение, и мы ответим по поводу объема, уровня 3D-опыта и production-архитектуры.',
+      title: 'Давайте оценим продукты Traxle для вашего бизнеса.',
+      description: 'Оставьте короткое сообщение, и мы подберем подходящее решение: BarkodX, Molatik, KünyeX или Логистика.',
       name: 'Имя',
       email: 'Email',
       message: 'Сообщение',
       submit: 'Отправить запрос',
     },
     cta: {
-      title: 'Начните следующий проект с премиальной основы.',
-      description: 'Новые продукты, порталы и 3D-модели можно легко добавить во вселенную Traxle.',
+      title: 'Хотите увидеть приложения Traxle в вашем бизнесе?',
+      description: 'Давайте вместе оценим, какое решение из BarkodX, Molatik, KünyeX и Логистики подходит вашему бизнесу.',
       label: 'Запросить демо',
     },
+    privacy: {
+      title: 'Политика конфиденциальности Molatik',
+      lastUpdated: 'Последнее обновление: 2026',
+      intro:
+        'Molatik может собирать и обрабатывать ограниченные персональные данные для улучшения пользовательского опыта и обеспечения функций приложения.',
+      collectedTitle: 'Собираемые данные',
+      collectedItems: [
+        'Адрес электронной почты или информация пользователя для входа',
+        'Данные использования приложения: длительность перерывов, учет времени и статистика использования',
+      ],
+      useTitle: 'Использование данных',
+      useItems: [
+        'Обеспечение и поддержка функций приложения',
+        'Улучшение пользовательского опыта',
+        'Мониторинг и улучшение производительности системы',
+      ],
+      sharingTitle: 'Передача данных',
+      sharingText:
+        'Molatik не продает пользовательские данные и не передает их в коммерческих целях. Ограниченные данные могут передаваться поставщикам инфраструктуры, необходимым для работы приложения.',
+      retentionTitle: 'Хранение данных',
+      retentionText: 'Данные пользователей хранятся только необходимый срок, затем удаляются или обезличиваются.',
+      securityTitle: 'Безопасность данных',
+      securityText: 'Данные пользователей хранятся на защищенных серверах и защищаются от несанкционированного доступа.',
+      rightsTitle: 'Права пользователя',
+      rightsItems: ['Запросить доступ к своим данным', 'Запросить удаление своих данных'],
+      childrenTitle: 'Конфиденциальность детей',
+      childrenText: 'Molatik не предназначен для детей младше 13 лет и сознательно не собирает данные детей.',
+      changesTitle: 'Изменения политики',
+      changesText: 'Эта политика конфиденциальности может периодически обновляться. Обновления публикуются на этой странице.',
+      contactTitle: 'Контакты',
+      contactEmail: 'support@traxleapp.com',
+    },
     footer: {
-      description: 'Премиальная технологическая экосистема для мобильных, настольных и веб-продуктов.',
+      description: 'Премиальные SaaS-продукты для штрихкодов, перерывов, документов и логистики.',
       rights: 'Все права защищены.',
     },
   },
@@ -747,7 +974,8 @@ export function resolveLocalizedRouteKey(locale: Locale, segment: string | undef
   return (
     routeKeys.find((key) => {
       const localizedSlug = localizedRouteSlugs[key][locale];
-      return normalizeSegment(localizedSlug) === normalizedSegment || key === normalizedSegment;
+      const aliases = localizedRouteAliases[key][locale] ?? [];
+      return [localizedSlug, key, ...aliases].some((candidate) => normalizeSegment(candidate) === normalizedSegment);
     }) ?? null
   );
 }
@@ -758,6 +986,21 @@ export function getLocalizedPath(locale: Locale, routeKey: RouteKey, rest: strin
   return `/${locale}/${localizedSlug}${suffix ? `/${suffix}` : ''}`;
 }
 
+export function getMolatikPrivacyPath(locale: Locale) {
+  return `/${locale}/molatik/${localizedMolatikPrivacySlugs[locale]}`;
+}
+
+export function isMolatikPrivacySlug(segment: string | undefined) {
+  if (!segment) return false;
+  const normalizedSegment = normalizeSegment(segment);
+  return Object.values(localizedMolatikPrivacySlugs).some((slug) => normalizeSegment(slug) === normalizedSegment);
+}
+
+export function isMolatikPrivacyPath(locale: Locale, productSegment: string | undefined, privacySegment: string | undefined) {
+  if (!productSegment || !privacySegment) return false;
+  return normalizeSegment(productSegment) === 'molatik' && normalizeSegment(privacySegment) === normalizeSegment(localizedMolatikPrivacySlugs[locale]);
+}
+
 export function withLocale(locale: Locale, path = '') {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   const segments = normalizedPath.split('/').filter(Boolean);
@@ -765,6 +1008,10 @@ export function withLocale(locale: Locale, path = '') {
 
   if (pathSegments.length === 0) {
     return `/${locale}`;
+  }
+
+  if (pathSegments[0] === 'molatik' && isMolatikPrivacySlug(pathSegments[1])) {
+    return getMolatikPrivacyPath(locale);
   }
 
   const routeKey = resolveLocalizedRouteKey(locale, pathSegments[0]) ?? getCanonicalRouteKey(pathSegments[0]);
@@ -780,6 +1027,11 @@ export function switchLocalePath(pathname: string, nextLocale: Locale) {
   const segments = pathname.split('/').filter(Boolean);
   if (isLocale(segments[0])) {
     const currentLocale = segments[0];
+
+    if (isMolatikPrivacyPath(currentLocale, segments[1], segments[2])) {
+      return getMolatikPrivacyPath(nextLocale);
+    }
+
     const routeKey = resolveLocalizedRouteKey(currentLocale, segments[1]);
 
     if (routeKey) {

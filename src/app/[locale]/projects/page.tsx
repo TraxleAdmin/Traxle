@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { LazyProjectHubScene } from '@/components/three/LazyScenes';
-import { CTASection } from '@/components/ui/CTASection';
-import { PageHeader } from '@/components/ui/PageHeader';
-import { ProjectCard } from '@/components/ui/ProjectCard';
+import DemoCTA from '@/components/home/DemoCTA';
+import ProductShowcase from '@/components/home/ProductShowcase';
 import { SectionShell } from '@/components/ui/SectionShell';
-import { getDictionary, isLocale, type Locale, withLocale } from '@/lib/i18n';
+import { getDictionary, isLocale, type Locale } from '@/lib/i18n';
 import { getProjects } from '@/lib/projects';
 import { createPageMetadata } from '@/lib/seo';
 
@@ -35,39 +33,21 @@ export default async function ProjectsPage({ params }: PageProps) {
 
   const locale: Locale = rawLocale;
   const dictionary = getDictionary(locale);
-  const projects = getProjects(locale);
+  const products = getProjects(locale);
 
   return (
-    <main className="pt-28">
-      <section className="relative min-h-[72vh] overflow-hidden">
-        <LazyProjectHubScene projects={projects} className="opacity-90" />
-        <SectionShell className="relative z-10 flex min-h-[72vh] items-center">
-          <PageHeader eyebrow={dictionary.projects.eyebrow} title={dictionary.projects.title} description={dictionary.projects.description} />
-        </SectionShell>
-      </section>
-
-      <SectionShell className="pt-6">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              statusLabel={dictionary.status[project.status]}
-              openLabel={dictionary.projects.openProject}
-              href={withLocale(locale, `/projects/${project.slug}`)}
-            />
-          ))}
-        </div>
+    <main className="bg-[#030712] pt-24">
+      <SectionShell className="pb-8 pt-14 text-white">
+        <header className="max-w-3xl">
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-200">
+            {dictionary.projects.eyebrow}
+          </p>
+          <h1 className="text-4xl font-black leading-tight text-white sm:text-6xl">{dictionary.projects.title}</h1>
+          <p className="mt-6 text-base leading-8 text-slate-300 sm:text-lg">{dictionary.projects.description}</p>
+        </header>
       </SectionShell>
-
-      <SectionShell className="pt-6">
-        <CTASection
-          title={dictionary.cta.title}
-          description={dictionary.cta.description}
-          label={dictionary.cta.label}
-          href={withLocale(locale, '/contact')}
-        />
-      </SectionShell>
+      <ProductShowcase dictionary={dictionary} locale={locale} products={products} />
+      <DemoCTA dictionary={dictionary} locale={locale} />
     </main>
   );
 }
