@@ -1,121 +1,235 @@
 'use client';
 
-import React from 'react';
+import type { CSSProperties } from 'react';
 import { motion } from 'framer-motion';
-import { FiDownloadCloud, FiCheckCircle, FiShield, FiCpu, FiZap, FiBox } from 'react-icons/fi';
+import {
+  ArrowDownToLine,
+  BadgeCheck,
+  Box,
+  CheckCircle2,
+  Cpu,
+  DatabaseZap,
+  FileCode2,
+  MonitorDown,
+  RadioTower,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from 'lucide-react';
 import TextShimmer from '@/components/ui/TextShimmer';
+
+const update = {
+  product: 'KunyeX Master Client',
+  version: '1.1.0',
+  fileName: 'KunyeX_Master_Client.exe',
+  downloadUrl: '/guncelleme/KunyeX_Master_Client.exe',
+  manifestUrl: '/guncelleme/kunyex-latest.json',
+  sizeLabel: '96.86 MiB',
+  sha256: 'B019D3BE16AE491F6787FC08114B3560C2A98254B6B2903F879AD33F73294C45',
+  publishedAt: '05.05.2026',
+};
+
+const releaseNotes = [
+  {
+    icon: DatabaseZap,
+    title: 'Kalici bellek matrisi',
+    description:
+      'Yeni fiyatlar ve urun verileri eski kayitlari bozmadan daha genis bir havuzda tutulur. Sube operasyonlari daha kararli ilerler.',
+    tone: 'cyan',
+  },
+  {
+    icon: RadioTower,
+    title: 'Guncelleme kanali',
+    description:
+      'Program guncellemeleri artik web uzerinden tek merkezden alinabilir. Ekipler ayni dosyaya, ayni surum bilgisiyle ulasir.',
+    tone: 'emerald',
+  },
+  {
+    icon: Zap,
+    title: 'Performans ve isleme akisi',
+    description:
+      'ODP/PPTX isleme hattindaki duzeltmeler, arka plan operasyonlari ve kurulum akisi daha temiz hale getirildi.',
+    tone: 'amber',
+  },
+];
+
+const checks = [
+  'Windows 10 / 11 uyumlu',
+  '64-bit istemci paketi',
+  'SHA-256 kontrol bilgisi yayinda',
+  'Tek tikla dogrudan indirme',
+];
 
 export default function UpdatePage() {
   return (
-    <div className="relative min-h-screen bg-transparent text-gray-900 dark:text-gray-300 pt-32 pb-20 overflow-hidden transition-colors duration-300 selection:bg-blue-500/30">
-      
-      {/* --- ARKA PLAN EFEKTLERİ --- */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-600/10 dark:bg-blue-900/20 rounded-full blur-[120px] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 dark:bg-cyan-900/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-[0.05] pointer-events-none"></div>
-
-      <div className="container mx-auto px-6 relative z-10 max-w-5xl">
-        
-        {/* --- ÜST BAŞLIK --- */}
-        <div className="text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase border border-blue-200 dark:border-blue-500/30 mb-6 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            Sistem Güncellemesi
-          </motion.div>
-
-          <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-gray-900 dark:text-white">
-            KünyeX <TextShimmer>v1.1</TextShimmer> <br className="hidden md:block" />
-            Yayınlandı.
-          </motion.h1>
-
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Operasyonlarınızı daha hızlı ve güvenli hale getirmek için sistem altyapımızı güncelledik. Kesintisiz hizmet için yeni sürümü hemen indirin.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* --- SOL: İNDİRME KARTI --- */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-5">
-            <div className="bg-white dark:bg-[#0F1629] border border-gray-200 dark:border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group text-center">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
-              
-              <div className="w-24 h-24 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner border border-blue-100 dark:border-blue-500/20 group-hover:scale-110 transition-transform duration-500">
-                <FiDownloadCloud />
-              </div>
-              
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">KünyeX Master Client</h2>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-8">Windows 10 / 11 uyumlu • 64-bit</p>
-              
-              <div className="flex items-center justify-center gap-2 text-xs font-bold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-500/10 py-2 px-4 rounded-xl w-fit mx-auto mb-8 border border-green-200 dark:border-green-500/20">
-                <FiShield /> Virüs Taramasından Geçti
-              </div>
-
-// Next.js (React) Buton Örneği
-<a 
-  href="/guncelleme/KunyeX_Master_Client.exe" 
-  download="KunyeX_Kurulum.exe"
-  className="bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all"
->
-  Sistemi Hemen İndir
-</a>
-              <p className="text-[10px] text-gray-400 mt-4 font-medium">Sürüm: 1.1.0 | Boyut: ~65 MB</p>
-            </div>
-          </motion.div>
-
-          {/* --- SAĞ: SÜRÜM NOTLARI --- */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-7 space-y-6">
-            <div className="bg-white/80 dark:bg-white/[0.02] border border-gray-100 dark:border-white/5 rounded-3xl p-8 backdrop-blur-sm h-full">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <FiBox className="text-blue-500" /> Sürüm Notları (Neler Yeni?)
-              </h3>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="mt-1 w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                    <FiCpu />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900 dark:text-white">Kalıcı Bellek Matrisi</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                      Sistem artık eski fiyatları unutmuyor. Yeni fiyatlar geldiğinde eskilere dokunmadan üzerine yazar, her zaman en geniş ve en güncel fiyat havuzuna sahip olursunuz.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="mt-1 w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                    <FiZap />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900 dark:text-white">Havadan Güncelleme (OTA) Motoru</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
-                      Yeni bir versiyon yayınlandığında sistem sizi otomatik uyarır. Böylece tüm şubeleriniz anında en yeni sürüme geçmiş olur.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="mt-1 w-10 h-10 rounded-xl bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0">
-                    <FiCheckCircle />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900 dark:text-white">Performans ve Arayüz</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1 list-disc pl-4 marker:text-green-500">
-                      <li>Sürükle-bırak (Drag & Drop) fonksiyonundaki güvenlik kısıtlaması aşıldı.</li>
-                      <li>Arka planda yanıp sönen siyah konsol (CMD) ekranları tamamen gizlendi.</li>
-                      <li>Kurulum ekranına masaüstü kısayol tercihi eklendi.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 px-5 pb-20 pt-32 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white sm:px-8">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-cyan-400/12 blur-[120px]" />
+        <div className="absolute right-[-12rem] top-28 h-[34rem] w-[34rem] rounded-full bg-emerald-300/10 blur-[110px]" />
+        <div className="absolute bottom-0 left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-blue-500/10 blur-[110px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:44px_44px] opacity-55 dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
       </div>
+
+      <main className="relative z-10 mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto max-w-4xl text-center"
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-white/82 px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-cyan-700 shadow-[0_18px_60px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-cyan-300/20 dark:bg-white/[0.065] dark:text-cyan-200">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400" />
+            </span>
+            KUNYEX UPDATE CENTER
+          </div>
+          <h1 className="text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+            KunyeX <TextShimmer>v{update.version}</TextShimmer>
+            <br className="hidden sm:block" /> indirme merkezi
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+            KunyeX istemci guncellemelerini bu sayfadan alin. Son paket, surum bilgisi ve dosya dogrulama ozeti tek merkezde tutulur.
+          </p>
+        </motion.div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <motion.section
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/[0.88] p-5 shadow-[0_30px_110px_rgba(15,23,42,0.14)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.06] dark:shadow-[0_30px_110px_rgba(0,0,0,0.34)] sm:p-7"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(34,211,238,0.22),transparent_36%),linear-gradient(135deg,rgba(255,255,255,0.24),transparent_42%)]" />
+            <div className="relative">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="font-mono text-[11px] font-black uppercase tracking-[0.22em] text-cyan-700 dark:text-cyan-200">
+                    Latest package
+                  </p>
+                  <h2 className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{update.product}</h2>
+                  <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-300">
+                    Windows 10 / 11 - 64-bit - {update.sizeLabel}
+                  </p>
+                </div>
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/25 bg-cyan-300/12 text-cyan-700 shadow-[0_0_38px_rgba(34,211,238,0.18)] dark:text-cyan-100">
+                  <MonitorDown size={24} aria-hidden="true" />
+                </span>
+              </div>
+
+              <a
+                href={update.downloadUrl}
+                download={update.fileName}
+                className="mt-7 inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-cyan-300/40 bg-cyan-400 px-6 text-sm font-black text-slate-950 shadow-[0_0_44px_rgba(34,211,238,0.34)] transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              >
+                <ArrowDownToLine size={19} aria-hidden="true" />
+                KunyeX Master Client indir
+              </a>
+
+              <div className="mt-7 grid gap-3">
+                {checks.map((check) => (
+                  <div key={check} className="flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-slate-50/90 px-4 py-3 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-black/20 dark:text-slate-200">
+                    <CheckCircle2 size={17} className="text-emerald-500" aria-hidden="true" />
+                    {check}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 grid gap-3 rounded-2xl border border-slate-200/80 bg-slate-950 p-4 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:border-white/10">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-black uppercase tracking-[0.18em] text-white/50">Surum</span>
+                  <span className="font-mono text-sm font-black">v{update.version}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-black uppercase tracking-[0.18em] text-white/50">Yayin</span>
+                  <span className="font-mono text-sm font-black">{update.publishedAt}</span>
+                </div>
+                <div>
+                  <div className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-white/50">
+                    <ShieldCheck size={14} aria-hidden="true" />
+                    SHA-256
+                  </div>
+                  <p className="break-all rounded-xl bg-white/[0.06] p-3 font-mono text-[11px] font-bold leading-5 text-cyan-100">
+                    {update.sha256}
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={update.manifestUrl}
+                className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 transition hover:text-cyan-500 dark:text-cyan-200"
+              >
+                <FileCode2 size={15} aria-hidden="true" />
+                Manifest JSON
+              </a>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="grid gap-5"
+          >
+            <div className="relative overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/[0.78] p-6 shadow-[0_24px_90px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.045]">
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.045)_1px,transparent_1px)] bg-[size:34px_34px] dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
+              <div className="relative flex items-center gap-3">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-900/10 bg-slate-950 text-white dark:border-white/10 dark:bg-white/[0.08]">
+                  <Sparkles size={19} aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="font-mono text-[11px] font-black uppercase tracking-[0.22em] text-cyan-700 dark:text-cyan-200">
+                    Release notes
+                  </p>
+                  <h2 className="mt-1 text-2xl font-black text-slate-950 dark:text-white">Bu surumde neler var?</h2>
+                </div>
+              </div>
+            </div>
+
+            {releaseNotes.map((note, index) => {
+              const Icon = note.icon;
+
+              return (
+                <motion.article
+                  key={note.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.62, delay: 0.26 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="premium-motion-card relative overflow-hidden rounded-[1.25rem] border border-slate-200/80 bg-white/[0.84] p-5 shadow-[0_20px_80px_rgba(15,23,42,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.055]"
+                  style={{ '--card-accent': note.tone === 'emerald' ? '#34d399' : note.tone === 'amber' ? '#f59e0b' : '#22d3ee' } as CSSProperties}
+                >
+                  <div className="relative flex gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-slate-900/10 bg-slate-950 text-white dark:border-white/10 dark:bg-white/[0.08]">
+                      <Icon size={19} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="text-lg font-black text-slate-950 dark:text-white">{note.title}</h3>
+                      <p className="mt-2 text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">{note.description}</p>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                { label: 'Paket', value: 'EXE', icon: Box },
+                { label: 'Kontrol', value: 'SHA', icon: BadgeCheck },
+                { label: 'Runtime', value: 'Win64', icon: Cpu },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="rounded-[1.15rem] border border-slate-200/80 bg-white/[0.72] p-4 shadow-[0_18px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045]">
+                    <Icon size={18} className="text-cyan-600 dark:text-cyan-200" aria-hidden="true" />
+                    <p className="mt-4 font-mono text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{item.label}</p>
+                    <p className="mt-1 text-xl font-black text-slate-950 dark:text-white">{item.value}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.section>
+        </div>
+      </main>
     </div>
   );
 }

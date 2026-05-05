@@ -5,6 +5,7 @@ import { ContactShadows, Float, RoundedBox, Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import SceneShell from '@/components/three/SceneShell';
+import PremiumSceneStage from '@/components/three/PremiumSceneStage';
 import type { ProductVisualKind } from '@/lib/i18n';
 
 type ProductExperienceSceneProps = {
@@ -270,6 +271,7 @@ function LogisticsScene({ accent }: { accent: string }) {
 export default function ProductExperienceScene({ kind, accent, className }: ProductExperienceSceneProps) {
   return (
     <SceneShell className={className} cameraPosition={[0, 0.18, 6.25]}>
+      <PremiumSceneStage accent={accent} intensity="rich" />
       <group position={[0.05, 0, 0]}>
         {kind === 'barcode' && <BarcodeScene accent={accent} />}
         {kind === 'timer' && <TimerScene accent={accent} />}

@@ -2,6 +2,7 @@
 
 import { ContactShadows, Sparkles } from '@react-three/drei';
 import SceneShell from '@/components/three/SceneShell';
+import PremiumSceneStage from '@/components/three/PremiumSceneStage';
 import ProjectPortal from '@/components/three/ProjectPortal';
 import type { Project } from '@/lib/projects';
 
@@ -14,6 +15,7 @@ export default function ProjectHubScene({
 }) {
   return (
     <SceneShell className={className} cameraPosition={[0, 0.18, 6.2]}>
+      <PremiumSceneStage accent="#38bdf8" intensity="calm" />
       <group position={[0, -0.05, 0]}>
         {projects.map((project, index) => (
           <ProjectPortal key={project.slug} index={index} total={projects.length} accent={project.accent} />

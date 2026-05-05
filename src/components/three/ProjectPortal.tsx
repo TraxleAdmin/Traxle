@@ -52,6 +52,18 @@ export default function ProjectPortal({
 
   return (
     <group ref={groupRef} position={position} rotation={[0.02, -position[0] * 0.12, 0]}>
+      <RoundedBox args={[1.2, 1.62, 0.055]} radius={0.15} smoothness={16} position={[0, 0, -0.06]}>
+        <meshPhysicalMaterial
+          color="#dff8ff"
+          metalness={0.18}
+          roughness={0.04}
+          transmission={0.22}
+          thickness={0.45}
+          clearcoat={1}
+          transparent
+          opacity={0.12}
+        />
+      </RoundedBox>
       <RoundedBox args={[1.05, 1.42, 0.14]} radius={0.12} smoothness={14}>
         <meshPhysicalMaterial
           color="#0a1020"
@@ -68,6 +80,10 @@ export default function ProjectPortal({
         <mesh>
           <torusGeometry args={[0.82, 0.025, 18, 140]} />
           <meshPhysicalMaterial color={accent} emissive={accent} emissiveIntensity={0.45} metalness={0.4} roughness={0.18} />
+        </mesh>
+        <mesh rotation={[Math.PI / 2.15, 0, 0.38]}>
+          <torusGeometry args={[0.98, 0.008, 12, 160]} />
+          <meshBasicMaterial color={accent} transparent opacity={0.32} blending={THREE.AdditiveBlending} depthWrite={false} />
         </mesh>
         <mesh rotation={[0, 0, Math.PI / 2.8]}>
           <torusGeometry args={[0.62, 0.015, 16, 120]} />

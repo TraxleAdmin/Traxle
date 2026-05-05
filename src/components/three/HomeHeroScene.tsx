@@ -5,6 +5,7 @@ import { ContactShadows, RoundedBox, Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import SceneShell from '@/components/three/SceneShell';
+import PremiumSceneStage from '@/components/three/PremiumSceneStage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 function useScrollProgress(targetId?: string) {
@@ -108,6 +109,19 @@ function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
             clearcoatRoughness={0.08}
           />
         </mesh>
+        <mesh scale={0.52} rotation={[0.2, 0.4, -0.12]}>
+          <icosahedronGeometry args={[0.82, 1]} />
+          <meshPhysicalMaterial
+            color="#22d3ee"
+            emissive="#22d3ee"
+            emissiveIntensity={0.52}
+            metalness={0.46}
+            roughness={0.1}
+            clearcoat={1}
+            transparent
+            opacity={0.82}
+          />
+        </mesh>
         <mesh ref={shellRef}>
           <sphereGeometry args={[1.02, 64, 64]} />
           <meshPhysicalMaterial
@@ -188,6 +202,7 @@ function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
 export default function HomeHeroScene({ className, scrollTargetId }: { className?: string; scrollTargetId?: string }) {
   return (
     <SceneShell className={className} cameraPosition={[0, 0.25, 5.7]}>
+      <PremiumSceneStage accent="#22d3ee" intensity="rich" />
       <HeroCore scrollTargetId={scrollTargetId} />
     </SceneShell>
   );
