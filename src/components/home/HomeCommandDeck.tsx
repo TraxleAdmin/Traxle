@@ -30,6 +30,12 @@ const visualIcons: Record<ProductVisualKind, typeof ScanLine> = {
 const codeRows = ['api.ingest()', 'cache.sync()', 'event.stream()', 'device.ready()'];
 const moduleBarcodeBars = [24, 54, 38, 68, 46, 78, 34, 62, 42, 72, 30, 58];
 const miniBarcodeBars = [16, 26, 20, 32, 24, 34, 18, 28];
+const processMapLabels: Record<ProductVisualKind, string[]> = {
+  barcode: ['Urun', 'Fiyat', 'Stok'],
+  timer: ['Mola', 'Vardiya', 'Durum'],
+  document: ['PDF', 'Veri', 'Cikti'],
+  logistics: ['Rota', 'Saha', 'Teslimat'],
+};
 
 type DeckVisualProps = {
   kind: ProductVisualKind;
@@ -228,6 +234,7 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeProduct = products[activeIndex] ?? products[0];
   const ActiveIcon = activeProduct ? visualIcons[activeProduct.visualKind] : Activity;
+  const processSteps = activeProduct ? processMapLabels[activeProduct.visualKind] : [];
 
   const metrics = useMemo(() => {
     if (!activeProduct) return [];
@@ -309,7 +316,7 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
             <div className="relative mt-5 grid gap-3">
               <DeckModuleVisual kind={activeProduct.visualKind} accent={activeProduct.accent} reducedMotion={reducedMotion} />
 
-              <div className="grid gap-3 2xl:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.055] p-4">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <p className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
@@ -332,23 +339,24 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
                   </div>
                 </div>
 
-                <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-black/[0.18] p-3 sm:p-4">
+                <div data-process-map className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-black/[0.18] p-4">
                   <p className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
                     Process map
                   </p>
                   <div className="mt-4 grid min-w-0 gap-2">
-                    {activeProduct.features.slice(0, 3).map((feature, index) => (
+                    {processSteps.map((step, index) => (
                       <motion.div
-                        key={feature}
-                        className="flex min-w-0 items-start gap-2 rounded-xl bg-white/[0.035] px-2.5 py-2 text-[10px] font-bold leading-4 text-white/[0.72]"
+                        key={step}
+                        data-process-step
+                        className="flex h-8 min-w-0 items-center gap-2 overflow-hidden rounded-xl bg-white/[0.035] px-2 text-[10px] font-black uppercase tracking-[0.04em] text-white/[0.72]"
                         animate={reducedMotion ? undefined : { x: [0, index === 1 ? 3 : -2, 0] }}
                         transition={{ duration: 3.4, repeat: Infinity, delay: index * 0.18, ease: 'easeInOut' }}
                       >
                         <span
-                          className="mt-1.5 h-1.5 w-6 shrink-0 rounded-full"
+                          className="h-1.5 w-5 shrink-0 rounded-full"
                           style={{ backgroundColor: index === 1 ? activeProduct.accent : 'rgba(255,255,255,0.22)' }}
                         />
-                        <span className="min-w-0 break-words">{feature}</span>
+                        <span className="min-w-0 truncate">{step}</span>
                       </motion.div>
                     ))}
                   </div>

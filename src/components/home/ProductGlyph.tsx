@@ -3,18 +3,27 @@
 import { motion } from 'framer-motion';
 import type { ProductVisualKind } from '@/lib/i18n';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { cn } from '@/lib/cn';
 
-function BarcodeGlyph({ accent }: { accent: string }) {
+type GlyphProps = {
+  accent: string;
+  className?: string;
+};
+
+const glyphShell =
+  'relative h-full min-h-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]';
+
+function BarcodeGlyph({ accent, className }: GlyphProps) {
   const bars = [28, 52, 36, 68, 44, 76, 32, 58, 42, 70, 30, 50];
   return (
-    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5">
+    <div data-product-glyph className={cn(glyphShell, 'p-4 sm:p-5', className)}>
       <motion.span
         className="pointer-events-none absolute -left-16 top-6 h-28 w-28 rounded-full blur-3xl"
         style={{ backgroundColor: `${accent}28` }}
         animate={{ x: [0, 210, 0], opacity: [0.18, 0.46, 0.18] }}
         transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <div className="relative flex h-24 items-end justify-center gap-1.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-4">
+      <div className="relative flex h-[104px] items-end justify-center gap-1.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-3 pb-4 sm:px-4">
         {bars.map((height, index) => (
           <motion.span
             key={`${height}-${index}`}
@@ -34,10 +43,10 @@ function BarcodeGlyph({ accent }: { accent: string }) {
       <motion.span
         className="absolute left-4 right-4 top-16 h-1 rounded-full"
         style={{ backgroundColor: accent, boxShadow: `0 0 28px ${accent}` }}
-        animate={{ y: [0, 68, 0] }}
+        animate={{ y: [0, 72, 0] }}
         transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <div className="mt-4 grid grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-3 gap-2">
         {Array.from({ length: 6 }).map((_, index) => (
           <span key={index} className="h-2 rounded-full bg-white/10" />
         ))}
@@ -46,9 +55,9 @@ function BarcodeGlyph({ accent }: { accent: string }) {
   );
 }
 
-function TimerGlyph({ accent }: { accent: string }) {
+function TimerGlyph({ accent, className }: GlyphProps) {
   return (
-    <div className="relative flex h-full min-h-40 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+    <div data-product-glyph className={cn(glyphShell, 'flex items-center justify-center', className)}>
       <motion.div
         className="absolute h-36 w-36 rounded-full opacity-80 blur-[0.2px]"
         style={{ background: `conic-gradient(from 90deg, transparent 0 20%, ${accent} 21% 36%, transparent 37% 100%)` }}
@@ -89,15 +98,15 @@ function TimerGlyph({ accent }: { accent: string }) {
   );
 }
 
-function DocumentGlyph({ accent }: { accent: string }) {
+function DocumentGlyph({ accent, className }: GlyphProps) {
   return (
-    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5">
+    <div data-product-glyph className={cn(glyphShell, 'p-4 sm:p-5', className)}>
       <motion.span
-        className="pointer-events-none absolute inset-y-0 w-14 rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm"
-        animate={{ x: [-90, 260, -90] }}
+        className="pointer-events-none absolute inset-y-5 w-10 rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent blur-sm"
+        animate={{ x: [-70, 245, -70] }}
         transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <div className="relative mx-auto h-28 w-24 rounded-xl border border-white/15 bg-white/[0.05] p-3 shadow-2xl">
+      <div className="relative mx-auto h-[112px] w-24 rounded-xl border border-white/15 bg-white/[0.05] p-3 shadow-2xl">
         {Array.from({ length: 5 }).map((_, index) => (
           <motion.span
             key={index}
@@ -108,7 +117,7 @@ function DocumentGlyph({ accent }: { accent: string }) {
         ))}
       </div>
       <motion.div
-        className="absolute right-7 top-8 grid gap-2 rounded-xl border border-white/10 bg-black/60 p-3"
+        className="absolute right-7 top-9 grid gap-2 rounded-xl border border-white/10 bg-black/60 p-3"
         animate={{ x: [10, -4, 10], y: [0, -4, 0], opacity: [0.65, 1, 0.65] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       >
@@ -120,7 +129,7 @@ function DocumentGlyph({ accent }: { accent: string }) {
   );
 }
 
-function LogisticsGlyph({ accent }: { accent: string }) {
+function LogisticsGlyph({ accent, className }: GlyphProps) {
   const nodes = [
     ['18%', '68%'],
     ['38%', '42%'],
@@ -129,7 +138,7 @@ function LogisticsGlyph({ accent }: { accent: string }) {
   ];
 
   return (
-    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+    <div data-product-glyph className={cn(glyphShell, className)}>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px]" />
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <path
@@ -169,12 +178,12 @@ function LogisticsGlyph({ accent }: { accent: string }) {
   );
 }
 
-function StaticProductGlyph({ kind, accent }: { kind: ProductVisualKind; accent: string }) {
+function StaticProductGlyph({ kind, accent, className }: { kind: ProductVisualKind; accent: string; className?: string }) {
   return (
-    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/[0.45] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+    <div data-product-glyph className={cn(glyphShell, 'bg-black/[0.45] p-4 sm:p-5', className)}>
       <div className="absolute inset-0 opacity-70" style={{ background: `radial-gradient(circle at 50% 20%, ${accent}24, transparent 54%)` }} />
       {kind === 'barcode' && (
-        <div className="relative flex h-24 items-end justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-4">
+        <div className="relative flex h-[104px] items-end justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-4 pb-4">
           {[28, 52, 36, 68, 44, 76, 32, 58, 42, 70].map((height, index) => (
             <span key={`${height}-${index}`} className="w-2 rounded-full bg-white/80" style={{ height, boxShadow: index % 3 === 0 ? `0 0 18px ${accent}` : undefined }} />
           ))}
@@ -214,15 +223,25 @@ function StaticProductGlyph({ kind, accent }: { kind: ProductVisualKind; accent:
   );
 }
 
-export default function ProductGlyph({ kind, accent, forceMotion = false }: { kind: ProductVisualKind; accent: string; forceMotion?: boolean }) {
+export default function ProductGlyph({
+  kind,
+  accent,
+  forceMotion = false,
+  className,
+}: {
+  kind: ProductVisualKind;
+  accent: string;
+  forceMotion?: boolean;
+  className?: string;
+}) {
   const reducedMotion = usePrefersReducedMotion();
 
   if (reducedMotion && !forceMotion) {
-    return <StaticProductGlyph kind={kind} accent={accent} />;
+    return <StaticProductGlyph kind={kind} accent={accent} className={className} />;
   }
 
-  if (kind === 'barcode') return <BarcodeGlyph accent={accent} />;
-  if (kind === 'timer') return <TimerGlyph accent={accent} />;
-  if (kind === 'document') return <DocumentGlyph accent={accent} />;
-  return <LogisticsGlyph accent={accent} />;
+  if (kind === 'barcode') return <BarcodeGlyph accent={accent} className={className} />;
+  if (kind === 'timer') return <TimerGlyph accent={accent} className={className} />;
+  if (kind === 'document') return <DocumentGlyph accent={accent} className={className} />;
+  return <LogisticsGlyph accent={accent} className={className} />;
 }
