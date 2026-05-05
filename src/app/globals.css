@@ -418,8 +418,7 @@ body {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
-  opacity: 0.52;
-  animation: premium-border-flow 6.4s ease-in-out infinite alternate;
+  opacity: 0.38;
 }
 
 .premium-command-shell::after {
@@ -451,7 +450,6 @@ body {
     linear-gradient(90deg, rgba(255,255,255,0.075) 1px, transparent 1px),
     radial-gradient(circle at 70% 18%, color-mix(in srgb, var(--deck-accent, #22d3ee) 22%, transparent), transparent 34%);
   background-size: 36px 36px, 36px 36px, auto;
-  animation: premium-console-mesh 16s linear infinite;
 }
 
 .premium-deck-tab::before {
