@@ -40,10 +40,11 @@ export default function SceneShell({
   return (
     <div className={cn('absolute inset-0', interactive ? 'pointer-events-auto' : 'pointer-events-none', className)} aria-hidden="true">
       <Canvas
-        dpr={[1, 1.6]}
+        dpr={[0.75, 1.15]}
         frameloop="always"
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         camera={{ position: cameraPosition, fov: 42, near: 0.1, far: 80 }}
+        performance={{ min: 0.45 }}
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.72} />

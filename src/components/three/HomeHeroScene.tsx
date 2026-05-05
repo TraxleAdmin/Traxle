@@ -179,7 +179,7 @@ function HeroCore({ scrollTargetId }: { scrollTargetId?: string }) {
         <meshPhysicalMaterial color="#07131f" metalness={0.8} roughness={0.16} clearcoat={1} />
       </RoundedBox>
 
-      <Sparkles count={34} speed={0.44} size={2.0} scale={[4.4, 2.7, 2.8]} color="#dff8ff" />
+      <Sparkles count={20} speed={0.34} size={1.7} scale={[4.2, 2.5, 2.6]} color="#dff8ff" />
       <ContactShadows position={[0, -1.42, 0]} opacity={0.34} scale={5.6} blur={2.8} far={3.3} />
     </group>
   );

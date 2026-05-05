@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -20,7 +20,12 @@ export default function Navbar() {
   const locale = getLocaleFromPathname(pathname);
   const dictionary = getDictionary(locale);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = useMemo(
     () => [
@@ -33,7 +38,15 @@ export default function Navbar() {
     [dictionary, locale],
   );
 
-  const themeIcon = theme === 'light' ? <Moon size={17} /> : <Sun size={17} />;
+  const currentTheme = mounted ? resolvedTheme : 'dark';
+  const themeIcon = currentTheme === 'light' ? <Moon size={17} /> : <Sun size={17} />;
+  const toggleTheme = () => {
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
@@ -72,7 +85,7 @@ export default function Navbar() {
           <LanguageSwitcher />
           <button
             type="button"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={toggleTheme}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/10 dark:bg-white/8 dark:text-white dark:hover:bg-white/14"
             aria-label={dictionary.themeLabel}
           >
@@ -87,8 +100,8 @@ export default function Navbar() {
           <LanguageSwitcher compact />
           <button
             type="button"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/8 text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8 dark:text-white"
+            onClick={toggleTheme}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8"
             aria-label={dictionary.themeLabel}
           >
             {themeIcon}
@@ -96,7 +109,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/8 text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8 dark:text-white"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8"
             aria-label="Menu"
             aria-expanded={mobileOpen}
           >

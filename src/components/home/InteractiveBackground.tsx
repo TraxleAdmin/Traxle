@@ -23,7 +23,7 @@ export default function InteractiveBackground() {
       <div
         className="absolute inset-0 opacity-80"
         style={{
-          background: `radial-gradient(circle at ${position.x}% ${position.y}%, rgba(34,211,238,0.22), transparent 28%), radial-gradient(circle at 80% 18%, rgba(96,165,250,0.18), transparent 32%), #030712`,
+          background: `radial-gradient(circle at ${position.x}% ${position.y}%, rgba(34,211,238,0.20), transparent 28%), radial-gradient(circle at 80% 18%, rgba(96,165,250,0.16), transparent 32%), var(--traxle-interactive-bg)`,
         }}
       />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:44px_44px] opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_86%)]" />

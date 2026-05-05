@@ -19,7 +19,7 @@ export default function ProjectHubScene({
           <ProjectPortal key={project.slug} index={index} total={projects.length} accent={project.accent} />
         ))}
       </group>
-      <Sparkles count={34} speed={0.22} size={2.2} scale={[6, 2.6, 3]} color="#dff8ff" />
+      <Sparkles count={18} speed={0.18} size={1.8} scale={[5.6, 2.4, 2.8]} color="#dff8ff" />
       <ContactShadows position={[0, -1.55, 0]} opacity={0.24} scale={7} blur={2.6} far={3.4} />
     </SceneShell>
   );

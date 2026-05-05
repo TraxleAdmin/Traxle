@@ -36,14 +36,14 @@ export default async function ProjectsPage({ params }: PageProps) {
   const products = getProjects(locale);
 
   return (
-    <main className="bg-[#030712] pt-24">
-      <SectionShell className="pb-8 pt-14 text-white">
+    <main className="bg-slate-50 pt-24 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white">
+      <SectionShell className="pb-8 pt-14">
         <header className="max-w-3xl">
           <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-200">
             {dictionary.projects.eyebrow}
           </p>
-          <h1 className="text-4xl font-black leading-tight text-white sm:text-6xl">{dictionary.projects.title}</h1>
-          <p className="mt-6 text-base leading-8 text-slate-300 sm:text-lg">{dictionary.projects.description}</p>
+          <h1 className="text-4xl font-black leading-tight text-slate-950 dark:text-white sm:text-6xl">{dictionary.projects.title}</h1>
+          <p className="mt-6 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{dictionary.projects.description}</p>
         </header>
       </SectionShell>
       <ProductShowcase dictionary={dictionary} locale={locale} products={products} />

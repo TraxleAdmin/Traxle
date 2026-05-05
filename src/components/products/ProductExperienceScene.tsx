@@ -276,7 +276,7 @@ export default function ProductExperienceScene({ kind, accent, className }: Prod
         {kind === 'document' && <DocumentScene accent={accent} />}
         {kind === 'logistics' && <LogisticsScene accent={accent} />}
       </group>
-      <Sparkles count={58} speed={0.32} size={2.4} scale={[7.4, 3.6, 3.4]} color="#dff8ff" />
+      <Sparkles count={26} speed={0.24} size={1.9} scale={[6.8, 3.2, 3]} color="#dff8ff" />
       <ContactShadows position={[1.12, -1.54, 0]} opacity={0.26} scale={6.4} blur={2.8} far={3.8} />
     </SceneShell>
   );

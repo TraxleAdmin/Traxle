@@ -13,6 +13,11 @@ export const LazyProjectHubScene = dynamic(() => import('@/components/three/Proj
   loading: () => <LoadingScene />,
 });
 
+export const LazyProductExperienceScene = dynamic(() => import('@/components/products/ProductExperienceScene'), {
+  ssr: false,
+  loading: () => <LoadingScene />,
+});
+
 export const LazyModelViewer = dynamic(() => import('@/components/three/ModelViewer'), {
   ssr: false,
   loading: () => <LoadingScene />,
