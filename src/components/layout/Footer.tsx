@@ -19,7 +19,7 @@ export default function Footer({ locale }: { locale: Locale }) {
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <div>
           <Link href={withLocale(locale)} className="relative block h-9 w-36" aria-label="Traxle">
-            <Image src="/logo.png" alt="Traxle" fill className="object-contain object-left brightness-0 dark:brightness-100" />
+            <Image src="/logo.png" alt="Traxle" fill sizes="144px" className="object-contain object-left brightness-0 dark:brightness-100" />
           </Link>
           <p className="mt-5 max-w-md text-sm leading-7">{dictionary.footer.description}</p>
         </div>

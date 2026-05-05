@@ -54,12 +54,12 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         aria-expanded={open}
         aria-label={dictionary.languageLabel}
         className={cn(
-          'group relative inline-flex min-h-11 items-center justify-center gap-2 overflow-hidden rounded-full border border-slate-200/80 bg-white px-3 text-sm font-black text-slate-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.86),0_14px_38px_rgba(15,23,42,0.10)] backdrop-blur-2xl transition hover:border-cyan-300/80 hover:shadow-[0_0_38px_rgba(0,194,255,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/12 dark:bg-[#08111d] dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_16px_44px_rgba(0,0,0,0.38)]',
+          'group relative inline-flex min-h-11 items-center justify-center gap-2 overflow-hidden rounded-full border border-slate-200/80 bg-white px-3 text-sm font-black text-slate-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.86),0_14px_38px_rgba(15,23,42,0.10)] backdrop-blur-2xl transition hover:border-cyan-300/80 hover:shadow-[0_0_38px_rgba(0,194,255,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/[0.12] dark:bg-[#08111d] dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_16px_44px_rgba(0,0,0,0.38)]',
           compact ? 'min-w-[92px] px-3' : 'min-w-[164px]',
         )}
       >
         <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent,rgba(34,211,238,0.14),transparent_58%)] opacity-0 transition duration-500 group-hover:opacity-100" />
-        <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-300/14 text-cyan-700 shadow-[0_0_22px_rgba(34,211,238,0.12)] dark:text-cyan-100">
+        <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-300/[0.14] text-cyan-700 shadow-[0_0_22px_rgba(34,211,238,0.12)] dark:text-cyan-100">
           <Languages size={15} aria-hidden="true" />
         </span>
         <span className="relative inline-flex items-center gap-2">
@@ -73,7 +73,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         <div
           role="menu"
           className={cn(
-            'language-menu-panel absolute right-0 top-[calc(100%+0.7rem)] z-[80] w-72 overflow-hidden rounded-[1.35rem] border border-slate-200/80 p-2 shadow-[0_28px_90px_rgba(15,23,42,0.22)] dark:border-white/12 dark:shadow-[0_28px_100px_rgba(0,0,0,0.66)]',
+            'language-menu-panel absolute right-0 top-[calc(100%+0.7rem)] z-[80] w-72 overflow-hidden rounded-[1.35rem] border border-slate-200/80 p-2 shadow-[0_28px_90px_rgba(15,23,42,0.22)] dark:border-white/[0.12] dark:shadow-[0_28px_100px_rgba(0,0,0,0.66)]',
             compact && '-right-24 w-[calc(100vw-2rem)] max-w-[22rem]',
           )}
         >
@@ -85,7 +85,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
             </div>
             <div className="mt-1 flex items-center justify-between gap-3">
               <span className="truncate text-sm font-black text-slate-950 dark:text-white">{currentLanguage.nativeName}</span>
-              <span className="rounded-full border border-cyan-300/25 bg-cyan-300/12 px-2 py-1 text-[10px] font-black tracking-[0.2em] text-cyan-700 dark:text-cyan-100">
+              <span className="rounded-full border border-cyan-300/25 bg-cyan-300/[0.12] px-2 py-1 text-[10px] font-black tracking-[0.2em] text-cyan-700 dark:text-cyan-100">
                 {localeLabels[locale]}
               </span>
             </div>
@@ -112,13 +112,13 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
                       'inline-flex h-8 w-8 items-center justify-center rounded-full border text-[11px] tracking-[0.14em]',
                       active
                         ? 'border-white/20 bg-white/[0.12] text-white dark:border-slate-200 dark:bg-slate-950 dark:text-cyan-100'
-                        : 'border-slate-200/80 bg-white text-slate-700 dark:border-white/10 dark:bg-black/35 dark:text-cyan-100',
+                        : 'border-slate-200/80 bg-white text-slate-700 dark:border-white/10 dark:bg-black/[0.35] dark:text-cyan-100',
                     )}>
                       {localeLabels[language.locale]}
                     </span>
                     <span>
                       <span className="block">{language.nativeName}</span>
-                      <span className={cn('block text-xs font-bold', active ? 'text-white/65 dark:text-slate-600' : 'text-slate-400')}>
+                      <span className={cn('block text-xs font-bold', active ? 'text-white/[0.65] dark:text-slate-600' : 'text-slate-400')}>
                         {language.label}
                       </span>
                     </span>

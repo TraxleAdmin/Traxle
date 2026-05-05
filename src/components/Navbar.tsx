@@ -40,6 +40,7 @@ export default function Navbar() {
             src="/logo.png" 
             alt="TraxleAPP" 
             fill 
+            sizes="128px"
             className="object-contain object-left dark:invert-0 invert-0 dark:filter-none filter" 
             priority 
           />

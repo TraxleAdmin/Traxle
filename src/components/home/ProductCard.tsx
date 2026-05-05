@@ -20,7 +20,7 @@ export default function ProductCard({
       className="group block h-full rounded-[1.4rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
     >
       <article
-        className="premium-motion-card relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-slate-200/80 bg-white/[0.84] p-4 shadow-[0_24px_90px_rgba(15,23,42,0.12)] backdrop-blur-2xl transition duration-500 [transform-style:preserve-3d] hover:border-cyan-300/55 hover:bg-white sm:p-5 dark:border-white/10 dark:bg-white/[0.055] dark:shadow-[0_24px_90px_rgba(0,0,0,0.28)] dark:hover:border-cyan-300/45 dark:hover:bg-white/[0.075]"
+        className="premium-motion-card premium-card-surface relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-slate-200/80 bg-white/[0.84] p-4 shadow-[0_24px_90px_rgba(15,23,42,0.12)] backdrop-blur-2xl transition duration-500 [transform-style:preserve-3d] hover:border-cyan-300/[0.55] hover:bg-white sm:p-5 dark:border-white/10 dark:bg-white/[0.055] dark:shadow-[0_24px_90px_rgba(0,0,0,0.28)] dark:hover:border-cyan-300/[0.45] dark:hover:bg-white/[0.075]"
         style={{ '--card-accent': product.accent } as CSSProperties}
       >
         <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] opacity-0 transition duration-500 group-hover:opacity-100" style={{ boxShadow: `inset 0 0 0 1px ${product.accent}55, 0 0 60px ${product.accent}18` }} />
@@ -36,6 +36,18 @@ export default function ProductCard({
           <h3 className="mt-3 text-2xl font-black text-slate-950 dark:text-white">{product.title}</h3>
           <p className="mt-3 text-base font-bold leading-7 text-slate-800 dark:text-white/[0.88]">{product.shortDescription}</p>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{product.detail}</p>
+          <div className="mt-5 grid gap-2">
+            {product.features.slice(0, 3).map((feature, index) => (
+              <div key={feature} className="flex items-center gap-2">
+                <span className="premium-meter h-1.5 flex-1 overflow-hidden rounded-full bg-slate-900/10 dark:bg-white/10" style={{ '--card-accent': index === 1 ? product.accent : '#34d399' } as CSSProperties}>
+                  <span className="block h-full rounded-full" />
+                </span>
+                <span className="max-w-[8rem] truncate text-[10px] font-black uppercase tracking-[0.12em] text-slate-400 dark:text-white/[0.35]">
+                  {feature}
+                </span>
+              </div>
+            ))}
+          </div>
           <div className="mt-6 inline-flex items-center gap-2 text-sm font-black text-slate-950 dark:text-white">
             {product.cardCta}
             <ArrowUpRight size={16} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

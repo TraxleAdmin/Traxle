@@ -118,7 +118,7 @@ function LogisticsGlyph({ accent }: { accent: string }) {
 
 function StaticProductGlyph({ kind, accent }: { kind: ProductVisualKind; accent: string }) {
   return (
-    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/45 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+    <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/[0.45] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
       <div className="absolute inset-0 opacity-70" style={{ background: `radial-gradient(circle at 50% 20%, ${accent}24, transparent 54%)` }} />
       {kind === 'barcode' && (
         <div className="relative flex h-24 items-end justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-4">

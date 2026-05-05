@@ -26,6 +26,7 @@ export default function Footer() {
                 src="/logo.png"
                 alt="TraxleAPP"
                 fill
+                sizes="144px"
                 className="object-contain object-left dark:filter-none filter brightness-0 dark:brightness-100 opacity-80 dark:opacity-100 transition-all"
               />
             </Link>

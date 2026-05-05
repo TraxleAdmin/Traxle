@@ -50,12 +50,13 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-[1.65rem] border border-slate-200/80 bg-white/76 px-4 py-3 shadow-[0_22px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/48 dark:shadow-[0_22px_80px_rgba(0,0,0,0.42)] lg:rounded-full">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-[1.65rem] border border-slate-200/80 bg-white/[0.76] px-4 py-3 shadow-[0_22px_70px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-black/[0.48] dark:shadow-[0_22px_80px_rgba(0,0,0,0.42)] lg:rounded-full">
         <Link href={withLocale(locale)} className="relative h-8 w-32 shrink-0" aria-label="Traxle">
           <Image
             src="/logo.png"
             alt="Traxle"
             fill
+            sizes="128px"
             priority
             className="object-contain object-left brightness-0 dark:brightness-100"
           />
@@ -86,7 +87,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/10 dark:bg-white/8 dark:text-white dark:hover:bg-white/14"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:border-white/10 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.14]"
             aria-label={dictionary.themeLabel}
           >
             {themeIcon}
@@ -101,7 +102,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/[0.08]"
             aria-label={dictionary.themeLabel}
           >
             {themeIcon}
@@ -109,7 +110,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/8"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/[0.82] text-white shadow-[0_10px_30px_rgba(15,23,42,0.18)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 dark:bg-white/[0.08]"
             aria-label="Menu"
             aria-expanded={mobileOpen}
           >
