@@ -8,14 +8,28 @@ function BarcodeGlyph({ accent }: { accent: string }) {
   const bars = [28, 52, 36, 68, 44, 76, 32, 58, 42, 70, 30, 50];
   return (
     <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5">
-      <div className="flex h-24 items-end justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] px-4">
+      <motion.span
+        className="pointer-events-none absolute -left-16 top-6 h-28 w-28 rounded-full blur-3xl"
+        style={{ backgroundColor: `${accent}28` }}
+        animate={{ x: [0, 210, 0], opacity: [0.18, 0.46, 0.18] }}
+        transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <div className="relative flex h-24 items-end justify-center gap-1.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-4">
         {bars.map((height, index) => (
-          <span
+          <motion.span
             key={`${height}-${index}`}
             className="w-2 rounded-full bg-white/80"
-            style={{ height, boxShadow: index % 3 === 0 ? `0 0 18px ${accent}` : undefined }}
+            style={{ height, boxShadow: index % 3 === 0 ? `0 0 18px ${accent}` : undefined, transformOrigin: 'bottom' }}
+            animate={{ scaleY: [0.72, 1.18, 0.86], opacity: [0.62, 1, 0.72] }}
+            transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.08, ease: 'easeInOut' }}
           />
         ))}
+        <motion.span
+          className="absolute inset-y-3 w-10 rounded-full blur-lg"
+          style={{ backgroundColor: `${accent}45` }}
+          animate={{ x: [-135, 135, -135] }}
+          transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </div>
       <motion.span
         className="absolute left-4 right-4 top-16 h-1 rounded-full"
@@ -36,6 +50,12 @@ function TimerGlyph({ accent }: { accent: string }) {
   return (
     <div className="relative flex h-full min-h-40 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40">
       <motion.div
+        className="absolute h-36 w-36 rounded-full opacity-80 blur-[0.2px]"
+        style={{ background: `conic-gradient(from 90deg, transparent 0 20%, ${accent} 21% 36%, transparent 37% 100%)` }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 7.5, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.div
         className="absolute h-28 w-28 rounded-full border border-white/10"
         style={{ boxShadow: `inset 0 0 36px ${accent}33, 0 0 38px ${accent}22` }}
         animate={{ rotate: 360 }}
@@ -43,12 +63,27 @@ function TimerGlyph({ accent }: { accent: string }) {
       >
         <span className="absolute left-1/2 top-2 h-3 w-3 -translate-x-1/2 rounded-full" style={{ backgroundColor: accent }} />
       </motion.div>
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-white/[0.04]">
-        <span className="h-10 w-10 rounded-full" style={{ background: `conic-gradient(${accent}, transparent 68%)` }} />
-      </div>
+      <motion.div
+        className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-white/[0.04]"
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <span className="h-10 w-10 rounded-full" style={{ background: `conic-gradient(${accent}, transparent 68%)`, boxShadow: `0 0 26px ${accent}28` }} />
+      </motion.div>
+      <motion.span
+        className="absolute left-1/2 top-1/2 h-12 w-0.5 origin-bottom -translate-x-1/2 -translate-y-full rounded-full"
+        style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: 'linear' }}
+      />
       <div className="absolute bottom-5 left-5 right-5 flex items-center gap-2">
         <span className="h-2 flex-1 rounded-full bg-white/10" />
-        <span className="h-2 w-12 rounded-full" style={{ backgroundColor: accent }} />
+        <motion.span
+          className="h-2 w-12 rounded-full"
+          style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+          animate={{ x: [-10, 10, -10], opacity: [0.55, 1, 0.55] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </div>
     </div>
   );
@@ -57,6 +92,11 @@ function TimerGlyph({ accent }: { accent: string }) {
 function DocumentGlyph({ accent }: { accent: string }) {
   return (
     <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5">
+      <motion.span
+        className="pointer-events-none absolute inset-y-0 w-14 rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm"
+        animate={{ x: [-90, 260, -90] }}
+        transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
+      />
       <div className="relative mx-auto h-28 w-24 rounded-xl border border-white/15 bg-white/[0.05] p-3 shadow-2xl">
         {Array.from({ length: 5 }).map((_, index) => (
           <motion.span
@@ -69,7 +109,7 @@ function DocumentGlyph({ accent }: { accent: string }) {
       </div>
       <motion.div
         className="absolute right-7 top-8 grid gap-2 rounded-xl border border-white/10 bg-black/60 p-3"
-        animate={{ x: [8, 0, 8], opacity: [0.65, 1, 0.65] }}
+        animate={{ x: [10, -4, 10], y: [0, -4, 0], opacity: [0.65, 1, 0.65] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       >
         {Array.from({ length: 3 }).map((_, index) => (
@@ -92,6 +132,13 @@ function LogisticsGlyph({ accent }: { accent: string }) {
     <div className="relative h-full min-h-40 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px]" />
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M18 68 C34 36 48 70 62 58 S78 34 82 30"
+          fill="none"
+          stroke="rgba(255,255,255,0.18)"
+          strokeWidth="7"
+          strokeLinecap="round"
+        />
         <motion.path
           d="M18 68 C34 36 48 70 62 58 S78 34 82 30"
           fill="none"
@@ -103,6 +150,12 @@ function LogisticsGlyph({ accent }: { accent: string }) {
           transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
         />
       </svg>
+      <motion.span
+        className="absolute h-2.5 w-2.5 rounded-full"
+        style={{ backgroundColor: accent, boxShadow: `0 0 24px ${accent}` }}
+        animate={{ left: ['18%', '38%', '62%', '82%', '18%'], top: ['68%', '42%', '58%', '30%', '68%'] }}
+        transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
+      />
       {nodes.map(([left, top], index) => (
         <motion.span
           key={`${left}-${top}`}
@@ -161,10 +214,10 @@ function StaticProductGlyph({ kind, accent }: { kind: ProductVisualKind; accent:
   );
 }
 
-export default function ProductGlyph({ kind, accent }: { kind: ProductVisualKind; accent: string }) {
+export default function ProductGlyph({ kind, accent, forceMotion = false }: { kind: ProductVisualKind; accent: string; forceMotion?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
 
-  if (reducedMotion) {
+  if (reducedMotion && !forceMotion) {
     return <StaticProductGlyph kind={kind} accent={accent} />;
   }
 

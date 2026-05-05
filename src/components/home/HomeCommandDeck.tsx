@@ -309,7 +309,7 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
             <div className="relative mt-5 grid gap-3">
               <DeckModuleVisual kind={activeProduct.visualKind} accent={activeProduct.accent} reducedMotion={reducedMotion} />
 
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 2xl:grid-cols-2">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.055] p-4">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <p className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
@@ -332,16 +332,24 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-black/[0.18] p-4">
+                <div className="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-black/[0.18] p-3 sm:p-4">
                   <p className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
                     Process map
                   </p>
-                  <div className="mt-4 grid gap-2">
+                  <div className="mt-4 grid min-w-0 gap-2">
                     {activeProduct.features.slice(0, 3).map((feature, index) => (
-                      <div key={feature} className="flex items-center gap-2 text-xs font-bold leading-5 text-white/[0.72]">
-                        <span className="h-1.5 w-7 rounded-full" style={{ backgroundColor: index === 1 ? activeProduct.accent : 'rgba(255,255,255,0.22)' }} />
-                        <span className="truncate">{feature}</span>
-                      </div>
+                      <motion.div
+                        key={feature}
+                        className="flex min-w-0 items-start gap-2 rounded-xl bg-white/[0.035] px-2.5 py-2 text-[10px] font-bold leading-4 text-white/[0.72]"
+                        animate={reducedMotion ? undefined : { x: [0, index === 1 ? 3 : -2, 0] }}
+                        transition={{ duration: 3.4, repeat: Infinity, delay: index * 0.18, ease: 'easeInOut' }}
+                      >
+                        <span
+                          className="mt-1.5 h-1.5 w-6 shrink-0 rounded-full"
+                          style={{ backgroundColor: index === 1 ? activeProduct.accent : 'rgba(255,255,255,0.22)' }}
+                        />
+                        <span className="min-w-0 break-words">{feature}</span>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
