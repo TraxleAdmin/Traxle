@@ -36,6 +36,13 @@ const processMapLabels: Record<ProductVisualKind, string[]> = {
   document: ['PDF', 'Veri', 'Cikti'],
   logistics: ['Rota', 'Saha', 'Teslimat'],
 };
+const deckLogisticsPath = 'M10 72 C22 52 31 42 38 42 S52 58 62 58 S78 30 90 30';
+const deckLogisticsPoints = [
+  { x: 10, y: 72 },
+  { x: 38, y: 42 },
+  { x: 62, y: 58 },
+  { x: 90, y: 30 },
+];
 
 type DeckVisualProps = {
   kind: ProductVisualKind;
@@ -86,13 +93,19 @@ function DeckModuleVisual({ kind, accent, reducedMotion }: DeckVisualProps) {
             transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
           />
           <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/[0.15] bg-black/[0.55]">
-            <span className="h-8 w-8 rounded-full" style={{ background: `radial-gradient(circle, ${accent} 0 14%, transparent 16%), conic-gradient(${accent}, transparent 70%)` }} />
+            <span className="absolute h-10 w-10 rounded-full border border-white/10" />
             <motion.span
-              className="absolute left-1/2 top-1/2 h-9 w-0.5 origin-bottom -translate-x-1/2 -translate-y-full rounded-full"
-              style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+              className="absolute left-1/2 top-1/2 h-0 w-0"
               animate={reducedMotion ? undefined : { rotate: 360 }}
               transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-            />
+            >
+              <span
+                className="absolute bottom-0 left-[-1px] h-9 w-0.5 rounded-full"
+                style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+              />
+              <span className="absolute -bottom-1 -left-1 h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
+            </motion.span>
+            <span className="relative h-3.5 w-3.5 rounded-full" style={{ background: `radial-gradient(circle, ${accent} 0 36%, transparent 42%)` }} />
           </div>
         </div>
       )}
@@ -123,9 +136,10 @@ function DeckModuleVisual({ kind, accent, reducedMotion }: DeckVisualProps) {
 
       {kind === 'logistics' && (
         <div className="relative h-full">
-          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 58" preserveAspectRatio="none" aria-hidden="true">
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d={deckLogisticsPath} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="7" strokeLinecap="round" />
             <motion.path
-              d="M9 42 C25 16 43 46 57 32 S78 11 91 19"
+              d={deckLogisticsPath}
               fill="none"
               stroke={accent}
               strokeWidth="2"
@@ -134,22 +148,37 @@ function DeckModuleVisual({ kind, accent, reducedMotion }: DeckVisualProps) {
               animate={reducedMotion ? undefined : { strokeDashoffset: [0, -34] }}
               transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
             />
-            <path d="M9 42 C25 16 43 46 57 32 S78 11 91 19" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="8" strokeLinecap="round" />
-          </svg>
-          {[
-            ['9%', '70%'],
-            ['38%', '42%'],
-            ['63%', '55%'],
-            ['91%', '30%'],
-          ].map(([left, top], index) => (
-            <motion.span
-              key={`${left}-${top}`}
-              className="absolute h-3.5 w-3.5 rounded-full border border-white/70"
-              style={{ left, top, backgroundColor: index === 3 ? accent : 'rgba(255,255,255,0.82)', boxShadow: `0 0 24px ${accent}` }}
-              animate={reducedMotion ? undefined : { scale: [1, 1.36, 1] }}
-              transition={{ duration: 2.3, repeat: Infinity, delay: index * 0.18, ease: 'easeInOut' }}
+            {deckLogisticsPoints.map((point, index) => (
+              <motion.circle
+                key={`${point.x}-${point.y}`}
+                cx={point.x}
+                cy={point.y}
+                r={index === 3 ? 3.3 : 3.6}
+                fill={index === 3 ? accent : 'rgba(255,255,255,0.86)'}
+                stroke="rgba(255,255,255,0.68)"
+                strokeWidth="0.7"
+                style={{ filter: `drop-shadow(0 0 6px ${accent})` }}
+                animate={reducedMotion ? undefined : { r: [index === 3 ? 3.3 : 3.6, index === 3 ? 4.3 : 4.5, index === 3 ? 3.3 : 3.6] }}
+                transition={{ duration: 2.3, repeat: Infinity, delay: index * 0.18, ease: 'easeInOut' }}
+              />
+            ))}
+            <motion.circle
+              cx={deckLogisticsPoints[0].x}
+              cy={deckLogisticsPoints[0].y}
+              r="2.7"
+              fill={accent}
+              style={{ filter: `drop-shadow(0 0 8px ${accent})` }}
+              animate={
+                reducedMotion
+                  ? undefined
+                  : {
+                      cx: deckLogisticsPoints.map((point) => point.x).concat(deckLogisticsPoints[0].x),
+                      cy: deckLogisticsPoints.map((point) => point.y).concat(deckLogisticsPoints[0].y),
+                    }
+              }
+              transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
             />
-          ))}
+          </svg>
         </div>
       )}
     </div>

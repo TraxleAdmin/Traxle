@@ -12,6 +12,13 @@ type GlyphProps = {
 
 const glyphShell =
   'relative h-full min-h-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]';
+const logisticsPath = 'M18 68 C25 50 31 42 38 42 S52 58 62 58 S74 30 82 30';
+const logisticsPoints = [
+  { x: 18, y: 68 },
+  { x: 38, y: 42 },
+  { x: 62, y: 58 },
+  { x: 82, y: 30 },
+];
 
 function BarcodeGlyph({ accent, className }: GlyphProps) {
   const bars = [28, 52, 36, 68, 44, 76, 32, 58, 42, 70, 30, 50];
@@ -39,13 +46,13 @@ function BarcodeGlyph({ accent, className }: GlyphProps) {
           animate={{ x: [-135, 135, -135] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
         />
+        <motion.span
+          className="absolute left-4 right-4 top-3 h-1 rounded-full"
+          style={{ backgroundColor: accent, boxShadow: `0 0 28px ${accent}` }}
+          animate={{ y: [0, 70, 0] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </div>
-      <motion.span
-        className="absolute left-4 right-4 top-16 h-1 rounded-full"
-        style={{ backgroundColor: accent, boxShadow: `0 0 28px ${accent}` }}
-        animate={{ y: [0, 72, 0] }}
-        transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
-      />
       <div className="mt-3 grid grid-cols-3 gap-2">
         {Array.from({ length: 6 }).map((_, index) => (
           <span key={index} className="h-2 rounded-full bg-white/10" />
@@ -65,26 +72,26 @@ function TimerGlyph({ accent, className }: GlyphProps) {
         transition={{ duration: 7.5, repeat: Infinity, ease: 'linear' }}
       />
       <motion.div
-        className="absolute h-28 w-28 rounded-full border border-white/10"
+        className="relative flex h-28 w-28 items-center justify-center rounded-full border border-white/10"
         style={{ boxShadow: `inset 0 0 36px ${accent}33, 0 0 38px ${accent}22` }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+        animate={{ scale: [1, 1.035, 1] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <span className="absolute left-1/2 top-2 h-3 w-3 -translate-x-1/2 rounded-full" style={{ backgroundColor: accent }} />
+        <span className="absolute inset-3 rounded-full border border-white/10" />
+        <span className="absolute h-16 w-16 rounded-full border border-white/10 bg-black/55" />
+        <motion.span
+          className="absolute left-1/2 top-1/2 h-0 w-0"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 5.2, repeat: Infinity, ease: 'linear' }}
+        >
+          <span
+            className="absolute bottom-0 left-[-1px] h-12 w-0.5 rounded-full"
+            style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+          />
+          <span className="absolute -bottom-1 -left-1 h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
+        </motion.span>
+        <span className="relative h-5 w-5 rounded-full" style={{ background: `radial-gradient(circle, ${accent} 0 36%, transparent 40%)` }} />
       </motion.div>
-      <motion.div
-        className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-white/[0.04]"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <span className="h-10 w-10 rounded-full" style={{ background: `conic-gradient(${accent}, transparent 68%)`, boxShadow: `0 0 26px ${accent}28` }} />
-      </motion.div>
-      <motion.span
-        className="absolute left-1/2 top-1/2 h-12 w-0.5 origin-bottom -translate-x-1/2 -translate-y-full rounded-full"
-        style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: 'linear' }}
-      />
       <div className="absolute bottom-5 left-5 right-5 flex items-center gap-2">
         <span className="h-2 flex-1 rounded-full bg-white/10" />
         <motion.span
@@ -101,55 +108,50 @@ function TimerGlyph({ accent, className }: GlyphProps) {
 function DocumentGlyph({ accent, className }: GlyphProps) {
   return (
     <div data-product-glyph className={cn(glyphShell, 'p-4 sm:p-5', className)}>
-      <motion.span
-        className="pointer-events-none absolute inset-y-5 w-10 rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent blur-sm"
-        animate={{ x: [-70, 245, -70] }}
-        transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <div className="relative mx-auto h-[112px] w-24 rounded-xl border border-white/15 bg-white/[0.05] p-3 shadow-2xl">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <motion.span
-            key={index}
-            className="mb-2 block h-2 rounded-full bg-white/20"
-            animate={{ width: ['72%', index % 2 === 0 ? '96%' : '54%', '72%'] }}
-            transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.18 }}
-          />
-        ))}
+      <div className="relative mx-auto flex h-[128px] w-full max-w-[178px] items-center justify-center overflow-hidden rounded-xl">
+        <motion.span
+          className="pointer-events-none absolute inset-y-3 w-9 rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent blur-sm"
+          animate={{ x: [-52, 174, -52] }}
+          transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <div className="relative h-[112px] w-24 rounded-xl border border-white/15 bg-white/[0.05] p-3 shadow-2xl">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <motion.span
+              key={index}
+              className="mb-2 block h-2 rounded-full bg-white/20"
+              animate={{ width: ['72%', index % 2 === 0 ? '96%' : '54%', '72%'] }}
+              transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.18 }}
+            />
+          ))}
+        </div>
+        <motion.div
+          className="absolute right-3 top-7 grid gap-2 rounded-xl border border-white/10 bg-black/60 p-3"
+          animate={{ x: [8, -3, 8], y: [0, -3, 0], opacity: [0.65, 1, 0.65] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {Array.from({ length: 3 }).map((_, index) => (
+            <span key={index} className="h-2 w-14 rounded-full" style={{ backgroundColor: index === 1 ? accent : 'rgba(255,255,255,0.18)' }} />
+          ))}
+        </motion.div>
       </div>
-      <motion.div
-        className="absolute right-7 top-9 grid gap-2 rounded-xl border border-white/10 bg-black/60 p-3"
-        animate={{ x: [10, -4, 10], y: [0, -4, 0], opacity: [0.65, 1, 0.65] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        {Array.from({ length: 3 }).map((_, index) => (
-          <span key={index} className="h-2 w-14 rounded-full" style={{ backgroundColor: index === 1 ? accent : 'rgba(255,255,255,0.18)' }} />
-        ))}
-      </motion.div>
     </div>
   );
 }
 
 function LogisticsGlyph({ accent, className }: GlyphProps) {
-  const nodes = [
-    ['18%', '68%'],
-    ['38%', '42%'],
-    ['62%', '58%'],
-    ['82%', '30%'],
-  ];
-
   return (
     <div data-product-glyph className={cn(glyphShell, className)}>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px]" />
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <path
-          d="M18 68 C34 36 48 70 62 58 S78 34 82 30"
+          d={logisticsPath}
           fill="none"
           stroke="rgba(255,255,255,0.18)"
           strokeWidth="7"
           strokeLinecap="round"
         />
         <motion.path
-          d="M18 68 C34 36 48 70 62 58 S78 34 82 30"
+          d={logisticsPath}
           fill="none"
           stroke={accent}
           strokeWidth="1.8"
@@ -158,22 +160,33 @@ function LogisticsGlyph({ accent, className }: GlyphProps) {
           animate={{ strokeDashoffset: [0, -32] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
         />
-      </svg>
-      <motion.span
-        className="absolute h-2.5 w-2.5 rounded-full"
-        style={{ backgroundColor: accent, boxShadow: `0 0 24px ${accent}` }}
-        animate={{ left: ['18%', '38%', '62%', '82%', '18%'], top: ['68%', '42%', '58%', '30%', '68%'] }}
-        transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      {nodes.map(([left, top], index) => (
-        <motion.span
-          key={`${left}-${top}`}
-          className="absolute h-3 w-3 rounded-full border border-white/60"
-          style={{ left, top, backgroundColor: index === 3 ? accent : 'rgba(255,255,255,0.8)', boxShadow: `0 0 24px ${accent}` }}
-          animate={{ scale: [1, 1.4, 1] }}
-          transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.24 }}
+        {logisticsPoints.map((point, index) => (
+          <motion.circle
+            key={`${point.x}-${point.y}`}
+            cx={point.x}
+            cy={point.y}
+            r={index === 3 ? 3.2 : 3.6}
+            fill={index === 3 ? accent : 'rgba(255,255,255,0.86)'}
+            stroke="rgba(255,255,255,0.65)"
+            strokeWidth="0.7"
+            style={{ filter: `drop-shadow(0 0 6px ${accent})` }}
+            animate={{ r: [index === 3 ? 3.2 : 3.6, index === 3 ? 4.2 : 4.5, index === 3 ? 3.2 : 3.6] }}
+            transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.24 }}
+          />
+        ))}
+        <motion.circle
+          cx={logisticsPoints[0].x}
+          cy={logisticsPoints[0].y}
+          r="2.7"
+          fill={accent}
+          style={{ filter: `drop-shadow(0 0 8px ${accent})` }}
+          animate={{
+            cx: logisticsPoints.map((point) => point.x).concat(logisticsPoints[0].x),
+            cy: logisticsPoints.map((point) => point.y).concat(logisticsPoints[0].y),
+          }}
+          transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
         />
-      ))}
+      </svg>
     </div>
   );
 }
@@ -211,12 +224,11 @@ function StaticProductGlyph({ kind, accent, className }: { kind: ProductVisualKi
       {kind === 'logistics' && (
         <div className="relative h-28 rounded-xl border border-white/10 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px]">
           <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M18 68 C34 36 48 70 62 58 S78 34 82 30" fill="none" stroke={accent} strokeWidth="2" strokeLinecap="round" />
+            <path d={logisticsPath} fill="none" stroke={accent} strokeWidth="2" strokeLinecap="round" />
+            {logisticsPoints.map((point, index) => (
+              <circle key={`${point.x}-${point.y}`} cx={point.x} cy={point.y} r="3.3" fill={index === 3 ? accent : 'rgba(255,255,255,0.8)'} />
+            ))}
           </svg>
-          {['18%:68%', '38%:42%', '62%:58%', '82%:30%'].map((point, index) => {
-            const [left, top] = point.split(':');
-            return <span key={point} className="absolute h-3 w-3 rounded-full border border-white/60" style={{ left, top, backgroundColor: index === 3 ? accent : 'rgba(255,255,255,0.8)', boxShadow: `0 0 22px ${accent}` }} />;
-          })}
         </div>
       )}
     </div>
