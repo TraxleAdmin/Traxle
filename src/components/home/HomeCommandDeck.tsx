@@ -15,7 +15,6 @@ import {
   Sparkles,
   TimerReset,
 } from 'lucide-react';
-import ProductGlyph from '@/components/home/ProductGlyph';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { cn } from '@/lib/cn';
 import type { ProductVisualKind } from '@/lib/i18n';
@@ -29,6 +28,200 @@ const visualIcons: Record<ProductVisualKind, typeof ScanLine> = {
 };
 
 const codeRows = ['api.ingest()', 'cache.sync()', 'event.stream()', 'device.ready()'];
+const moduleBarcodeBars = [24, 54, 38, 68, 46, 78, 34, 62, 42, 72, 30, 58];
+const miniBarcodeBars = [16, 26, 20, 32, 24, 34, 18, 28];
+
+type DeckVisualProps = {
+  kind: ProductVisualKind;
+  accent: string;
+  reducedMotion: boolean;
+  className?: string;
+};
+
+function DeckModuleVisual({ kind, accent, reducedMotion }: DeckVisualProps) {
+  return (
+    <div className="relative h-[150px] overflow-hidden rounded-[1.15rem] border border-white/10 bg-black/[0.34] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:h-[162px]">
+      <div className="pointer-events-none absolute inset-0 opacity-90" style={{ background: `radial-gradient(circle at 50% 0%, ${accent}26, transparent 52%)` }} />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60" />
+
+      {kind === 'barcode' && (
+        <div className="relative flex h-full flex-col justify-between">
+          <div className="relative flex h-24 items-end justify-center gap-1.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.045] px-4 pb-4">
+            {moduleBarcodeBars.map((height, index) => (
+              <motion.span
+                key={`${height}-${index}`}
+                className="w-2 rounded-full bg-white/80"
+                style={{ height, boxShadow: index % 3 === 0 ? `0 0 18px ${accent}` : undefined }}
+                animate={reducedMotion ? undefined : { scaleY: [0.82, 1.08, 0.9] }}
+                transition={{ duration: 2.8, repeat: Infinity, delay: index * 0.08, ease: 'easeInOut' }}
+              />
+            ))}
+            <motion.span
+              className="absolute left-5 right-5 top-1/2 h-0.5 rounded-full"
+              style={{ backgroundColor: accent, boxShadow: `0 0 28px ${accent}` }}
+              animate={reducedMotion ? undefined : { y: [-26, 28, -26] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <span key={index} className="h-1.5 rounded-full bg-white/10" />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {kind === 'timer' && (
+        <div className="relative flex h-full items-center justify-center">
+          <motion.div
+            className="absolute h-28 w-28 rounded-full border border-white/10"
+            style={{ background: `conic-gradient(${accent} 0 68%, rgba(255,255,255,0.08) 68% 100%)`, boxShadow: `0 0 42px ${accent}22` }}
+            animate={reducedMotion ? undefined : { rotate: 360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+          />
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-white/[0.15] bg-black/[0.55]">
+            <span className="h-8 w-8 rounded-full" style={{ background: `radial-gradient(circle, ${accent} 0 14%, transparent 16%), conic-gradient(${accent}, transparent 70%)` }} />
+            <motion.span
+              className="absolute left-1/2 top-1/2 h-9 w-0.5 origin-bottom -translate-x-1/2 -translate-y-full rounded-full"
+              style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+              animate={reducedMotion ? undefined : { rotate: 360 }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+            />
+          </div>
+        </div>
+      )}
+
+      {kind === 'document' && (
+        <div className="relative mx-auto flex h-full max-w-[220px] items-center justify-center">
+          <div className="relative h-28 w-24 rounded-xl border border-white/[0.15] bg-white/[0.06] p-3 shadow-2xl">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <motion.span
+                key={index}
+                className="mb-2 block h-2 rounded-full bg-white/[0.22]"
+                animate={reducedMotion ? undefined : { width: ['64%', index % 2 === 0 ? '92%' : '50%', '64%'] }}
+                transition={{ duration: 3, repeat: Infinity, delay: index * 0.16, ease: 'easeInOut' }}
+              />
+            ))}
+          </div>
+          <motion.div
+            className="absolute right-6 top-9 grid gap-2 rounded-xl border border-white/10 bg-black/[0.65] p-3 shadow-2xl"
+            animate={reducedMotion ? undefined : { x: [8, -2, 8], opacity: [0.72, 1, 0.72] }}
+            transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {[46, 58, 38].map((width, index) => (
+              <span key={width} className="h-2 rounded-full" style={{ width, backgroundColor: index === 1 ? accent : 'rgba(255,255,255,0.2)' }} />
+            ))}
+          </motion.div>
+        </div>
+      )}
+
+      {kind === 'logistics' && (
+        <div className="relative h-full">
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 58" preserveAspectRatio="none" aria-hidden="true">
+            <motion.path
+              d="M9 42 C25 16 43 46 57 32 S78 11 91 19"
+              fill="none"
+              stroke={accent}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray="9 8"
+              animate={reducedMotion ? undefined : { strokeDashoffset: [0, -34] }}
+              transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
+            />
+            <path d="M9 42 C25 16 43 46 57 32 S78 11 91 19" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="8" strokeLinecap="round" />
+          </svg>
+          {[
+            ['9%', '70%'],
+            ['38%', '42%'],
+            ['63%', '55%'],
+            ['91%', '30%'],
+          ].map(([left, top], index) => (
+            <motion.span
+              key={`${left}-${top}`}
+              className="absolute h-3.5 w-3.5 rounded-full border border-white/70"
+              style={{ left, top, backgroundColor: index === 3 ? accent : 'rgba(255,255,255,0.82)', boxShadow: `0 0 24px ${accent}` }}
+              animate={reducedMotion ? undefined : { scale: [1, 1.36, 1] }}
+              transition={{ duration: 2.3, repeat: Infinity, delay: index * 0.18, ease: 'easeInOut' }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DeckTabVisual({ kind, accent, reducedMotion, className }: DeckVisualProps) {
+  return (
+    <div className={cn('relative mt-3 h-12 overflow-hidden rounded-xl border border-current/[0.08] bg-slate-950/[0.07] dark:bg-black/[0.22]', className)}>
+      <div className="absolute inset-0 opacity-80" style={{ background: `radial-gradient(circle at 78% 20%, ${accent}28, transparent 56%)` }} />
+
+      {kind === 'barcode' && (
+        <div className="relative flex h-full items-end justify-center gap-1 px-4 pb-2">
+          {miniBarcodeBars.map((height, index) => (
+            <motion.span
+              key={`${height}-${index}`}
+              className="w-1.5 rounded-full bg-current/[0.45]"
+              style={{ height }}
+              animate={reducedMotion ? undefined : { scaleY: [0.76, 1.1, 0.82] }}
+              transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.07, ease: 'easeInOut' }}
+            />
+          ))}
+          <motion.span
+            className="absolute left-4 right-4 top-5 h-0.5 rounded-full"
+            style={{ backgroundColor: accent, boxShadow: `0 0 18px ${accent}` }}
+            animate={reducedMotion ? undefined : { x: ['-12%', '12%', '-12%'] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+      )}
+
+      {kind === 'timer' && (
+        <div className="relative flex h-full items-center justify-center">
+          <motion.span
+            className="h-8 w-8 rounded-full border border-current/[0.15]"
+            style={{ background: `conic-gradient(${accent} 0 70%, rgba(255,255,255,0.08) 70% 100%)` }}
+            animate={reducedMotion ? undefined : { rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+          />
+          <span className="absolute h-4 w-4 rounded-full bg-black/[0.45]" />
+        </div>
+      )}
+
+      {kind === 'document' && (
+        <div className="relative flex h-full items-center justify-center gap-1.5">
+          {[22, 32, 26, 36].map((width, index) => (
+            <motion.span
+              key={width}
+              className="h-2 rounded-full bg-current/[0.35]"
+              style={{ width }}
+              animate={reducedMotion ? undefined : { opacity: [0.35, 0.86, 0.35] }}
+              transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.16, ease: 'easeInOut' }}
+            />
+          ))}
+          <span className="h-2 w-8 rounded-full" style={{ backgroundColor: accent }} />
+        </div>
+      )}
+
+      {kind === 'logistics' && (
+        <svg className="relative h-full w-full" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true">
+          <motion.path
+            d="M10 25 C28 8 43 28 58 20 S78 7 90 13"
+            fill="none"
+            stroke={accent}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray="8 8"
+            animate={reducedMotion ? undefined : { strokeDashoffset: [0, -30] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+          />
+          {[10, 58, 90].map((cx, index) => (
+            <circle key={cx} cx={cx} cy={index === 0 ? 25 : index === 1 ? 20 : 13} r="3.2" fill={index === 2 ? accent : 'currentColor'} opacity="0.72" />
+          ))}
+        </svg>
+      )}
+    </div>
+  );
+}
 
 export default function HomeCommandDeck({ products }: { products: Project[] }) {
   const reducedMotion = usePrefersReducedMotion();
@@ -113,11 +306,10 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
               </span>
             </div>
 
-            <div className="relative mt-5 grid gap-4 sm:grid-cols-[1fr_0.82fr]">
-              <div className="min-w-0">
-                <ProductGlyph kind={activeProduct.visualKind} accent={activeProduct.accent} />
-              </div>
-              <div className="grid content-between gap-3">
+            <div className="relative mt-5 grid gap-3">
+              <DeckModuleVisual kind={activeProduct.visualKind} accent={activeProduct.accent} reducedMotion={reducedMotion} />
+
+              <div className="grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.055] p-4">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <p className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-white/50">
@@ -175,14 +367,16 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
               const active = index === activeIndex;
 
               return (
-                <button
+                <motion.button
                   key={product.slug}
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
                   onMouseEnter={() => setActiveIndex(index)}
+                  whileHover={reducedMotion ? undefined : { y: -4, scale: 1.012 }}
+                  transition={{ duration: 0.28, ease: 'easeOut' }}
                   className={cn(
-                    'premium-deck-tab group relative min-h-[106px] overflow-hidden rounded-[1.15rem] border p-4 text-left transition duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300',
+                    'premium-deck-tab group relative min-h-[112px] overflow-hidden rounded-[1.15rem] border p-3 text-left transition duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300',
                     active
                       ? 'border-slate-900/[0.12] bg-slate-950 text-white shadow-[0_22px_70px_rgba(15,23,42,0.22)] dark:border-white/[0.14] dark:bg-white/[0.09]'
                       : 'border-slate-200/80 bg-white/80 text-slate-800 hover:bg-white dark:border-white/10 dark:bg-white/[0.045] dark:text-slate-200 dark:hover:bg-white/[0.07]',
@@ -191,19 +385,20 @@ export default function HomeCommandDeck({ products }: { products: Project[] }) {
                   aria-pressed={active}
                 >
                   <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100" style={{ background: `radial-gradient(circle at 82% 22%, ${product.accent}24, transparent 42%)` }} />
-                  <div className="relative flex items-start justify-between gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-current/[0.1] bg-current/[0.05]">
+                  <div className="relative flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-current/[0.1] bg-current/[0.05]">
                       <Icon size={17} color={active ? product.accent : undefined} aria-hidden="true" />
                     </span>
-                    <ChevronRight size={16} className="mt-2 transition group-hover:translate-x-1" aria-hidden="true" />
+                    <DeckTabVisual kind={product.visualKind} accent={product.accent} reducedMotion={reducedMotion} className="mt-0 h-10 flex-1" />
+                    <ChevronRight size={16} className="shrink-0 transition group-hover:translate-x-1" aria-hidden="true" />
                   </div>
-                  <div className="relative mt-3">
-                    <p className="font-mono text-[10px] font-black uppercase tracking-[0.18em] opacity-[0.55]">
+                  <div className="relative mt-2">
+                    <p className="truncate font-mono text-[9px] font-black uppercase leading-4 tracking-[0.14em] opacity-[0.55]">
                       {String(index + 1).padStart(2, '0')} / {product.category}
                     </p>
-                    <h3 className="mt-1 text-lg font-black">{product.title}</h3>
+                    <h3 className="mt-0.5 text-base font-black">{product.title}</h3>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
