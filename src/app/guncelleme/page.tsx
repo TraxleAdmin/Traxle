@@ -9,10 +9,8 @@ import {
   CheckCircle2,
   Cpu,
   DatabaseZap,
-  FileCode2,
   MonitorDown,
   RadioTower,
-  ShieldCheck,
   Sparkles,
   Zap,
 } from 'lucide-react';
@@ -56,7 +54,7 @@ const releaseNotes = [
 const checks = [
   'Windows 10 / 11 uyumlu',
   '64-bit istemci paketi',
-  'SHA-256 kontrol bilgisi yayinda',
+  'Guncel istemci paketi',
   'Tek tikla dogrudan indirme',
 ];
 
@@ -89,7 +87,7 @@ export default function UpdatePage() {
             <br className="hidden sm:block" /> indirme merkezi
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
-            KunyeX istemci guncellemelerini bu sayfadan alin. Son paket, surum bilgisi ve dosya dogrulama ozeti tek merkezde tutulur.
+            KunyeX istemci guncellemelerini bu sayfadan alin. Son paket ve surum bilgisi tek merkezden, dogrudan indirme akisiyle sunulur.
           </p>
         </motion.div>
 
@@ -144,24 +142,11 @@ export default function UpdatePage() {
                   <span className="text-xs font-black uppercase tracking-[0.18em] text-white/50">Yayin</span>
                   <span className="font-mono text-sm font-black">{update.publishedAt}</span>
                 </div>
-                <div>
-                  <div className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-white/50">
-                    <ShieldCheck size={14} aria-hidden="true" />
-                    SHA-256
-                  </div>
-                  <p className="break-all rounded-xl bg-white/[0.06] p-3 font-mono text-[11px] font-bold leading-5 text-cyan-100">
-                    {update.sha256}
-                  </p>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-black uppercase tracking-[0.18em] text-white/50">Paket</span>
+                  <span className="font-mono text-sm font-black">{update.sizeLabel}</span>
                 </div>
               </div>
-
-              <a
-                href={update.manifestUrl}
-                className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 transition hover:text-cyan-500 dark:text-cyan-200"
-              >
-                <FileCode2 size={15} aria-hidden="true" />
-                Manifest JSON
-              </a>
             </div>
           </motion.section>
 
