@@ -4,10 +4,6 @@ type PrivacySection = {
   title: string;
   items?: string[];
   text?: string;
-  link?: {
-    label: string;
-    href: string;
-  };
 };
 
 export type BarkodXPrivacyContent = {
@@ -17,14 +13,12 @@ export type BarkodXPrivacyContent = {
   sections: PrivacySection[];
 };
 
-const onboardingUrl = 'https://www.traxleapp.com';
-
 export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
   tr: {
     title: 'BarkodX Gizlilik Politikası',
     lastUpdated: 'Son güncelleme: 2026',
     intro:
-      'BarkodX, barkod okutma, ürün kaydı, fiyat, stok ve işletme senkronizasyonu işlevlerini sağlamak için yalnızca gerekli verileri işler.',
+      'BarkodX, barkod okutma, ürün kaydı, fiyat, stok ve senkronizasyon işlevlerini sağlamak için yalnızca gerekli verileri işler.',
     sections: [
       {
         title: 'Takip, reklam ve konum',
@@ -45,20 +39,15 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
         title: 'İşlenen operasyon verileri',
         items: [
           'Ürün barkodu, ürün adı, fiyat, stok ve kampanya fiyatı uygulama işlevselliği için işlenir.',
-          'Personel rolleri ve senkronizasyon kayıtları yetki ve işletme akışlarını yönetmek için işlenir.',
+          'Personel rolleri ve senkronizasyon kayıtları yetki ve operasyon akışlarını yönetmek için işlenir.',
         ],
       },
       {
         title: 'Saklama ve senkronizasyon',
         items: [
           'Varsayılan kullanımda veriler cihaz üzerinde saklanır.',
-          'Traxle Cloud veya BarkodX Bridge etkinleştirilirse ürün/fiyat verileri işletme senkronizasyonu için aktarılabilir.',
+          'Traxle Cloud veya BarkodX Bridge etkinleştirilirse ürün/fiyat verileri senkronizasyon için aktarılabilir.',
         ],
-      },
-      {
-        title: 'İşletme kurulumu',
-        text: 'Her işletme BarkodX kullanımı ve kurulum süreci için Traxle üzerinden onboarding talep edebilir.',
-        link: { label: onboardingUrl, href: onboardingUrl },
       },
     ],
   },
@@ -66,7 +55,7 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
     title: 'BarkodX Privacy Policy',
     lastUpdated: 'Last updated: 2026',
     intro:
-      'BarkodX processes only the data needed to provide barcode scanning, product records, pricing, stock, and business synchronization features.',
+      'BarkodX processes only the data needed to provide barcode scanning, product records, pricing, stock, and synchronization features.',
     sections: [
       {
         title: 'Tracking, advertising, and location',
@@ -87,20 +76,15 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
         title: 'Operational data processed',
         items: [
           'Product barcode, product name, price, stock, and campaign price are processed for app functionality.',
-          'Staff roles and synchronization records are processed to manage permissions and business workflows.',
+          'Staff roles and synchronization records are processed to manage permissions and operational workflows.',
         ],
       },
       {
         title: 'Storage and synchronization',
         items: [
           'By default, data is stored on the device.',
-          'If Traxle Cloud or BarkodX Bridge is enabled, product/price data may be transferred for business synchronization.',
+          'If Traxle Cloud or BarkodX Bridge is enabled, product/price data may be transferred for synchronization.',
         ],
-      },
-      {
-        title: 'Business onboarding',
-        text: 'Any business can request onboarding at https://www.traxleapp.com.',
-        link: { label: onboardingUrl, href: onboardingUrl },
       },
     ],
   },
@@ -108,7 +92,7 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
     title: 'BarkodX Datenschutzrichtlinie',
     lastUpdated: 'Letzte Aktualisierung: 2026',
     intro:
-      'BarkodX verarbeitet nur die Daten, die für Barcode-Scanning, Produktdaten, Preise, Lagerbestand und Unternehmenssynchronisierung erforderlich sind.',
+      'BarkodX verarbeitet nur die Daten, die für Barcode-Scanning, Produktdaten, Preise, Lagerbestand und Synchronisierung erforderlich sind.',
     sections: [
       {
         title: 'Tracking, Werbung und Standort',
@@ -129,20 +113,15 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
         title: 'Verarbeitete Betriebsdaten',
         items: [
           'Produktbarcode, Produktname, Preis, Bestand und Aktionspreis werden für die App-Funktionalität verarbeitet.',
-          'Personalrollen und Synchronisationsprotokolle werden verarbeitet, um Berechtigungen und Unternehmensabläufe zu verwalten.',
+          'Personalrollen und Synchronisationsprotokolle werden verarbeitet, um Berechtigungen und Abläufe zu verwalten.',
         ],
       },
       {
         title: 'Speicherung und Synchronisierung',
         items: [
           'Standardmäßig werden Daten auf dem Gerät gespeichert.',
-          'Wenn Traxle Cloud oder BarkodX Bridge aktiviert ist, können Produkt-/Preisdaten zur Unternehmenssynchronisierung übertragen werden.',
+          'Wenn Traxle Cloud oder BarkodX Bridge aktiviert ist, können Produkt-/Preisdaten zur Synchronisierung übertragen werden.',
         ],
-      },
-      {
-        title: 'Onboarding für Unternehmen',
-        text: 'Jedes Unternehmen kann das Onboarding über Traxle anfragen.',
-        link: { label: onboardingUrl, href: onboardingUrl },
       },
     ],
   },
@@ -181,11 +160,6 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
           'إذا تم تفعيل Traxle Cloud أو BarkodX Bridge، فقد يتم نقل بيانات المنتجات/الأسعار لمزامنة الأعمال.',
         ],
       },
-      {
-        title: 'تهيئة الشركات',
-        text: 'يمكن لأي شركة طلب التهيئة عبر Traxle.',
-        link: { label: onboardingUrl, href: onboardingUrl },
-      },
     ],
   },
   ru: {
@@ -222,11 +196,6 @@ export const barkodxPrivacyContent: Record<Locale, BarkodXPrivacyContent> = {
           'По умолчанию данные хранятся на устройстве.',
           'Если включены Traxle Cloud или BarkodX Bridge, данные о товарах/ценах могут передаваться для синхронизации бизнеса.',
         ],
-      },
-      {
-        title: 'Онбординг для бизнеса',
-        text: 'Любая компания может запросить онбординг через Traxle.',
-        link: { label: onboardingUrl, href: onboardingUrl },
       },
     ],
   },

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { getBarkodXPrivacyContent } from '@/lib/barkodxPrivacy';
@@ -73,7 +72,6 @@ export default async function BarkodXPrivacyPage({ params }: PageProps) {
                 title={section.title}
                 text={section.text}
                 items={section.items}
-                link={section.link}
               />
             ))}
           </div>
@@ -94,12 +92,10 @@ function PrivacySection({
   title,
   text,
   items,
-  link,
 }: {
   title: string;
   text?: string;
   items?: string[];
-  link?: { label: string; href: string };
 }) {
   return (
     <section className="rounded-[1.1rem] border border-white/10 bg-black/20 p-5">
@@ -113,17 +109,6 @@ function PrivacySection({
             </li>
           ))}
         </ul>
-      )}
-      {link && (
-        <a
-          href={link.href}
-          className="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-black text-cyan-100 transition hover:bg-cyan-300/15"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {link.label}
-          <ExternalLink size={14} aria-hidden="true" />
-        </a>
       )}
     </section>
   );
