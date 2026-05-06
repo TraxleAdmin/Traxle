@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { adminDb } from '@/lib/firebase-admin';
 
 const CORS_HEADERS = {
@@ -93,6 +95,15 @@ const storageBucket = () => {
   return admin.storage().bucket(bucketName);
 };
 
+const readLocalJson = async <T,>(filePath: string): Promise<T | undefined> => {
+  try {
+    const fullPath = path.join(process.cwd(), 'public', filePath);
+    return JSON.parse(await fs.readFile(fullPath, 'utf8')) as T;
+  } catch {
+    return undefined;
+  }
+};
+
 const readStorageJson = async <T,>(filePath: string): Promise<T | undefined> => {
   const bucket = storageBucket();
 
@@ -108,10 +119,13 @@ const readStorageJson = async <T,>(filePath: string): Promise<T | undefined> => 
   }
 };
 
-const readCatalogManifest = () => readStorageJson<CatalogManifest>('barkodxRelay/catalog/manifest.json');
+const readCatalogManifest = async () =>
+  (await readStorageJson<CatalogManifest>('barkodxRelay/catalog/manifest.json')) ??
+  (await readLocalJson<CatalogManifest>('barkodx/catalog/manifest.json'));
 
-const readCatalogChunk = (index: number) =>
-  readStorageJson<{ products: RelayProduct[] }>(`barkodxRelay/catalog/chunks/${String(index).padStart(4, '0')}.json`);
+const readCatalogChunk = async (index: number) =>
+  (await readStorageJson<{ products: RelayProduct[] }>(`barkodxRelay/catalog/chunks/${String(index).padStart(4, '0')}.json`)) ??
+  (await readLocalJson<{ products: RelayProduct[] }>(`barkodx/catalog/chunks/${String(index).padStart(4, '0')}.json`));
 
 const readAuthToken = (request: Request) => {
   const authHeader = request.headers.get('authorization') ?? '';
