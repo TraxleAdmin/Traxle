@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import * as admin from 'firebase-admin';
 import { adminDb } from '@/lib/firebase-admin';
 
 const CORS_HEADERS = {
@@ -40,6 +41,16 @@ type NormalizedChange = {
   product: RelayProduct;
 };
 
+type CatalogManifest = {
+  version: 1;
+  createdAt: string;
+  updatedAt: string;
+  productCount: number;
+  chunkSize: number;
+  chunkCount: number;
+  sequence: number;
+};
+
 const json = (payload: unknown, init?: ResponseInit) =>
   NextResponse.json(payload, {
     ...init,
@@ -71,6 +82,36 @@ const refs = () => {
     importsRef: stateRef.collection('imports'),
   };
 };
+
+const storageBucket = () => {
+  const bucketName = process.env.FIREBASE_STORAGE_BUCKET || process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+
+  if (!bucketName) {
+    return undefined;
+  }
+
+  return admin.storage().bucket(bucketName);
+};
+
+const readStorageJson = async <T,>(filePath: string): Promise<T | undefined> => {
+  const bucket = storageBucket();
+
+  if (!bucket) {
+    return undefined;
+  }
+
+  try {
+    const [buffer] = await bucket.file(filePath).download();
+    return JSON.parse(buffer.toString('utf8')) as T;
+  } catch {
+    return undefined;
+  }
+};
+
+const readCatalogManifest = () => readStorageJson<CatalogManifest>('barkodxRelay/catalog/manifest.json');
+
+const readCatalogChunk = (index: number) =>
+  readStorageJson<{ products: RelayProduct[] }>(`barkodxRelay/catalog/chunks/${String(index).padStart(4, '0')}.json`);
 
 const readAuthToken = (request: Request) => {
   const authHeader = request.headers.get('authorization') ?? '';
@@ -240,8 +281,15 @@ export async function getBarkodxStatus(request: Request) {
       changesRef.orderBy('sequence', 'desc').limit(1).get(),
     ]);
     const latestChange = latestSnap.docs[0]?.data() as RelayChange | undefined;
+    const manifest = await readCatalogManifest();
 
-    return json(statePayload(stateSnap.data(), latestChange));
+    const payload = statePayload(stateSnap.data(), latestChange);
+    if (manifest) {
+      payload.productCount = manifest.productCount;
+      payload.updatedAt = manifest.updatedAt || payload.updatedAt;
+    }
+
+    return json(payload);
   } catch (error) {
     return json({ error: error instanceof Error ? error.message : 'Status okunamadi.' }, { status: 500 });
   }
@@ -373,6 +421,26 @@ export async function getBarkodxProducts(request: Request) {
     const limit = cleanLimit(requestUrl.searchParams.get('limit'), 5000, MAX_PRODUCTS_PER_RESPONSE);
     const after = requestUrl.searchParams.get('after');
     const { stateRef, productsRef } = refs();
+    const manifest = await readCatalogManifest();
+
+    if (manifest) {
+      const chunkIndex = after?.startsWith('chunk:')
+        ? Math.max(0, Number(after.replace('chunk:', '')))
+        : 0;
+      const safeChunkIndex = Number.isInteger(chunkIndex) ? chunkIndex : 0;
+      const chunk = await readCatalogChunk(safeChunkIndex);
+      const products = chunk?.products ?? [];
+
+      return json({
+        app: 'BarkodX',
+        version: 1,
+        createdAt: manifest.createdAt,
+        sequence: manifest.sequence,
+        products: products.slice(0, limit),
+        nextCursor: safeChunkIndex + 1 < manifest.chunkCount ? `chunk:${safeChunkIndex + 1}` : undefined,
+      });
+    }
+
     const query = after
       ? productsRef.where('barcode', '>', after).orderBy('barcode', 'asc').limit(limit)
       : productsRef.orderBy('barcode', 'asc').limit(limit);
