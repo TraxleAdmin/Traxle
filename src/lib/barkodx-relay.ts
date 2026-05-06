@@ -85,8 +85,7 @@ const readAuthToken = (request: Request) => {
 };
 
 const ensureReadAuth = (request: Request) => {
-  const sharedToken = process.env.BARKODX_RELAY_TOKEN || process.env.JWT_SECRET || '';
-  const token = process.env.BARKODX_RELAY_READ_TOKEN || sharedToken;
+  const token = process.env.BARKODX_RELAY_READ_TOKEN || '';
 
   if (token && readAuthToken(request) !== token) {
     return json({ error: 'Unauthorized' }, { status: 401 });
