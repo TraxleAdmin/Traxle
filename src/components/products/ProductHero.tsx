@@ -63,7 +63,7 @@ export default function ProductHero({
           {product.privacyHref && (
             <Button href={product.privacyHref} variant="ghost" className="mt-4 gap-2 text-cyan-700 hover:bg-slate-900/5 dark:text-cyan-100 dark:hover:bg-white/8">
               <ShieldCheck size={16} aria-hidden="true" />
-              {dictionary.productDetail.privacyLabel}
+              {product.privacyLabel ?? dictionary.productDetail.privacyLabel}
             </Button>
           )}
         </div>

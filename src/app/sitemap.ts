@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getMolatikPrivacyPath, locales, withLocale } from '@/lib/i18n';
+import { getBarkodXPrivacyPath, getMolatikPrivacyPath, locales, withLocale } from '@/lib/i18n';
 import { getProjectSlugs } from '@/lib/projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${baseUrl}${getMolatikPrivacyPath(locale)}`,
+      lastModified,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}${getBarkodXPrivacyPath(locale)}`,
       lastModified,
       changeFrequency: 'yearly' as const,
       priority: 0.3,

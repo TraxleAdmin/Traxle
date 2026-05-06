@@ -60,6 +60,8 @@ export const localizedMolatikPrivacySlugs: Record<Locale, string> = {
   ru: 'конфиденциальность',
 };
 
+export const localizedBarkodXPrivacySlugs: Record<Locale, string> = localizedMolatikPrivacySlugs;
+
 export type ProductVisualKind = 'barcode' | 'timer' | 'document' | 'logistics';
 
 export type Dictionary = {
@@ -990,15 +992,30 @@ export function getMolatikPrivacyPath(locale: Locale) {
   return `/${locale}/molatik/${localizedMolatikPrivacySlugs[locale]}`;
 }
 
+export function getBarkodXPrivacyPath(locale: Locale) {
+  return `/${locale}/barkodx/${localizedBarkodXPrivacySlugs[locale]}`;
+}
+
 export function isMolatikPrivacySlug(segment: string | undefined) {
   if (!segment) return false;
   const normalizedSegment = normalizeSegment(segment);
   return Object.values(localizedMolatikPrivacySlugs).some((slug) => normalizeSegment(slug) === normalizedSegment);
 }
 
+export function isBarkodXPrivacySlug(segment: string | undefined) {
+  if (!segment) return false;
+  const normalizedSegment = normalizeSegment(segment);
+  return Object.values(localizedBarkodXPrivacySlugs).some((slug) => normalizeSegment(slug) === normalizedSegment);
+}
+
 export function isMolatikPrivacyPath(locale: Locale, productSegment: string | undefined, privacySegment: string | undefined) {
   if (!productSegment || !privacySegment) return false;
   return normalizeSegment(productSegment) === 'molatik' && normalizeSegment(privacySegment) === normalizeSegment(localizedMolatikPrivacySlugs[locale]);
+}
+
+export function isBarkodXPrivacyPath(locale: Locale, productSegment: string | undefined, privacySegment: string | undefined) {
+  if (!productSegment || !privacySegment) return false;
+  return normalizeSegment(productSegment) === 'barkodx' && normalizeSegment(privacySegment) === normalizeSegment(localizedBarkodXPrivacySlugs[locale]);
 }
 
 export function withLocale(locale: Locale, path = '') {
@@ -1012,6 +1029,10 @@ export function withLocale(locale: Locale, path = '') {
 
   if (pathSegments[0] === 'molatik' && isMolatikPrivacySlug(pathSegments[1])) {
     return getMolatikPrivacyPath(locale);
+  }
+
+  if (pathSegments[0] === 'barkodx' && isBarkodXPrivacySlug(pathSegments[1])) {
+    return getBarkodXPrivacyPath(locale);
   }
 
   const routeKey = resolveLocalizedRouteKey(locale, pathSegments[0]) ?? getCanonicalRouteKey(pathSegments[0]);
@@ -1030,6 +1051,10 @@ export function switchLocalePath(pathname: string, nextLocale: Locale) {
 
     if (isMolatikPrivacyPath(currentLocale, segments[1], segments[2])) {
       return getMolatikPrivacyPath(nextLocale);
+    }
+
+    if (isBarkodXPrivacyPath(currentLocale, segments[1], segments[2])) {
+      return getBarkodXPrivacyPath(nextLocale);
     }
 
     const routeKey = resolveLocalizedRouteKey(currentLocale, segments[1]);

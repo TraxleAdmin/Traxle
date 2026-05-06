@@ -1,5 +1,5 @@
 import type { Locale, ProductVisualKind } from '@/lib/i18n';
-import { defaultLocale, getMolatikPrivacyPath, withLocale } from '@/lib/i18n';
+import { defaultLocale, getBarkodXPrivacyPath, getMolatikPrivacyPath, withLocale } from '@/lib/i18n';
 
 export type ProjectStatus = 'active' | 'development' | 'concept';
 
@@ -22,6 +22,7 @@ export type Project = {
     href: string;
   };
   privacyHref?: string;
+  privacyLabel?: string;
 };
 
 const baseProjects = [
@@ -68,6 +69,24 @@ const baseProjects = [
 
 type ProjectSlug = (typeof baseProjects)[number]['slug'];
 type LocalizedProjectCopy = Omit<Project, 'slug' | 'title' | 'status' | 'accent' | 'visualKind' | 'modelPath' | 'privacyHref'>;
+
+const localizedPrivacyLabels: Record<Locale, Partial<Record<ProjectSlug, string>>> = {
+  tr: {
+    barkodx: 'BarkodX gizlilik politikasını incele',
+  },
+  en: {
+    barkodx: 'View BarkodX privacy policy',
+  },
+  de: {
+    barkodx: 'BarkodX Datenschutz ansehen',
+  },
+  ar: {
+    barkodx: 'عرض سياسة خصوصية BarkodX',
+  },
+  ru: {
+    barkodx: 'Открыть политику конфиденциальности BarkodX',
+  },
+};
 
 const localizedProjectCopy: Record<Locale, Record<ProjectSlug, LocalizedProjectCopy>> = {
   tr: {
@@ -314,7 +333,13 @@ export function getProjects(locale: Locale = defaultLocale): Project[] {
       ...copy[project.slug].cta,
       href: withLocale(locale, copy[project.slug].cta.href),
     },
-    privacyHref: project.slug === 'molatik' ? getMolatikPrivacyPath(locale) : undefined,
+    privacyHref:
+      project.slug === 'molatik'
+        ? getMolatikPrivacyPath(locale)
+        : project.slug === 'barkodx'
+          ? getBarkodXPrivacyPath(locale)
+          : undefined,
+    privacyLabel: localizedPrivacyLabels[locale][project.slug],
   }));
 }
 
