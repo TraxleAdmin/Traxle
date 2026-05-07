@@ -187,6 +187,22 @@ const parseNumber = (value: unknown) => {
   return Number.isFinite(parsed) ? parsed : undefined;
 };
 
+const cleanFirestoreData = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.map(cleanFirestoreData);
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .filter(([, item]) => item !== undefined)
+        .map(([key, item]) => [key, cleanFirestoreData(item)]),
+    );
+  }
+
+  return value;
+};
+
 const normalizeProduct = (value: unknown): RelayProduct | undefined => {
   if (!value || typeof value !== 'object') {
     return undefined;
@@ -385,8 +401,13 @@ export async function postBarkodxChanges(request: Request) {
         product,
       };
 
-      writes.push(batch => batch.set(productRefs[index], product, { merge: true }));
-      writes.push(batch => batch.set(changesRef.doc(sequenceDocId(relayChange.sequence)), relayChange));
+      writes.push(batch => batch.set(productRefs[index], cleanFirestoreData(product) as FirebaseFirestore.DocumentData, { merge: true }));
+      writes.push(batch =>
+        batch.set(
+          changesRef.doc(sequenceDocId(relayChange.sequence)),
+          cleanFirestoreData(relayChange) as FirebaseFirestore.DocumentData,
+        ),
+      );
     });
 
     writes.push(batch =>
@@ -496,7 +517,7 @@ export async function postBarkodxProducts(request: Request) {
     const writes: Array<(batch: FirebaseFirestore.WriteBatch) => void> = [];
 
     products.forEach((product, index) => {
-      writes.push(batch => batch.set(productRefs[index], product, { merge: true }));
+      writes.push(batch => batch.set(productRefs[index], cleanFirestoreData(product) as FirebaseFirestore.DocumentData, { merge: true }));
     });
     writes.push(batch =>
       batch.set(
