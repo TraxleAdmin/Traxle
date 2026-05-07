@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-label="BarkodX App Review demo barcode 8691440776291">
+  <rect width="760" height="420" fill="#ffffff"/>
+  <text x="380" y="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#111827">BarkodX App Review Demo</text>
+  <text x="380" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#4b5563">Open BarkodX, tap Barcode Scan, then scan this EAN-13 code.</text>
+  <g fill="#000000">
+    <rect x="48" y="86" width="5" height="146"/>
+    <rect x="58" y="86" width="5" height="146"/>
+    <rect x="68" y="86" width="5" height="128"/>
+    <rect x="78" y="86" width="20" height="128"/>
+    <rect x="108" y="86" width="5" height="128"/>
+    <rect x="118" y="86" width="15" height="128"/>
+    <rect x="143" y="86" width="10" height="128"/>
+    <rect x="163" y="86" width="5" height="128"/>
+    <rect x="178" y="86" width="15" height="128"/>
+    <rect x="198" y="86" width="5" height="128"/>
+    <rect x="213" y="86" width="15" height="128"/>
+    <rect x="233" y="86" width="5" height="128"/>
+    <rect x="253" y="86" width="10" height="128"/>
+    <rect x="268" y="86" width="5" height="128"/>
+    <rect x="278" y="86" width="5" height="146"/>
+    <rect x="288" y="86" width="5" height="146"/>
+    <rect x="298" y="86" width="5" height="128"/>
+    <rect x="318" y="86" width="5" height="128"/>
+    <rect x="333" y="86" width="5" height="128"/>
+    <rect x="353" y="86" width="5" height="128"/>
+    <rect x="368" y="86" width="5" height="128"/>
+    <rect x="378" y="86" width="5" height="128"/>
+    <rect x="403" y="86" width="10" height="128"/>
+    <rect x="418" y="86" width="10" height="128"/>
+    <rect x="438" y="86" width="15" height="128"/>
+    <rect x="458" y="86" width="5" height="128"/>
+    <rect x="473" y="86" width="10" height="128"/>
+    <rect x="493" y="86" width="10" height="128"/>
+    <rect x="508" y="86" width="5" height="146"/>
+    <rect x="518" y="86" width="5" height="146"/>
+  </g>
+  <text x="380" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" letter-spacing="3" fill="#111827">8691440776291</text>
+  <text x="380" y="306" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#111827">DURU OSMANCIK PIRINC 2000gr</text>
+  <text x="380" y="334" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#374151">Normal price: 279.00 TRY - Crazy Card price: 195.00 TRY</text>
+  <text x="380" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#6b7280">Manual entry fallback: 8691440776291</text>
+</svg>
