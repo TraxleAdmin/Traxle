@@ -3,6 +3,7 @@ import PremiumLightField from '@/components/effects/PremiumLightField';
 import ProductLiveDemo from '@/components/products/ProductLiveDemo';
 import { LazyProductExperienceScene } from '@/components/three/LazyScenes';
 import SceneViewportGate from '@/components/three/SceneViewportGate';
+import { AppStoreBadge } from '@/components/ui/AppStoreBadge';
 import { Button } from '@/components/ui/Button';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import type { Dictionary, Locale } from '@/lib/i18n';
@@ -52,6 +53,14 @@ export default function ProductHero({
           <p className="mt-5 max-w-2xl text-2xl font-black leading-tight text-slate-950 dark:text-white">{product.shortDescription}</p>
           <p className="mt-5 max-w-2xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{product.longDescription}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            {product.appStoreHref && (
+              <AppStoreBadge
+                href={product.appStoreHref}
+                label={product.appStoreLabel ?? 'Download on the App Store'}
+                subLabel={product.appStoreSubLabel ?? product.title}
+                className="sm:min-w-[220px]"
+              />
+            )}
             <Button href={product.cta.href} className="min-h-12 px-6">
               {product.cta.label}
             </Button>

@@ -23,13 +23,18 @@ export type Project = {
   };
   privacyHref?: string;
   privacyLabel?: string;
+  appStoreHref?: string;
+  appStoreLabel?: string;
+  appStoreSubLabel?: string;
 };
+
+const barkodxAppStoreHref = 'https://apps.apple.com/kz/app/barkodx/id6767043219';
 
 const baseProjects = [
   {
     slug: 'barkodx',
     title: 'BarkodX',
-    status: 'development',
+    status: 'active',
     accent: '#22d3ee',
     visualKind: 'barcode',
     modelPath: undefined,
@@ -68,7 +73,20 @@ const baseProjects = [
 }>;
 
 type ProjectSlug = (typeof baseProjects)[number]['slug'];
-type LocalizedProjectCopy = Omit<Project, 'slug' | 'title' | 'status' | 'accent' | 'visualKind' | 'modelPath' | 'privacyHref'>;
+type LocalizedProjectCopy = Omit<
+  Project,
+  | 'slug'
+  | 'title'
+  | 'status'
+  | 'accent'
+  | 'visualKind'
+  | 'modelPath'
+  | 'privacyHref'
+  | 'privacyLabel'
+  | 'appStoreHref'
+  | 'appStoreLabel'
+  | 'appStoreSubLabel'
+>;
 
 const localizedPrivacyLabels: Record<Locale, Partial<Record<ProjectSlug, string>>> = {
   tr: {
@@ -85,6 +103,39 @@ const localizedPrivacyLabels: Record<Locale, Partial<Record<ProjectSlug, string>
   },
   ru: {
     barkodx: 'Открыть политику конфиденциальности BarkodX',
+  },
+};
+
+const localizedAppStoreLabels: Record<Locale, Partial<Record<ProjectSlug, { label: string; subLabel: string }>>> = {
+  tr: {
+    barkodx: {
+      label: "App Store'dan indir",
+      subLabel: 'BarkodX iOS',
+    },
+  },
+  en: {
+    barkodx: {
+      label: 'Download on the App Store',
+      subLabel: 'BarkodX iOS',
+    },
+  },
+  de: {
+    barkodx: {
+      label: 'Im App Store laden',
+      subLabel: 'BarkodX iOS',
+    },
+  },
+  ar: {
+    barkodx: {
+      label: 'تحميل من App Store',
+      subLabel: 'BarkodX iOS',
+    },
+  },
+  ru: {
+    barkodx: {
+      label: 'Скачать в App Store',
+      subLabel: 'BarkodX iOS',
+    },
   },
 };
 
@@ -326,21 +377,29 @@ export const projects = getProjects(defaultLocale);
 export function getProjects(locale: Locale = defaultLocale): Project[] {
   const copy = localizedProjectCopy[locale];
 
-  return baseProjects.map((project) => ({
-    ...project,
-    ...copy[project.slug],
-    cta: {
-      ...copy[project.slug].cta,
-      href: withLocale(locale, copy[project.slug].cta.href),
-    },
-    privacyHref:
-      project.slug === 'molatik'
-        ? getMolatikPrivacyPath(locale)
-        : project.slug === 'barkodx'
-          ? getBarkodXPrivacyPath(locale)
-          : undefined,
-    privacyLabel: localizedPrivacyLabels[locale][project.slug],
-  }));
+  return baseProjects.map((project) => {
+    const projectCopy = copy[project.slug];
+    const appStoreCopy = localizedAppStoreLabels[locale][project.slug];
+
+    return {
+      ...project,
+      ...projectCopy,
+      cta: {
+        ...projectCopy.cta,
+        href: withLocale(locale, projectCopy.cta.href),
+      },
+      privacyHref:
+        project.slug === 'molatik'
+          ? getMolatikPrivacyPath(locale)
+          : project.slug === 'barkodx'
+            ? getBarkodXPrivacyPath(locale)
+            : undefined,
+      privacyLabel: localizedPrivacyLabels[locale][project.slug],
+      appStoreHref: project.slug === 'barkodx' ? barkodxAppStoreHref : undefined,
+      appStoreLabel: appStoreCopy?.label,
+      appStoreSubLabel: appStoreCopy?.subLabel,
+    };
+  });
 }
 
 export function getProjectBySlug(slug: string, locale: Locale = defaultLocale) {

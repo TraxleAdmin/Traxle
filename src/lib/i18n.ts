@@ -199,7 +199,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       contact: 'İletişim',
     },
     status: {
-      active: 'Canlı',
+      active: 'Yayında',
       development: 'Geliştiriliyor',
       concept: 'Planlanıyor',
     },
