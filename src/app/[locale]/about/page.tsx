@@ -1,21 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { CSSProperties } from 'react';
-import { BadgeCheck, DatabaseZap, MonitorSmartphone, type LucideIcon } from 'lucide-react';
-import { LazyHomeHeroScene } from '@/components/three/LazyScenes';
-import { CTASection } from '@/components/ui/CTASection';
-import { GlassPanel } from '@/components/ui/GlassPanel';
-import { PageHeader } from '@/components/ui/PageHeader';
+import { BadgeCheck, DatabaseZap, MonitorSmartphone } from 'lucide-react';
+import DemoCTA from '@/components/home/DemoCTA';
+import ProductRail from '@/components/relaunch/ProductRail';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 import { SectionShell } from '@/components/ui/SectionShell';
-import { getDictionary, isLocale, type Locale, withLocale } from '@/lib/i18n';
+import { getDictionary, isLocale, type Locale } from '@/lib/i18n';
+import { getProjects } from '@/lib/projects';
 import { createPageMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-const aboutPointIcons: LucideIcon[] = [BadgeCheck, MonitorSmartphone, DatabaseZap];
-const aboutPointAccents = ['#22d3ee', '#8b5cf6', '#34d399'];
+const pointIcons = [BadgeCheck, MonitorSmartphone, DatabaseZap];
+const accents = ['#22d3ee', '#34d399', '#f59e0b'];
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
@@ -39,44 +38,43 @@ export default async function AboutPage({ params }: PageProps) {
 
   const locale: Locale = rawLocale;
   const dictionary = getDictionary(locale);
+  const products = getProjects(locale);
 
   return (
-    <main className="pt-28">
-      <section className="relative min-h-[70vh] overflow-hidden">
-        <LazyHomeHeroScene className="opacity-35" />
-        <SectionShell className="relative z-10 flex min-h-[70vh] items-center">
-          <PageHeader eyebrow={dictionary.about.eyebrow} title={dictionary.about.title} description={dictionary.about.description} />
-        </SectionShell>
-      </section>
+    <main className="bg-[#f6f8fb] pt-24 text-slate-950 dark:bg-[#030712] dark:text-white">
+      <SectionShell className="isolate overflow-hidden pb-12 pt-16">
+        <LaunchBackdrop label="COMPANY OPERATING SYSTEM" />
+        <header className="relative z-10 max-w-5xl">
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">
+            {dictionary.about.eyebrow}
+          </p>
+          <h1 className="text-5xl font-black leading-[0.94] text-slate-950 dark:text-white sm:text-7xl">{dictionary.about.title}</h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{dictionary.about.description}</p>
+        </header>
+      </SectionShell>
 
-      <SectionShell className="grid gap-5 pt-4 md:grid-cols-3">
+      <SectionShell className="grid gap-3 pt-4 md:grid-cols-3">
         {dictionary.about.points.map((point, index) => {
-          const Icon = aboutPointIcons[index % aboutPointIcons.length];
-          const accent = aboutPointAccents[index % aboutPointAccents.length];
+          const Icon = pointIcons[index % pointIcons.length];
+          const accent = accents[index % accents.length];
 
           return (
-            <GlassPanel
-              key={point}
-              className="premium-motion-card group overflow-hidden p-6 transition duration-300 hover:border-cyan-300/40"
-              style={{ '--card-accent': accent } as CSSProperties}
-            >
-              <div className="premium-icon-tile mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/12 shadow-[0_0_30px_rgba(0,194,255,0.18)]">
-                <Icon className="premium-icon-glyph h-5 w-5 text-cyan-700 dark:text-cyan-100" aria-hidden="true" />
-              </div>
-              <p className="relative z-10 text-lg font-black leading-7 text-slate-950 dark:text-white">{point}</p>
-            </GlassPanel>
+            <article key={point} className="rounded-lg border border-slate-200 bg-white/86 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.055]">
+              <span className="flex h-12 w-12 items-center justify-center rounded-md border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/[0.06]" style={{ color: accent }}>
+                <Icon size={19} aria-hidden="true" />
+              </span>
+              <div className="mt-6 h-1 w-16 rounded-full" style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }} />
+              <p className="mt-6 text-lg font-black leading-7 text-slate-950 dark:text-white">{point}</p>
+            </article>
           );
         })}
       </SectionShell>
 
       <SectionShell className="pt-6">
-        <CTASection
-          title={dictionary.cta.title}
-          description={dictionary.cta.description}
-          label={dictionary.cta.label}
-          href={withLocale(locale, '/contact')}
-        />
+        <ProductRail products={products} locale={locale} statusLabels={dictionary.status} />
       </SectionShell>
+
+      <DemoCTA dictionary={dictionary} locale={locale} />
     </main>
   );
 }

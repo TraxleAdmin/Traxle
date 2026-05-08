@@ -49,7 +49,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main className="bg-slate-50 transition-colors duration-500 dark:bg-[#030712]">
+    <main className="bg-[#f6f8fb] transition-colors duration-500 dark:bg-[#030712]">
       <ProductHero dictionary={dictionary} locale={locale} product={product} />
       <ProductFeatureGrid dictionary={dictionary} product={product} />
       <ProductUseCases dictionary={dictionary} product={product} />

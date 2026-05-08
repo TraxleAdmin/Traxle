@@ -24,10 +24,10 @@
 }
 
 :root {
-  --background: #0A0F25;
-  --foreground: #E0E6ED;
-  --traxle-interactive-bg: #f8fafc;
-  --traxle-page-bg: #f8fafc;
+  --background: #f6f8fb;
+  --foreground: #020617;
+  --traxle-interactive-bg: #f6f8fb;
+  --traxle-page-bg: #f6f8fb;
   --traxle-page-fg: #020617;
 }
 
@@ -40,6 +40,11 @@
 body {
   background-color: var(--traxle-page-bg);
   color: var(--traxle-page-fg);
+  text-rendering: geometricPrecision;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.24);
 }
 
 /*

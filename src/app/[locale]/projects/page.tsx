@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import DemoCTA from '@/components/home/DemoCTA';
 import ProductShowcase from '@/components/home/ProductShowcase';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n';
 import { getProjects } from '@/lib/projects';
@@ -36,10 +37,11 @@ export default async function ProjectsPage({ params }: PageProps) {
   const products = getProjects(locale);
 
   return (
-    <main className="bg-slate-50 pt-24 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white">
-      <SectionShell className="pb-8 pt-14">
-        <header className="max-w-3xl">
-          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-200">
+    <main className="bg-[#f6f8fb] pt-24 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white">
+      <SectionShell className="isolate overflow-hidden pb-8 pt-16">
+        <LaunchBackdrop label="PRODUCT INDEX" />
+        <header className="relative z-10 max-w-4xl">
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">
             {dictionary.projects.eyebrow}
           </p>
           <h1 className="text-4xl font-black leading-tight text-slate-950 dark:text-white sm:text-6xl">{dictionary.projects.title}</h1>

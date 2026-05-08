@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiInstagram, FiLinkedin } from 'react-icons/fi';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 
 const localizedPrefixes = ['/tr', '/en', '/de', '/ar', '/ru'];
@@ -15,54 +15,50 @@ export default function Footer() {
     localizedPrefixes.some((prefix) => pathname === prefix || pathname?.startsWith(`${prefix}/`))
   ) return null;
 
-  return (
-    <footer className="bg-gray-50 dark:bg-[#050814] border-t border-gray-200 dark:border-white/5 pt-20 pb-12 transition-colors duration-500">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-{/* LOGO */}
-            <Link href="/" className="block relative h-10 w-36 mb-4 hover:opacity-80 transition-opacity">
-              <Image
-                src="/logo.png"
-                alt="TraxleAPP"
-                fill
-                sizes="144px"
-                className="object-contain object-left dark:filter-none filter brightness-0 dark:brightness-100 opacity-80 dark:opacity-100 transition-all"
-              />
-            </Link>
+  const links = [
+    { href: '/tr/urunler', label: 'Ürünler' },
+    { href: '/barkodx', label: 'BarkodX' },
+    { href: '/molatik', label: 'Molatik' },
+    { href: '/kunyex', label: 'KünyeX' },
+    { href: '/lojistik', label: 'Lojistik' },
+    { href: '/iletisim', label: 'İletişim' },
+  ];
 
-            <p className="text-sm leading-7 text-gray-500 dark:text-gray-400 max-w-sm">
-              Lojistik, dijital kimlik ve personel yönetimi alanlarında sınırları zorlayan, yapay zeka destekli yeni nesil SaaS ürünleri geliştiren bir teknoloji ekosistemi.
-            </p>
-            <div className="flex gap-4">
-              <Link href="#" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 hover:text-blue-500 transition-all"><FiLinkedin /></Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 hover:text-pink-500 transition-all"><FiInstagram /></Link>
-            </div>
-          </div>
-          <div>
-            <h5 className="font-bold text-gray-900 dark:text-white mb-6">Ekosistem</h5>
-<ul className="space-y-4 text-sm text-gray-500 dark:text-gray-400">
-              <li><Link href="/kunyex" className="hover:text-blue-500 transition-colors">KünyeX (Dijital Kimlik)</Link></li>
-              <li><Link href="/molatik" className="hover:text-blue-500 transition-colors">Molatik (Personel Takip)</Link></li>
-              <li><Link href="/barkodx" className="hover:text-blue-500 transition-colors">BarkodX (Barkod Yönetimi)</Link></li>
-              <li><Link href="/lojistik" className="hover:text-blue-500 transition-colors">Lojistik Çözümleri</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-bold text-gray-900 dark:text-white mb-6">Kurumsal</h5>
-            <ul className="space-y-4 text-sm text-gray-500 dark:text-gray-400">
-              <li><Link href="/hakkimizda" className="hover:text-blue-500 transition-colors">Şirket Hakkında</Link></li>
-              <li><Link href="/kariyer" className="hover:text-blue-500 transition-colors">Kariyer</Link></li>
-              <li><Link href="/iletisim" className="hover:text-blue-500 transition-colors">İletişim</Link></li>
-            </ul>
-          </div>
+  return (
+    <footer className="border-t border-gray-200 bg-[#f6f8fb] px-5 py-12 text-gray-600 dark:border-white/10 dark:bg-[#030712] dark:text-gray-400">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_1.3fr] lg:items-end">
+        <div>
+          <Link href="/" className="relative block h-10 w-36" aria-label="TraxleAPP">
+            <Image
+              src="/logo.png"
+              alt="TraxleAPP"
+              fill
+              sizes="144px"
+              className="object-contain object-left brightness-0 dark:brightness-100"
+            />
+          </Link>
+          <p className="mt-5 max-w-md text-sm font-medium leading-7">
+            Barkod, personel, belge ve lojistik operasyonlarını tek ürün ekosisteminde toplayan Traxle yazılım hattı.
+          </p>
         </div>
-        <div className="border-t border-gray-200 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-          <p>© 2026 Traxle. Tüm hakları saklıdır.</p>
-          <div className="flex gap-6">
-            <Link href="/gizlilik-politikasi" className="hover:text-blue-500">Gizlilik</Link>
-            <Link href="/kullanim-kosullari" className="hover:text-blue-500">Kullanım Koşulları</Link>
-          </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="group flex min-h-12 items-center justify-between rounded-lg border border-gray-200 bg-white/70 px-3 text-sm font-black text-gray-700 transition hover:border-slate-950 hover:bg-white dark:border-white/10 dark:bg-white/[0.045] dark:text-gray-200 dark:hover:border-white/30"
+            >
+              {link.label}
+              <ArrowUpRight size={14} className="text-gray-400 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-3 border-t border-gray-200 pt-6 text-xs dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 Traxle. Tüm hakları saklıdır.</p>
+        <div className="flex gap-5">
+          <Link href="/gizlilik-politikasi" className="font-black hover:text-cyan-600">Gizlilik</Link>
+          <Link href="/kullanim-kosullari" className="font-black hover:text-cyan-600">Kullanım Koşulları</Link>
         </div>
       </div>
     </footer>

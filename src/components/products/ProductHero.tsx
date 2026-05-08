@@ -1,8 +1,6 @@
-import { ArrowLeft, ShieldCheck } from 'lucide-react';
-import PremiumLightField from '@/components/effects/PremiumLightField';
+import { ArrowLeft, Boxes, ShieldCheck } from 'lucide-react';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 import ProductLiveDemo from '@/components/products/ProductLiveDemo';
-import { LazyProductExperienceScene } from '@/components/three/LazyScenes';
-import SceneViewportGate from '@/components/three/SceneViewportGate';
 import { AppStoreBadge } from '@/components/ui/AppStoreBadge';
 import { Button } from '@/components/ui/Button';
 import { StatusBadge } from '@/components/ui/StatusBadge';
@@ -20,64 +18,46 @@ export default function ProductHero({
   product: Project;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-slate-50 pb-16 pt-32 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white sm:pt-36 lg:min-h-screen lg:pb-24">
-      <PremiumLightField accent={product.accent} />
-      <SceneViewportGate
-        delay={900}
-        rootMargin="160px"
-        className="inset-x-[-18%] bottom-auto top-14 h-[560px] opacity-36 [mask-image:radial-gradient(circle_at_50%_34%,black,transparent_72%)] lg:bottom-0 lg:left-[27%] lg:right-[31%] lg:top-8 lg:h-auto lg:opacity-74 lg:[mask-image:radial-gradient(circle_at_50%_45%,black,transparent_74%)]"
-      >
-        <LazyProductExperienceScene kind={product.visualKind} accent={product.accent} />
-      </SceneViewportGate>
-      <div
-        className="pointer-events-none absolute inset-0 dark:hidden"
-        style={{
-          background: `radial-gradient(circle at 78% 22%, ${product.accent}18, transparent 30%), linear-gradient(90deg, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.88) 44%, rgba(248,250,252,0.36) 100%)`,
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 hidden dark:block"
-        style={{
-          background: `radial-gradient(circle at 78% 22%, ${product.accent}24, transparent 30%), linear-gradient(90deg, #030712 0%, rgba(3,7,18,0.9) 44%, rgba(3,7,18,0.28) 100%)`,
-        }}
-      />
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-10">
-        <div>
+    <section className="relative isolate overflow-hidden bg-[#f6f8fb] pb-16 pt-32 text-slate-950 dark:bg-[#030712] dark:text-white sm:pt-36">
+      <LaunchBackdrop accent={product.accent} label={`${product.title} PRODUCT FILE`} />
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div className="max-w-5xl">
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <StatusBadge status={product.status} label={dictionary.status[product.status]} />
-            <span className="rounded-full border border-slate-200/80 bg-white/80 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-cyan-700 shadow-[0_12px_34px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100">
+            <span className="rounded-md border border-slate-200 bg-white/82 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-600 shadow-[0_12px_34px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100">
               {product.category}
             </span>
           </div>
-          <h1 className="text-4xl font-black leading-[1.02] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">{product.title}</h1>
-          <p className="mt-5 max-w-2xl text-2xl font-black leading-tight text-slate-950 dark:text-white">{product.shortDescription}</p>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{product.longDescription}</p>
+          <h1 className="text-5xl font-black leading-[0.92] text-slate-950 dark:text-white sm:text-7xl lg:text-8xl">{product.title}</h1>
+          <p className="mt-6 max-w-3xl text-2xl font-black leading-tight text-slate-950 dark:text-white">{product.shortDescription}</p>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{product.longDescription}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             {product.appStoreHref && (
               <AppStoreBadge
                 href={product.appStoreHref}
                 label={product.appStoreLabel ?? 'Download on the App Store'}
                 subLabel={product.appStoreSubLabel ?? product.title}
-                className="sm:min-w-[220px]"
+                className="rounded-md sm:min-w-[220px]"
               />
             )}
-            <Button href={product.cta.href} className="min-h-12 px-6">
+            <Button href={product.cta.href} className="min-h-12 gap-2 rounded-md px-6">
+              <Boxes size={16} aria-hidden="true" />
               {product.cta.label}
             </Button>
-            <Button href={withLocale(locale, '/projects')} variant="secondary" className="min-h-12 gap-2 px-6">
+            <Button href={withLocale(locale, '/projects')} variant="secondary" className="min-h-12 gap-2 rounded-md px-6">
               <ArrowLeft size={16} aria-hidden="true" />
               {dictionary.productDetail.backToProducts}
             </Button>
           </div>
           {product.privacyHref && (
-            <Button href={product.privacyHref} variant="ghost" className="mt-4 gap-2 text-cyan-700 hover:bg-slate-900/5 dark:text-cyan-100 dark:hover:bg-white/8">
+            <Button href={product.privacyHref} variant="ghost" className="mt-4 gap-2 rounded-md text-cyan-700 hover:bg-slate-900/5 dark:text-cyan-100 dark:hover:bg-white/8">
               <ShieldCheck size={16} aria-hidden="true" />
               {product.privacyLabel ?? dictionary.productDetail.privacyLabel}
             </Button>
           )}
         </div>
-        <div className="relative min-h-[440px]">
-          <div className="absolute inset-0 rounded-full blur-3xl" style={{ backgroundColor: `${product.accent}1f` }} />
+
+        <div className="mt-12">
           <ProductLiveDemo product={product} />
         </div>
       </div>

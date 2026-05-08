@@ -36,7 +36,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
   const products = getProjects(locale);
 
   return (
-    <main className="bg-slate-50 transition-colors duration-500 dark:bg-[#030712]">
+    <main className="bg-[#f6f8fb] transition-colors duration-500 dark:bg-[#030712]">
       <HomeHero dictionary={dictionary} locale={locale} products={products} />
       <ProductShowcase dictionary={dictionary} locale={locale} products={products} />
       <HowItWorks dictionary={dictionary} />

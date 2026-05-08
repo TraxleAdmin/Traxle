@@ -1,10 +1,7 @@
-import type { CSSProperties } from 'react';
-import PremiumLightField from '@/components/effects/PremiumLightField';
-import HomeCommandDeck from '@/components/home/HomeCommandDeck';
-import InteractiveBackground from '@/components/home/InteractiveBackground';
+import { ArrowDownRight, Boxes, RadioTower } from 'lucide-react';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
+import ProductRail from '@/components/relaunch/ProductRail';
 import MotionReveal from '@/components/motion/MotionReveal';
-import { LazyHomeHeroScene } from '@/components/three/LazyScenes';
-import SceneViewportGate from '@/components/three/SceneViewportGate';
 import { Button } from '@/components/ui/Button';
 import type { Dictionary, Locale } from '@/lib/i18n';
 import { withLocale } from '@/lib/i18n';
@@ -19,57 +16,51 @@ export default function HomeHero({
   locale: Locale;
   products: Project[];
 }) {
-  const featuredProducts = products.slice(0, 4);
-  const proofAccents = ['#22d3ee', '#34d399', '#f59e0b'];
-
   return (
-    <section className="relative isolate overflow-hidden bg-slate-50 pb-16 pt-28 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white sm:pt-32 lg:min-h-screen lg:pb-24">
-      <InteractiveBackground />
-      <PremiumLightField accent="#22d3ee" />
-      <SceneViewportGate
-        delay={850}
-        rootMargin="120px"
-        className="inset-x-[-30%] bottom-auto top-14 h-[520px] opacity-32 [mask-image:radial-gradient(circle_at_56%_38%,black,transparent_70%)] sm:top-10 lg:bottom-0 lg:left-[24%] lg:right-[-10%] lg:top-8 lg:h-auto lg:opacity-72 lg:[mask-image:radial-gradient(circle_at_62%_48%,black,transparent_72%)]"
-      >
-        <LazyHomeHeroScene scrollTargetId="products" />
-      </SceneViewportGate>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_30%,rgba(34,211,238,0.12),transparent_24%),linear-gradient(90deg,rgba(248,250,252,0.98)_0%,rgba(248,250,252,0.82)_46%,rgba(248,250,252,0.22)_100%)] dark:hidden" />
-      <div className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(circle_at_78%_30%,rgba(255,255,255,0.08),transparent_22%),linear-gradient(90deg,#030712_0%,rgba(3,7,18,0.78)_38%,rgba(3,7,18,0.18)_100%)] dark:block" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-slate-50 via-slate-50/70 to-transparent dark:from-[#030712] dark:via-[#030712]/[0.76]" />
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:px-10">
-        <MotionReveal className="max-w-3xl">
-          <p className="premium-eyebrow mb-5 text-[11px] font-black uppercase tracking-[0.32em] text-cyan-700 dark:text-cyan-200">
+    <section className="relative isolate overflow-hidden bg-[#f6f8fb] pb-10 pt-28 text-slate-950 dark:bg-[#030712] dark:text-white sm:pt-32 lg:min-h-screen">
+      <LaunchBackdrop label="TRAXLE PRODUCT SURFACE" />
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-7rem)] w-full max-w-7xl flex-col justify-center gap-10 px-5 sm:px-8 lg:px-10">
+        <MotionReveal className="max-w-5xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white/86 px-3 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-600 shadow-[0_14px_44px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100/70">
+            <RadioTower size={15} aria-hidden="true" />
             {dictionary.home.eyebrow}
-          </p>
-          <h1 className="max-w-[11ch] text-5xl font-black leading-[0.94] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl xl:text-8xl">
+          </div>
+          <h1 className="max-w-6xl text-5xl font-black leading-[0.92] text-slate-950 dark:text-white sm:text-7xl lg:text-8xl">
             {dictionary.home.title}
           </h1>
-          <p className="mt-7 max-w-2xl text-base font-medium leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">
+          <p className="mt-7 max-w-3xl text-base font-medium leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">
             {dictionary.home.description}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href={withLocale(locale, '/projects')} className="min-h-12 px-6">
+            <Button href={withLocale(locale, '/projects')} className="min-h-12 gap-2 rounded-md px-6">
+              <Boxes size={17} aria-hidden="true" />
               {dictionary.home.primaryCta}
             </Button>
-            <Button href={withLocale(locale, '/contact')} variant="secondary" className="min-h-12 px-6">
+            <Button href={withLocale(locale, '/contact')} variant="secondary" className="min-h-12 gap-2 rounded-md px-6">
               {dictionary.home.secondaryCta}
+              <ArrowDownRight size={17} aria-hidden="true" />
             </Button>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+        </MotionReveal>
+
+        <MotionReveal delay={0.12} y={28}>
+          <div className="grid gap-3 border-y border-slate-200 py-4 dark:border-white/10 sm:grid-cols-3">
             {dictionary.home.proof.map((item, index) => (
-              <div
-                key={item}
-                className="premium-motion-card premium-proof-chip overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-black text-slate-800 shadow-[0_18px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-100"
-                style={{ '--card-accent': proofAccents[index % proofAccents.length] } as CSSProperties}
-              >
-                {item}
+              <div key={item} className="flex min-h-16 items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white/78 px-4 text-sm font-black text-slate-700 shadow-[0_14px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.045] dark:text-slate-200">
+                <span>{item}</span>
+                <span className="font-mono text-xs text-slate-400">{String(index + 1).padStart(2, '0')}</span>
               </div>
             ))}
           </div>
         </MotionReveal>
 
-        <MotionReveal delay={0.14} y={36}>
-          <HomeCommandDeck products={featuredProducts} />
+        <MotionReveal delay={0.2} y={28}>
+          <ProductRail
+            products={products}
+            locale={locale}
+            statusLabels={dictionary.status}
+            compact
+          />
         </MotionReveal>
       </div>
     </section>

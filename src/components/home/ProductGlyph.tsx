@@ -248,7 +248,7 @@ export default function ProductGlyph({
 }) {
   const reducedMotion = usePrefersReducedMotion();
 
-  if (reducedMotion && !forceMotion) {
+  if (!forceMotion || reducedMotion) {
     return <StaticProductGlyph kind={kind} accent={accent} className={className} />;
   }
 

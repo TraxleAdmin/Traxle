@@ -14,7 +14,7 @@ function DemoShell({
   children: ReactNode;
 }) {
   return (
-    <div className="relative mx-auto min-h-[420px] w-full max-w-[560px] overflow-hidden rounded-[1.35rem] border border-white/14 bg-[#050914]/72 p-4 shadow-[0_34px_110px_rgba(0,0,0,0.48)] backdrop-blur-2xl sm:p-5">
+    <div className="relative min-h-[420px] w-full overflow-hidden rounded-lg border border-white/14 bg-[#050914]/88 p-4 shadow-[0_34px_110px_rgba(0,0,0,0.42)] backdrop-blur-2xl sm:p-5">
       <div className="pointer-events-none absolute inset-0 opacity-80" style={{ background: `radial-gradient(circle at 74% 16%, ${product.accent}26, transparent 38%), linear-gradient(135deg, rgba(255,255,255,0.1), transparent 34%)` }} />
       <div className="pointer-events-none absolute -inset-x-24 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
       <div className="relative flex items-center justify-between gap-4 border-b border-white/10 pb-4">
@@ -22,7 +22,7 @@ function DemoShell({
           <p className="truncate text-xs font-black uppercase tracking-[0.22em] text-cyan-100/70">{product.category}</p>
           <h3 className="mt-2 truncate text-2xl font-black text-white">{product.title}</h3>
         </div>
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/8" style={{ boxShadow: `0 0 28px ${product.accent}22` }}>
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-white/12 bg-white/8" style={{ boxShadow: `0 0 28px ${product.accent}22` }}>
           <Activity size={18} color={product.accent} aria-hidden="true" />
         </span>
       </div>

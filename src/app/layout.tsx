@@ -4,13 +4,11 @@ import { headers } from "next/headers";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SplashScreen from "@/components/SplashScreen";
 import CookieBanner from "@/components/CookieBanner";
 import MaintenanceGuard from "@/components/MaintenanceGuard";
 import { Providers } from "./providers";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageTransition from "@/components/PageTransition";
-import Scene from "@/components/canvas/Scene";
 import { TransitionProvider } from "@/components/animations/TransitionManager";
 import { defaultLocale, isLocale } from "@/lib/i18n";
 
@@ -21,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Traxle | Premium Engineering Ecosystem",
+  title: "Traxle | Operasyon Ürün Ekosistemi",
   description: "Mobil ve masaüstü yazılım ürünleri geliştiren üst düzey teknoloji ekosistemi.",
 };
 
@@ -42,9 +40,7 @@ export default async function RootLayout({
           <MaintenanceGuard>
             <TransitionProvider>
               <SmoothScroll>
-                <Scene />
                 <div className="relative z-10">
-                  <SplashScreen />
                   <Navbar />
                   <main className="min-h-screen">
                     <PageTransition>{children}</PageTransition>

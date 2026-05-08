@@ -1,37 +1,30 @@
 import Link from 'next/link';
+import { ArrowLeft, SearchX } from 'lucide-react';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center relative overflow-hidden text-center px-4 transition-colors duration-500">
-      
-      {/* Arka Plan Işıkları */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-600/10 rounded-full blur-[100px]" />
-      
-      {/* Büyük 404 Yazısı */}
-      <h1 className="text-[150px] md:text-[200px] font-black text-transparent bg-clip-text bg-gradient-to-b from-gray-200 to-gray-50 dark:from-gray-800 dark:to-[#050814] leading-none select-none opacity-50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none">
-        404
-      </h1>
-
-      <div className="relative z-10 -mt-10 md:-mt-20">
-        <div className="inline-block px-4 py-1.5 rounded-full bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-500 text-sm font-bold mb-6 animate-pulse">
-          Sinyal Kaybı
+    <main className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#f6f8fb] px-5 text-center text-slate-950 dark:bg-[#030712] dark:text-white">
+      <LaunchBackdrop label="ROUTE NOT FOUND" />
+      <div className="relative z-10 mx-auto max-w-2xl">
+        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-lg border border-slate-200 bg-white/86 shadow-[0_18px_60px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.055]">
+          <SearchX size={24} aria-hidden="true" />
         </div>
-        
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-          Rota Hesaplanamadı!
-        </h2>
-        
-        <p className="text-gray-600 dark:text-gray-400 text-lg max-w-lg mx-auto mb-8 font-medium">
-          Aradığınız koordinatlarda herhangi bir veri bulunamadı. Sayfa taşınmış veya silinmiş olabilir.
+        <p className="mb-4 font-mono text-xs font-black uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-200">
+          404 / route missing
         </p>
-
+        <h1 className="text-5xl font-black leading-tight sm:text-7xl">Bu rota yayında değil.</h1>
+        <p className="mx-auto mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300">
+          Aradığın sayfa taşınmış olabilir. Ürün kartlarına dönüp Traxle ekosistemini yeniden açabilirsin.
+        </p>
         <Link
-          href="/"
-          className="inline-flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-[#050814] px-8 py-4 rounded-xl font-black hover:scale-105 transition-all shadow-lg active:scale-95"
+          href="/tr/urunler"
+          className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-md border border-cyan-300/40 bg-cyan-400 px-6 text-sm font-black text-slate-950 shadow-[0_0_34px_rgba(0,194,255,0.28)] transition hover:bg-cyan-300"
         >
-          <span>←</span> Ana Karargaha Dön
+          <ArrowLeft size={16} aria-hidden="true" />
+          Ürünlere dön
         </Link>
       </div>
-    </div>
+    </main>
   );
 }

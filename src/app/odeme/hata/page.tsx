@@ -1,58 +1,30 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FiAlertCircle, FiRefreshCw, FiHeadphones } from 'react-icons/fi';
+import { AlertCircle, Headphones, RefreshCw } from 'lucide-react';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 
 export default function PaymentError() {
   return (
-    <div className="min-h-screen bg-transparent flex items-center justify-center p-6 transition-colors duration-300">
-      
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white dark:bg-[#0F1629] border border-gray-200 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl text-center max-w-lg w-full relative z-10"
-      >
-        <div className="w-24 h-24 bg-red-100 dark:bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <FiAlertCircle className="text-red-600 dark:text-red-400 text-5xl" />
+    <main className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-[#f6f8fb] p-6 text-slate-950 dark:bg-[#030712] dark:text-white">
+      <LaunchBackdrop label="PAYMENT STATUS" />
+      <section className="relative z-10 w-full max-w-lg rounded-lg border border-slate-200 bg-white/90 p-8 text-center shadow-[0_24px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/[0.055]">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-lg border border-red-300/30 bg-red-500/10 text-red-500">
+          <AlertCircle size={34} aria-hidden="true" />
         </div>
-
-        <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-4">
-          Ödeme Alınamadı
-        </h1>
-        
-        <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-          Ne yazık ki işleminizi tamamlayamadık. Kart bilgilerinizde bir hata olabilir veya bankanız işlemi reddetmiş olabilir.
+        <h1 className="text-3xl font-black">Ödeme alınamadı</h1>
+        <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          İşlem tamamlanamadı. Kart bilgilerini kontrol edip tekrar deneyebilir veya destek ekibine ulaşabilirsin.
         </p>
-
-        <div className="bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 rounded-2xl p-4 mb-8 text-sm text-red-600 dark:text-red-400">
-            <p className="font-bold">Olası Sebepler:</p>
-            <ul className="list-disc list-inside mt-2 text-left space-y-1">
-                <li>Yetersiz bakiye</li>
-                <li>İnternet alışverişine kapalı kart</li>
-                <li>Hatalı CVC veya SKT bilgisi</li>
-            </ul>
+        <div className="mt-8 grid gap-3">
+          <Link href="/odeme?plan=starter" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-slate-950 px-6 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+            <RefreshCw size={16} aria-hidden="true" />
+            Tekrar dene
+          </Link>
+          <Link href="/tr/iletisim" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-slate-200 px-6 text-sm font-black text-slate-700 dark:border-white/10 dark:text-slate-200">
+            <Headphones size={16} aria-hidden="true" />
+            Destekle iletişime geç
+          </Link>
         </div>
-
-        <div className="flex flex-col gap-3">
-            <Link 
-              href="/odeme?plan=starter" 
-              className="w-full py-4 rounded-xl font-bold text-white bg-gray-900 dark:bg-white dark:text-black hover:opacity-90 shadow-lg transition-all flex items-center justify-center gap-2"
-            >
-              <FiRefreshCw /> Tekrar Dene
-            </Link>
-            
-            <Link 
-              href="/iletisim" 
-              className="w-full py-4 rounded-xl font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-2"
-            >
-              <FiHeadphones /> Destek Ekibiyle İletişim
-            </Link>
-        </div>
-
-      </motion.div>
-    </div>
+      </section>
+    </main>
   );
 }

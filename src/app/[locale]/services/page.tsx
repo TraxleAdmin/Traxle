@@ -1,22 +1,18 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { CSSProperties } from 'react';
-import { Code2, Layers3, PanelsTopLeft, Workflow, type LucideIcon } from 'lucide-react';
-import { LazyProjectHubScene } from '@/components/three/LazyScenes';
-import { CTASection } from '@/components/ui/CTASection';
-import { GlassPanel } from '@/components/ui/GlassPanel';
-import { PageHeader } from '@/components/ui/PageHeader';
+import { Code2, Layers3, PanelsTopLeft, Workflow } from 'lucide-react';
+import DemoCTA from '@/components/home/DemoCTA';
+import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
 import { SectionShell } from '@/components/ui/SectionShell';
-import { getDictionary, isLocale, type Locale, withLocale } from '@/lib/i18n';
-import { getProjects } from '@/lib/projects';
+import { getDictionary, isLocale, type Locale } from '@/lib/i18n';
 import { createPageMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-const serviceIcons: LucideIcon[] = [PanelsTopLeft, Workflow, Code2, Layers3];
-const serviceAccents = ['#22d3ee', '#34d399', '#60a5fa', '#8b5cf6'];
+const serviceIcons = [PanelsTopLeft, Workflow, Code2, Layers3];
+const serviceAccents = ['#22d3ee', '#34d399', '#60a5fa', '#f59e0b'];
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
@@ -42,47 +38,41 @@ export default async function ServicesPage({ params }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <main className="pt-28">
-      <section className="relative min-h-[68vh] overflow-hidden">
-        <LazyProjectHubScene projects={getProjects(locale)} className="opacity-35" />
-        <SectionShell className="relative z-10 flex min-h-[68vh] items-center">
-          <PageHeader
-            eyebrow={dictionary.services.eyebrow}
-            title={dictionary.services.title}
-            description={dictionary.services.description}
-          />
-        </SectionShell>
-      </section>
+    <main className="bg-[#f6f8fb] pt-24 text-slate-950 dark:bg-[#030712] dark:text-white">
+      <SectionShell className="isolate overflow-hidden pb-12 pt-16">
+        <LaunchBackdrop label="SERVICE BLUEPRINT" />
+        <header className="relative z-10 max-w-5xl">
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">
+            {dictionary.services.eyebrow}
+          </p>
+          <h1 className="text-5xl font-black leading-[0.94] text-slate-950 dark:text-white sm:text-7xl">{dictionary.services.title}</h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{dictionary.services.description}</p>
+        </header>
+      </SectionShell>
 
-      <SectionShell className="grid gap-5 pt-4 md:grid-cols-2">
+      <SectionShell className="grid gap-3 pt-4 md:grid-cols-2">
         {dictionary.services.items.map((item, index) => {
           const Icon = serviceIcons[index % serviceIcons.length];
           const accent = serviceAccents[index % serviceAccents.length];
 
           return (
-            <GlassPanel
-              key={item.title}
-              className="premium-motion-card group overflow-hidden p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40"
-              style={{ '--card-accent': accent } as CSSProperties}
-            >
-              <div className="premium-icon-tile mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-300/30 bg-cyan-300/12 shadow-[0_0_30px_rgba(0,194,255,0.18)]">
-                <Icon className="premium-icon-glyph h-5 w-5 text-cyan-700 dark:text-cyan-100" aria-hidden="true" />
+            <article key={item.title} className="rounded-lg border border-slate-200 bg-white/86 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-slate-950 dark:border-white/10 dark:bg-white/[0.055] dark:hover:border-white/30">
+              <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/[0.06]" style={{ color: accent }}>
+                  <Icon size={19} aria-hidden="true" />
+                </span>
+                <div>
+                  <h2 className="text-2xl font-black text-slate-950 dark:text-white">{item.title}</h2>
+                  <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.description}</p>
+                </div>
               </div>
-              <h2 className="relative z-10 text-2xl font-black text-slate-950 dark:text-white">{item.title}</h2>
-              <p className="relative z-10 mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.description}</p>
-            </GlassPanel>
+              <div className="mt-6 h-1 w-20 rounded-full" style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }} />
+            </article>
           );
         })}
       </SectionShell>
 
-      <SectionShell className="pt-6">
-        <CTASection
-          title={dictionary.cta.title}
-          description={dictionary.cta.description}
-          label={dictionary.cta.label}
-          href={withLocale(locale, '/contact')}
-        />
-      </SectionShell>
+      <DemoCTA dictionary={dictionary} locale={locale} />
     </main>
   );
 }

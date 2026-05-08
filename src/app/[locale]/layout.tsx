@@ -24,9 +24,9 @@ export default async function LocaleLayout({
   const locale: Locale = rawLocale;
 
   return (
-    <div className="min-h-screen overflow-hidden bg-white text-slate-950 transition-colors duration-500 dark:bg-black dark:text-white">
+    <div className="min-h-screen overflow-hidden bg-[#f6f8fb] text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white">
       <DocumentLocaleSync locale={locale} />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(0,194,255,0.16),transparent_34%),radial-gradient(circle_at_15%_22%,rgba(148,163,184,0.18),transparent_28%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(0,194,255,0.18),transparent_32%),radial-gradient(circle_at_12%_20%,rgba(255,255,255,0.08),transparent_28%),#000]" />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(180deg,#f6f8fb_0%,#eef3f8_100%)] bg-[size:48px_48px,48px_48px,auto] dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,#030712_0%,#07111f_100%)]" />
       <Navbar />
       {children}
       <Footer locale={locale} />
