@@ -1,12 +1,12 @@
 {
   "product": "KunyeX",
-  "version": "1.1.0",
+  "version": "2.1",
   "fileName": "KunyeX_Master_Client.exe",
   "downloadUrl": "/guncelleme/KunyeX_Master_Client.exe",
-  "sizeBytes": 101567699,
-  "sizeLabel": "96.86 MiB",
-  "sha256": "B019D3BE16AE491F6787FC08114B3560C2A98254B6B2903F879AD33F73294C45",
+  "sizeBytes": 104446406,
+  "sizeLabel": "99.61 MiB",
+  "sha256": "C035D7F69B30A350369A7858F5FAF6ED8BC80F59F27007EA25CFC3B0869B0AE1",
   "platform": "Windows 10 / 11",
   "architecture": "64-bit",
-  "publishedAt": "2026-05-05"
+  "publishedAt": "2026-05-09"
 }
