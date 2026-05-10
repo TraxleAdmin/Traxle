@@ -1,13 +1,27 @@
-﻿{
-  "product": "KunyeX Master Client",
-  "version": "1.1.0",
-  "releaseDate": "2026-05-10",
+{
+  "product": "KunyeX",
+  "version": "2.3",
+  "fileName": "KunyeX_Master_Client.exe",
+  "sizeBytes": 104830373,
+  "sizeLabel": "99.97 MiB",
+  "sha256": "8A9E8549E32A2DEB951892161FCDFC4E58ED1B5B6CA9D6A8608971D1D72793C5",
+  "platform": "Windows 10 / 11",
+  "architecture": "64-bit",
+  "publishedAt": "2026-05-10",
+  "downloadUrl": "https://www.traxleapp.com/guncelleme/KunyeX_Master_Client.exe",
   "mandatory": true,
-  "manifestUrl": "https://traxleapp.com/guncelleme/kunyex-latest.json",
-  "downloadUrl": "https://traxleapp.com/guncelleme/KunyeX_Master_Client.exe",
+  "release_notes": [
+    "Önizleme galerisi kaydırma performansı iyileştirildi.",
+    "Mouse wheel, Page Up ve Page Down hareketleri daha akıcı hale getirildi.",
+    "Etiket önizleme görselleri için cache yapısı optimize edildi.",
+    "Windows tarafında DPI ve işlem önceliği iyileştirmeleri eklendi.",
+    "Güncelleme ekranına sürüm notları alanı eklendi."
+  ],
   "releaseNotes": [
-    "Kalici bellek matrisi ile fiyat havuzu iyilestirildi.",
-    "Otomatik guncelleme kontrol motoru guclendirildi.",
-    "Kurulum sureci ve performans optimizasyonlari yapildi."
+    "Önizleme galerisi kaydırma performansı iyileştirildi.",
+    "Mouse wheel, Page Up ve Page Down hareketleri daha akıcı hale getirildi.",
+    "Etiket önizleme görselleri için cache yapısı optimize edildi.",
+    "Windows tarafında DPI ve işlem önceliği iyileştirmeleri eklendi.",
+    "Güncelleme ekranına sürüm notları alanı eklendi."
   ]
 }
