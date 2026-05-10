@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { CONTENT, PageCopy, ProductCopy } from "@/lib/i18n/content";
 import { Locale, RouteKey, localizedPath, localizedPathForProductPrivacy } from "@/lib/i18n/routes";
+import { FaApple, FaGooglePlay, FaWindows } from "react-icons/fa";
+import { FiShield, FiDownloadCloud } from "react-icons/fi";
 
 const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
 const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
@@ -32,7 +34,7 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
       {sections.map((section) => (
         <article
           key={section.title}
-          className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+          className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-white/[0.04]"
         >
           <h2 className="text-xl font-bold">{section.title}</h2>
           <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{section.body}</p>
@@ -44,6 +46,16 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const content = CONTENT[locale].home;
+  const openPageLabel =
+    locale === "tr"
+      ? "Sayfaya git"
+      : locale === "de"
+        ? "Seite offnen"
+        : locale === "ru"
+          ? "Открыть страницу"
+          : locale === "ar"
+            ? "افتح الصفحة"
+            : "Open page";
 
   return (
     <PageShell title={content.title} intro={content.intro}>
@@ -56,13 +68,14 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <Link
             key={card.title}
             href={localizedPath(card.key, locale)}
-            className="group rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.04]"
+            className="group relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04]"
           >
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.14),transparent_55%)]" />
             <p className="text-xs font-bold uppercase tracking-wide text-blue-600 dark:text-blue-300">{card.status}</p>
             <h2 className="mt-3 text-2xl font-black tracking-tight">{card.title}</h2>
             <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{card.description}</p>
             <span className="mt-5 inline-block text-sm font-semibold text-blue-700 transition group-hover:text-blue-800 dark:text-blue-300 dark:group-hover:text-blue-200">
-              {locale === "tr" ? "Sayfaya git" : "Open page"}
+              {openPageLabel}
             </span>
           </Link>
         ))}
@@ -120,11 +133,46 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
   const privacyHref =
     productKey === "logistics" ? localizedPath("contact", locale) : localizedPathForProductPrivacy(productKey, locale);
 
-  const barkodxLabel = locale === "tr" ? "BarkodX'i App Store'dan Indir" : "Download BarkodX on the App Store";
-  const kunyexManualLabel = locale === "tr" ? "KunyeX Manuel Guncelleme" : "KunyeX Manual Update";
-  const barkodxTransferLabel = locale === "tr" ? "BarkodX DataTransfer" : "BarkodX DataTransfer";
-  const molatikIosLabel = locale === "tr" ? "Molatik iOS Indirme Linki" : "Molatik iOS Download";
-  const molatikPlaySoon = locale === "tr" ? "Molatik Google Play - Cok Yakinda" : "Molatik Google Play - Coming Soon";
+  const labels =
+    locale === "tr"
+      ? {
+          barkodx: "BarkodX'i App Store'dan Indir",
+          kunyexManual: "KunyeX Manuel Guncelleme",
+          barkodxTransfer: "BarkodX DataTransfer",
+          molatikIos: "Molatik iOS Indirme Linki",
+          molatikPlay: "Molatik Google Play - Cok Yakinda",
+        }
+      : locale === "de"
+        ? {
+            barkodx: "BarkodX im App Store laden",
+            kunyexManual: "KunyeX Manuelles Update",
+            barkodxTransfer: "BarkodX Datenubertragung",
+            molatikIos: "Molatik iOS Download",
+            molatikPlay: "Molatik Google Play - Demnachst",
+          }
+        : locale === "ru"
+          ? {
+              barkodx: "Скачать BarkodX в App Store",
+              kunyexManual: "Ручное обновление KunyeX",
+              barkodxTransfer: "BarkodX DataTransfer",
+              molatikIos: "Скачать Molatik для iOS",
+              molatikPlay: "Molatik в Google Play - Скоро",
+            }
+          : locale === "ar"
+            ? {
+                barkodx: "تنزيل BarkodX من App Store",
+                kunyexManual: "تحديث KunyeX اليدوي",
+                barkodxTransfer: "نقل بيانات BarkodX",
+                molatikIos: "تنزيل Molatik لنظام iOS",
+                molatikPlay: "Molatik على Google Play - قريباً",
+              }
+            : {
+                barkodx: "Download BarkodX on the App Store",
+                kunyexManual: "KunyeX Manual Update",
+                barkodxTransfer: "BarkodX DataTransfer",
+                molatikIos: "Molatik iOS Download",
+                molatikPlay: "Molatik Google Play - Coming Soon",
+              };
 
   return (
     <PageShell title={copy.title} intro={copy.intro}>
@@ -133,19 +181,27 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
       </span>
 
       <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-        <ul className="space-y-3">
-          {copy.highlights.map((highlight) => (
-            <li key={highlight} className="rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-700 dark:bg-white/5 dark:text-gray-200">
-              {highlight}
-            </li>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {copy.highlights.map((highlight, index) => (
+            <article
+              key={highlight}
+              className="group relative overflow-hidden rounded-2xl border border-gray-200/90 bg-gradient-to-br from-white to-blue-50/40 p-4 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:from-white/[0.05] dark:to-blue-500/[0.08]"
+            >
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_55%)]" />
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-xs font-black text-white">
+                {index + 1}
+              </span>
+              <p className="mt-3 text-sm leading-7 text-gray-700 dark:text-gray-200">{highlight}</p>
+            </article>
           ))}
-        </ul>
+        </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href={privacyHref}
-            className="inline-flex rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+            className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
+            <FiShield />
             {copy.privacyCta}
           </Link>
 
@@ -153,23 +209,26 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
             <>
               <Link
                 href="/guncelleme/kunyex"
-                className="inline-flex rounded-full border border-blue-300 bg-blue-50 px-5 py-3 text-sm font-semibold text-blue-800 transition hover:border-blue-400 dark:border-blue-400/40 dark:bg-blue-400/10 dark:text-blue-200 dark:hover:border-blue-300"
+                className="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-5 py-3 text-sm font-semibold text-blue-800 transition hover:border-blue-400 dark:border-blue-400/40 dark:bg-blue-400/10 dark:text-blue-200 dark:hover:border-blue-300"
               >
-                {kunyexManualLabel}
+                <FaWindows />
+                {labels.kunyexManual}
               </Link>
               <Link
                 href="/barkodx/uygulamalar/guncelleme"
-                className="inline-flex rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-800 transition hover:border-cyan-400 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-200 dark:hover:border-cyan-300"
+                className="inline-flex items-center gap-2 rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-800 transition hover:border-cyan-400 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-200 dark:hover:border-cyan-300"
               >
-                {barkodxTransferLabel}
+                <FiDownloadCloud />
+                {labels.barkodxTransfer}
               </Link>
               <Link
                 href={BARKODX_APPSTORE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
+                className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
               >
-                {barkodxLabel}
+                <FaApple />
+                {labels.barkodx}
               </Link>
             </>
           )}
@@ -180,16 +239,18 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
                 href={MOLATIK_APPSTORE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
+                className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
               >
-                {molatikIosLabel}
+                <FaApple />
+                {labels.molatikIos}
               </Link>
               <button
                 type="button"
                 disabled
-                className="inline-flex cursor-not-allowed rounded-full border border-amber-300 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-200"
+                className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-200"
               >
-                {molatikPlaySoon}
+                <FaGooglePlay />
+                {labels.molatikPlay}
               </button>
             </>
           )}

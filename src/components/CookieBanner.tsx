@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiSettings, FiX } from "react-icons/fi";
+import { FaCookieBite } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTENT } from "@/lib/i18n/content";
 import { detectLocale, localizedPath } from "@/lib/i18n/routes";
@@ -19,13 +20,19 @@ const STORAGE_KEY = "traxle_cookie_consent_v2";
 
 const COOKIE_TEXT = {
   tr: {
-    title: "Cerez Tercihleri",
+    title: "Çerez Tercihleri",
     body: "Deneyimi iyilestirmek ve guvenligi korumak icin cerez kullaniyoruz.",
     settings: "Ayarlar",
     accept: "Kabul Et",
     reject: "Tumunu Reddet",
     save: "Secimi Kaydet",
     linkPrefix: "Detaylar icin",
+    categories: {
+      necessary: "Zorunlu",
+      functional: "Fonksiyonel",
+      analytics: "Analitik",
+      marketing: "Pazarlama",
+    },
   },
   en: {
     title: "Cookie Preferences",
@@ -35,6 +42,12 @@ const COOKIE_TEXT = {
     reject: "Reject All",
     save: "Save Selection",
     linkPrefix: "For details see",
+    categories: {
+      necessary: "Necessary",
+      functional: "Functional",
+      analytics: "Analytics",
+      marketing: "Marketing",
+    },
   },
   de: {
     title: "Cookie-Einstellungen",
@@ -44,24 +57,42 @@ const COOKIE_TEXT = {
     reject: "Alle ablehnen",
     save: "Auswahl speichern",
     linkPrefix: "Details unter",
+    categories: {
+      necessary: "Notwendig",
+      functional: "Funktional",
+      analytics: "Analyse",
+      marketing: "Marketing",
+    },
   },
   ru: {
-    title: "Nastroyki cookie",
-    body: "My ispolzuem cookie dlya uluchsheniya raboty i bezopasnosti servisa.",
-    settings: "Nastroyki",
-    accept: "Prinyat vse",
-    reject: "Otklonit vse",
-    save: "Sohranit vybor",
-    linkPrefix: "Podrobnee v",
+    title: "Настройки cookie",
+    body: "Мы используем cookie для повышения качества работы и безопасности сервиса.",
+    settings: "Настройки",
+    accept: "Принять все",
+    reject: "Отклонить все",
+    save: "Сохранить выбор",
+    linkPrefix: "Подробнее в",
+    categories: {
+      necessary: "Обязательные",
+      functional: "Функциональные",
+      analytics: "Аналитика",
+      marketing: "Маркетинг",
+    },
   },
   ar: {
-    title: "Iidadat cookie",
-    body: "Nastakhdim cookie litahsin al-khidma wa al-amn.",
-    settings: "Iidadat",
-    accept: "Qabul al-kull",
-    reject: "Rafd al-kull",
-    save: "Hifz al-ikhtiyar",
-    linkPrefix: "Liltfasil zour",
+    title: "إعدادات ملفات الارتباط",
+    body: "نستخدم ملفات الارتباط لتحسين التجربة وتعزيز أمان الخدمة.",
+    settings: "الإعدادات",
+    accept: "قبول الكل",
+    reject: "رفض الكل",
+    save: "حفظ الاختيار",
+    linkPrefix: "للتفاصيل راجع",
+    categories: {
+      necessary: "أساسية",
+      functional: "وظيفية",
+      analytics: "تحليلية",
+      marketing: "تسويقية",
+    },
   },
 } as const;
 
@@ -107,7 +138,10 @@ export default function CookieBanner() {
             <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-2xl dark:border-white/10 dark:bg-[#0f172a]">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">{text.title}</h3>
+                  <h3 className="inline-flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white">
+                    <FaCookieBite className="text-amber-500" />
+                    {text.title}
+                  </h3>
                   <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     {text.body} {text.linkPrefix}{" "}
                     <Link href={localizedPath("cookies", locale)} className="font-semibold text-blue-600 hover:underline">
@@ -178,23 +212,23 @@ export default function CookieBanner() {
                 </div>
 
                 <div className="space-y-4">
-                  <CookieRow label="Necessary" checked disabled />
+                  <CookieRow label={text.categories.necessary} checked disabled />
                   <CookieRow
-                    label="Functional"
+                    label={text.categories.functional}
                     checked={preferences.functional}
                     onToggle={() =>
                       setPreferences((prev) => ({ ...prev, functional: !prev.functional }))
                     }
                   />
                   <CookieRow
-                    label="Analytics"
+                    label={text.categories.analytics}
                     checked={preferences.analytics}
                     onToggle={() =>
                       setPreferences((prev) => ({ ...prev, analytics: !prev.analytics }))
                     }
                   />
                   <CookieRow
-                    label="Marketing"
+                    label={text.categories.marketing}
                     checked={preferences.marketing}
                     onToggle={() =>
                       setPreferences((prev) => ({ ...prev, marketing: !prev.marketing }))

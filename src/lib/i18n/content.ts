@@ -141,7 +141,7 @@ export const CONTENT: Record<Locale, LocaleContent> = {
       badge: "Traxle Hakkinda",
       title: "Gercek Operasyon Problemlerine Urun Tabanli Cozum",
       intro:
-        "Saha ekipleri, depo ve lojistik sureclerinde daÄŸinik yapilari birlestiren moduler yazilimlar gelistiriyoruz. Kararlarimizi sahadan gelen gercek veri ve olculebilir sonuclar belirler.",
+        "Saha ekipleri, depo ve lojistik sureclerinde daginik yapilari birlestiren moduler yazilimlar gelistiriyoruz. Kararlarimizi sahadan gelen gercek veri ve olculebilir sonuclar belirler.",
       stats: [
         { label: "Aktif Kurumsal Hesap", value: COMMON_STATS.accounts },
         { label: "Aylik Islenen Kayit", value: COMMON_STATS.records },
@@ -309,7 +309,7 @@ export const CONTENT: Record<Locale, LocaleContent> = {
       },
       kvkk: {
         title: "KVKK Aydinlatma",
-        intro: "Veri sorumlusu olarak kisÌ§isel veri isleme faaliyetlerimize iliskin bilgilendirme.",
+        intro: "Veri sorumlusu olarak kisisel veri isleme faaliyetlerimize iliskin bilgilendirme.",
         sections: [
           { title: "Veri sorumlusu", body: "Traxle, hizmet kapsami icindeki veri isleme faaliyetlerinden sorumludur." },
           { title: "Hukuki sebep", body: "Sozlesmenin ifasi, mesru menfaat ve yasal yukumluluk." },
@@ -595,163 +595,822 @@ export const CONTENT: Record<Locale, LocaleContent> = {
 CONTENT.de = {
   ...CONTENT.en,
   nav: {
-    ...CONTENT.en.nav,
-    brandTag: "Traxle Technologie-Okosystem",
+    brandTag: "Traxle Technologie-Ökosystem",
     links: [
       { key: "kunyex", label: "KunyeX" },
       { key: "molatik", label: "Molatik" },
       { key: "logistics", label: "Logistik" },
-      { key: "about", label: "Unternehmen" },
+      { key: "about", label: "Über uns" },
     ],
     cta: { key: "contact", label: "Kontakt" },
     languageLabel: "Sprache",
   },
   footer: {
-    ...CONTENT.en.footer,
     description:
-      "Traxle ist eine Unternehmensplattform fur digitale Identitat, Teamsteuerung und Logistikprozesse.",
-    ecosystem: "Okosystem",
+      "Traxle ist eine Unternehmensplattform, die digitale Identität, Personalsteuerung und Logistikprozesse in einer gemeinsamen Datenstruktur vereint.",
+    ecosystem: "Ökosystem",
     company: "Unternehmen",
     legal: "Rechtliches",
     copyright: "(c) 2026 Traxle. Alle Rechte vorbehalten.",
   },
+  home: {
+    badge: "Live-Ökosystem",
+    title: "Programme auf einer einheitlichen Operations-Plattform",
+    intro:
+      "Wir verbinden KunyeX, Molatik und Logistics in einem gemeinsamen Datenmodell für Geschwindigkeit, Transparenz und Governance.",
+    cards: [
+      {
+        key: "kunyex",
+        title: "KunyeX",
+        description: "NFC/QR-basierte digitale Identität mit rollenbasierter Berechtigungssteuerung.",
+        status: "Im Unternehmenseinsatz",
+      },
+      {
+        key: "molatik",
+        title: "Molatik",
+        description: "Verwaltet Schichten, Pausen, Aufgaben und Teamleistung in einer Oberfläche.",
+        status: "Aktiv in Entwicklung",
+      },
+      {
+        key: "logistics",
+        title: "Traxle Logistics",
+        description: "Verknüpft Frachtzuordnung, Lieferverfolgung und Kostenanalysen.",
+        status: "Pilotbetrieb aktiv",
+      },
+    ],
+  },
+  about: {
+    badge: "Über Traxle",
+    title: "Produktlösungen für reale Betriebsabläufe",
+    intro:
+      "Wir entwickeln modulare Software für Außendienst, Compliance und Logistikmanagement. Entscheidungen basieren auf messbaren Ergebnissen aus dem Live-Betrieb.",
+    stats: [
+      { label: "Aktive Unternehmenskonten", value: COMMON_STATS.accounts },
+      { label: "Monatlich verarbeitete Datensätze", value: COMMON_STATS.records },
+      { label: "Plattform-Verfügbarkeit", value: COMMON_STATS.uptime },
+    ],
+    sections: [
+      {
+        title: "Was wir bauen",
+        body: "Module für digitale Identität, Workforce-Management und Logistik, die in einer Plattform zusammenarbeiten.",
+      },
+      {
+        title: "Wie wir arbeiten",
+        body: "Wir modellieren Prozesse gemeinsam mit Operationsteams und verbessern Produkte kontinuierlich anhand produktiver Daten.",
+      },
+      {
+        title: "Was wir garantieren",
+        body: "Sicherheit, Nachvollziehbarkeit, Anpassungsfähigkeit und stabilen Unternehmenseinsatz.",
+      },
+    ],
+  },
+  products: {
+    molatik: {
+      badge: "Molatik Workforce",
+      title: "Schicht- und Pausenprozesse automatisieren",
+      intro:
+        "Molatik reduziert manuelle Teamverfolgung und liefert Führungskräften operative Transparenz in Echtzeit.",
+      highlights: [
+        "Schichtbasierte Aufgaben- und Check-in-Flows",
+        "Regelbasierte Pausensteuerung",
+        "Standortgestützte Feldeinträge",
+        "Tages-Dashboards für Teamleiter",
+      ],
+      privacyCta: "Molatik-Datenschutz öffnen",
+    },
+    kunyex: {
+      badge: "KunyeX Identity",
+      title: "Digitale Identität und Zugriffskontrolle standardisieren",
+      intro:
+        "KunyeX verbindet physische und digitale Identitätsdaten und beschleunigt sichere Verifizierungsprozesse.",
+      highlights: [
+        "Schnelle Profilprüfung per NFC/QR",
+        "Rollenbasiertes Zugriffsmodell",
+        "Hardwaregebundene Lizenzvalidierung",
+        "Revisionssichere Audit-Protokolle",
+      ],
+      privacyCta: "KunyeX-Datenschutz öffnen",
+    },
+    logistics: {
+      badge: "Traxle Logistics",
+      title: "Logistik von Angebot bis Zustellung steuern",
+      intro:
+        "Traxle Logistics macht Disposition und Lieferprozesse messbar, steuerbar und auditierbar.",
+      highlights: [
+        "Engine zur Zuordnung von Fracht und Fahrzeug",
+        "Nachweisbare Lieferkette",
+        "Routen- und Kostenanalysen",
+        "Operative KPI-Dashboards",
+      ],
+      privacyCta: "Kontakt für Prozessdetails",
+    },
+  },
+  productPrivacy: {
+    molatik: {
+      title: "Molatik-Datenschutzerklärung",
+      intro:
+        "Dieser Text erläutert Datenumfang, Sicherheitskontrollen und Zugriffsprinzipien innerhalb von Molatik.",
+      sections: [
+        {
+          title: "Datenumfang",
+          body: "Mitarbeiter-, Schicht-, Pausen- und Aufgabeninformationen werden ausschließlich zur Leistungserbringung verarbeitet.",
+        },
+        {
+          title: "Zugriff",
+          body: "Rollenbasierte Berechtigungen und MFA schützen kritische Verwaltungsaktionen.",
+        },
+        {
+          title: "Sicherheit",
+          body: "Daten werden bei Übertragung und Speicherung verschlüsselt.",
+        },
+      ],
+    },
+    kunyex: {
+      title: "KunyeX-Datenschutzerklärung",
+      intro:
+        "Dieser Text beschreibt Identitätsdatenverarbeitung, Geräte-Lizenzierung und Audit-Prinzipien von KunyeX.",
+      sections: [
+        {
+          title: "Identitätsdaten",
+          body: "Profil- und Verifizierungsdaten werden zweckgebunden und kontrolliert verarbeitet.",
+        },
+        {
+          title: "Lizenzsicherheit",
+          body: "Unternehmens-Clients sind an freigegebene Hardware-Identitäten gebunden.",
+        },
+        {
+          title: "Audit",
+          body: "Kritische Aktionen werden mit Integritätsprüfungen protokolliert.",
+        },
+      ],
+    },
+  },
+  pages: {
+    features: {
+      title: "Funktionen",
+      intro: "Traxle-Module sind auf operative Geschwindigkeit und Governance ausgelegt.",
+      sections: [
+        { title: "Automatisierung", body: "Wiederkehrende Abläufe werden regelbasiert automatisiert." },
+        { title: "Live-Reporting", body: "Team- und Standortleistung kann in Echtzeit verfolgt werden." },
+        { title: "Enterprise-Compliance", body: "Rechte und Protokolle werden zentral gesteuert." },
+      ],
+    },
+    pricing: {
+      title: "Preise",
+      intro: "Modulare Lizenzierung: Jedes Team zahlt nur für die tatsächlich genutzten Produkte.",
+      sections: [
+        { title: "Paketmodell", body: "KunyeX, Molatik und Logistics sind einzeln oder gemeinsam lizenzierbar." },
+        { title: "Skalierbarkeit", body: "Die Lizenzstruktur wächst mit dem Nutzungsvolumen." },
+        { title: "Support", body: "Onboarding, Schulung und Support werden SLA-konform geplant." },
+      ],
+    },
+    integrations: {
+      title: "Integrationen",
+      intro: "Bidirektionale Integrationen mit ERP-, Buchhaltungs- und Betriebssystemen.",
+      sections: [
+        { title: "API", body: "Sichere REST-APIs und Webhooks für schnelle Anbindung." },
+        { title: "Identity Services", body: "Unterstützung für SSO und Unternehmensverzeichnisse." },
+        { title: "BI-Export", body: "Geplante Exporte für Analytics- und BI-Plattformen." },
+      ],
+    },
+    contact: {
+      title: "Kontakt",
+      intro: "Kontaktieren Sie uns für Demo, Preise und Implementierungsplanung.",
+      sections: [
+        { title: "Vertrieb", body: "Unternehmensanfragen erhalten in der Regel innerhalb eines Werktags eine erste Rückmeldung." },
+        { title: "Technischer Support", body: "Aktive Kunden werden über SLA-gesteuerte Supportkanäle betreut." },
+        { title: "Partnerschaften", body: "Integrations- und Vertriebspartnerschaften werden separat bewertet." },
+      ],
+    },
+    careers: {
+      title: "Karriere",
+      intro: "Wir suchen Menschen, die operative Komplexität in klare Produkte übersetzen.",
+      sections: [
+        { title: "Kultur", body: "Verantwortung, schnelle Entscheidungen und messbare Wirkung." },
+        { title: "Arbeitsmodell", body: "Je nach Rolle hybrid oder remote." },
+        { title: "Offene Rollen", body: "Positionen in Engineering, Produkt und Operations sind fortlaufend offen." },
+      ],
+    },
+    updates: {
+      title: "Produkt-Updates",
+      intro: "Release Notes, Sicherheitsverbesserungen und Roadmap-Updates.",
+      sections: [
+        { title: "Letzte Version", body: "Performance-Optimierungen und Verbesserungen im Dashboard wurden ausgeliefert." },
+        { title: "Sicherheit", body: "Session-Härtung und Audit-Alarmregeln wurden aktualisiert." },
+        { title: "Als Nächstes", body: "Erweiterte Routenplanung und automatische Kostenanalysen sind in Arbeit." },
+      ],
+    },
+    privacy: {
+      title: "Datenschutzerklärung",
+      intro: "Diese Richtlinie beschreibt, welche Daten erfasst werden und warum.",
+      sections: [
+        { title: "Erhobene Daten", body: "Konto-, Nutzungs- und Betriebsdaten." },
+        { title: "Zweck", body: "Servicekontinuität, Sicherheit und rechtliche Compliance." },
+        { title: "Rechte", body: "Anfragen zu Auskunft, Berichtigung oder Löschung können offiziell eingereicht werden." },
+      ],
+    },
+    terms: {
+      title: "Nutzungsbedingungen",
+      intro: "Organisationen, die Traxle-Dienste nutzen, sind an diese Bedingungen gebunden.",
+      sections: [
+        { title: "Geltungsbereich", body: "Module und Limits richten sich nach dem gewählten Plan." },
+        { title: "Verantwortung", body: "Kunden sind für Kontosicherheit und Benutzerverwaltung verantwortlich." },
+        { title: "Rechtsrahmen", body: "Streitigkeiten werden gemäß Vertrag und zuständiger Gerichtsbarkeit behandelt." },
+      ],
+    },
+    cookies: {
+      title: "Cookie-Richtlinie",
+      intro: "Cookies werden für sichere Sitzungen und Produktleistung verwendet.",
+      sections: [
+        { title: "Essenzielle Cookies", body: "Erforderlich für Authentifizierung und Sicherheitsprüfungen." },
+        { title: "Analyse-Cookies", body: "Anonyme Nutzungsdaten verbessern die Produktqualität." },
+        { title: "Einstellungsverwaltung", body: "Cookie-Präferenzen können im Browser geändert werden." },
+      ],
+    },
+    kvkk: {
+      title: "Datenschutzhinweis",
+      intro: "Informationen zur Verarbeitung personenbezogener Daten durch Traxle als Verantwortlicher.",
+      sections: [
+        { title: "Verantwortlicher", body: "Traxle ist für Datenverarbeitung im Rahmen der bereitgestellten Dienste verantwortlich." },
+        { title: "Rechtsgrundlage", body: "Vertragserfüllung, berechtigtes Interesse und gesetzliche Pflichten." },
+        { title: "Anträge", body: "Anfragen werden über offizielle Kommunikationskanäle entgegengenommen." },
+      ],
+    },
+    refund: {
+      title: "Stornierung und Rückerstattung",
+      intro: "Der Ablauf richtet sich nach ausgewähltem Plan und Vertragsbedingungen.",
+      sections: [
+        { title: "Stornierung", body: "Anträge können über das Panel oder den Support gestartet werden." },
+        { title: "Prüfung", body: "Die Erstattungsfähigkeit wird anhand Nutzung und Vertragsklauseln bewertet." },
+        { title: "Abschluss", body: "Freigegebene Rückerstattungen werden durch Finance abgeschlossen." },
+      ],
+    },
+    distance: {
+      title: "Fernabsatz-Dienstleistungsvertrag",
+      intro: "Definiert Rechte und Pflichten für digital erbrachte Dienstleistungen.",
+      sections: [
+        { title: "Vertragsparteien", body: "Zwischen Traxle und der abonnierenden Organisation." },
+        { title: "Bereitstellung", body: "Zugriff wird digital über lizenzierte Module bereitgestellt." },
+        { title: "Kündigung", body: "Kündigungsbedingungen folgen Planlaufzeit und Vertragsrahmen." },
+      ],
+    },
+    preInfo: {
+      title: "Vorabinformationsformular",
+      intro: "Leistungsumfang, Preise und Supportdetails vor dem Kauf.",
+      sections: [
+        { title: "Leistungsbeschreibung", body: "Technischer Umfang der ausgewählten Module." },
+        { title: "Preisstruktur", body: "Gebühren, Steuern und optionale Kosten werden transparent dargestellt." },
+        { title: "Support", body: "Setup- und Supportkanäle werden vor dem Go-live dokumentiert." },
+      ],
+    },
+  },
 };
 
 CONTENT.ru = {
   ...CONTENT.en,
   nav: {
-    ...CONTENT.en.nav,
-    brandTag: "Tekhnologicheskaya ekosistema Traxle",
+    brandTag: "Технологическая экосистема Traxle",
     links: [
       { key: "kunyex", label: "KunyeX" },
       { key: "molatik", label: "Molatik" },
-      { key: "logistics", label: "Logistika" },
-      { key: "about", label: "O kompanii" },
+      { key: "logistics", label: "Логистика" },
+      { key: "about", label: "О нас" },
     ],
-    cta: { key: "contact", label: "Kontakty" },
-    languageLabel: "Yazyk",
+    cta: { key: "contact", label: "Контакты" },
+    languageLabel: "Язык",
   },
   footer: {
-    ...CONTENT.en.footer,
     description:
-      "Traxle obedinyaet tsifrovuyu identifikaciyu, upravlenie komandami i logisticheskie processy v odnoi platforme.",
-    ecosystem: "Ekosistema",
-    company: "Kompaniya",
-    legal: "Pravo",
-    copyright: "(c) 2026 Traxle. Vse prava zashchishcheny.",
+      "Traxle — это корпоративная платформа, объединяющая цифровую идентификацию, управление командами и логистические операции в единой структуре данных.",
+    ecosystem: "Экосистема",
+    company: "Компания",
+    legal: "Правовая информация",
+    copyright: "(c) 2026 Traxle. Все права защищены.",
+  },
+  home: {
+    badge: "Живая экосистема",
+    title: "Управление программами на единой операционной платформе",
+    intro:
+      "Мы объединяем KunyeX, Molatik и Logistics в общей модели данных для скорости, прозрачности и управляемости.",
+    cards: [
+      {
+        key: "kunyex",
+        title: "KunyeX",
+        description: "Цифровая идентификация на базе NFC/QR с ролевым управлением доступом.",
+        status: "Используется в компаниях",
+      },
+      {
+        key: "molatik",
+        title: "Molatik",
+        description: "Смены, перерывы, назначения и эффективность сотрудников в одном интерфейсе.",
+        status: "Активная разработка",
+      },
+      {
+        key: "logistics",
+        title: "Traxle Logistics",
+        description: "Сопоставление грузов, отслеживание доставок и анализ затрат в едином потоке.",
+        status: "Пилотные процессы активны",
+      },
+    ],
+  },
+  about: {
+    badge: "О Traxle",
+    title: "Продуктовые решения для реальных операционных задач",
+    intro:
+      "Мы создаем модульные продукты для полевых команд, комплаенса и логистики. Решения принимаются на основе измеримых результатов из реальной эксплуатации.",
+    stats: [
+      { label: "Активные корпоративные аккаунты", value: COMMON_STATS.accounts },
+      { label: "Обрабатываемые записи в месяц", value: COMMON_STATS.records },
+      { label: "Доступность платформы", value: COMMON_STATS.uptime },
+    ],
+    sections: [
+      {
+        title: "Что мы создаем",
+        body: "Модули цифровой идентификации, управления персоналом и логистики, работающие как единая система.",
+      },
+      {
+        title: "Как мы работаем",
+        body: "Совместно проектируем процессы с операционными командами и улучшаем продукты на основе боевых данных.",
+      },
+      {
+        title: "Что мы гарантируем",
+        body: "Безопасность, прозрачность, гибкость внедрения и стабильность для корпоративной эксплуатации.",
+      },
+    ],
+  },
+  products: {
+    molatik: {
+      badge: "Molatik Workforce",
+      title: "Автоматизируйте управление сменами и перерывами",
+      intro:
+        "Molatik убирает ручной контроль и дает менеджерам прозрачность операций в реальном времени.",
+      highlights: [
+        "Назначения и check-in по сменам",
+        "Контроль перерывов на основе политик",
+        "Полевые записи с привязкой к локации",
+        "Ежедневные панели для руководителей",
+      ],
+      privacyCta: "Открыть политику конфиденциальности Molatik",
+    },
+    kunyex: {
+      badge: "KunyeX Identity",
+      title: "Стандартизируйте цифровую идентификацию и контроль доступа",
+      intro:
+        "KunyeX связывает физические и цифровые идентификаторы и ускоряет безопасную проверку профиля.",
+      highlights: [
+        "Быстрая проверка профиля по NFC/QR",
+        "Ролевая модель доступа",
+        "Лицензирование, привязанное к оборудованию",
+        "Аудируемые журналы критических действий",
+      ],
+      privacyCta: "Открыть политику конфиденциальности KunyeX",
+    },
+    logistics: {
+      badge: "Traxle Logistics",
+      title: "Контролируйте логистику от заявки до доставки",
+      intro:
+        "Traxle Logistics превращает диспетчеризацию и доставку в измеримый цифровой процесс.",
+      highlights: [
+        "Механизм сопоставления груза и транспорта",
+        "Подтверждаемая цепочка доставки",
+        "Аналитика маршрутов и затрат",
+        "Операционные KPI-панели",
+      ],
+      privacyCta: "Связаться для деталей процесса",
+    },
+  },
+  productPrivacy: {
+    molatik: {
+      title: "Политика конфиденциальности Molatik",
+      intro:
+        "В этом документе описаны состав данных, меры безопасности и принципы доступа в Molatik.",
+      sections: [
+        {
+          title: "Состав данных",
+          body: "Данные сотрудников, смен, перерывов и задач обрабатываются только для предоставления сервиса.",
+        },
+        {
+          title: "Доступ",
+          body: "Критические административные действия защищены ролевым доступом и MFA.",
+        },
+        {
+          title: "Безопасность",
+          body: "Передача данных и хранение чувствительной информации выполняются в зашифрованном виде.",
+        },
+      ],
+    },
+    kunyex: {
+      title: "Политика конфиденциальности KunyeX",
+      intro:
+        "Документ охватывает обработку идентификационных данных, лицензирование устройств и принципы аудита в KunyeX.",
+      sections: [
+        {
+          title: "Идентификационные данные",
+          body: "Данные профиля и верификации обрабатываются по принципу ограничения цели.",
+        },
+        {
+          title: "Безопасность лицензий",
+          body: "Корпоративные клиенты привязываются к одобренной аппаратной идентичности.",
+        },
+        {
+          title: "Аудит",
+          body: "Критические действия журналируются с проверками целостности.",
+        },
+      ],
+    },
+  },
+  pages: {
+    features: {
+      title: "Возможности",
+      intro: "Модули Traxle разработаны для высокой скорости операций и управляемости.",
+      sections: [
+        { title: "Автоматизация", body: "Повторяющиеся процессы переводятся в правила и автоматические сценарии." },
+        { title: "Отчетность в реальном времени", body: "Показатели команды и локаций доступны без задержек." },
+        { title: "Корпоративное соответствие", body: "Права доступа и журналы управляются централизованно." },
+      ],
+    },
+    pricing: {
+      title: "Тарифы",
+      intro: "Модульная лицензия: команда оплачивает только реально используемые продукты.",
+      sections: [
+        { title: "Пакетная модель", body: "KunyeX, Molatik и Logistics можно подключать отдельно или вместе." },
+        { title: "Масштабирование", body: "Лицензия расширяется по мере роста использования." },
+        { title: "Поддержка", body: "Онбординг, обучение и поддержка выстраиваются по SLA." },
+      ],
+    },
+    integrations: {
+      title: "Интеграции",
+      intro: "Двунаправленная интеграция с ERP, бухгалтерскими и операционными системами.",
+      sections: [
+        { title: "API", body: "Безопасные REST API и webhooks для быстрого подключения." },
+        { title: "Сервисы идентификации", body: "Поддержка SSO и корпоративных каталогов." },
+        { title: "BI-экспорт", body: "Плановые выгрузки в аналитические платформы." },
+      ],
+    },
+    contact: {
+      title: "Контакты",
+      intro: "Свяжитесь с нами по вопросам демо, стоимости и внедрения.",
+      sections: [
+        { title: "Продажи", body: "По корпоративным запросам мы обычно отвечаем в течение одного рабочего дня." },
+        { title: "Техническая поддержка", body: "Действующие клиенты обслуживаются через SLA-каналы." },
+        { title: "Партнерство", body: "Запросы на интеграции и партнерские программы рассматриваются отдельно." },
+      ],
+    },
+    careers: {
+      title: "Карьера",
+      intro: "Мы ищем специалистов, которые превращают операционную сложность в понятные продукты.",
+      sections: [
+        { title: "Культура", body: "Ответственность, быстрые решения и измеримый результат." },
+        { title: "Формат работы", body: "Гибридный и удаленный формат в зависимости от роли." },
+        { title: "Открытые роли", body: "Регулярно открыты позиции в инженерии, продукте и операциях." },
+      ],
+    },
+    updates: {
+      title: "Обновления продукта",
+      intro: "Релиз-ноты, улучшения безопасности и обновления дорожной карты.",
+      sections: [
+        { title: "Последний релиз", body: "Выпущены улучшения производительности и отображения дашбордов." },
+        { title: "Безопасность", body: "Обновлены правила защиты сессий и audit-оповещений." },
+        { title: "Далее", body: "В разработке расширенное планирование маршрутов и автоматический анализ затрат." },
+      ],
+    },
+    privacy: {
+      title: "Политика конфиденциальности",
+      intro: "Документ объясняет, какие данные собираются и с какой целью.",
+      sections: [
+        { title: "Собираемые данные", body: "Данные аккаунта, использования и операционных действий." },
+        { title: "Цель", body: "Непрерывность сервиса, безопасность и соблюдение законодательства." },
+        { title: "Права", body: "Запросы на доступ, исправление и удаление принимаются через официальные каналы." },
+      ],
+    },
+    terms: {
+      title: "Условия использования",
+      intro: "Организации, использующие сервисы Traxle, принимают эти условия.",
+      sections: [
+        { title: "Область действия", body: "Модули и ограничения определяются выбранным тарифом." },
+        { title: "Ответственность", body: "Клиент отвечает за безопасность аккаунтов и управление пользователями." },
+        { title: "Правовая база", body: "Споры рассматриваются в рамках договора и применимой юрисдикции." },
+      ],
+    },
+    cookies: {
+      title: "Политика файлов cookie",
+      intro: "Cookie используются для безопасных сессий и повышения качества продукта.",
+      sections: [
+        { title: "Обязательные cookie", body: "Необходимы для аутентификации и проверок безопасности." },
+        { title: "Аналитические cookie", body: "Анонимные данные использования помогают улучшать сервис." },
+        { title: "Управление настройками", body: "Предпочтения cookie можно изменить в настройках браузера." },
+      ],
+    },
+    kvkk: {
+      title: "Уведомление о защите данных",
+      intro: "Информация об обработке персональных данных компанией Traxle как оператором данных.",
+      sections: [
+        { title: "Оператор данных", body: "Traxle отвечает за обработку данных в рамках предоставляемых сервисов." },
+        { title: "Правовое основание", body: "Исполнение договора, законный интерес и юридические обязательства." },
+        { title: "Запросы", body: "Запросы принимаются через официальные каналы связи." },
+      ],
+    },
+    refund: {
+      title: "Отмена и возврат",
+      intro: "Порядок отмены и возврата зависит от тарифа и условий договора.",
+      sections: [
+        { title: "Отмена", body: "Запрос можно инициировать через панель или канал поддержки." },
+        { title: "Проверка возврата", body: "Право на возврат оценивается по факту использования и условиям договора." },
+        { title: "Завершение", body: "Одобренные возвраты завершаются финансовой командой." },
+      ],
+    },
+    distance: {
+      title: "Договор дистанционного оказания услуг",
+      intro: "Определяет права и обязанности сторон для услуг, предоставляемых в цифровом формате.",
+      sections: [
+        { title: "Стороны", body: "Договор заключается между Traxle и организацией-подписчиком." },
+        { title: "Предоставление", body: "Доступ к сервису предоставляется цифровым способом через лицензированные модули." },
+        { title: "Расторжение", body: "Условия расторжения определяются планом и сроком договора." },
+      ],
+    },
+    preInfo: {
+      title: "Форма предварительного информирования",
+      intro: "До покупки предоставляются сведения о составе услуг, стоимости и поддержке.",
+      sections: [
+        { title: "Описание услуги", body: "Перечисляется технический охват выбранных модулей." },
+        { title: "Ценообразование", body: "Прозрачно указываются сборы, налоги и дополнительные расходы." },
+        { title: "Поддержка", body: "Каналы внедрения и поддержки фиксируются до запуска." },
+      ],
+    },
   },
 };
 
 CONTENT.ar = {
   ...CONTENT.en,
   nav: {
-    ...CONTENT.en.nav,
-    brandTag: "Manzumat Traxle al-taqniyya",
+    brandTag: "منظومة Traxle التقنية",
     links: [
       { key: "kunyex", label: "KunyeX" },
       { key: "molatik", label: "Molatik" },
-      { key: "logistics", label: "Logistics" },
-      { key: "about", label: "Man nahn" },
+      { key: "logistics", label: "اللوجستيات" },
+      { key: "about", label: "من نحن" },
     ],
-    cta: { key: "contact", label: "Ittisal" },
-    languageLabel: "Lugha",
+    cta: { key: "contact", label: "اتصل بنا" },
+    languageLabel: "اللغة",
   },
   footer: {
-    ...CONTENT.en.footer,
     description:
-      "Traxle mansa muassasiyya li idarat al-hawiyya al-raqmiyya wa al-firaq al-midaniyya wa al-lujistiyat.",
-    ecosystem: "Al-manzuma",
-    company: "Al-sharika",
-    legal: "Qanuni",
-    copyright: "(c) 2026 Traxle. jami al-huquq mahfuza.",
+      "Traxle منصة مؤسسية توحد الهوية الرقمية وإدارة فرق العمل والعمليات اللوجستية ضمن بنية بيانات واحدة.",
+    ecosystem: "المنظومة",
+    company: "الشركة",
+    legal: "قانوني",
+    copyright: "(c) 2026 Traxle. جميع الحقوق محفوظة.",
   },
-};
-
-// Language-specific content overrides for DE/RU/AR pages.
-CONTENT.de = {
-  ...CONTENT.de,
   home: {
-    ...CONTENT.de.home,
-    badge: "Aktives Okosystem",
-    title: "Programme auf einer gemeinsamen operativen Plattform",
-    intro: "Wir verbinden KunyeX, Molatik und Logistics in einer Datenstruktur fur Geschwindigkeit, Transparenz und Kontrolle.",
+    badge: "منظومة حية",
+    title: "إدارة البرامج عبر منصة تشغيل موحدة",
+    intro:
+      "نوحّد KunyeX وMolatik وLogistics ضمن نموذج بيانات واحد لزيادة السرعة والوضوح والحوكمة.",
+    cards: [
+      {
+        key: "kunyex",
+        title: "KunyeX",
+        description: "هوية رقمية قائمة على NFC/QR مع إدارة صلاحيات بحسب الأدوار.",
+        status: "مستخدم فعلياً في المؤسسات",
+      },
+      {
+        key: "molatik",
+        title: "Molatik",
+        description: "إدارة المناوبات والاستراحات والمهام وأداء الفرق من لوحة واحدة.",
+        status: "قيد التطوير النشط",
+      },
+      {
+        key: "logistics",
+        title: "Traxle Logistics",
+        description: "يربط مطابقة الشحنات وتتبع التسليم وتحليلات التكاليف في تدفق واحد.",
+        status: "عمليات تجريبية نشطة",
+      },
+    ],
   },
   about: {
-    ...CONTENT.de.about,
-    badge: "Uber Traxle",
-    title: "Produktorientierte Losungen fur reale Betriebsablaufe",
-    intro: "Unsere Teams entwickeln modulare Software fur Feldbetrieb, Compliance und Logistiksteuerung mit messbaren Ergebnissen.",
+    badge: "عن Traxle",
+    title: "حلول منتجات لمشكلات تشغيل حقيقية",
+    intro:
+      "نطوّر حلولاً معيارية لفرق الميدان والامتثال وإدارة اللوجستيات. قراراتنا تعتمد على نتائج قابلة للقياس من بيئة العمل الحقيقية.",
+    stats: [
+      { label: "حسابات مؤسسية نشطة", value: COMMON_STATS.accounts },
+      { label: "سجلات معالجة شهرياً", value: COMMON_STATS.records },
+      { label: "جاهزية المنصة", value: COMMON_STATS.uptime },
+    ],
+    sections: [
+      {
+        title: "ماذا نبني",
+        body: "وحدات للهوية الرقمية وإدارة القوى العاملة واللوجستيات تعمل ضمن منظومة واحدة.",
+      },
+      {
+        title: "كيف نعمل",
+        body: "نصمّم التدفقات مع فرق العمليات ونحسّن المنتجات باستمرار اعتماداً على بيانات الإنتاج.",
+      },
+      {
+        title: "ماذا نضمن",
+        body: "الأمان، القابلية للتدقيق، سرعة التكيّف، والاستقرار التشغيلي للمؤسسات.",
+      },
+    ],
+  },
+  products: {
+    molatik: {
+      badge: "Molatik Workforce",
+      title: "أتمتة إدارة المناوبات والاستراحات",
+      intro:
+        "Molatik يخفّف العبء اليدوي في متابعة الفرق ويوفّر للمديرين رؤية تشغيلية لحظية.",
+      highlights: [
+        "تدفق مهام وتسجيل حضور حسب المناوبة",
+        "حوكمة الاستراحات وفق السياسات",
+        "سجلات ميدانية مدعومة بالموقع",
+        "لوحات يومية موجهة للمديرين",
+      ],
+      privacyCta: "فتح سياسة خصوصية Molatik",
+    },
+    kunyex: {
+      badge: "KunyeX Identity",
+      title: "توحيد الهوية الرقمية والتحكم في الوصول",
+      intro:
+        "KunyeX يربط الهوية المادية بالهوية الرقمية ويُسرّع عمليات التحقق الآمنة من الملفات الشخصية.",
+      highlights: [
+        "تحقق سريع من الملف الشخصي عبر NFC/QR",
+        "نموذج صلاحيات قائم على الأدوار",
+        "تفعيل الترخيص المرتبط بالأجهزة",
+        "سجلات تدقيق قابلة للمراجعة",
+      ],
+      privacyCta: "فتح سياسة خصوصية KunyeX",
+    },
+    logistics: {
+      badge: "Traxle Logistics",
+      title: "التحكم اللوجستي من العرض حتى التسليم",
+      intro:
+        "Traxle Logistics يحوّل إدارة الشحن والتسليم إلى تدفق رقمي قابل للقياس.",
+      highlights: [
+        "محرك مطابقة الشحنة مع المركبة",
+        "سلسلة إثبات التسليم",
+        "تحليلات المسار والتكلفة",
+        "لوحات مؤشرات تشغيلية KPI",
+      ],
+      privacyCta: "تواصل معنا لتفاصيل العمليات",
+    },
+  },
+  productPrivacy: {
+    molatik: {
+      title: "سياسة خصوصية Molatik",
+      intro:
+        "يوضح هذا النص نطاق البيانات وضوابط الأمان ومبادئ الوصول المعتمدة في Molatik.",
+      sections: [
+        {
+          title: "نطاق البيانات",
+          body: "بيانات الموظفين والمناوبات والاستراحات والمهام تُعالَج فقط لغرض تقديم الخدمة.",
+        },
+        {
+          title: "الوصول",
+          body: "تُحمى الإجراءات الحساسة بنموذج صلاحيات قائم على الأدوار مع المصادقة متعددة العوامل.",
+        },
+        {
+          title: "الأمان",
+          body: "يتم تشفير البيانات أثناء النقل وعند التخزين.",
+        },
+      ],
+    },
+    kunyex: {
+      title: "سياسة خصوصية KunyeX",
+      intro:
+        "يغطي هذا النص معالجة بيانات الهوية وآليات الترخيص ومبادئ التدقيق في KunyeX.",
+      sections: [
+        {
+          title: "بيانات الهوية",
+          body: "تتم معالجة بيانات الملف والتحقق وفق مبدأ تقييد الغرض.",
+        },
+        {
+          title: "أمان الترخيص",
+          body: "يرتبط عميل المؤسسة بهوية أجهزة معتمدة فقط.",
+        },
+        {
+          title: "التدقيق",
+          body: "تُسجل الإجراءات الحرجة مع ضوابط سلامة البيانات.",
+        },
+      ],
+    },
   },
   pages: {
-    ...CONTENT.de.pages,
-    features: { ...CONTENT.de.pages.features, title: "Funktionen" },
-    pricing: { ...CONTENT.de.pages.pricing, title: "Preise" },
-    integrations: { ...CONTENT.de.pages.integrations, title: "Integrationen" },
-    contact: { ...CONTENT.de.pages.contact, title: "Kontakt" },
-    careers: { ...CONTENT.de.pages.careers, title: "Karriere" },
-    updates: { ...CONTENT.de.pages.updates, title: "Produkt-Updates" },
-    privacy: { ...CONTENT.de.pages.privacy, title: "Datenschutz" },
-    terms: { ...CONTENT.de.pages.terms, title: "Nutzungsbedingungen" },
-    cookies: { ...CONTENT.de.pages.cookies, title: "Cookie-Richtlinie" },
-    kvkk: { ...CONTENT.de.pages.kvkk, title: "Datenschutzhinweis" },
-  },
-};
-
-CONTENT.ru = {
-  ...CONTENT.ru,
-  home: {
-    ...CONTENT.ru.home,
-    badge: "Aktivnaya ekosistema",
-    title: "Programmy na yedinoi operacionnoi platforme",
-    intro: "KunyeX, Molatik i Logistics rabotayut v obshchei modeli dannyh dlya skorosti, prozrachnosti i upravleniya.",
-  },
-  about: {
-    ...CONTENT.ru.about,
-    badge: "O Traxle",
-    title: "Produktovye resheniya dlya realnyh operacionnyh zadach",
-    intro: "My sozdayem modulnye produkty dlya polevyh komand, compliance i logistiki s oporoi na izmeryaemye rezultaty.",
-  },
-  pages: {
-    ...CONTENT.ru.pages,
-    features: { ...CONTENT.ru.pages.features, title: "Vozmozhnosti" },
-    pricing: { ...CONTENT.ru.pages.pricing, title: "Tarify" },
-    integrations: { ...CONTENT.ru.pages.integrations, title: "Integracii" },
-    contact: { ...CONTENT.ru.pages.contact, title: "Kontakty" },
-    careers: { ...CONTENT.ru.pages.careers, title: "Karera" },
-    updates: { ...CONTENT.ru.pages.updates, title: "Obnovleniya produkta" },
-    privacy: { ...CONTENT.ru.pages.privacy, title: "Politika konfidentsialnosti" },
-    terms: { ...CONTENT.ru.pages.terms, title: "Usloviya ispolzovaniya" },
-    cookies: { ...CONTENT.ru.pages.cookies, title: "Politika cookie" },
-    kvkk: { ...CONTENT.ru.pages.kvkk, title: "Uvedomlenie o dannyh" },
-  },
-};
-
-CONTENT.ar = {
-  ...CONTENT.ar,
-  home: {
-    ...CONTENT.ar.home,
-    badge: "Ecosystem Active",
-    title: "Idarat al-baramij ala manassa tashghiliyya wahida",
-    intro: "Narbut KunyeX wa Molatik wa Logistics fi model bayanat wahid lilsur'a wal-wuduh wal-tahakkum.",
-  },
-  about: {
-    ...CONTENT.ar.about,
-    badge: "About Traxle",
-    title: "Hulul muntaja li mushkilat tashghiliyya haqiqiya",
-    intro: "Nubni baramij modular li idarat al-firaq wal-imtithal wal-lujistiyat bi natayij qabilah lil-qiyas.",
-  },
-  pages: {
-    ...CONTENT.ar.pages,
-    features: { ...CONTENT.ar.pages.features, title: "Mizat" },
-    pricing: { ...CONTENT.ar.pages.pricing, title: "Asaar" },
-    integrations: { ...CONTENT.ar.pages.integrations, title: "Takamulat" },
-    contact: { ...CONTENT.ar.pages.contact, title: "Ittisal" },
-    careers: { ...CONTENT.ar.pages.careers, title: "Wazayif" },
-    updates: { ...CONTENT.ar.pages.updates, title: "Tahdithat al-muntaj" },
-    privacy: { ...CONTENT.ar.pages.privacy, title: "Siyasat al-khususiya" },
-    terms: { ...CONTENT.ar.pages.terms, title: "Shurut al-istikhdam" },
-    cookies: { ...CONTENT.ar.pages.cookies, title: "Siyasat cookie" },
-    kvkk: { ...CONTENT.ar.pages.kvkk, title: "Iishaar himayat al-bayanat" },
+    features: {
+      title: "المزايا",
+      intro: "وحدات Traxle مصممة لرفع سرعة العمليات وتحسين الحوكمة.",
+      sections: [
+        { title: "الأتمتة", body: "تحويل الإجراءات المتكررة إلى تدفقات آلية قائمة على القواعد." },
+        { title: "تقارير لحظية", body: "متابعة أداء الفرق والمواقع في الوقت الفعلي." },
+        { title: "امتثال مؤسسي", body: "إدارة الصلاحيات وسجلات التدقيق مركزياً." },
+      ],
+    },
+    pricing: {
+      title: "الأسعار",
+      intro: "ترخيص مرن بنموذج وحدات: ادفع فقط مقابل ما يستخدمه فريقك فعلياً.",
+      sections: [
+        { title: "نموذج الباقات", body: "يمكن تفعيل KunyeX وMolatik وLogistics بشكل منفصل أو مجتمع." },
+        { title: "قابلية التوسع", body: "يتوسع الترخيص مع نمو الاستخدام." },
+        { title: "الدعم", body: "الإعداد والتدريب والدعم الفني تُدار وفق SLA." },
+      ],
+    },
+    integrations: {
+      title: "التكاملات",
+      intro: "تكامل ثنائي الاتجاه مع أنظمة ERP والمحاسبة والعمليات.",
+      sections: [
+        { title: "API", body: "واجهات REST آمنة وwebhooks لدمج سريع." },
+        { title: "خدمات الهوية", body: "دعم SSO ودلائل المؤسسات." },
+        { title: "تصدير BI", body: "تصدير مجدول إلى منصات التحليلات." },
+      ],
+    },
+    contact: {
+      title: "اتصل بنا",
+      intro: "تواصل معنا لطلب عرض تجريبي أو تسعير أو مناقشة التنفيذ.",
+      sections: [
+        { title: "المبيعات", body: "نرد عادة على طلبات الشركات خلال يوم عمل واحد." },
+        { title: "الدعم التقني", body: "العملاء النشطون يحصلون على دعم عبر قنوات مراقبة وفق SLA." },
+        { title: "الشراكات", body: "طلبات التكامل والشراكة تُقيَّم عبر مسار منفصل." },
+      ],
+    },
+    careers: {
+      title: "الوظائف",
+      intro: "نبحث عن أشخاص يحوّلون التعقيد التشغيلي إلى منتجات واضحة وقابلة للتنفيذ.",
+      sections: [
+        { title: "الثقافة", body: "ملكية العمل، سرعة القرار، وأثر قابل للقياس." },
+        { title: "نموذج العمل", body: "خيارات عمل هجينة وعن بُعد حسب الدور." },
+        { title: "الوظائف المفتوحة", body: "أدوار الهندسة والمنتج والعمليات متاحة بشكل مستمر." },
+      ],
+    },
+    updates: {
+      title: "تحديثات المنتج",
+      intro: "ملاحظات الإصدارات وتحسينات الأمان وتحديثات خارطة الطريق.",
+      sections: [
+        { title: "أحدث إصدار", body: "تم إطلاق تحسينات الأداء وعرض لوحات المتابعة." },
+        { title: "الأمان", body: "تم تحديث قواعد حماية الجلسات وتنبيهات التدقيق." },
+        { title: "قريباً", body: "تخطيط مسارات متقدم وتحليلات تكلفة تلقائية قيد التطوير." },
+      ],
+    },
+    privacy: {
+      title: "سياسة الخصوصية",
+      intro: "توضح هذه السياسة نوع البيانات التي نجمعها وأسباب جمعها.",
+      sections: [
+        { title: "البيانات المجمعة", body: "بيانات الحساب والاستخدام والعمليات." },
+        { title: "الغرض", body: "استمرارية الخدمة والأمان والامتثال القانوني." },
+        { title: "الحقوق", body: "طلبات الوصول أو التصحيح أو الحذف متاحة عبر القنوات الرسمية." },
+      ],
+    },
+    terms: {
+      title: "شروط الاستخدام",
+      intro: "تُعد الجهات التي تستخدم خدمات Traxle موافقة على هذه الشروط.",
+      sections: [
+        { title: "النطاق", body: "الوحدات والحدود تُحدَّد حسب الخطة المختارة." },
+        { title: "المسؤولية", body: "العميل مسؤول عن أمان الحسابات وإدارة المستخدمين." },
+        { title: "الإطار القانوني", body: "تُحل النزاعات وفق العقد والجهة القضائية المختصة." },
+      ],
+    },
+    cookies: {
+      title: "سياسة ملفات الارتباط",
+      intro: "نستخدم ملفات الارتباط للجلسات الآمنة وتحسين أداء المنتج.",
+      sections: [
+        { title: "ملفات الارتباط الأساسية", body: "ضرورية للمصادقة والتحقق الأمني." },
+        { title: "ملفات التحليل", body: "بيانات استخدام مجهولة تساعدنا على تحسين التجربة." },
+        { title: "إدارة التفضيلات", body: "يمكن تعديل إعدادات ملفات الارتباط من المتصفح." },
+      ],
+    },
+    kvkk: {
+      title: "إشعار حماية البيانات",
+      intro: "معلومات حول معالجة البيانات الشخصية بواسطة Traxle بصفته متحكم بيانات.",
+      sections: [
+        { title: "متحكم البيانات", body: "Traxle مسؤول عن أنشطة المعالجة ضمن نطاق الخدمات المقدمة." },
+        { title: "الأساس القانوني", body: "تنفيذ العقد والمصلحة المشروعة والالتزامات القانونية." },
+        { title: "الطلبات", body: "تُستقبل الطلبات عبر قنوات التواصل الرسمية." },
+      ],
+    },
+    refund: {
+      title: "الإلغاء والاسترداد",
+      intro: "تعتمد آلية الإلغاء والاسترداد على الخطة المختارة وشروط العقد.",
+      sections: [
+        { title: "الإلغاء", body: "يمكن بدء طلب الإلغاء من اللوحة أو عبر فريق الدعم." },
+        { title: "مراجعة الاسترداد", body: "يتم تقييم الأهلية بناءً على الاستخدام وشروط العقد." },
+        { title: "الإتمام", body: "يتم إتمام عمليات الاسترداد المعتمدة من فريق المالية." },
+      ],
+    },
+    distance: {
+      title: "اتفاقية الخدمة عن بُعد",
+      intro: "تحدد حقوق والتزامات الأطراف للخدمات المقدمة رقمياً.",
+      sections: [
+        { title: "الأطراف", body: "اتفاق بين Traxle والجهة المشتركة في الخدمة." },
+        { title: "التسليم", body: "يتم توفير الوصول رقمياً عبر الوحدات المرخصة." },
+        { title: "الإنهاء", body: "تخضع شروط الإنهاء لمدة الخطة وبنود العقد." },
+      ],
+    },
+    preInfo: {
+      title: "نموذج المعلومات المسبقة",
+      intro: "نعرض نطاق الخدمة والتسعير وتفاصيل الدعم قبل إتمام الشراء.",
+      sections: [
+        { title: "تعريف الخدمة", body: "توضيح النطاق التقني للوحدات المختارة." },
+        { title: "التسعير", body: "عرض الرسوم والضرائب والتكاليف الإضافية بشفافية." },
+        { title: "الدعم", body: "تحديد قنوات الإعداد والدعم قبل الإطلاق التشغيلي." },
+      ],
+    },
   },
 };
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FaCookieBite } from "react-icons/fa";
 import { CONTENT } from "@/lib/i18n/content";
 import { detectLocale, isPanelPath, localizedPath } from "@/lib/i18n/routes";
 
@@ -107,7 +108,10 @@ export default function Footer() {
             {ui.pages.terms.title}
           </Link>
           <Link href={localizedPath("cookies", locale)} className="transition hover:text-blue-600 dark:hover:text-white">
-            {ui.pages.cookies.title}
+            <span className="inline-flex items-center gap-1">
+              <FaCookieBite className="text-[11px]" />
+              {ui.pages.cookies.title}
+            </span>
           </Link>
           <Link href={localizedPath("kvkk", locale)} className="transition hover:text-blue-600 dark:hover:text-white">
             {ui.pages.kvkk.title}
