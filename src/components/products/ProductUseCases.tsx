@@ -1,5 +1,4 @@
 import { ArrowUpRight } from 'lucide-react';
-import { SectionShell } from '@/components/ui/SectionShell';
 import type { Dictionary } from '@/lib/i18n';
 import type { Project } from '@/lib/projects';
 
@@ -11,26 +10,33 @@ export default function ProductUseCases({
   product: Project;
 }) {
   return (
-    <SectionShell className="overflow-hidden bg-[#eef3f8] py-16 text-slate-950 dark:bg-[#050a13] dark:text-white sm:py-24">
-      <div className="relative z-10 mb-8 max-w-2xl">
-        <p className="mb-4 text-[11px] font-black uppercase tracking-[0.28em] text-slate-400">Use case matrix</p>
-        <h2 className="text-3xl font-black text-slate-950 dark:text-white sm:text-5xl">{dictionary.productDetail.useCases}</h2>
+    <section className="overflow-hidden bg-black px-5 py-24 text-white sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-5xl text-center">
+          <h2 className="text-[clamp(4rem,8.5vw,9rem)] font-light leading-[0.86] text-white">
+            use cases
+            <span className="block font-black uppercase">HAPPILY</span>
+            connected
+          </h2>
+          <p className="mt-8 text-2xl leading-snug text-white/75">{dictionary.productDetail.useCases}</p>
+        </div>
+
+        <div className="mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {product.useCases.map((useCase, index) => (
+            <article
+              key={useCase}
+              className="relative min-h-64 overflow-hidden rounded-[1.35rem] border-[6px] bg-[#e8e8e8] p-6 text-black shadow-[0_24px_80px_rgba(0,0,0,0.42)]"
+              style={{ borderColor: ['#ff5a24', '#ffe600', '#ec00ff', '#00d6c8'][index % 4] }}
+            >
+              <div className="flex items-center justify-between">
+                <p className="font-mono text-sm font-black text-black/40">0{index + 1}</p>
+                <ArrowUpRight size={18} className="text-black" aria-hidden="true" />
+              </div>
+              <p className="mt-24 text-2xl font-black leading-tight">{useCase}</p>
+            </article>
+          ))}
+        </div>
       </div>
-      <div className="relative z-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-        {product.useCases.map((useCase, index) => (
-          <article
-            key={useCase}
-            className="relative min-h-40 overflow-hidden rounded-lg border border-slate-200 bg-white/86 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-slate-950 dark:border-white/10 dark:bg-white/[0.055] dark:hover:border-white/30"
-          >
-            <div className="flex items-center justify-between">
-              <p className="font-mono text-xs font-black text-slate-400">{String(index + 1).padStart(2, '0')}</p>
-              <ArrowUpRight size={17} className="text-slate-400" aria-hidden="true" />
-            </div>
-            <div className="mt-8 h-1 w-16 rounded-full" style={{ background: `linear-gradient(90deg, ${product.accent}, transparent)` }} />
-            <p className="mt-8 text-lg font-black leading-7 text-slate-950 dark:text-white">{useCase}</p>
-          </article>
-        ))}
-      </div>
-    </SectionShell>
+    </section>
   );
 }

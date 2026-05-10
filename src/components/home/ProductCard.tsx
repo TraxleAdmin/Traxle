@@ -1,81 +1,52 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import ProductGlyph from '@/components/home/ProductGlyph';
-import { AppStoreBadge } from '@/components/ui/AppStoreBadge';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import type { Project } from '@/lib/projects';
+
+const frameColors = ['#ff5a24', '#ffe600', '#ec00ff', '#00d6c8'];
 
 export default function ProductCard({
   product,
   statusLabel,
   href,
+  index = 0,
 }: {
   product: Project;
   statusLabel: string;
   href: string;
+  index?: number;
 }) {
+  const frameColor = frameColors[index % frameColors.length];
+
   return (
-    <article
-      data-product-card
-      className="group relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white/92 p-4 shadow-[0_18px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-slate-950 hover:shadow-[0_28px_100px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-white/[0.055] dark:shadow-[0_20px_90px_rgba(0,0,0,0.24)] dark:hover:border-white/30"
-      style={{ '--card-accent': product.accent } as CSSProperties}
-    >
+    <article data-product-card className="group relative min-h-[590px]">
       <Link
         href={href}
         aria-label={product.cardCta}
-        className="absolute inset-0 z-10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+        className="absolute inset-0 z-20 rounded-[1.35rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1" style={{ background: `linear-gradient(90deg, ${product.accent}, transparent)` }} />
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100" style={{ boxShadow: `inset 0 0 0 1px ${product.accent}44` }} />
-
-      <div className="relative z-20 flex h-full flex-col">
-        <div className="flex items-center justify-between gap-3">
-          <StatusBadge status={product.status} label={statusLabel} />
-          <ArrowUpRight size={18} className="text-slate-400 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-slate-950 dark:group-hover:text-white" />
-        </div>
-
-        <ProductGlyph
-          kind={product.visualKind}
-          accent={product.accent}
-          className="mt-5 h-[174px] rounded-md"
-        />
-
-        <p className="mt-5 min-h-8 overflow-hidden text-[11px] font-black uppercase leading-4 tracking-[0.16em] text-slate-400 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] dark:text-white/35">
-          {product.category}
-        </p>
-        <h3 className="mt-3 text-2xl font-black text-slate-950 dark:text-white">{product.title}</h3>
-        <p className="mt-3 min-h-12 overflow-hidden text-[15px] font-black leading-6 text-slate-800 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] dark:text-white/[0.88]">
-          {product.shortDescription}
-        </p>
-        <p className="mt-3 min-h-[4.5rem] overflow-hidden text-sm leading-6 text-slate-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] dark:text-slate-300">
-          {product.detail}
-        </p>
-
-        <div className="mt-5 grid gap-2">
-          {product.features.slice(0, 3).map((feature) => (
-            <div key={feature} className="grid grid-cols-[auto_1fr] items-start gap-2 rounded-md border border-slate-200 bg-slate-50/80 px-3 py-2 dark:border-white/10 dark:bg-black/18">
-              <CheckCircle2 size={15} className="mt-0.5 shrink-0" style={{ color: product.accent }} aria-hidden="true" />
-              <span className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-300">{feature}</span>
+      <div
+        className="relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border-[6px] bg-[#e7e7e7] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.42)] transition duration-300 group-hover:-translate-y-2"
+        style={{ borderColor: frameColor }}
+      >
+        <div className="relative min-h-[330px] overflow-hidden rounded-xl bg-[#f4f4f4]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.9),transparent_28%),linear-gradient(135deg,rgba(0,0,0,0.05),transparent_40%)]" />
+          <div className="absolute left-1/2 top-[18%] h-[360px] w-[220px] -translate-x-1/2 rotate-[-10deg] rounded-[2rem] border-[10px] border-black bg-[#111] shadow-[0_28px_60px_rgba(0,0,0,0.35)]">
+            <div className="absolute inset-3 overflow-hidden rounded-[1.25rem] bg-black">
+              <ProductGlyph kind={product.visualKind} accent={product.accent} className="h-full rounded-none border-0" />
             </div>
-          ))}
+          </div>
         </div>
 
-        <div className="mt-auto pt-6">
-          {product.appStoreHref ? (
-            <AppStoreBadge
-              href={product.appStoreHref}
-              label={product.appStoreLabel ?? 'Download on the App Store'}
-              subLabel={product.appStoreSubLabel ?? product.title}
-              className="pointer-events-auto relative z-30 w-full justify-center rounded-md"
-            />
-          ) : (
-            <span className="inline-flex min-h-12 items-center gap-2 text-sm font-black text-slate-950 dark:text-white">
-              {product.cardCta}
-              <ArrowUpRight size={16} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-          )}
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <StatusBadge status={product.status} label={statusLabel} />
+          <ArrowUpRight size={19} className="relative z-30 text-black transition group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
+        <p className="mt-5 text-sm font-black uppercase text-black/50">{product.category}</p>
+        <h3 className="mt-2 text-4xl font-black leading-none text-black">{product.title}</h3>
+        <p className="mt-4 text-lg font-black leading-tight text-black">{product.shortDescription}</p>
+        <p className="mt-4 text-sm leading-6 text-black/60">{product.detail}</p>
       </div>
     </article>
   );

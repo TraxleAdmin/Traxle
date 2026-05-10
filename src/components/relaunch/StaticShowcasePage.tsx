@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
+import NeednapObjects from '@/components/relaunch/NeednapObjects';
 import { Button } from '@/components/ui/Button';
 
 export type StaticShowcaseItem = {
@@ -26,30 +26,29 @@ export default function StaticShowcasePage({
   ctaHref?: string;
 }) {
   return (
-    <main className="bg-[#f6f8fb] pt-24 text-slate-950 dark:bg-[#030712] dark:text-white">
-      <section className="relative isolate overflow-hidden px-5 pb-16 pt-16 sm:px-8 lg:px-10">
-        <LaunchBackdrop label={eyebrow} />
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-5xl">
-            <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">{eyebrow}</p>
-            <h1 className="text-5xl font-black leading-[0.94] text-slate-950 dark:text-white sm:text-7xl">{title}</h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{description}</p>
-            <Button href={ctaHref} className="mt-8 min-h-12 gap-2 rounded-md px-6">
+    <main className="bg-black text-white">
+      <section className="relative isolate overflow-hidden bg-[#080914] px-5 pb-24 pt-36 text-white sm:px-8 lg:px-10">
+        <NeednapObjects className="opacity-45" />
+        <div className="relative z-10 mx-auto max-w-7xl text-center">
+          <div className="mx-auto max-w-6xl">
+            <p className="mb-6 text-xs font-black uppercase tracking-[0.28em] text-[#ec008c]">{eyebrow}</p>
+            <h1 className="text-[clamp(4.8rem,10vw,10rem)] font-black uppercase leading-[0.74] text-white">{title}</h1>
+            <p className="mx-auto mt-10 max-w-4xl text-2xl leading-snug text-white/75">{description}</p>
+            <Button href={ctaHref} className="mt-10 min-h-12 gap-2 rounded-full border-white bg-white px-7 text-black hover:bg-[#f4e7ff]">
               {ctaLabel}
               <ArrowUpRight size={16} aria-hidden="true" />
             </Button>
           </div>
         </div>
       </section>
-      <section className="mx-auto grid max-w-7xl gap-3 px-5 pb-24 sm:px-8 md:grid-cols-2 lg:px-10">
+      <section className="mx-auto grid max-w-7xl gap-4 px-5 py-20 sm:px-8 md:grid-cols-2 lg:px-10">
         {items.map((item) => (
-          <article key={item.title} className="rounded-lg border border-slate-200 bg-white/86 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-slate-950 dark:border-white/10 dark:bg-white/[0.055] dark:hover:border-white/30">
-            <span className="flex h-12 w-12 items-center justify-center rounded-md border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-white/[0.06]" style={{ color: item.accent }}>
+          <article key={item.title} className="min-h-80 rounded-[1.35rem] border-[6px] bg-[#e8e8e8] p-6 text-black shadow-[0_24px_80px_rgba(0,0,0,0.42)] transition duration-300 hover:-translate-y-2" style={{ borderColor: item.accent }}>
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black" style={{ color: item.accent }}>
               {item.icon}
             </span>
-            <div className="mt-6 h-1 w-20 rounded-full" style={{ background: `linear-gradient(90deg, ${item.accent}, transparent)` }} />
-            <h2 className="mt-6 text-2xl font-black text-slate-950 dark:text-white">{item.title}</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.description}</p>
+            <h2 className="mt-24 text-4xl font-black leading-tight">{item.title}</h2>
+            <p className="mt-4 text-base leading-7 text-black/60">{item.description}</p>
           </article>
         ))}
       </section>

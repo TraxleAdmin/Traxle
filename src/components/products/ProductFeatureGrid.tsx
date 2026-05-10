@@ -1,5 +1,4 @@
 import { CheckCircle2 } from 'lucide-react';
-import { SectionShell } from '@/components/ui/SectionShell';
 import type { Dictionary } from '@/lib/i18n';
 import type { Project } from '@/lib/projects';
 
@@ -11,27 +10,31 @@ export default function ProductFeatureGrid({
   product: Project;
 }) {
   return (
-    <SectionShell className="overflow-hidden bg-[#f6f8fb] py-16 text-slate-950 dark:bg-[#030712] dark:text-white sm:py-24">
-      <div className="relative z-10 grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-        <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">
-            {dictionary.productDetail.whatItDoes}
-          </p>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-5xl">{product.detail}</h2>
+    <section className="overflow-hidden bg-black px-5 py-24 text-white sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#ec008c]">{dictionary.productDetail.whatItDoes}</p>
+          <h2 className="mx-auto mt-6 max-w-6xl text-[clamp(3.6rem,8vw,8rem)] font-light leading-[0.9] text-white">
+            {product.detail}
+          </h2>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {product.features.map((feature) => (
+
+        <div className="mt-20 grid gap-4 md:grid-cols-2">
+          {product.features.map((feature, index) => (
             <article
               key={feature}
-              className="relative overflow-hidden rounded-lg border border-slate-200 bg-white/86 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-slate-950 dark:border-white/10 dark:bg-white/[0.055] dark:hover:border-white/30"
+              className="group relative min-h-64 overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-7 transition duration-300 hover:-translate-y-2 hover:bg-white/[0.075]"
             >
-              <div className="mb-5 h-1 w-20 rounded-full" style={{ background: `linear-gradient(90deg, ${product.accent}, transparent)` }} />
-              <CheckCircle2 className="mb-5" size={24} style={{ color: product.accent }} aria-hidden="true" />
-              <p className="text-base font-black leading-7 text-slate-950 dark:text-white">{feature}</p>
+              <p className="font-mono text-sm font-black text-white/35">0{index + 1}</p>
+              <CheckCircle2 className="mt-12" size={30} style={{ color: index % 2 ? product.accent : '#ec008c' }} aria-hidden="true" />
+              <p className="mt-8 text-3xl font-black leading-tight text-white">{feature}</p>
+              <div className="absolute inset-x-7 bottom-7 h-1 rounded-full bg-white/10">
+                <span className="block h-full w-2/3 rounded-full bg-[#ec008c] transition group-hover:w-full" />
+              </div>
             </article>
           ))}
         </div>
       </div>
-    </SectionShell>
+    </section>
   );
 }

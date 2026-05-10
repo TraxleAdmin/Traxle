@@ -242,6 +242,60 @@ body {
   }
 }
 
+@keyframes studio-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.studio-marquee-track {
+  animation: studio-marquee 34s linear infinite;
+}
+
+@keyframes neednap-float {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -22px;
+  }
+}
+
+@keyframes neednap-glow {
+  0%, 100% {
+    filter: saturate(1) brightness(1);
+  }
+  50% {
+    filter: saturate(1.25) brightness(1.08);
+  }
+}
+
+.neednap-object {
+  position: absolute;
+  display: block;
+  transform-style: preserve-3d;
+  animation: neednap-float 7s ease-in-out infinite, neednap-glow 5s ease-in-out infinite;
+}
+
+.neednap-sphere { border-radius: 9999px; animation-delay: -0.4s; }
+.neednap-coil { animation-delay: -1.2s; }
+.neednap-capsule { animation-delay: -2.2s; }
+.neednap-cube { animation-delay: -3.1s; }
+.neednap-glass { animation-delay: -1.7s; }
+.neednap-stack { animation-delay: -2.9s; }
+.neednap-ring { animation-delay: -3.6s; }
+.neednap-brick { animation-delay: -0.9s; }
+.neednap-blade { animation-delay: -2.6s; }
+
+.neednap-outline-word {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42);
+  color: transparent;
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.2);
+}
+
 @keyframes premium-icon-float {
   0%, 100% {
     transform: translate3d(0, 0, 0) rotate(0deg);
@@ -639,7 +693,9 @@ body {
   .premium-console-mesh,
   .premium-data-grid,
   .premium-meter > span,
-  .premium-orbit-dot {
+  .premium-orbit-dot,
+  .studio-marquee-track,
+  .neednap-object {
     animation: none;
   }
 

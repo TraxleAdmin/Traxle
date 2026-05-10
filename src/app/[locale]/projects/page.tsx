@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import DemoCTA from '@/components/home/DemoCTA';
 import ProductShowcase from '@/components/home/ProductShowcase';
-import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
+import NeednapObjects from '@/components/relaunch/NeednapObjects';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { getDictionary, isLocale, type Locale } from '@/lib/i18n';
 import { getProjects } from '@/lib/projects';
@@ -37,15 +37,18 @@ export default async function ProjectsPage({ params }: PageProps) {
   const products = getProjects(locale);
 
   return (
-    <main className="bg-[#f6f8fb] pt-24 text-slate-950 transition-colors duration-500 dark:bg-[#030712] dark:text-white">
-      <SectionShell className="isolate overflow-hidden pb-8 pt-16">
-        <LaunchBackdrop label="PRODUCT INDEX" />
-        <header className="relative z-10 max-w-4xl">
-          <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-200">
+    <main className="bg-black text-white">
+      <SectionShell className="max-w-none isolate overflow-hidden bg-[#080914] px-0 pb-24 pt-36 text-white sm:px-0 lg:px-0">
+        <NeednapObjects className="opacity-55" />
+        <header className="relative z-10 mx-auto max-w-7xl px-5 text-center sm:px-8 lg:px-10">
+          <p className="mb-6 text-xs font-black uppercase tracking-[0.28em] text-[#ec008c]">
             {dictionary.projects.eyebrow}
           </p>
-          <h1 className="text-4xl font-black leading-tight text-slate-950 dark:text-white sm:text-6xl">{dictionary.projects.title}</h1>
-          <p className="mt-6 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{dictionary.projects.description}</p>
+          <h1 className="mx-auto max-w-6xl text-[clamp(4.8rem,10vw,10rem)] font-black uppercase leading-[0.74] text-white">
+            products
+            <span className="block">HAPPEN</span>
+          </h1>
+          <p className="mx-auto mt-10 max-w-4xl text-2xl leading-snug text-white/75">{dictionary.projects.description}</p>
         </header>
       </SectionShell>
       <ProductShowcase dictionary={dictionary} locale={locale} products={products} />

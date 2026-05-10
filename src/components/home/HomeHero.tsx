@@ -1,7 +1,6 @@
-import { ArrowDownRight, Boxes, RadioTower } from 'lucide-react';
-import LaunchBackdrop from '@/components/relaunch/LaunchBackdrop';
-import ProductRail from '@/components/relaunch/ProductRail';
+import { ArrowDownRight } from 'lucide-react';
 import MotionReveal from '@/components/motion/MotionReveal';
+import NeednapObjects from '@/components/relaunch/NeednapObjects';
 import { Button } from '@/components/ui/Button';
 import type { Dictionary, Locale } from '@/lib/i18n';
 import { withLocale } from '@/lib/i18n';
@@ -17,50 +16,65 @@ export default function HomeHero({
   products: Project[];
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-[#f6f8fb] pb-10 pt-28 text-slate-950 dark:bg-[#030712] dark:text-white sm:pt-32 lg:min-h-screen">
-      <LaunchBackdrop label="TRAXLE PRODUCT SURFACE" />
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-7rem)] w-full max-w-7xl flex-col justify-center gap-10 px-5 sm:px-8 lg:px-10">
-        <MotionReveal className="max-w-5xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white/86 px-3 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-600 shadow-[0_14px_44px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100/70">
-            <RadioTower size={15} aria-hidden="true" />
-            {dictionary.home.eyebrow}
-          </div>
-          <h1 className="max-w-6xl text-5xl font-black leading-[0.92] text-slate-950 dark:text-white sm:text-7xl lg:text-8xl">
-            {dictionary.home.title}
-          </h1>
-          <p className="mt-7 max-w-3xl text-base font-medium leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">
-            {dictionary.home.description}
+    <section className="relative isolate overflow-hidden bg-[#080914] text-white">
+      <div className="relative min-h-[1120px] overflow-hidden bg-[radial-gradient(circle_at_50%_16%,#1a1b2a_0%,#080914_42%,#000_100%)]">
+        <NeednapObjects />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black to-transparent" />
+
+        <div className="relative z-10 mx-auto flex min-h-[860px] max-w-7xl items-center justify-center px-5 pt-28 text-center sm:px-8 lg:px-10">
+          <MotionReveal className="w-full">
+            <h1 className="mx-auto max-w-5xl text-[clamp(5.8rem,13vw,13.4rem)] font-black uppercase leading-[0.68] text-white">
+              <span className="block text-[0.58em] normal-case">flow</span>
+              <span className="block">HAPP</span>
+              <span className="block">ENS</span>
+            </h1>
+          </MotionReveal>
+        </div>
+      </div>
+
+      <div className="relative z-10 -mt-36 bg-black px-5 pb-20 text-center sm:px-8 lg:px-10">
+        <MotionReveal className="mx-auto max-w-7xl">
+          <h2 className="mx-auto max-w-6xl text-[clamp(4.6rem,10vw,10.2rem)] font-black uppercase leading-[0.76] text-white">
+            OPEERATIONS
+          </h2>
+          <p className="neednap-outline-word mx-auto -mt-2 max-w-6xl text-[clamp(3.2rem,7.8vw,8rem)] font-light leading-[0.86]">
+            are beautiful systems
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href={withLocale(locale, '/projects')} className="min-h-12 gap-2 rounded-md px-6">
-              <Boxes size={17} aria-hidden="true" />
+          <p className="mx-auto mt-10 max-w-4xl text-2xl leading-snug text-white sm:text-3xl">
+            We create <span className="font-black text-[#ff4b23]">connections</span> for human-operation dialogue.
+            We integrate BarkodX, Molatik, KünyeX and field processes.
+          </p>
+
+          <div className="mx-auto mt-10 flex max-w-xl flex-col justify-center gap-3 sm:flex-row">
+            <Button href={withLocale(locale, '/projects')} className="min-h-12 rounded-full border-white bg-white px-7 text-black hover:bg-[#f0e9ff]">
               {dictionary.home.primaryCta}
             </Button>
-            <Button href={withLocale(locale, '/contact')} variant="secondary" className="min-h-12 gap-2 rounded-md px-6">
+            <Button href={withLocale(locale, '/contact')} variant="ghost" className="min-h-12 gap-2 rounded-full border border-white bg-transparent px-7 text-white hover:bg-white/10">
               {dictionary.home.secondaryCta}
               <ArrowDownRight size={17} aria-hidden="true" />
             </Button>
           </div>
-        </MotionReveal>
 
-        <MotionReveal delay={0.12} y={28}>
-          <div className="grid gap-3 border-y border-slate-200 py-4 dark:border-white/10 sm:grid-cols-3">
+          <div className="mx-auto mt-16 grid max-w-4xl gap-4 text-left md:grid-cols-3">
             {dictionary.home.proof.map((item, index) => (
-              <div key={item} className="flex min-h-16 items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white/78 px-4 text-sm font-black text-slate-700 shadow-[0_14px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.045] dark:text-slate-200">
-                <span>{item}</span>
-                <span className="font-mono text-xs text-slate-400">{String(index + 1).padStart(2, '0')}</span>
+              <div key={item} className="border-t border-white/20 pt-4">
+                <p className="font-mono text-sm font-black text-[#ec008c]">0{index + 1}</p>
+                <p className="mt-3 text-lg font-black leading-tight text-white">{item}</p>
               </div>
             ))}
           </div>
-        </MotionReveal>
 
-        <MotionReveal delay={0.2} y={28}>
-          <ProductRail
-            products={products}
-            locale={locale}
-            statusLabels={dictionary.status}
-            compact
-          />
+          <div className="mx-auto mt-16 flex max-w-5xl flex-wrap items-center justify-center gap-x-12 gap-y-4">
+            {products.map((product, index) => (
+              <span
+                key={product.slug}
+                className="text-3xl font-light lowercase text-white"
+                style={{ color: index === 0 ? '#ec008c' : undefined }}
+              >
+                {product.slug === 'lojistik' ? 'field' : product.slug}
+              </span>
+            ))}
+          </div>
         </MotionReveal>
       </div>
     </section>
