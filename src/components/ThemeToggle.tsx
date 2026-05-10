@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { FiMoon, FiSun } from 'react-icons/fi'; // react-icons kurulu varsayıyorum
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Hydration hatasını önlemek için (Next.js klasiği)
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!mounted) return null;
 
+  const isDark = theme === "dark";
+
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-full transition-all duration-300
-                 bg-gray-100 dark:bg-gray-800 
-                 text-gray-800 dark:text-yellow-400
-                 hover:bg-gray-200 dark:hover:bg-gray-700
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      aria-label="Temayı Değiştir"
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="rounded-full border border-gray-200 bg-white p-2 text-gray-700 shadow-sm transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:text-yellow-300 dark:hover:bg-white/10"
+      aria-label="Toggle theme"
     >
-      {theme === 'dark' ? <FiMoon size={20} /> : <FiSun size={20} />}
+      {isDark ? <FiMoon size={18} /> : <FiSun size={18} />}
     </button>
   );
 }

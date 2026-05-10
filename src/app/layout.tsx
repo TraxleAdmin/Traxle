@@ -6,17 +6,19 @@ import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import CookieBanner from "@/components/CookieBanner";
 import MaintenanceGuard from "@/components/MaintenanceGuard";
+import LocaleDocumentSync from "@/components/LocaleDocumentSync";
 import { Providers } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: 'swap',
-  adjustFontFallback: false
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
-  title: "Traxle | Teknoloji Ekosistemi", // 🔥 GÜNCELLENDİ
-  description: "Lojistik, dijital kimlik ve personel yönetimi çözümleri.",
+  title: "Traxle | Operations Technology Ecosystem",
+  description:
+    "Traxle brings digital identity, workforce and logistics operations into one enterprise platform.",
 };
 
 export default function RootLayout({
@@ -26,14 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${inter.className} bg-gray-50 dark:bg-[#050814] text-gray-900 dark:text-white`}>
+      <body className={`${inter.className} bg-gray-50 text-gray-900 dark:bg-[#050814] dark:text-white`}>
         <Providers>
+          <LocaleDocumentSync />
           <MaintenanceGuard>
             <SplashScreen />
             <Navbar />
-            <main className="min-h-screen">
-              {children}
-            </main>
+            <main className="min-h-screen">{children}</main>
             <Footer />
             <CookieBanner />
           </MaintenanceGuard>

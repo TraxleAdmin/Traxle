@@ -1,128 +1,229 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import { FiSettings, FiX } from 'react-icons/fi';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FiSettings, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { CONTENT } from "@/lib/i18n/content";
+import { detectLocale, localizedPath } from "@/lib/i18n/routes";
+
+type CookiePreferences = {
+  necessary: boolean;
+  functional: boolean;
+  analytics: boolean;
+  marketing: boolean;
+};
+
+const STORAGE_KEY = "traxle_cookie_consent_v2";
+
+const COOKIE_TEXT = {
+  tr: {
+    title: "Cerez Tercihleri",
+    body: "Deneyimi iyilestirmek ve guvenligi korumak icin cerez kullaniyoruz.",
+    settings: "Ayarlar",
+    accept: "Kabul Et",
+    reject: "Tumunu Reddet",
+    save: "Secimi Kaydet",
+    linkPrefix: "Detaylar icin",
+  },
+  en: {
+    title: "Cookie Preferences",
+    body: "We use cookies to improve your experience and keep services secure.",
+    settings: "Settings",
+    accept: "Accept All",
+    reject: "Reject All",
+    save: "Save Selection",
+    linkPrefix: "For details see",
+  },
+  de: {
+    title: "Cookie-Einstellungen",
+    body: "Wir verwenden Cookies fur ein besseres Erlebnis und sichere Dienste.",
+    settings: "Einstellungen",
+    accept: "Alle akzeptieren",
+    reject: "Alle ablehnen",
+    save: "Auswahl speichern",
+    linkPrefix: "Details unter",
+  },
+  ru: {
+    title: "Nastroyki cookie",
+    body: "My ispolzuem cookie dlya uluchsheniya raboty i bezopasnosti servisa.",
+    settings: "Nastroyki",
+    accept: "Prinyat vse",
+    reject: "Otklonit vse",
+    save: "Sohranit vybor",
+    linkPrefix: "Podrobnee v",
+  },
+  ar: {
+    title: "Iidadat cookie",
+    body: "Nastakhdim cookie litahsin al-khidma wa al-amn.",
+    settings: "Iidadat",
+    accept: "Qabul al-kull",
+    reject: "Rafd al-kull",
+    save: "Hifz al-ikhtiyar",
+    linkPrefix: "Liltfasil zour",
+  },
+} as const;
 
 export default function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(false);
+  const pathname = usePathname() ?? "/";
+  const locale = detectLocale(pathname);
+  const text = COOKIE_TEXT[locale];
+
+  const [open, setOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  
-  // Madde 3'e göre 4 tür çerez: Zorunlu, İşlevsel, Analitik, Pazarlama
-  const [preferences, setPreferences] = useState({
+  const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true,
-    functional: false, // Yeni eklendi
+    functional: false,
     analytics: false,
     marketing: false,
   });
 
   useEffect(() => {
-    const savedConsent = localStorage.getItem('traxle_cookie_consent');
-    if (!savedConsent) {
-      const timer = setTimeout(() => setShowBanner(true), 1500); 
-      return () => clearTimeout(timer);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) {
+      const timer = window.setTimeout(() => setOpen(true), 1200);
+      return () => window.clearTimeout(timer);
     }
   }, []);
 
-  const handleSave = (settings: typeof preferences) => {
-    localStorage.setItem('traxle_cookie_consent', JSON.stringify(settings));
-    setPreferences(settings);
-    setShowBanner(false);
+  const save = (next: CookiePreferences) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    setPreferences(next);
+    setOpen(false);
     setShowSettings(false);
   };
 
   return (
     <AnimatePresence>
-      {showBanner && (
+      {open && (
         <>
-          <motion.div 
-            initial={{ y: 100, opacity: 0 }}
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-6 left-6 right-6 z-[9990] max-w-5xl mx-auto"
+            exit={{ y: 80, opacity: 0 }}
+            className="fixed inset-x-4 bottom-4 z-[9990] mx-auto w-full max-w-5xl"
           >
-            <div className="bg-white/95 dark:bg-[#0F1629]/95 backdrop-blur-xl border border-gray-200 dark:border-white/10 p-5 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center gap-6">
-               
-               <div className="flex items-center gap-4 flex-1">
-                  <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center text-2xl shrink-0">
-                    🍪
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 dark:text-white">Çerez Tercihleri</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Traxle deneyiminizi iyileştirmek için çerezleri kullanıyoruz. Detaylar için 
-                      {/* 🔥 GÜNCELLENDİ: Link adresi /cerezler olarak değiştirildi */}
-                      <Link href="/cerezler" className="text-blue-600 hover:underline ml-1 font-medium">Çerez Politikası</Link>'nı inceleyebilirsiniz.
-                    </p>
-                  </div>
-               </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-2xl dark:border-white/10 dark:bg-[#0f172a]">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">{text.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    {text.body} {text.linkPrefix}{" "}
+                    <Link href={localizedPath("cookies", locale)} className="font-semibold text-blue-600 hover:underline">
+                      {CONTENT[locale].pages.cookies.title}
+                    </Link>
+                    .
+                  </p>
+                </div>
 
-               <div className="flex gap-3 shrink-0 w-full md:w-auto">
-                  <button 
+                <div className="flex gap-2">
+                  <button
+                    type="button"
                     onClick={() => setShowSettings(true)}
-                    className="flex-1 md:flex-none px-5 py-2.5 rounded-xl font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors border border-gray-200 dark:border-white/10"
+                    className="rounded-xl border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/10"
                   >
-                    Ayarlar
+                    {text.settings}
                   </button>
-                  <button 
-                    onClick={() => handleSave({ necessary: true, functional: true, analytics: true, marketing: true })}
-                    className="flex-1 md:flex-none px-6 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all active:scale-95"
+                  <button
+                    type="button"
+                    onClick={() =>
+                      save({
+                        necessary: true,
+                        functional: true,
+                        analytics: true,
+                        marketing: true,
+                      })
+                    }
+                    className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
                   >
-                    Kabul Et
+                    {text.accept}
                   </button>
-               </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          {/* AYARLAR MODALI */}
           {showSettings && (
             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-              <motion.div 
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowSettings(false)} 
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/60"
+                onClick={() => setShowSettings(false)}
               />
-              <motion.div 
-                initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-                className="relative bg-white dark:bg-[#1A1A1A] w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/10 max-h-[90vh] flex flex-col"
+
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative w-full max-w-xl rounded-3xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-white/10 dark:bg-[#0f172a]"
               >
-                <div className="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-center shrink-0">
-                   <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                     <FiSettings /> Çerez Ayarları
-                   </h3>
-                   <button onClick={() => setShowSettings(false)} className="text-gray-500 hover:text-red-500"><FiX size={24} /></button>
-                </div>
-                
-                <div className="p-6 space-y-6 overflow-y-auto">
-                   <CookieOption 
-                     title="Zorunlu Çerezler" 
-                     desc="Sitenin güvenliği ve temel fonksiyonları (oturum açma vb.) için gereklidir. Kapatılamaz." 
-                     checked={true} 
-                     disabled={true} 
-                   />
-                   <CookieOption 
-                     title="İşlevsel Çerezler" 
-                     desc="Dil, tema ve kullanıcı tercihlerini hatırlayarak kullanım kolaylığı sağlar." 
-                     checked={preferences.functional} 
-                     onChange={() => setPreferences(p => ({...p, functional: !p.functional}))} 
-                   />
-                   <CookieOption 
-                     title="Analitik ve Performans" 
-                     desc="Ziyaret sayısı ve hata tespiti yaparak hizmet kalitesini artırmamıza yarar." 
-                     checked={preferences.analytics} 
-                     onChange={() => setPreferences(p => ({...p, analytics: !p.analytics}))} 
-                   />
-                   <CookieOption 
-                     title="Pazarlama Çerezleri" 
-                     desc="İlgi alanlarınıza uygun içerik ve reklam sunulmasını sağlar." 
-                     checked={preferences.marketing} 
-                     onChange={() => setPreferences(p => ({...p, marketing: !p.marketing}))} 
-                   />
+                <div className="mb-5 flex items-center justify-between">
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white">
+                    <span className="inline-flex items-center gap-2">
+                      <FiSettings />
+                      {text.title}
+                    </span>
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={() => setShowSettings(false)}
+                    className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/10"
+                    aria-label="Close"
+                  >
+                    <FiX />
+                  </button>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-white/5 flex justify-end gap-3 shrink-0">
-                   <button onClick={() => handleSave({ necessary: true, functional: false, analytics: false, marketing: false })} className="px-4 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 rounded-lg">Tümünü Reddet</button>
-                   <button onClick={() => handleSave(preferences)} className="px-6 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg">Seçimi Kaydet</button>
+                <div className="space-y-4">
+                  <CookieRow label="Necessary" checked disabled />
+                  <CookieRow
+                    label="Functional"
+                    checked={preferences.functional}
+                    onToggle={() =>
+                      setPreferences((prev) => ({ ...prev, functional: !prev.functional }))
+                    }
+                  />
+                  <CookieRow
+                    label="Analytics"
+                    checked={preferences.analytics}
+                    onToggle={() =>
+                      setPreferences((prev) => ({ ...prev, analytics: !prev.analytics }))
+                    }
+                  />
+                  <CookieRow
+                    label="Marketing"
+                    checked={preferences.marketing}
+                    onToggle={() =>
+                      setPreferences((prev) => ({ ...prev, marketing: !prev.marketing }))
+                    }
+                  />
+                </div>
+
+                <div className="mt-6 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      save({
+                        necessary: true,
+                        functional: false,
+                        analytics: false,
+                        marketing: false,
+                      })
+                    }
+                    className="rounded-xl border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/10"
+                  >
+                    {text.reject}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => save(preferences)}
+                    className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    {text.save}
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -133,24 +234,34 @@ export default function CookieBanner() {
   );
 }
 
-function CookieOption({ title, desc, checked, onChange, disabled }: any) {
+function CookieRow({
+  label,
+  checked,
+  onToggle,
+  disabled,
+}: {
+  label: string;
+  checked: boolean;
+  onToggle?: () => void;
+  disabled?: boolean;
+}) {
   return (
-    <div className="flex items-start justify-between gap-4">
-       <div>
-          <h4 className="font-bold text-gray-900 dark:text-white text-sm">{title}</h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{desc}</p>
-       </div>
-       <button 
-         onClick={onChange} 
-         disabled={disabled}
-         className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${checked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-white/10'} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-       >
-          <motion.div 
-            className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow-sm"
-            animate={{ x: checked ? 20 : 0 }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          />
-       </button>
+    <div className="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 dark:border-white/10">
+      <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{label}</span>
+      <button
+        type="button"
+        onClick={onToggle}
+        disabled={disabled}
+        className={`relative h-6 w-11 rounded-full transition ${
+          checked ? "bg-blue-600" : "bg-gray-300 dark:bg-white/15"
+        } ${disabled ? "opacity-50" : ""}`}
+      >
+        <span
+          className={`absolute top-1 h-4 w-4 rounded-full bg-white transition ${
+            checked ? "left-6" : "left-1"
+          }`}
+        />
+      </button>
     </div>
   );
 }

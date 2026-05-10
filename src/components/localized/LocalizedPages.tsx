@@ -1,0 +1,224 @@
+import Link from "next/link";
+import { CONTENT, PageCopy, ProductCopy } from "@/lib/i18n/content";
+import { Locale, RouteKey, localizedPath, localizedPathForProductPrivacy } from "@/lib/i18n/routes";
+
+const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
+const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
+
+function PageShell({
+  title,
+  intro,
+  children,
+}: {
+  title: string;
+  intro: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative min-h-screen bg-gray-50 pt-28 pb-20 text-gray-900 transition-colors dark:bg-[#050814] dark:text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.10),transparent_40%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.10),transparent_35%)]" />
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <h1 className="max-w-4xl text-3xl font-black tracking-tight sm:text-5xl">{title}</h1>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-gray-600 dark:text-gray-300">{intro}</p>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function SectionList({ sections }: { sections: PageCopy["sections"] }) {
+  return (
+    <div className="mt-10 grid gap-4 sm:gap-6 md:grid-cols-2">
+      {sections.map((section) => (
+        <article
+          key={section.title}
+          className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+        >
+          <h2 className="text-xl font-bold">{section.title}</h2>
+          <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{section.body}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+export function LocalizedHome({ locale }: { locale: Locale }) {
+  const content = CONTENT[locale].home;
+
+  return (
+    <PageShell title={content.title} intro={content.intro}>
+      <span className="mt-8 inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-300">
+        {content.badge}
+      </span>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
+        {content.cards.map((card) => (
+          <Link
+            key={card.title}
+            href={localizedPath(card.key, locale)}
+            className="group rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.04]"
+          >
+            <p className="text-xs font-bold uppercase tracking-wide text-blue-600 dark:text-blue-300">{card.status}</p>
+            <h2 className="mt-3 text-2xl font-black tracking-tight">{card.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{card.description}</p>
+            <span className="mt-5 inline-block text-sm font-semibold text-blue-700 transition group-hover:text-blue-800 dark:text-blue-300 dark:group-hover:text-blue-200">
+              {locale === "tr" ? "Sayfaya git" : "Open page"}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </PageShell>
+  );
+}
+
+export function LocalizedAbout({ locale }: { locale: Locale }) {
+  const content = CONTENT[locale].about;
+
+  return (
+    <PageShell title={content.title} intro={content.intro}>
+      <span className="mt-8 inline-flex rounded-full border border-gray-200 bg-white px-4 py-1 text-xs font-bold uppercase tracking-wider text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-200">
+        {content.badge}
+      </span>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        {content.stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+          >
+            <p className="text-3xl font-black text-blue-700 dark:text-blue-300">{stat.value}</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <SectionList sections={content.sections} />
+    </PageShell>
+  );
+}
+
+function productKeyFromRoute(routeKey: RouteKey): "molatik" | "kunyex" | "logistics" | null {
+  if (routeKey === "molatik") return "molatik";
+  if (routeKey === "kunyex") return "kunyex";
+  if (routeKey === "logistics") return "logistics";
+  return null;
+}
+
+function privacyProductFromRoute(routeKey: RouteKey): "molatik" | "kunyex" | null {
+  if (routeKey === "molatikPrivacy") return "molatik";
+  if (routeKey === "kunyexPrivacy") return "kunyex";
+  return null;
+}
+
+export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; routeKey: RouteKey }) {
+  const productKey = productKeyFromRoute(routeKey);
+  if (!productKey) return null;
+  const copy: ProductCopy = CONTENT[locale].products[productKey];
+
+  const privacyHref =
+    productKey === "logistics" ? localizedPath("contact", locale) : localizedPathForProductPrivacy(productKey, locale);
+
+  const barkodxLabel = locale === "tr" ? "BarkodX'i App Store'dan Indir" : "Download BarkodX on the App Store";
+  const kunyexManualLabel = locale === "tr" ? "KunyeX Manuel Guncelleme" : "KunyeX Manual Update";
+  const barkodxTransferLabel = locale === "tr" ? "BarkodX DataTransfer" : "BarkodX DataTransfer";
+  const molatikIosLabel = locale === "tr" ? "Molatik iOS Indirme Linki" : "Molatik iOS Download";
+  const molatikPlaySoon = locale === "tr" ? "Molatik Google Play - Cok Yakinda" : "Molatik Google Play - Coming Soon";
+
+  return (
+    <PageShell title={copy.title} intro={copy.intro}>
+      <span className="mt-8 inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-300">
+        {copy.badge}
+      </span>
+
+      <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+        <ul className="space-y-3">
+          {copy.highlights.map((highlight) => (
+            <li key={highlight} className="rounded-xl bg-gray-50 px-4 py-3 text-sm text-gray-700 dark:bg-white/5 dark:text-gray-200">
+              {highlight}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href={privacyHref}
+            className="inline-flex rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            {copy.privacyCta}
+          </Link>
+
+          {productKey === "kunyex" && (
+            <>
+              <Link
+                href="/guncelleme/kunyex"
+                className="inline-flex rounded-full border border-blue-300 bg-blue-50 px-5 py-3 text-sm font-semibold text-blue-800 transition hover:border-blue-400 dark:border-blue-400/40 dark:bg-blue-400/10 dark:text-blue-200 dark:hover:border-blue-300"
+              >
+                {kunyexManualLabel}
+              </Link>
+              <Link
+                href="/barkodx/uygulamalar/guncelleme"
+                className="inline-flex rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-800 transition hover:border-cyan-400 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-200 dark:hover:border-cyan-300"
+              >
+                {barkodxTransferLabel}
+              </Link>
+              <Link
+                href={BARKODX_APPSTORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
+              >
+                {barkodxLabel}
+              </Link>
+            </>
+          )}
+
+          {productKey === "molatik" && (
+            <>
+              <Link
+                href={MOLATIK_APPSTORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
+              >
+                {molatikIosLabel}
+              </Link>
+              <button
+                type="button"
+                disabled
+                className="inline-flex cursor-not-allowed rounded-full border border-amber-300 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-700 dark:border-amber-400/40 dark:bg-amber-400/10 dark:text-amber-200"
+              >
+                {molatikPlaySoon}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </PageShell>
+  );
+}
+
+export function LocalizedProductPrivacy({ locale, routeKey }: { locale: Locale; routeKey: RouteKey }) {
+  const productKey = privacyProductFromRoute(routeKey);
+  if (!productKey) return null;
+  const copy = CONTENT[locale].productPrivacy[productKey];
+
+  return (
+    <PageShell title={copy.title} intro={copy.intro}>
+      <SectionList sections={copy.sections} />
+    </PageShell>
+  );
+}
+
+export function LocalizedGenericPage({ locale, routeKey }: { locale: Locale; routeKey: RouteKey }) {
+  const generic = CONTENT[locale].pages;
+  const page = generic[routeKey as keyof typeof generic];
+  if (!page) return null;
+
+  return (
+    <PageShell title={page.title} intro={page.intro}>
+      <SectionList sections={page.sections} />
+    </PageShell>
+  );
+}
