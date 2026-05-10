@@ -62,7 +62,12 @@ function serializeValue(value: unknown): unknown {
 
 function mapDoc(doc: FirebaseFirestore.DocumentSnapshot) {
   const data = doc.data() ?? {};
-  return { id: doc.id, ...serializeValue(data) };
+  const serialized = serializeValue(data);
+  const safeObject =
+    serialized && typeof serialized === "object" && !Array.isArray(serialized)
+      ? (serialized as Record<string, unknown>)
+      : {};
+  return { id: doc.id, ...safeObject };
 }
 
 async function getCollection(collectionName: string, request: Request) {
