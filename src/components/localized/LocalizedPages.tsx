@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import type { CSSProperties } from "react";
 import { CONTENT, PageCopy, ProductCopy } from "@/lib/i18n/content";
 import { Locale, RouteKey, localizedPath, localizedPathForProductPrivacy } from "@/lib/i18n/routes";
 import { FaApple, FaGooglePlay, FaWindows } from "react-icons/fa";
@@ -174,6 +175,45 @@ const PRODUCTS_HUB_COPY: Record<Locale, ProductsHubCopy> = {
 };
 
 const PRODUCT_CARD_KEYS: Array<"molatik" | "kunyex" | "logistics"> = ["molatik", "kunyex", "logistics"];
+type ProductVisualKey = (typeof PRODUCT_CARD_KEYS)[number];
+
+const PRODUCT_VISUAL_THEMES: Record<ProductVisualKey, { a: string; b: string; c: string }> = {
+  molatik: { a: "#22d3ee", b: "#3b82f6", c: "#0ea5e9" },
+  kunyex: { a: "#34d399", b: "#22d3ee", c: "#10b981" },
+  logistics: { a: "#60a5fa", b: "#22d3ee", c: "#2dd4bf" },
+};
+
+function ProductMockup3D({ product }: { product: ProductVisualKey }) {
+  const theme = PRODUCT_VISUAL_THEMES[product];
+  const vars =
+    {
+      "--mockup-a": theme.a,
+      "--mockup-b": theme.b,
+      "--mockup-c": theme.c,
+    } as CSSProperties;
+
+  return (
+    <div className="product-mockup-3d mt-5" style={vars} aria-hidden>
+      <span className="product-mockup-3d__aura" />
+      <span className="product-mockup-3d__grid" />
+
+      <div className="product-mockup-3d__device product-mockup-3d__device-main">
+        <span className="product-mockup-3d__dot" />
+        <span className="product-mockup-3d__line product-mockup-3d__line-lg" />
+        <span className="product-mockup-3d__line product-mockup-3d__line-md" />
+        <span className="product-mockup-3d__line product-mockup-3d__line-sm" />
+      </div>
+
+      <div className="product-mockup-3d__device product-mockup-3d__device-side">
+        <span className="product-mockup-3d__line product-mockup-3d__line-sm" />
+        <span className="product-mockup-3d__line product-mockup-3d__line-xs" />
+      </div>
+
+      <span className="product-mockup-3d__chip product-mockup-3d__chip-1" />
+      <span className="product-mockup-3d__chip product-mockup-3d__chip-2" />
+    </div>
+  );
+}
 
 function PageShell({
   title,
@@ -267,27 +307,31 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {content.cards.map((card, index) => (
-              <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
-                <span className="studio-card-glow" aria-hidden />
-                <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
-                      {card.status}
-                    </span>
-                    <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                  <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-200/80">{card.description}</p>
-                  <div className="mt-auto flex items-end justify-between pt-7">
-                    <span className="text-sm font-semibold text-cyan-100">{openPageLabel}</span>
-                    <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/60">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                </Link>
-              </InteractiveGridCard>
-            ))}
+            {content.cards.map((card, index) => {
+              const productKey = card.key as ProductVisualKey;
+              return (
+                <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
+                  <span className="studio-card-glow" aria-hidden />
+                  <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
+                        {card.status}
+                      </span>
+                      <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
+                    <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
+                    <p className="mt-3 text-sm leading-7 text-slate-200/80">{card.description}</p>
+                    <ProductMockup3D product={productKey} />
+                    <div className="mt-auto flex items-end justify-between pt-7">
+                      <span className="text-sm font-semibold text-cyan-100">{openPageLabel}</span>
+                      <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/60">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </Link>
+                </InteractiveGridCard>
+              );
+            })}
           </div>
 
           <div
@@ -345,6 +389,7 @@ export function LocalizedProductsHub({ locale }: { locale: Locale }) {
                 </div>
                 <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-slate-200/85">{card.description}</p>
+                <ProductMockup3D product={routeKey} />
                 <div className="mt-auto flex items-end justify-between pt-8">
                   <span className="text-sm font-semibold text-cyan-100">{copy.openLabel}</span>
                   <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/65">
@@ -571,4 +616,7 @@ export function LocalizedGenericPage({ locale, routeKey }: { locale: Locale; rou
     </PageShell>
   );
 }
+
+
+
 
