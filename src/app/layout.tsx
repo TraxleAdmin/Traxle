@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import CookieBanner from "@/components/CookieBanner";
+import GlobalMotionBackdrop from "@/components/GlobalMotionBackdrop";
 import MaintenanceGuard from "@/components/MaintenanceGuard";
 import LocaleDocumentSync from "@/components/LocaleDocumentSync";
 import { Providers } from "./providers";
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-gray-50 text-gray-900 dark:bg-[#050814] dark:text-white`}
       >
+        <GlobalMotionBackdrop />
         <Providers>
           <LocaleDocumentSync />
           <MaintenanceGuard>

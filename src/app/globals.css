@@ -3241,3 +3241,271 @@ textarea:focus-visible {
 .dark .utility-card-eyebrow {
   color: color-mix(in srgb, var(--tone-a) 78%, white) !important;
 }
+
+/* Global cinematic motion -------------------------------------------------- */
+body {
+  position: relative;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+.global-motion-backdrop {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  perspective: 980px;
+  opacity: 0.58;
+  contain: paint;
+}
+
+.global-motion-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  background-image:
+    radial-gradient(circle, rgba(14, 165, 233, 0.34) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.32) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 50% 12%, rgba(34, 211, 238, 0.12), transparent 44%);
+  background-position: 0 0, 38px 28px, center;
+  background-size: 96px 96px, 132px 132px, auto;
+  mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 72%);
+  animation: global-star-depth 24s linear infinite;
+}
+
+.global-motion-backdrop span {
+  --star-x: 8vw;
+  --star-y: 12vh;
+  --star-w: 180px;
+  --star-r: 18deg;
+  --star-d: 9s;
+  --star-delay: 0s;
+  position: absolute;
+  left: var(--star-x);
+  top: var(--star-y);
+  width: var(--star-w);
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(125, 211, 252, 0.15) 18%, rgba(236, 254, 255, 0.86) 48%, rgba(34, 211, 238, 0.36) 72%, transparent 100%);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.24);
+  filter: blur(0.15px);
+  transform-origin: center;
+  animation: global-star-streak var(--star-d) cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  animation-delay: var(--star-delay);
+}
+
+.global-motion-backdrop span:nth-child(2) { --star-x: 18vw; --star-y: 4vh; --star-w: 220px; --star-r: 24deg; --star-d: 12s; --star-delay: -2s; }
+.global-motion-backdrop span:nth-child(3) { --star-x: 60vw; --star-y: 8vh; --star-w: 150px; --star-r: 14deg; --star-d: 8s; --star-delay: -4s; }
+.global-motion-backdrop span:nth-child(4) { --star-x: 72vw; --star-y: 24vh; --star-w: 260px; --star-r: -18deg; --star-d: 11s; --star-delay: -6s; }
+.global-motion-backdrop span:nth-child(5) { --star-x: 6vw; --star-y: 42vh; --star-w: 210px; --star-r: -10deg; --star-d: 13s; --star-delay: -1s; }
+.global-motion-backdrop span:nth-child(6) { --star-x: 36vw; --star-y: 34vh; --star-w: 170px; --star-r: 28deg; --star-d: 10s; --star-delay: -8s; }
+.global-motion-backdrop span:nth-child(7) { --star-x: 82vw; --star-y: 52vh; --star-w: 190px; --star-r: 16deg; --star-d: 9.5s; --star-delay: -3s; }
+.global-motion-backdrop span:nth-child(8) { --star-x: 22vw; --star-y: 70vh; --star-w: 240px; --star-r: -22deg; --star-d: 14s; --star-delay: -7s; }
+.global-motion-backdrop span:nth-child(9) { --star-x: 52vw; --star-y: 76vh; --star-w: 160px; --star-r: 12deg; --star-d: 8.5s; --star-delay: -5s; }
+.global-motion-backdrop span:nth-child(10) { --star-x: 90vw; --star-y: 82vh; --star-w: 230px; --star-r: -28deg; --star-d: 12.5s; --star-delay: -9s; }
+.global-motion-backdrop span:nth-child(11) { --star-x: 44vw; --star-y: 14vh; --star-w: 120px; --star-r: -14deg; --star-d: 7.8s; --star-delay: -2.8s; }
+.global-motion-backdrop span:nth-child(12) { --star-x: 12vw; --star-y: 86vh; --star-w: 200px; --star-r: 20deg; --star-d: 10.8s; --star-delay: -6.5s; }
+
+@keyframes global-star-depth {
+  0% {
+    transform: translate3d(0, 0, -120px) scale(0.98);
+    background-position: 0 0, 38px 28px, center;
+  }
+  100% {
+    transform: translate3d(-90px, 80px, 80px) scale(1.08);
+    background-position: 96px 96px, -94px 160px, center;
+  }
+}
+
+@keyframes global-star-streak {
+  0% {
+    opacity: 0;
+    transform: translate3d(-18vw, -10vh, -220px) rotate(var(--star-r)) scaleX(0.32);
+  }
+  14% {
+    opacity: 0.42;
+  }
+  46% {
+    opacity: 0.86;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(34vw, 24vh, 120px) rotate(var(--star-r)) scaleX(1.2);
+  }
+}
+
+:where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell) {
+  isolation: isolate;
+}
+
+:where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  background:
+    linear-gradient(112deg, transparent 0 18%, rgba(125, 211, 252, 0.26) 19%, transparent 20% 100%),
+    linear-gradient(112deg, transparent 0 34%, rgba(236, 254, 255, 0.18) 35%, transparent 36% 100%),
+    linear-gradient(292deg, transparent 0 24%, rgba(45, 212, 191, 0.18) 25%, transparent 26% 100%),
+    radial-gradient(circle at 52% 16%, rgba(34, 211, 238, 0.18), transparent 38%);
+  background-size: 620px 320px, 430px 260px, 520px 300px, auto;
+  background-position: -20% -10%, 120% 4%, 40% -8%, center;
+  filter: blur(0.2px);
+  mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 78%);
+  mix-blend-mode: screen;
+  opacity: 0.46;
+  animation: shell-star-streaks 18s linear infinite;
+}
+
+.dark :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
+  opacity: 0.68;
+}
+
+@keyframes shell-star-streaks {
+  0% {
+    transform: translate3d(-4%, -2%, -80px) scale(0.98) rotateX(0deg);
+    background-position: -26% -12%, 118% 2%, 42% -8%, center;
+  }
+  50% {
+    transform: translate3d(3%, 4%, 40px) scale(1.03) rotateX(3deg);
+  }
+  100% {
+    transform: translate3d(8%, 8%, 90px) scale(1.08) rotateX(0deg);
+    background-position: 112% 90%, -20% 94%, 72% 104%, center;
+  }
+}
+
+:where(
+  .interactive-grid-card,
+  .subpage-info-card,
+  .subpage-product-card,
+  .product-detail-capability,
+  .product-ecosystem-card,
+  .pricing-card,
+  .ops-panel,
+  .ops-feed,
+  .realtime-section,
+  .feature-card,
+  .faq-item,
+  .subpage-ops-visual,
+  .product-detail-visual,
+  .product-detail-actions,
+  .subpage-final-cta,
+  .auth-social-button
+) {
+  position: relative;
+}
+
+:where(
+  .interactive-grid-card,
+  .subpage-info-card,
+  .subpage-product-card,
+  .product-detail-capability,
+  .product-ecosystem-card,
+  .pricing-card,
+  .ops-panel,
+  .ops-feed,
+  .realtime-section,
+  .feature-card,
+  .faq-item,
+  .subpage-ops-visual,
+  .product-detail-visual,
+  .product-detail-actions,
+  .subpage-final-cta,
+  .auth-social-button
+)::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  z-index: 8;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    conic-gradient(from var(--neon-angle, 0deg), transparent 0deg, color-mix(in srgb, var(--tone-a, #22d3ee) 58%, transparent) 74deg, rgba(255, 255, 255, 0.72) 112deg, color-mix(in srgb, var(--tone-b, #2563eb) 52%, transparent) 146deg, transparent 210deg, transparent 360deg);
+  opacity: 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+
+:where(
+  .interactive-grid-card,
+  .subpage-info-card,
+  .subpage-product-card,
+  .product-detail-capability,
+  .product-ecosystem-card,
+  .pricing-card,
+  .ops-panel,
+  .ops-feed,
+  .realtime-section,
+  .feature-card,
+  .faq-item,
+  .subpage-ops-visual,
+  .product-detail-visual,
+  .product-detail-actions,
+  .subpage-final-cta,
+  .auth-social-button
+):hover::after {
+  opacity: 0.78;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--tone-a, #22d3ee) 42%, transparent));
+  animation: neon-border-angle 3.8s linear infinite;
+}
+
+:where(.interactive-grid-card, .subpage-info-card, .subpage-product-card, .product-detail-capability, .product-ecosystem-card, .pricing-card):hover {
+  box-shadow:
+    0 22px 64px rgba(15, 23, 42, 0.13),
+    0 0 34px color-mix(in srgb, var(--tone-a, #22d3ee) 15%, transparent);
+}
+
+.dark :where(.interactive-grid-card, .subpage-info-card, .subpage-product-card, .product-detail-capability, .product-ecosystem-card, .pricing-card):hover {
+  box-shadow:
+    0 24px 72px rgba(1, 6, 18, 0.48),
+    0 0 42px color-mix(in srgb, var(--tone-a, #22d3ee) 22%, transparent);
+}
+
+@property --neon-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes neon-border-angle {
+  to {
+    --neon-angle: 360deg;
+  }
+}
+
+@media (max-width: 768px) {
+  .global-motion-backdrop {
+    opacity: 0.36;
+  }
+
+  .global-motion-backdrop span:nth-child(n + 7) {
+    display: none;
+  }
+
+  :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
+    opacity: 0.34;
+    animation-duration: 28s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-motion-backdrop,
+  .global-motion-backdrop::before,
+  .global-motion-backdrop span,
+  :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after,
+  :where(.interactive-grid-card, .subpage-info-card, .subpage-product-card, .product-detail-capability, .product-ecosystem-card, .pricing-card, .ops-panel, .ops-feed, .realtime-section, .feature-card, .faq-item, .subpage-ops-visual, .product-detail-visual, .product-detail-actions, .subpage-final-cta, .auth-social-button):hover::after {
+    animation: none !important;
+  }
+}
