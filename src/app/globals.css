@@ -105,28 +105,34 @@ textarea:focus-visible {
 
 @keyframes neon-float-drift {
   0% {
-    transform: translate3d(-16vw, -9vh, 0) rotate(18deg);
+    transform: translate3d(-22vw, -18vh, -40px) rotate(12deg) scale(0.92);
     opacity: 0;
   }
-  20% {
-    opacity: 0.72;
+  18% {
+    opacity: 0.78;
+  }
+  55% {
+    opacity: 0.52;
   }
   100% {
-    transform: translate3d(20vw, 28vh, 0) rotate(30deg);
+    transform: translate3d(24vw, 30vh, 110px) rotate(34deg) scale(1.14);
     opacity: 0;
   }
 }
 
 @keyframes neon-float-drift-alt {
   0% {
-    transform: translate3d(14vw, -11vh, 0) rotate(-16deg);
+    transform: translate3d(18vw, -17vh, -34px) rotate(-14deg) scale(0.9);
     opacity: 0;
   }
   24% {
-    opacity: 0.62;
+    opacity: 0.72;
+  }
+  58% {
+    opacity: 0.5;
   }
   100% {
-    transform: translate3d(-24vw, 26vh, 0) rotate(-28deg);
+    transform: translate3d(-26vw, 27vh, 100px) rotate(-32deg) scale(1.12);
     opacity: 0;
   }
 }
@@ -138,6 +144,18 @@ textarea:focus-visible {
   }
   50% {
     box-shadow: 0 20px 42px rgba(2, 8, 23, 0.55), 0 0 28px rgba(34, 211, 238, 0.25);
+  }
+}
+
+@keyframes neon-mesh-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-18px, -12px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -211,12 +229,11 @@ textarea:focus-visible {
     radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), rgba(15, 23, 42, 0.06) 55%);
   box-shadow: 0 20px 45px rgba(2, 8, 23, 0.45);
   transform-style: preserve-3d;
-  transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+  transition: border-color 320ms ease, box-shadow 320ms ease;
   padding: 1.5rem;
 }
 
 .studio-app-card:hover {
-  transform: translateY(-8px) rotateX(6deg) rotateY(-6deg);
   border-color: rgba(186, 230, 253, 0.44);
   box-shadow: 0 34px 65px rgba(8, 47, 73, 0.42);
 }
@@ -262,15 +279,17 @@ textarea:focus-visible {
   position: absolute;
   inset: -20% -8%;
   overflow: hidden;
-  filter: blur(8px);
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  filter: blur(8px) saturate(1.2);
 }
 
 .page-neon-beam {
   position: absolute;
-  width: clamp(200px, 22vw, 340px);
-  height: clamp(640px, 62vh, 900px);
+  width: clamp(210px, 24vw, 360px);
+  height: clamp(680px, 64vh, 940px);
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(165, 243, 252, 0) 0%, rgba(45, 212, 191, 0.48) 45%, rgba(20, 184, 166, 0) 100%);
+  background: linear-gradient(180deg, rgba(165, 243, 252, 0) 0%, rgba(45, 212, 191, 0.58) 45%, rgba(20, 184, 166, 0) 100%);
   mix-blend-mode: screen;
   opacity: 0;
 }
@@ -287,6 +306,14 @@ textarea:focus-visible {
   animation: neon-float-drift-alt 16s ease-in-out infinite 2.5s;
 }
 
+.page-neon-beam-3 {
+  top: -20%;
+  left: 42%;
+  width: clamp(150px, 16vw, 280px);
+  height: clamp(540px, 50vh, 780px);
+  animation: neon-float-drift 12s ease-in-out infinite 1.3s;
+}
+
 .neon-chip {
   border: 1px solid rgba(125, 211, 252, 0.45);
   background: rgba(14, 116, 144, 0.2);
@@ -301,13 +328,13 @@ textarea:focus-visible {
     linear-gradient(150deg, rgba(8, 16, 36, 0.92) 0%, rgba(11, 20, 44, 0.9) 68%),
     radial-gradient(circle at top right, rgba(56, 189, 248, 0.22), rgba(8, 47, 73, 0.08) 60%);
   box-shadow: 0 16px 34px rgba(2, 8, 23, 0.42);
-  transition: transform 260ms ease, border-color 260ms ease;
+  transition: border-color 260ms ease, box-shadow 260ms ease;
   animation: neon-card-pulse 5.5s ease-in-out infinite;
 }
 
 .neon-grid-card:hover {
-  transform: translateY(-4px);
   border-color: rgba(103, 232, 249, 0.5);
+  box-shadow: 0 22px 44px rgba(2, 8, 23, 0.56), 0 0 38px rgba(56, 189, 248, 0.22);
 }
 
 .neon-grid-card__glow {
@@ -320,6 +347,72 @@ textarea:focus-visible {
   border-radius: 999px;
   background: radial-gradient(circle, rgba(103, 232, 249, 0.35), transparent 70%);
   opacity: 0.58;
+}
+
+.interactive-grid-card {
+  --grid-rx: 0deg;
+  --grid-ry: 0deg;
+  --grid-mx: 50%;
+  --grid-my: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: perspective(1100px) rotateX(var(--grid-rx)) rotateY(var(--grid-ry)) translateZ(0);
+  transition: transform 120ms ease-out, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.interactive-grid-card:hover {
+  transform: perspective(1100px) rotateX(var(--grid-rx)) rotateY(var(--grid-ry)) translateZ(0) scale(1.018);
+}
+
+.interactive-grid-card__mesh {
+  pointer-events: none;
+  position: absolute;
+  inset: -22%;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(167, 243, 208, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.42;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+  animation: neon-mesh-drift 7.8s ease-in-out infinite;
+}
+
+.interactive-grid-card__pointer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  background:
+    radial-gradient(280px circle at var(--grid-mx) var(--grid-my), rgba(34, 211, 238, 0.26), transparent 58%),
+    radial-gradient(420px circle at var(--grid-mx) var(--grid-my), rgba(16, 185, 129, 0.16), transparent 66%);
+  transition: opacity 180ms ease;
+}
+
+.interactive-grid-card:hover .interactive-grid-card__pointer {
+  opacity: 1;
+}
+
+.interactive-grid-card__sheen {
+  pointer-events: none;
+  position: absolute;
+  inset: -48% auto auto -36%;
+  z-index: 2;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 254, 255, 0.46), rgba(34, 211, 238, 0.08) 56%, transparent 74%);
+  opacity: 0.26;
+  transition: transform 260ms ease, opacity 260ms ease;
+}
+
+.interactive-grid-card:hover .interactive-grid-card__sheen {
+  opacity: 0.7;
+  transform: translate3d(26px, 24px, 0);
 }
 
 @media (max-width: 768px) {

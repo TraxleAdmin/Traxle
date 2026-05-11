@@ -11,6 +11,7 @@ import {
   FiShield,
   FiTerminal,
 } from "react-icons/fi";
+import InteractiveGridCard from "@/components/ui/InteractiveGridCard";
 
 const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
 const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
@@ -24,14 +25,27 @@ interface StudioHomeCopy {
   metrics: { label: string; value: string }[];
 }
 
+interface ProductsHubCopy {
+  badge: string;
+  title: string;
+  intro: string;
+  openLabel: string;
+  interactionTag: string;
+  interactionTitle: string;
+  interactionBody: string;
+  surfaceTag: string;
+  surfaceTitle: string;
+  surfaceBody: string;
+}
+
 const STUDIO_HOME_COPY: Record<Locale, StudioHomeCopy> = {
   tr: {
-    badge: "Software Studio",
+    badge: "Yazılım Stüdyosu",
     title: "Kod, Altyapı ve Operasyonları Tek Üründe Birleştiren Mühendislik Ekibi",
     intro:
       "Ürün stratejisini, backend altyapısını ve modern arayüzleri tek sprint akışında tasarlıyor; kurumlar için ölçeklenebilir yazılımlar üretiyoruz.",
-    stackLabel: "Kullandığımız stack",
-    workflowLabel: "Build - Test - Ship pipeline",
+    stackLabel: "Kullandığımız teknoloji yığını",
+    workflowLabel: "Geliştir - Test Et - Yayınla akışı",
     metrics: [
       { label: "Yayın Süresi", value: "< 2 hafta" },
       { label: "Ortalama Uptime", value: "99.96%" },
@@ -92,6 +106,74 @@ const STUDIO_HOME_COPY: Record<Locale, StudioHomeCopy> = {
   },
 };
 
+const PRODUCTS_HUB_COPY: Record<Locale, ProductsHubCopy> = {
+  tr: {
+    badge: "Ürün Gridi",
+    title: "Traxle Ürünleri: Fareyle Etkileşimli Kartlar",
+    intro:
+      "Her kart, imlecin hareketine canlı tepki verir. Ürüne yaklaş, kartın katmanlarını ve neon parlamasını hissederek modüle geç.",
+    openLabel: "Ürünü aç",
+    interactionTag: "Anlık Etkileşim",
+    interactionTitle: "Fare Takipli Grid Motoru",
+    interactionBody:
+      "Kartlar, farenin konumuna göre kendi perspektifini ve neon spot ışığını günceller. Böylece her geçiş canlı ve güçlü görünür.",
+    surfaceTag: "Neon Yüzey",
+    surfaceTitle: "Parlama ve Derinlik Katmanları",
+    surfaceBody:
+      "Grid zemini, hareketli ışık süzmeleri ve nabız efektleri aynı yüzeyde çalışır; sayfa statik değil, yaşayan bir vitrin hissi verir.",
+  },
+  en: {
+    badge: "Product Grid",
+    title: "Traxle Products with Mouse-Reactive Cards",
+    intro: "Each card responds to your cursor in real time with layered motion and neon glow.",
+    openLabel: "Open product",
+    interactionTag: "Realtime Interaction",
+    interactionTitle: "Mouse Tracking Grid Engine",
+    interactionBody: "Cards update perspective and spot glow from cursor position for a vivid transition effect.",
+    surfaceTag: "Neon Surface",
+    surfaceTitle: "Glow and Depth Layers",
+    surfaceBody: "Grid textures, animated light beams and pulse effects run together for a living showcase feel.",
+  },
+  de: {
+    badge: "Produkt-Grid",
+    title: "Traxle Produkte mit reaktiven Karten",
+    intro: "Jede Karte reagiert in Echtzeit auf die Maus mit Bewegung und Neon-Glow.",
+    openLabel: "Produkt öffnen",
+    interactionTag: "Live Interaktion",
+    interactionTitle: "Mausgesteuerter Grid-Motor",
+    interactionBody: "Die Karten aktualisieren Perspektive und Spot-Glow anhand der Mausposition fur einen lebendigen Effekt.",
+    surfaceTag: "Neon-Oberflache",
+    surfaceTitle: "Leuchten und Tiefenebenen",
+    surfaceBody: "Grid-Texturen, animierte Lichtbahnen und Pulseffekte erzeugen zusammen ein lebendiges Schaufenster.",
+  },
+  ru: {
+    badge: "Product Grid",
+    title: "Traxle Products with Mouse-Reactive Cards",
+    intro: "Each card responds to your cursor in real time with layered motion and neon glow.",
+    openLabel: "Open product",
+    interactionTag: "Realtime Interaction",
+    interactionTitle: "Mouse Tracking Grid Engine",
+    interactionBody: "Cards update perspective and spot glow from cursor position for a vivid transition effect.",
+    surfaceTag: "Neon Surface",
+    surfaceTitle: "Glow and Depth Layers",
+    surfaceBody: "Grid textures, animated light beams and pulse effects run together for a living showcase feel.",
+  },
+  ar: {
+    badge: "Product Grid",
+    title: "Traxle Products with Mouse-Reactive Cards",
+    intro: "Each card responds to your cursor in real time with layered motion and neon glow.",
+    openLabel: "Open product",
+    interactionTag: "Realtime Interaction",
+    interactionTitle: "Mouse Tracking Grid Engine",
+    interactionBody: "Cards update perspective and spot glow from cursor position for a vivid transition effect.",
+    surfaceTag: "Neon Surface",
+    surfaceTitle: "Glow and Depth Layers",
+    surfaceBody: "Grid textures, animated light beams and pulse effects run together for a living showcase feel.",
+  },
+};
+
+const PRODUCT_CARD_KEYS: Array<"molatik" | "kunyex" | "logistics"> = ["molatik", "kunyex", "logistics"];
+
 function PageShell({
   title,
   intro,
@@ -107,6 +189,7 @@ function PageShell({
       <div className="page-neon-beams" aria-hidden>
         <span className="page-neon-beam page-neon-beam-1" />
         <span className="page-neon-beam page-neon-beam-2" />
+        <span className="page-neon-beam page-neon-beam-3" />
       </div>
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <h1 className="max-w-4xl text-3xl font-black tracking-tight text-white sm:text-5xl">{title}</h1>
@@ -121,11 +204,11 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
   return (
     <div className="mt-10 grid gap-4 sm:gap-6 md:grid-cols-2">
       {sections.map((section) => (
-        <article key={section.title} className="neon-grid-card group rounded-3xl p-6">
+        <InteractiveGridCard key={section.title} className="neon-grid-card group rounded-3xl p-6">
           <span className="neon-grid-card__glow" aria-hidden />
           <h2 className="relative z-10 text-xl font-bold text-white">{section.title}</h2>
           <p className="relative z-10 mt-3 text-sm leading-7 text-slate-200/85">{section.body}</p>
-        </article>
+        </InteractiveGridCard>
       ))}
     </div>
   );
@@ -134,7 +217,10 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const content = CONTENT[locale].home;
   const studio = STUDIO_HOME_COPY[locale];
-  const stackItems = ["Next.js 16", "TypeScript", "Firebase", "Framer Motion", "API-first"];
+  const stackItems =
+    locale === "tr"
+      ? ["Next.js 16", "TypeScript", "Firebase", "Framer Motion", "API odaklı"]
+      : ["Next.js 16", "TypeScript", "Firebase", "Framer Motion", "API-first"];
   const openPageLabel =
     locale === "tr"
       ? "Sayfaya git"
@@ -178,9 +264,9 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {content.cards.map((card, index) => (
-            <Link key={card.title} href={localizedPath(card.key, locale)} className="studio-app-card studio-reveal group">
+            <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
               <span className="studio-card-glow" aria-hidden />
-              <div className="relative z-10 flex h-full flex-col">
+              <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
                     {card.status}
@@ -195,8 +281,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </InteractiveGridCard>
           ))}
         </div>
 
@@ -210,10 +296,11 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           </div>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {studio.metrics.map((metric) => (
-              <article key={metric.label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="font-[var(--font-mono)] text-2xl font-semibold text-cyan-100">{metric.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.16em] text-slate-300/80">{metric.label}</p>
-              </article>
+              <InteractiveGridCard key={metric.label} className="neon-grid-card rounded-2xl p-4">
+                <span className="neon-grid-card__glow" aria-hidden />
+                <p className="relative z-10 font-[var(--font-mono)] text-2xl font-semibold text-cyan-100">{metric.value}</p>
+                <p className="relative z-10 mt-2 text-xs uppercase tracking-[0.16em] text-slate-300/80">{metric.label}</p>
+              </InteractiveGridCard>
             ))}
           </div>
           <div className="mt-5 flex items-center gap-2 text-xs text-slate-300/70">
@@ -223,6 +310,64 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export function LocalizedProductsHub({ locale }: { locale: Locale }) {
+  const copy = PRODUCTS_HUB_COPY[locale];
+  const homeCards = CONTENT[locale].home.cards;
+
+  return (
+    <PageShell title={copy.title} intro={copy.intro}>
+      <span className="neon-chip mt-8 inline-flex rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wider text-cyan-100">
+        {copy.badge}
+      </span>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
+        {PRODUCT_CARD_KEYS.map((routeKey, index) => {
+          const card = homeCards.find((item) => item.key === routeKey);
+          if (!card) return null;
+
+          return (
+            <InteractiveGridCard key={card.title} className="neon-grid-card group min-h-[280px] rounded-3xl p-6">
+              <span className="neon-grid-card__glow" aria-hidden />
+              <Link href={localizedPath(routeKey, locale)} className="relative z-10 flex h-full flex-col">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex rounded-full border border-cyan-200/35 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
+                    {card.status}
+                  </span>
+                  <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+                <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-slate-200/85">{card.description}</p>
+                <div className="mt-auto flex items-end justify-between pt-8">
+                  <span className="text-sm font-semibold text-cyan-100">{copy.openLabel}</span>
+                  <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/65">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+              </Link>
+            </InteractiveGridCard>
+          );
+        })}
+      </div>
+
+      <div className="mt-8 grid gap-5 md:grid-cols-2">
+        <InteractiveGridCard className="neon-grid-card rounded-3xl p-6">
+          <span className="neon-grid-card__glow" aria-hidden />
+          <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">{copy.interactionTag}</p>
+          <h3 className="relative z-10 mt-3 text-2xl font-black text-white">{copy.interactionTitle}</h3>
+          <p className="relative z-10 mt-3 text-sm leading-7 text-slate-200/85">{copy.interactionBody}</p>
+        </InteractiveGridCard>
+
+        <InteractiveGridCard className="neon-grid-card rounded-3xl p-6">
+          <span className="neon-grid-card__glow" aria-hidden />
+          <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">{copy.surfaceTag}</p>
+          <h3 className="relative z-10 mt-3 text-2xl font-black text-white">{copy.surfaceTitle}</h3>
+          <p className="relative z-10 mt-3 text-sm leading-7 text-slate-200/85">{copy.surfaceBody}</p>
+        </InteractiveGridCard>
+      </div>
+    </PageShell>
   );
 }
 
@@ -237,13 +382,13 @@ export function LocalizedAbout({ locale }: { locale: Locale }) {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
         {content.stats.map((stat) => (
-          <div key={stat.label} className="neon-grid-card rounded-2xl p-5 text-center">
+          <InteractiveGridCard key={stat.label} className="neon-grid-card rounded-2xl p-5 text-center">
             <span className="neon-grid-card__glow" aria-hidden />
             <p className="relative z-10 text-3xl font-black text-cyan-100">{stat.value}</p>
             <p className="relative z-10 mt-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
               {stat.label}
             </p>
-          </div>
+          </InteractiveGridCard>
         ))}
       </div>
 
@@ -320,20 +465,17 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
         {copy.badge}
       </span>
 
-      <div className="neon-grid-card mt-8 rounded-3xl p-6">
+      <InteractiveGridCard className="neon-grid-card mt-8 rounded-3xl p-6">
         <span className="neon-grid-card__glow" aria-hidden />
         <div className="grid gap-4 sm:grid-cols-2">
           {copy.highlights.map((highlight, index) => (
-            <article
-              key={highlight}
-              className="neon-grid-card group rounded-2xl p-4"
-            >
+            <InteractiveGridCard key={highlight} className="neon-grid-card group rounded-2xl p-4">
               <span className="neon-grid-card__glow" aria-hidden />
               <span className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-cyan-500 text-xs font-black text-slate-950">
                 {index + 1}
               </span>
               <p className="relative z-10 mt-3 text-sm leading-7 text-slate-200/85">{highlight}</p>
-            </article>
+            </InteractiveGridCard>
           ))}
         </div>
 
@@ -396,7 +538,7 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
             </>
           )}
         </div>
-      </div>
+      </InteractiveGridCard>
     </PageShell>
   );
 }

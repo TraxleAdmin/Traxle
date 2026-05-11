@@ -4,6 +4,7 @@ import {
   LocalizedGenericPage,
   LocalizedProductPage,
   LocalizedProductPrivacy,
+  LocalizedProductsHub,
 } from "@/components/localized/LocalizedPages";
 import {
   LOCALES,
@@ -19,6 +20,7 @@ const PRODUCT_PRIVACY_ROUTE_KEYS: RouteKey[] = ["molatikPrivacy", "kunyexPrivacy
 
 function renderByRoute(routeKey: RouteKey, locale: Locale) {
   if (routeKey === "about") return <LocalizedAbout locale={locale} />;
+  if (routeKey === "products") return <LocalizedProductsHub locale={locale} />;
 
   if (PRODUCT_ROUTE_KEYS.includes(routeKey)) {
     return <LocalizedProductPage locale={locale} routeKey={routeKey} />;
