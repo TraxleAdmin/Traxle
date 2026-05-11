@@ -3250,17 +3250,27 @@ body {
 main,
 footer {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+
+.traxle-premium-landing > section,
+.traxle-premium-landing > span + span + section,
+.premium-subpage-container,
+.auth-premium-shell > *,
+.page-neon-shell > * {
+  position: relative;
+  z-index: 3;
 }
 
 .global-motion-backdrop {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   overflow: hidden;
   perspective: 980px;
-  opacity: 0.58;
+  opacity: 0.34;
+  mix-blend-mode: screen;
   contain: paint;
 }
 
@@ -3348,36 +3358,36 @@ footer {
   pointer-events: none;
   position: absolute;
   inset: -12%;
-  z-index: 0;
+  z-index: 1;
   background:
-    linear-gradient(112deg, transparent 0 18%, rgba(125, 211, 252, 0.26) 19%, transparent 20% 100%),
-    linear-gradient(112deg, transparent 0 34%, rgba(236, 254, 255, 0.18) 35%, transparent 36% 100%),
-    linear-gradient(292deg, transparent 0 24%, rgba(45, 212, 191, 0.18) 25%, transparent 26% 100%),
-    radial-gradient(circle at 52% 16%, rgba(34, 211, 238, 0.18), transparent 38%);
-  background-size: 620px 320px, 430px 260px, 520px 300px, auto;
+    linear-gradient(112deg, transparent 0 17%, rgba(186, 230, 253, 0.52) 18%, rgba(34, 211, 238, 0.3) 18.7%, transparent 20% 100%),
+    linear-gradient(112deg, transparent 0 34%, rgba(236, 254, 255, 0.36) 35%, rgba(45, 212, 191, 0.22) 35.8%, transparent 37% 100%),
+    linear-gradient(292deg, transparent 0 23%, rgba(125, 211, 252, 0.36) 24%, rgba(59, 130, 246, 0.2) 24.8%, transparent 26% 100%),
+    radial-gradient(circle at 52% 16%, rgba(34, 211, 238, 0.22), transparent 38%);
+  background-size: 460px 240px, 340px 210px, 390px 230px, auto;
   background-position: -20% -10%, 120% 4%, 40% -8%, center;
-  filter: blur(0.2px);
+  filter: blur(0.1px);
   mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 78%);
   mix-blend-mode: screen;
-  opacity: 0.46;
-  animation: shell-star-streaks 18s linear infinite;
+  opacity: 0.72;
+  animation: shell-star-streaks 8.5s linear infinite;
 }
 
 .dark :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
-  opacity: 0.68;
+  opacity: 0.88;
 }
 
 @keyframes shell-star-streaks {
   0% {
-    transform: translate3d(-4%, -2%, -80px) scale(0.98) rotateX(0deg);
-    background-position: -26% -12%, 118% 2%, 42% -8%, center;
+    transform: translate3d(-10%, -8%, -120px) scale(0.94) rotateX(0deg);
+    background-position: -38% -18%, 128% -10%, 24% -14%, center;
   }
   50% {
-    transform: translate3d(3%, 4%, 40px) scale(1.03) rotateX(3deg);
+    transform: translate3d(4%, 5%, 40px) scale(1.04) rotateX(4deg);
   }
   100% {
-    transform: translate3d(8%, 8%, 90px) scale(1.08) rotateX(0deg);
-    background-position: 112% 90%, -20% 94%, 72% 104%, center;
+    transform: translate3d(16%, 14%, 140px) scale(1.12) rotateX(0deg);
+    background-position: 126% 104%, -36% 108%, 88% 114%, center;
   }
 }
 
