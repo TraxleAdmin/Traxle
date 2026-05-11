@@ -1,182 +1,232 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
-import { FiArrowRight, FiAlertCircle, FiCheckCircle, FiChevronLeft, FiUser, FiMail } from 'react-icons/fi';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import TextShimmer from '@/components/ui/TextShimmer';
+import React, { InputHTMLAttributes, ReactNode, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import {
+  FiAlertCircle,
+  FiArrowRight,
+  FiCheckCircle,
+  FiChevronLeft,
+  FiMail,
+  FiShield,
+  FiUser,
+} from "react-icons/fi";
+import { db } from "@/lib/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import InteractiveGridCard from "@/components/ui/InteractiveGridCard";
+
+const RECOVERY_STEPS = [
+  "Kurumsal e-posta adresinizi doğrulayın.",
+  "Talebiniz güvenlik kuyruğuna alınır.",
+  "Bağlantı e-posta kutunuza otomatik gönderilir.",
+];
 
 export default function ForgotPasswordPage() {
-    const [email, setEmail] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [showForgotIdModal, setShowForgotIdModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showForgotIdModal, setShowForgotIdModal] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!email) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
 
-        setIsLoading(true);
-        setStatus('idle');
-        setErrorMessage('');
+    setIsLoading(true);
+    setStatus("idle");
+    setErrorMessage("");
 
-        try {
-            // 🔥 MİMARİ DEVRİM (B PLANI): Firebase Auth hatasını by-pass ediyoruz!
-            // Şifre sıfırlama talebini doğrudan Firestore'a yazıyoruz.
-            await addDoc(collection(db, "password_resets"), {
-                email: email.toLowerCase().trim(),
-                createdAt: serverTimestamp(),
-                source: "frontend_bypass"
-            });
+    try {
+      await addDoc(collection(db, "password_resets"), {
+        email: email.toLowerCase().trim(),
+        createdAt: serverTimestamp(),
+        source: "frontend_bypass",
+      });
 
-            setStatus('success');
-        } catch (error: any) {
-            console.error("Şifre Sıfırlama İsteği Hatası:", error);
-            setStatus('error');
-            setErrorMessage("Bir ağ hatası oluştu. Lütfen tekrar deneyin.");
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      setStatus("success");
+    } catch (error) {
+      console.error("Şifre sıfırlama isteği hatası:", error);
+      setStatus("error");
+      setErrorMessage("İstek gönderilirken ağ hatası oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    return (
-        <div className="min-h-screen flex bg-white dark:bg-[#050814] transition-colors duration-500 font-sans selection:bg-blue-500/30">
+  return (
+    <div className="page-neon-shell auth-premium-shell relative min-h-screen overflow-hidden text-slate-100">
+      <div className="page-neon-grid" aria-hidden />
+      <div className="page-neon-beams" aria-hidden>
+        <span className="page-neon-beam page-neon-beam-1" />
+        <span className="page-neon-beam page-neon-beam-2" />
+        <span className="page-neon-beam page-neon-beam-3" />
+      </div>
 
-            {/* SOL TARAF */}
-            <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden transition-colors duration-500 bg-gray-50 dark:bg-black">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center opacity-5 dark:opacity-30 mix-blend-overlay transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-blue-500/5 to-transparent dark:from-black dark:via-blue-900/20 dark:to-black/60 transition-colors duration-500" />
-
-                <div className="relative z-10 px-12 max-w-2xl text-center lg:text-left">
-                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-yellow-500/30 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-xs font-bold mb-6 backdrop-blur-md">
-                            GÜVENLİK MERKEZİ
-                        </div>
-                        <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight transition-colors duration-500">
-                            Hesabınızı <br /><TextShimmer>Güvende</TextShimmer> Tutun.
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed transition-colors duration-500">
-                            Şifrenizi unuttuysanız endişelenmeyin. Birkaç adımda hesabınıza yeniden erişim sağlayabilirsiniz.
-                        </p>
-                    </motion.div>
-                </div>
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1420px] flex-col px-4 pb-10 pt-24 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-10 lg:pt-20">
+        <section className="flex w-full items-center pb-10 lg:w-[56%] lg:pb-0">
+          <div className="w-full">
+            <div className="auth-kicker">
+              <FiShield />
+              Güvenlik ve Hesap Kurtarma
             </div>
+            <h1 className="neon-heading mt-6 max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Erişimi Hızla Geri Kazanın
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200/85 sm:text-lg">
+              Kurumsal hesap güvenliğini bozmadan parola yenileme talebinizi alın, doğrulama adımlarıyla hesabınızı
+              tekrar aktif edin.
+            </p>
 
-            {/* SAĞ TARAF */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center p-6 sm:p-12 relative bg-white dark:bg-[#050814]">
-                <div className="w-full max-w-[450px] mx-auto">
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-
-                        <div className="mb-8">
-                            <Link href="/giris" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-black dark:hover:text-white mb-6 transition-colors group">
-                                <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" /> GİRİŞE DÖN
-                            </Link>
-                            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">Hesap Kurtarma</h1>
-                            <p className="text-gray-500 dark:text-gray-400">Sisteme kayıtlı E-posta adresinizi girin.</p>
-                        </div>
-
-                        {status === 'success' ? (
-                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-500/20 rounded-2xl p-8 text-center">
-                                <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-lg shadow-green-500/20">
-                                    <FiCheckCircle />
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">İşlem Tamamlandı</h3>
-                                <p className="text-sm text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                                    Eğer sistemimizde <span className="font-bold text-gray-900 dark:text-white">{email}</span> adresine ait bir hesap bulunuyorsa, şifre sıfırlama bağlantısı gönderilmiştir. Lütfen gelen kutunuzu (ve spam klasörünü) kontrol edin.
-                                </p>
-                                <Link href="/giris" className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-green-500/30 active:scale-95">
-                                    Giriş Yap
-                                </Link>
-                            </motion.div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="space-y-2">
-                                    <PremiumInput
-                                        icon={<FiMail />}
-                                        type="email"
-                                        placeholder="Kayıtlı e-posta adresiniz"
-                                        value={email}
-                                        onChange={(e: any) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
-
-                                {status === 'error' && (
-                                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="p-4 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-500/20 rounded-xl flex items-start gap-3 text-sm text-red-600 dark:text-red-400 font-medium">
-                                        <FiAlertCircle className="text-lg shrink-0 mt-0.5" />
-                                        <p>{errorMessage}</p>
-                                    </motion.div>
-                                )}
-
-                                <button
-                                    type="submit"
-                                    disabled={isLoading || !email}
-                                    className="w-full bg-black dark:bg-white text-white dark:text-black font-bold py-4 rounded-2xl shadow-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white dark:border-black/30 dark:border-t-black rounded-full animate-spin"></div> : <>Bağlantı Gönder <FiArrowRight /></>}
-                                </button>
-
-                                <div className="pt-6 border-t border-gray-200 dark:border-white/10 text-center">
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowForgotIdModal(true)}
-                                        className="text-sm font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                    >
-                                        Hiçbir bilgimi hatırlamıyorum
-                                    </button>
-                                </div>
-                            </form>
-                        )}
-                    </motion.div>
-                </div>
+            <div className="mt-8 space-y-3">
+              {RECOVERY_STEPS.map((step, index) => (
+                <InteractiveGridCard key={step} className="neon-grid-card rounded-2xl p-4" intensity={6}>
+                  <span className="neon-grid-card__glow" aria-hidden />
+                  <div className="relative z-10 flex items-start gap-3">
+                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-xs font-black text-slate-950">
+                      {index + 1}
+                    </span>
+                    <p className="pt-0.5 text-sm leading-7 text-slate-200/85">{step}</p>
+                  </div>
+                </InteractiveGridCard>
+              ))}
             </div>
+          </div>
+        </section>
 
-            {/* KİMLİĞİMİ UNUTTUM MODALI */}
-            <AnimatePresence>
-                {showForgotIdModal && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                        <motion.div
-                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            onClick={() => setShowForgotIdModal(false)}
-                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                        />
-                        <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            className="relative bg-white dark:bg-[#1A1A1A] w-full max-w-md p-8 rounded-[32px] shadow-2xl text-center border border-gray-200 dark:border-white/10"
-                        >
-                            <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-                                <FiUser />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Hesabınızı Kurtaralım</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                                Güvenlik politikalarımız gereği, e-posta veya telefon numaranızı tamamen unuttuysanız manuel doğrulama yapmamız gerekmektedir. Lütfen destek ekibimize ulaşın.
-                            </p>
-                            <div className="space-y-3">
-                                <Link href="/iletisim" className="block w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-lg shadow-blue-500/30 active:scale-95">
-                                    Destek Talebi Oluştur
-                                </Link>
-                                <button onClick={() => setShowForgotIdModal(false)} className="block w-full py-4 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white font-bold rounded-xl transition-colors">
-                                    Geri Dön
-                                </button>
-                            </div>
-                        </motion.div>
+        <section className="flex w-full items-center justify-center lg:w-[44%]">
+          <InteractiveGridCard className="neon-grid-card w-full max-w-xl rounded-[2rem] p-6 sm:p-8" intensity={5}>
+            <span className="neon-grid-card__glow" aria-hidden />
+            <div className="relative z-10">
+              <Link href="/giris" className="auth-back-link">
+                <FiChevronLeft />
+                Girişe dön
+              </Link>
+
+              <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100/90">Password Recovery</p>
+              <h2 className="mt-3 text-3xl font-black text-white">Hesap Kurtarma</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-300">Sisteme kayıtlı e-posta adresinizi girin, kurtarma akışını başlatalım.</p>
+
+              {status === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="mt-7 rounded-2xl border border-emerald-400/30 bg-emerald-500/12 p-6"
+                >
+                  <div className="flex items-start gap-3">
+                    <FiCheckCircle className="mt-0.5 shrink-0 text-xl text-emerald-300" />
+                    <div>
+                      <p className="font-semibold text-emerald-200">Talebiniz alındı</p>
+                      <p className="mt-2 text-sm leading-7 text-emerald-100/90">
+                        Eğer sistemimizde <span className="font-semibold">{email}</span> adresine ait bir hesap varsa
+                        sıfırlama bağlantısı kısa süre içinde iletilecektir.
+                      </p>
                     </div>
-                )}
-            </AnimatePresence>
-        </div>
-    );
+                  </div>
+                  <Link href="/giris" className="auth-primary-button mt-6">
+                    Girişe dön
+                    <FiArrowRight />
+                  </Link>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+                  <div>
+                    <label className="auth-label" htmlFor="email">
+                      Kurumsal E-posta
+                    </label>
+                    <AuthInputField
+                      id="email"
+                      icon={<FiMail />}
+                      type="email"
+                      placeholder="ornek@firma.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {status === "error" ? (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="auth-error-box"
+                    >
+                      <FiAlertCircle className="mt-0.5 shrink-0 text-base" />
+                      <span>{errorMessage}</span>
+                    </motion.div>
+                  ) : null}
+
+                  <button type="submit" disabled={isLoading || !email} className="auth-primary-button">
+                    {isLoading ? (
+                      <span className="auth-spinner" />
+                    ) : (
+                      <>
+                        Bağlantı Gönder
+                        <FiArrowRight />
+                      </>
+                    )}
+                  </button>
+
+                  <div className="pt-2 text-center">
+                    <button type="button" onClick={() => setShowForgotIdModal(true)} className="auth-link">
+                      Hiçbir bilgimi hatırlamıyorum
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </InteractiveGridCard>
+        </section>
+      </div>
+
+      <AnimatePresence>
+        {showForgotIdModal ? (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowForgotIdModal(false)}
+              className="absolute inset-0 bg-slate-950/70 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0, y: 16 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: 16 }}
+              className="relative w-full max-w-md rounded-[2rem] border border-cyan-200/20 bg-slate-950/92 p-7 shadow-[0_26px_80px_rgba(2,8,23,0.7)]"
+            >
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-cyan-500/20 text-xl text-cyan-200">
+                <FiUser />
+              </div>
+              <h3 className="mt-4 text-2xl font-black text-white">Manuel Doğrulama</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-300">
+                E-posta veya telefon bilgilerinizi hatırlamıyorsanız güvenlik politikası gereği manuel doğrulama
+                gerekiyor. Destek ekibimiz kimlik doğrulama adımlarında size eşlik eder.
+              </p>
+              <div className="mt-6 space-y-3">
+                <Link href="/iletisim" className="auth-primary-button">
+                  Destek Talebi Oluştur
+                  <FiArrowRight />
+                </Link>
+                <button onClick={() => setShowForgotIdModal(false)} className="auth-secondary-button w-full">
+                  Geri Dön
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        ) : null}
+      </AnimatePresence>
+    </div>
+  );
 }
 
-function PremiumInput({ icon, error, ...props }: any) {
-    return (
-        <div className="relative group">
-            <div className={`absolute left-4 top-1/2 -translate-y-1/2 text-xl transition-colors ${error ? 'text-red-500' : 'text-gray-400 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400'}`}>{icon}</div>
-            <input className={`w-full bg-white dark:bg-white/5 border-2 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none transition-all font-medium ${error ? 'border-red-500 focus:border-red-500' : 'border-gray-100 dark:border-white/10 focus:border-blue-500 dark:focus:border-blue-400 shadow-sm focus:shadow-blue-500/10'}`} {...props} />
-        </div>
-    );
+function AuthInputField({ icon, ...props }: InputHTMLAttributes<HTMLInputElement> & { icon: ReactNode }) {
+  return (
+    <div className="relative group">
+      <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400 transition-colors group-focus-within:text-cyan-200">
+        {icon}
+      </div>
+      <input {...props} className={`auth-input ${props.className || ""}`} />
+    </div>
+  );
 }
