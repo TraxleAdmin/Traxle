@@ -1,83 +1,44 @@
-import Link from "next/link";
+import type { CSSProperties } from "react";
 import { FaFileCode, FaWindows } from "react-icons/fa";
-import { FiArrowUpRight, FiDatabase } from "react-icons/fi";
+import { FiArrowUpRight, FiDatabase, FiRefreshCw } from "react-icons/fi";
+import PremiumUtilityPage from "@/components/PremiumUtilityPage";
+
+const tone = { "--tone-a": "#22d3ee", "--tone-b": "#2563eb", "--tone-c": "#38bdf8" } as CSSProperties;
 
 export default function UpdateHubPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 px-4 pt-28 pb-20 text-gray-900 transition-colors dark:bg-[#050814] dark:text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(6,182,212,0.15),transparent_45%)]" />
-
-      <div className="relative mx-auto w-full max-w-6xl">
-        <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-300">
-          Guncelleme Merkezi
-        </span>
-
-        <h1 className="mt-5 text-4xl font-black tracking-tight sm:text-5xl">
-          KunyeX ve BarkodX teknik dagitim sayfalari
-        </h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-gray-600 dark:text-gray-300">
-          Bu merkezden KunyeX istemci guncellemesini manuel indirebilir, BarkodX DataTransfer adimlarini takip
-          edebilir ve operasyonel gecis surecinizi standartlastirabilirsiniz.
-        </p>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <article className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04]">
-            <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">
-              KunyeX Update
-            </p>
-            <h2 className="mt-2 text-2xl font-black">Manuel Guncelleme Paketi</h2>
-            <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">
-              Otomatik update kapaliysa veya kontrollu dagitim gerekiyorsa, manifest ve EXE dosyalarina bu sayfadan
-              dogrudan erisebilirsiniz.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/guncelleme/kunyex"
-                className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-              >
-                <FaWindows />
-                KunyeX guncelleme sayfasina git
-              </Link>
-              <Link
-                href="https://traxleapp.com/guncelleme/kunyex-latest.json"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:border-gray-400 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:border-white/40"
-              >
-                <FaFileCode />
-                JSON manifest
-              </Link>
-            </div>
-          </article>
-
-          <article className="rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04]">
-            <p className="text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
-              BarkodX DataTransfer
-            </p>
-            <h2 className="mt-2 text-2xl font-black">Veri Tasima ve Dogrulama</h2>
-            <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">
-              Cihaz degisimi senaryolarinda BarkodX veri transferini adim adim yonetmek ve gecis riskini azaltmak icin
-              detayli kontrol sayfasini kullanin.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/barkodx/uygulamalar/guncelleme"
-                className="inline-flex items-center gap-2 rounded-full bg-cyan-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-700"
-              >
-                <FiDatabase />
-                BarkodX uygulama guncelleme
-              </Link>
-              <Link
-                href="/guncelleme/barkodx-datatransfer"
-                className="inline-flex items-center gap-2 rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-800 transition hover:border-cyan-400 dark:border-cyan-400/40 dark:bg-cyan-400/10 dark:text-cyan-200"
-              >
-                DataTransfer detaylari
-                <FiArrowUpRight />
-              </Link>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
+    <PremiumUtilityPage
+      tone={tone}
+      eyebrow="TRAXLE Güncelleme Merkezi"
+      title="Dağıtım, manifest ve veri transfer akışları tek merkezde."
+      intro="KunyeX istemci güncellemeleri, BarkodX DataTransfer adımları ve saha dağıtım kaynakları için kontrollü operasyon sayfası."
+      icon={FiRefreshCw}
+      visualTitle="Teknik dağıtım kontrolü"
+      visualRows={["KunyeX manifest doğrulaması", "BarkodX veri transfer akışı", "Saha kurulum kontrol listesi"]}
+      primaryAction={{ href: "/guncelleme/kunyex", label: "KunyeX paketini aç", icon: <FaWindows /> }}
+      secondaryAction={{ href: "/barkodx/uygulamalar/guncelleme", label: "BarkodX dağıtımını aç", icon: <FiDatabase /> }}
+      cards={[
+        {
+          eyebrow: "KunyeX Update",
+          title: "Manuel güncelleme paketi",
+          body: "Otomatik update kapalıysa veya kontrollü dağıtım gerekiyorsa manifest ve EXE kaynaklarına buradan erişilir.",
+          actions: [
+            { href: "/guncelleme/kunyex", label: "Güncelleme sayfası", icon: <FaWindows /> },
+            { href: "https://traxleapp.com/guncelleme/kunyex-latest.json", label: "JSON manifest", icon: <FaFileCode />, external: true, muted: true },
+          ],
+        },
+        {
+          eyebrow: "BarkodX DataTransfer",
+          title: "Veri taşıma ve doğrulama",
+          body: "Cihaz değişimi senaryolarında veri kaybını azaltmak için BarkodX aktarım akışını standartlaştırır.",
+          actions: [
+            { href: "/barkodx/uygulamalar/guncelleme", label: "BarkodX uygulamaları", icon: <FiDatabase /> },
+            { href: "/guncelleme/barkodx-datatransfer", label: "DataTransfer detayları", icon: <FiArrowUpRight />, muted: true },
+          ],
+        },
+      ]}
+      footerTitle="Güncelleme operasyonunu kontrollü ilerlet."
+      footerBody="Manifest, kurulum ve transfer adımlarını aynı tasarım diliyle tek merkezden yönetin."
+    />
   );
 }
