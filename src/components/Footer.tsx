@@ -16,24 +16,24 @@ export default function Footer() {
   if (isPanelPath(pathname)) return null;
 
   return (
-    <footer className="border-t border-gray-200 bg-gray-50 pt-20 pb-10 text-gray-800 transition-colors dark:border-white/10 dark:bg-[#050814] dark:text-gray-100">
+    <footer className="border-t border-slate-200 bg-slate-50 pt-20 pb-10 text-slate-800 transition-colors dark:border-white/10 dark:bg-[#030712] dark:text-slate-100">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-4">
         <div className="space-y-5 md:col-span-2">
           <Link href={`/${locale}`} className="relative block h-10 w-40">
             <Image src="/logo.png" alt="Traxle" fill className="object-contain object-left" />
           </Link>
-          <p className="max-w-md text-sm leading-7 text-gray-600 dark:text-gray-300">{ui.footer.description}</p>
+          <p className="max-w-md text-sm leading-7 text-slate-600 dark:text-slate-300">{ui.footer.description}</p>
           <div className="flex gap-3">
             <Link
               href="#"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 transition hover:text-blue-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-950 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
               aria-label="LinkedIn"
             >
               <FiLinkedin />
             </Link>
             <Link
               href="#"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 transition hover:text-pink-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:text-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-950 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
               aria-label="Instagram"
             >
               <FiInstagram />
@@ -42,10 +42,10 @@ export default function Footer() {
         </div>
 
         <div>
-          <h5 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-900 dark:text-white">
+          <h5 className="mb-4 text-sm font-bold uppercase tracking-wide text-slate-950 dark:text-white">
             {ui.footer.ecosystem}
           </h5>
-          <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+          <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li>
               <Link href={localizedPath("kunyex", locale)} className="transition hover:text-blue-600 dark:hover:text-white">
                 KunyeX
@@ -70,10 +70,10 @@ export default function Footer() {
         </div>
 
         <div>
-          <h5 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-900 dark:text-white">
+          <h5 className="mb-4 text-sm font-bold uppercase tracking-wide text-slate-950 dark:text-white">
             {ui.footer.company}
           </h5>
-          <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+          <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li>
               <Link href={localizedPath("about", locale)} className="transition hover:text-blue-600 dark:hover:text-white">
                 {ui.about.badge}
@@ -98,7 +98,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 flex w-full max-w-7xl flex-col items-start justify-between gap-4 border-t border-gray-200 px-4 pt-6 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400 sm:px-6 md:flex-row md:items-center">
+      <div className="mx-auto mt-10 flex w-full max-w-7xl flex-col items-start justify-between gap-4 border-t border-slate-200 px-4 pt-6 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400 sm:px-6 md:flex-row md:items-center">
         <p>{ui.footer.copyright}</p>
         <div className="flex flex-wrap gap-4">
           <Link href={localizedPath("privacy", locale)} className="transition hover:text-blue-600 dark:hover:text-white">

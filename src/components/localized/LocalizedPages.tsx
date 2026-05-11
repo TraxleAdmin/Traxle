@@ -5,27 +5,15 @@ import { Locale, RouteKey, localizedPath, localizedPathForProductPrivacy } from 
 import { FaApple, FaGooglePlay, FaWindows } from "react-icons/fa";
 import {
   FiArrowUpRight,
-  FiCode,
-  FiDatabase,
   FiDownloadCloud,
-  FiLayers,
   FiShield,
-  FiTerminal,
 } from "react-icons/fi";
 import InteractiveGridCard from "@/components/ui/InteractiveGridCard";
 import InteractivePageSurface from "@/components/ui/InteractivePageSurface";
+import PremiumLandingPage from "@/components/localized/PremiumLandingPage";
 
 const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
 const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
-
-interface StudioHomeCopy {
-  badge: string;
-  title: string;
-  intro: string;
-  stackLabel: string;
-  workflowLabel: string;
-  metrics: { label: string; value: string }[];
-}
 
 interface ProductsHubCopy {
   badge: string;
@@ -39,74 +27,6 @@ interface ProductsHubCopy {
   surfaceTitle: string;
   surfaceBody: string;
 }
-
-const STUDIO_HOME_COPY: Record<Locale, StudioHomeCopy> = {
-  tr: {
-    badge: "Yazılım Stüdyosu",
-    title: "Kod, Altyapı ve Operasyonları Tek Üründe Birleştiren Mühendislik Ekibi",
-    intro:
-      "Ürün stratejisini, backend altyapısını ve modern arayüzleri tek sprint akışında tasarlıyor; kurumlar için ölçeklenebilir yazılımlar üretiyoruz.",
-    stackLabel: "Kullandığımız teknoloji yığını",
-    workflowLabel: "Geliştir - Test Et - Yayınla akışı",
-    metrics: [
-      { label: "Yayın Süresi", value: "< 2 hafta" },
-      { label: "Ortalama Uptime", value: "99.96%" },
-      { label: "Aktif Modüller", value: "12+" },
-    ],
-  },
-  en: {
-    badge: "Software Studio",
-    title: "Engineering Team Turning Code, Infrastructure and Operations into One Product",
-    intro:
-      "We align product strategy, backend architecture and modern interfaces in one sprint rhythm to ship scalable software for enterprise teams.",
-    stackLabel: "Core stack",
-    workflowLabel: "Build - Test - Ship pipeline",
-    metrics: [
-      { label: "Release cycle", value: "< 2 weeks" },
-      { label: "Average uptime", value: "99.96%" },
-      { label: "Active modules", value: "12+" },
-    ],
-  },
-  de: {
-    badge: "Software Studio",
-    title: "Ein Engineering-Team, das Code, Infrastruktur und Betrieb in ein Produkt verwandelt",
-    intro:
-      "Wir verbinden Produktstrategie, Backend-Architektur und moderne Interfaces in einem Sprint-Rhythmus fur skalierbare Unternehmenssoftware.",
-    stackLabel: "Kern-Stack",
-    workflowLabel: "Build - Test - Ship pipeline",
-    metrics: [
-      { label: "Release-Zyklus", value: "< 2 Wochen" },
-      { label: "Durchschnitt Uptime", value: "99.96%" },
-      { label: "Aktive Module", value: "12+" },
-    ],
-  },
-  ru: {
-    badge: "Software Studio",
-    title: "Engineering Team Turning Code, Infrastructure and Operations into One Product",
-    intro:
-      "We align product strategy, backend architecture and modern interfaces in one sprint rhythm to ship scalable software for enterprise teams.",
-    stackLabel: "Core stack",
-    workflowLabel: "Build - Test - Ship pipeline",
-    metrics: [
-      { label: "Release cycle", value: "< 2 weeks" },
-      { label: "Average uptime", value: "99.96%" },
-      { label: "Active modules", value: "12+" },
-    ],
-  },
-  ar: {
-    badge: "Software Studio",
-    title: "Engineering Team Turning Code, Infrastructure and Operations into One Product",
-    intro:
-      "We align product strategy, backend architecture and modern interfaces in one sprint rhythm to ship scalable software for enterprise teams.",
-    stackLabel: "Core stack",
-    workflowLabel: "Build - Test - Ship pipeline",
-    metrics: [
-      { label: "Release cycle", value: "< 2 weeks" },
-      { label: "Average uptime", value: "99.96%" },
-      { label: "Active modules", value: "12+" },
-    ],
-  },
-};
 
 const PRODUCTS_HUB_COPY: Record<Locale, ProductsHubCopy> = {
   tr: {
@@ -258,108 +178,7 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
 }
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
-  const content = CONTENT[locale].home;
-  const studio = STUDIO_HOME_COPY[locale];
-  const stackItems =
-    locale === "tr"
-      ? ["Next.js 16", "TypeScript", "Firebase", "Framer Motion", "API odaklı"]
-      : ["Next.js 16", "TypeScript", "Firebase", "Framer Motion", "API-first"];
-  const openPageLabel =
-    locale === "tr"
-      ? "Sayfaya git"
-      : locale === "de"
-        ? "Seite öffnen"
-        : "Open page";
-
-  return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050814] pb-20 pt-28 text-slate-100">
-      <div className="studio-grid-overlay" aria-hidden />
-      <div className="studio-lightfield" aria-hidden>
-        <span className="studio-beam studio-beam-1" />
-        <span className="studio-beam studio-beam-2" />
-        <span className="studio-beam studio-beam-3" />
-      </div>
-
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <InteractivePageSurface className="rounded-[2rem] px-5 py-7 sm:px-8 sm:py-10">
-          <div className="studio-reveal max-w-4xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
-              <FiCode />
-              {studio.badge}
-            </span>
-            <h1 className="neon-heading mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">{studio.title}</h1>
-            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-200/85 sm:text-lg">{studio.intro}</p>
-          </div>
-
-          <div className="studio-reveal mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "160ms" }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-100">
-              <FiTerminal />
-              {studio.stackLabel}
-            </span>
-            {stackItems.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-slate-200/90"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {content.cards.map((card, index) => {
-              const productKey = card.key as ProductVisualKey;
-              return (
-                <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
-                  <span className="studio-card-glow" aria-hidden />
-                  <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
-                    <div className="flex items-center justify-between">
-                      <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
-                        {card.status}
-                      </span>
-                      <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                    <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
-                    <p className="mt-3 text-sm leading-7 text-slate-200/80">{card.description}</p>
-                    <ProductMockup3D product={productKey} />
-                    <div className="mt-auto flex items-end justify-between pt-7">
-                      <span className="text-sm font-semibold text-cyan-100">{openPageLabel}</span>
-                      <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/60">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                  </Link>
-                </InteractiveGridCard>
-              );
-            })}
-          </div>
-
-          <div
-            className="studio-reveal mt-10 rounded-3xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-xl"
-            style={{ animationDelay: "260ms" }}
-          >
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200/80">
-              <FiLayers />
-              {studio.workflowLabel}
-            </div>
-            <div className="mt-5 grid gap-4 md:grid-cols-3">
-              {studio.metrics.map((metric) => (
-                <InteractiveGridCard key={metric.label} className="neon-grid-card rounded-2xl p-4">
-                  <span className="neon-grid-card__glow" aria-hidden />
-                  <p className="relative z-10 font-[var(--font-mono)] text-2xl font-semibold text-cyan-100">{metric.value}</p>
-                  <p className="relative z-10 mt-2 text-xs uppercase tracking-[0.16em] text-slate-300/80">{metric.label}</p>
-                </InteractiveGridCard>
-              ))}
-            </div>
-            <div className="mt-5 flex items-center gap-2 text-xs text-slate-300/70">
-              <FiDatabase />
-              <span>{content.badge}</span>
-            </div>
-          </div>
-        </InteractivePageSurface>
-      </div>
-    </div>
-  );
+  return <PremiumLandingPage locale={locale} />;
 }
 
 export function LocalizedProductsHub({ locale }: { locale: Locale }) {
