@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { FiChevronDown, FiGlobe } from "react-icons/fi";
 import { CONTENT } from "@/lib/i18n/content";
 import {
@@ -25,10 +25,6 @@ export default function LanguageSwitcher() {
   const pathname = usePathname() ?? "/";
   const { locale, routeKey } = resolveRoute(pathname);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   const current = LOCALE_META[locale];
   const text = CONTENT[locale].nav;

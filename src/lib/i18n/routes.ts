@@ -54,6 +54,14 @@ const LOCALIZED_PRIVACY_SEGMENT: Record<Locale, string> = {
   ar: "alkhususia",
 };
 
+const LOCALIZED_PRODUCTS_SEGMENT: Record<Locale, string> = {
+  tr: "urunler",
+  en: "products",
+  de: "produkte",
+  ru: "produkty",
+  ar: "almuntajat",
+};
+
 export const ROUTE_SLUGS: Record<RouteKey, Record<Locale, string[]>> = {
   home: { tr: [], en: [], de: [], ru: [], ar: [] },
   features: {
@@ -155,32 +163,32 @@ export const ROUTE_SLUGS: Record<RouteKey, Record<Locale, string[]>> = {
     ar: ["namudhaj-almaelumaat-almusbaqa"],
   },
   products: {
-    tr: ["urunler"],
-    en: ["products"],
-    de: ["produkte"],
-    ru: ["products"],
-    ar: ["products"],
+    tr: [LOCALIZED_PRODUCTS_SEGMENT.tr],
+    en: [LOCALIZED_PRODUCTS_SEGMENT.en],
+    de: [LOCALIZED_PRODUCTS_SEGMENT.de],
+    ru: [LOCALIZED_PRODUCTS_SEGMENT.ru],
+    ar: [LOCALIZED_PRODUCTS_SEGMENT.ar],
   },
   molatik: {
-    tr: ["products", "molatik"],
-    en: ["products", "molatik"],
-    de: ["products", "molatik"],
-    ru: ["products", "molatik"],
-    ar: ["products", "molatik"],
+    tr: [LOCALIZED_PRODUCTS_SEGMENT.tr, "molatik"],
+    en: [LOCALIZED_PRODUCTS_SEGMENT.en, "molatik"],
+    de: [LOCALIZED_PRODUCTS_SEGMENT.de, "molatik"],
+    ru: [LOCALIZED_PRODUCTS_SEGMENT.ru, "molatik"],
+    ar: [LOCALIZED_PRODUCTS_SEGMENT.ar, "molatik"],
   },
   kunyex: {
-    tr: ["products", "kunyex"],
-    en: ["products", "kunyex"],
-    de: ["products", "kunyex"],
-    ru: ["products", "kunyex"],
-    ar: ["products", "kunyex"],
+    tr: [LOCALIZED_PRODUCTS_SEGMENT.tr, "kunyex"],
+    en: [LOCALIZED_PRODUCTS_SEGMENT.en, "kunyex"],
+    de: [LOCALIZED_PRODUCTS_SEGMENT.de, "kunyex"],
+    ru: [LOCALIZED_PRODUCTS_SEGMENT.ru, "kunyex"],
+    ar: [LOCALIZED_PRODUCTS_SEGMENT.ar, "kunyex"],
   },
   logistics: {
-    tr: ["products", "logistics"],
-    en: ["products", "logistics"],
-    de: ["products", "logistics"],
-    ru: ["products", "logistics"],
-    ar: ["products", "logistics"],
+    tr: [LOCALIZED_PRODUCTS_SEGMENT.tr, "logistics"],
+    en: [LOCALIZED_PRODUCTS_SEGMENT.en, "logistics"],
+    de: [LOCALIZED_PRODUCTS_SEGMENT.de, "logistics"],
+    ru: [LOCALIZED_PRODUCTS_SEGMENT.ru, "logistics"],
+    ar: [LOCALIZED_PRODUCTS_SEGMENT.ar, "logistics"],
   },
   molatikPrivacy: {
     tr: ["molatik", LOCALIZED_PRIVACY_SEGMENT.tr],
@@ -252,6 +260,10 @@ export function isPanelPath(pathname: string): boolean {
 }
 
 export function replaceLocaleInPath(pathname: string, locale: Locale): string {
+  const currentLocale = detectLocale(pathname);
+  const routeKey = matchRouteKey(currentLocale, pathWithoutLocale(pathname));
+  if (routeKey) return localizedPath(routeKey, locale);
+
   const segments = splitPath(pathname);
   if (segments.length === 0) return `/${locale}`;
   if (isLocale(segments[0])) {
