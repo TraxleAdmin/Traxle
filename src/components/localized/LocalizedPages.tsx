@@ -1,8 +1,9 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { CONTENT, PageCopy, ProductCopy } from "@/lib/i18n/content";
 import { Locale, RouteKey, localizedPath, localizedPathForProductPrivacy } from "@/lib/i18n/routes";
 import { FaApple, FaGooglePlay, FaWindows } from "react-icons/fa";
 import { FiShield, FiDownloadCloud } from "react-icons/fi";
+import LocalizedHomeExperience from "@/components/localized/LocalizedHomeExperience";
 
 const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
 const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
@@ -45,43 +46,7 @@ function SectionList({ sections }: { sections: PageCopy["sections"] }) {
 }
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
-  const content = CONTENT[locale].home;
-  const openPageLabel =
-    locale === "tr"
-      ? "Sayfaya git"
-      : locale === "de"
-        ? "Seite offnen"
-        : locale === "ru"
-          ? "Открыть страницу"
-          : locale === "ar"
-            ? "افتح الصفحة"
-            : "Open page";
-
-  return (
-    <PageShell title={content.title} intro={content.intro}>
-      <span className="mt-8 inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-300">
-        {content.badge}
-      </span>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-3">
-        {content.cards.map((card) => (
-          <Link
-            key={card.title}
-            href={localizedPath(card.key, locale)}
-            className="group relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-white/[0.04]"
-          >
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.14),transparent_55%)]" />
-            <p className="text-xs font-bold uppercase tracking-wide text-blue-600 dark:text-blue-300">{card.status}</p>
-            <h2 className="mt-3 text-2xl font-black tracking-tight">{card.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{card.description}</p>
-            <span className="mt-5 inline-block text-sm font-semibold text-blue-700 transition group-hover:text-blue-800 dark:text-blue-300 dark:group-hover:text-blue-200">
-              {openPageLabel}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </PageShell>
-  );
+  return <LocalizedHomeExperience locale={locale} content={CONTENT[locale]} />;
 }
 
 export function LocalizedAbout({ locale }: { locale: Locale }) {
@@ -146,9 +111,9 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
         ? {
             barkodx: "BarkodX im App Store laden",
             kunyexManual: "KunyeX Manuelles Update",
-            barkodxTransfer: "BarkodX Datenubertragung",
+            barkodxTransfer: "BarkodX Datenübertragung",
             molatikIos: "Molatik iOS Download",
-            molatikPlay: "Molatik Google Play - Demnachst",
+            molatikPlay: "Molatik Google Play - Demnächst",
           }
         : locale === "ru"
           ? {
@@ -156,12 +121,12 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
               kunyexManual: "Ручное обновление KunyeX",
               barkodxTransfer: "BarkodX DataTransfer",
               molatikIos: "Скачать Molatik для iOS",
-              molatikPlay: "Molatik в Google Play - Скоро",
+              molatikPlay: "Molatik в Google Play - скоро",
             }
           : locale === "ar"
             ? {
                 barkodx: "تنزيل BarkodX من App Store",
-                kunyexManual: "تحديث KunyeX اليدوي",
+                kunyexManual: "التحديث اليدوي لـ KunyeX",
                 barkodxTransfer: "نقل بيانات BarkodX",
                 molatikIos: "تنزيل Molatik لنظام iOS",
                 molatikPlay: "Molatik على Google Play - قريباً",
@@ -283,3 +248,4 @@ export function LocalizedGenericPage({ locale, routeKey }: { locale: Locale; rou
     </PageShell>
   );
 }
+

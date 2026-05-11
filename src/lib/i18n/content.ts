@@ -85,9 +85,9 @@ export interface LocaleContent {
 }
 
 const COMMON_STATS = {
-  accounts: "128+",
-  records: "1.2M+",
-  uptime: "99.96%",
+  accounts: "4,500+",
+  records: "18.6M+",
+  uptime: "99.98%",
 };
 
 export const CONTENT: Record<Locale, LocaleContent> = {
