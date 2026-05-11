@@ -1,27 +1,23 @@
 {
   "product": "KunyeX",
-  "version": "2.3",
+  "version": "2.4",
   "fileName": "KunyeX_Master_Client.exe",
-  "sizeBytes": 104830373,
+  "sizeBytes": 104831383,
   "sizeLabel": "99.97 MiB",
-  "sha256": "8A9E8549E32A2DEB951892161FCDFC4E58ED1B5B6CA9D6A8608971D1D72793C5",
+  "sha256": "E99BB7EDAD20D5DA30593566DD2A45BE6F8D7B94544C7FCAF61AF8993F406C7B",
   "platform": "Windows 10 / 11",
   "architecture": "64-bit",
-  "publishedAt": "2026-05-10",
+  "publishedAt": "2026-05-11",
   "downloadUrl": "https://www.traxleapp.com/guncelleme/KunyeX_Master_Client.exe",
   "mandatory": true,
   "release_notes": [
-    "Önizleme galerisi kaydırma performansı iyileştirildi.",
-    "Mouse wheel, Page Up ve Page Down hareketleri daha akıcı hale getirildi.",
-    "Etiket önizleme görselleri için cache yapısı optimize edildi.",
-    "Windows tarafında DPI ve işlem önceliği iyileştirmeleri eklendi.",
-    "Güncelleme ekranına sürüm notları alanı eklendi."
+    "Klavye kısayolları yalnızca Ctrl/Cmd kombinasyonlarıyla çalışacak şekilde sıkılaştırıldı.",
+    "Etiket galerisinde Page Up, Page Down ve yön tuşu gezinmesi düzeltildi.",
+    "Kısayollar, Hakkında, Güncelleme ve Çıktı Ayarları pencerelerinin Alt+Tab sonrası önde kalma davranışı iyileştirildi."
   ],
   "releaseNotes": [
-    "Önizleme galerisi kaydırma performansı iyileştirildi.",
-    "Mouse wheel, Page Up ve Page Down hareketleri daha akıcı hale getirildi.",
-    "Etiket önizleme görselleri için cache yapısı optimize edildi.",
-    "Windows tarafında DPI ve işlem önceliği iyileştirmeleri eklendi.",
-    "Güncelleme ekranına sürüm notları alanı eklendi."
+    "Klavye kısayolları yalnızca Ctrl/Cmd kombinasyonlarıyla çalışacak şekilde sıkılaştırıldı.",
+    "Etiket galerisinde Page Up, Page Down ve yön tuşu gezinmesi düzeltildi.",
+    "Kısayollar, Hakkında, Güncelleme ve Çıktı Ayarları pencerelerinin Alt+Tab sonrası önde kalma davranışı iyileştirildi."
   ]
 }
