@@ -12,6 +12,7 @@ import {
   FiTerminal,
 } from "react-icons/fi";
 import InteractiveGridCard from "@/components/ui/InteractiveGridCard";
+import InteractivePageSurface from "@/components/ui/InteractivePageSurface";
 
 const BARKODX_APPSTORE_URL = "https://apps.apple.com/tr/app/barkodx/id6767043219?l=tr";
 const MOLATIK_APPSTORE_URL = "https://apps.apple.com/tr/app/molatik/id6765758798?l=tr";
@@ -192,9 +193,11 @@ function PageShell({
         <span className="page-neon-beam page-neon-beam-3" />
       </div>
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <h1 className="max-w-4xl text-3xl font-black tracking-tight text-white sm:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-slate-200/85">{intro}</p>
-        {children}
+        <InteractivePageSurface className="rounded-[2rem] px-5 py-7 sm:px-8 sm:py-10">
+          <h1 className="neon-heading max-w-4xl text-3xl font-black tracking-tight sm:text-5xl">{title}</h1>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-200/85">{intro}</p>
+          {children}
+        </InteractivePageSurface>
       </div>
     </div>
   );
@@ -238,76 +241,78 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <div className="studio-reveal max-w-4xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
-            <FiCode />
-            {studio.badge}
-          </span>
-          <h1 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">{studio.title}</h1>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-200/85 sm:text-lg">{studio.intro}</p>
-        </div>
-
-        <div className="studio-reveal mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "160ms" }}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-100">
-            <FiTerminal />
-            {studio.stackLabel}
-          </span>
-          {stackItems.map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-slate-200/90"
-            >
-              {item}
+        <InteractivePageSurface className="rounded-[2rem] px-5 py-7 sm:px-8 sm:py-10">
+          <div className="studio-reveal max-w-4xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100">
+              <FiCode />
+              {studio.badge}
             </span>
-          ))}
-        </div>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {content.cards.map((card, index) => (
-            <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
-              <span className="studio-card-glow" aria-hidden />
-              <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
-                    {card.status}
-                  </span>
-                  <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-                <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-slate-200/80">{card.description}</p>
-                <div className="mt-auto flex items-end justify-between pt-7">
-                  <span className="text-sm font-semibold text-cyan-100">{openPageLabel}</span>
-                  <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/60">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              </Link>
-            </InteractiveGridCard>
-          ))}
-        </div>
-
-        <div
-          className="studio-reveal mt-10 rounded-3xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-xl"
-          style={{ animationDelay: "260ms" }}
-        >
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200/80">
-            <FiLayers />
-            {studio.workflowLabel}
+            <h1 className="neon-heading mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">{studio.title}</h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-200/85 sm:text-lg">{studio.intro}</p>
           </div>
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {studio.metrics.map((metric) => (
-              <InteractiveGridCard key={metric.label} className="neon-grid-card rounded-2xl p-4">
-                <span className="neon-grid-card__glow" aria-hidden />
-                <p className="relative z-10 font-[var(--font-mono)] text-2xl font-semibold text-cyan-100">{metric.value}</p>
-                <p className="relative z-10 mt-2 text-xs uppercase tracking-[0.16em] text-slate-300/80">{metric.label}</p>
+
+          <div className="studio-reveal mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "160ms" }}>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-100">
+              <FiTerminal />
+              {studio.stackLabel}
+            </span>
+            {stackItems.map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-slate-200/90"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {content.cards.map((card, index) => (
+              <InteractiveGridCard key={card.title} className="studio-app-card studio-reveal group">
+                <span className="studio-card-glow" aria-hidden />
+                <Link href={localizedPath(card.key, locale)} className="relative z-10 flex h-full flex-col">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex rounded-full border border-cyan-200/25 bg-cyan-200/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100">
+                      {card.status}
+                    </span>
+                    <FiArrowUpRight className="text-cyan-100/80 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                  <h2 className="mt-5 text-3xl font-black tracking-tight text-white">{card.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-200/80">{card.description}</p>
+                  <div className="mt-auto flex items-end justify-between pt-7">
+                    <span className="text-sm font-semibold text-cyan-100">{openPageLabel}</span>
+                    <span className="font-[var(--font-mono)] text-xs uppercase tracking-[0.28em] text-slate-300/60">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                </Link>
               </InteractiveGridCard>
             ))}
           </div>
-          <div className="mt-5 flex items-center gap-2 text-xs text-slate-300/70">
-            <FiDatabase />
-            <span>{content.badge}</span>
+
+          <div
+            className="studio-reveal mt-10 rounded-3xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-xl"
+            style={{ animationDelay: "260ms" }}
+          >
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200/80">
+              <FiLayers />
+              {studio.workflowLabel}
+            </div>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {studio.metrics.map((metric) => (
+                <InteractiveGridCard key={metric.label} className="neon-grid-card rounded-2xl p-4">
+                  <span className="neon-grid-card__glow" aria-hidden />
+                  <p className="relative z-10 font-[var(--font-mono)] text-2xl font-semibold text-cyan-100">{metric.value}</p>
+                  <p className="relative z-10 mt-2 text-xs uppercase tracking-[0.16em] text-slate-300/80">{metric.label}</p>
+                </InteractiveGridCard>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center gap-2 text-xs text-slate-300/70">
+              <FiDatabase />
+              <span>{content.badge}</span>
+            </div>
           </div>
-        </div>
+        </InteractivePageSurface>
       </div>
     </div>
   );
