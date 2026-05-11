@@ -101,11 +101,11 @@ export function LocalizedProductPage({ locale, routeKey }: { locale: Locale; rou
   const labels =
     locale === "tr"
       ? {
-          barkodx: "BarkodX'i App Store'dan Indir",
-          kunyexManual: "KunyeX Manuel Guncelleme",
-          barkodxTransfer: "BarkodX DataTransfer",
-          molatikIos: "Molatik iOS Indirme Linki",
-          molatikPlay: "Molatik Google Play - Cok Yakinda",
+          barkodx: "BarkodX’i App Store’dan İndir",
+          kunyexManual: "KunyeX Manuel Güncelleme",
+          barkodxTransfer: "BarkodX Veri Aktarımı",
+          molatikIos: "Molatik iOS İndirme",
+          molatikPlay: "Molatik Google Play - Çok Yakında",
         }
       : locale === "de"
         ? {

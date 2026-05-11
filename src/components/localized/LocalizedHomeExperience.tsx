@@ -59,26 +59,26 @@ const LOCALE_LABELS: Record<
   tr: {
     openPage: "Sayfaya git",
     primaryCta: "Operasyon Demosu Al",
-    secondaryCta: "Ekosistemi Kesfet",
-    productsTitle: "Urun Ekosistemi",
-    productsIntro: "Her modul ayni veri omurgasina baglanir ve canli operasyonla birlikte calisir.",
-    liveTitle: "Canli Operasyon Akisi",
-    aiTitle: "Akilli Altyapi Katmani",
-    trustTitle: "Saha Tarafindan Dogrulanan Performans",
-    trustIntro: "Traxle cozumleri karar verme hizini artirirken denetlenebilirligi korur.",
-    finalTitle: "Traxle ile operasyonunuzu bir ust seviyeye tasiyin",
-    finalIntro: "Ekiplerinizi tek akista birlestiren premium bir operasyon platformu kurun.",
-    finalButton: "Iletisim Ekibiyle Basla",
-    appStoreBarkodx: "BarkodX App Store",
-    appStoreMolatik: "Molatik App Store",
-    playSoonMolatik: "Google Play Cok Yakinda",
-    updateHub: "Masaustu Guncelleme Merkezi",
-    statusLive: "Canli Uretim",
-    statusPilot: "Pilot Akis",
-    statusScaling: "Olcekleniyor",
-    statThroughput: "Anlik Islem Hizi",
-    statResponse: "Alarm Tepki Suresi",
-    statIntegrity: "Veri Butunluk Skoru",
+    secondaryCta: "Ekosistemi Keşfet",
+    productsTitle: "Ürün Ekosistemi",
+    productsIntro: "Her modül aynı veri omurgasına bağlanır ve canlı operasyonla birlikte çalışır.",
+    liveTitle: "Canlı Operasyon Akışı",
+    aiTitle: "Akıllı Altyapı Katmanı",
+    trustTitle: "Saha Tarafından Doğrulanan Performans",
+    trustIntro: "Traxle çözümleri karar verme hızını artırırken denetlenebilirliği korur.",
+    finalTitle: "Traxle ile operasyonunuzu bir üst seviyeye taşıyın",
+    finalIntro: "Ekiplerinizi tek akışta birleştiren premium bir operasyon platformu kurun.",
+    finalButton: "İletişim Ekibiyle Başla",
+    appStoreBarkodx: "BarkodX’i App Store’dan İndir",
+    appStoreMolatik: "Molatik’i App Store’dan İndir",
+    playSoonMolatik: "Google Play Çok Yakında",
+    updateHub: "Masaüstü Güncelleme Merkezi",
+    statusLive: "Canlı Üretim",
+    statusPilot: "Pilot Akış",
+    statusScaling: "Ölçekleniyor",
+    statThroughput: "Canlı İşlem Hızı",
+    statResponse: "Alarm Tepki Süresi",
+    statIntegrity: "Veri Bütünlük Durumu",
   },
   en: {
     openPage: "Open page",
@@ -563,9 +563,9 @@ export default function LocalizedHomeExperience({
             <div className="pointer-events-none absolute -inset-20 bg-[radial-gradient(circle,rgba(34,211,238,0.17),transparent_60%)]" />
             <div className="relative space-y-6">
               <div className="grid gap-4 sm:grid-cols-3">
-                <MiniMetric title={labels.statThroughput} value="+18.4%" accent="from-cyan-400 to-blue-500" />
-                <MiniMetric title={labels.statResponse} value="1.8s" accent="from-blue-500 to-indigo-500" />
-                <MiniMetric title={labels.statIntegrity} value="99.98%" accent="from-fuchsia-500 to-purple-500" />
+                <MiniMetric title={labels.statThroughput} value="Canlı veri" accent="from-cyan-400 to-blue-500" />
+                <MiniMetric title={labels.statResponse} value="Canlı veri" accent="from-blue-500 to-indigo-500" />
+                <MiniMetric title={labels.statIntegrity} value="Canlı veri" accent="from-fuchsia-500 to-purple-500" />
               </div>
 
               <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 dark:border-white/10 dark:bg-black/20">

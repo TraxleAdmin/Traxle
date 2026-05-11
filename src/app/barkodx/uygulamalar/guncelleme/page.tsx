@@ -13,7 +13,7 @@ const FLOAT_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export default function BarkodxApplicationsUpdatePage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-50 px-4 pt-28 pb-20 text-slate-900 transition-colors dark:bg-[#030712] dark:text-white">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 px-4 pb-20 pt-28 text-slate-900 transition-colors dark:bg-[#030712] dark:text-white">
       <div className="pointer-events-none fixed inset-x-0 top-0 z-0 hidden h-44 bg-gradient-to-b from-[#020617] via-[#020617]/88 to-transparent dark:block" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.2),transparent_42%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.2),transparent_44%),radial-gradient(circle_at_70%_50%,rgba(217,70,239,0.12),transparent_48%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(100,116,139,0.13)_1px,transparent_1px),linear-gradient(to_bottom,rgba(100,116,139,0.13)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30 dark:opacity-35" />
@@ -41,7 +41,7 @@ export default function BarkodxApplicationsUpdatePage() {
           transition={{ duration: 0.7, delay: 0.05, ease: FLOAT_EASE }}
           className="mt-5 text-4xl font-black tracking-tight sm:text-5xl"
         >
-          BarkodX guncelleme ve dagitim merkezi
+          BarkodX güncelleme ve dağıtım merkezi
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -49,7 +49,8 @@ export default function BarkodxApplicationsUpdatePage() {
           transition={{ duration: 0.75, delay: 0.12, ease: FLOAT_EASE }}
           className="mt-4 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300"
         >
-          Bu sayfa, BarkodX kullanan ekiplerin uygulama dagitimi, veri transfer adimlari ve ilgili guncelleme kaynaklarina hizli erisim saglamasi icin Traxle arayuzuyle uyumlu olarak hazirlandi.
+          Bu sayfa, BarkodX kullanan ekiplerin uygulama dağıtımı, veri aktarım adımları ve ilgili güncelleme kaynaklarına
+          hızlı erişim sağlaması için Traxle arayüzüyle uyumlu olarak hazırlandı.
         </motion.p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -61,16 +62,16 @@ export default function BarkodxApplicationsUpdatePage() {
             className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.05]"
           >
             <div className="pointer-events-none absolute -right-16 -top-12 h-44 w-44 rounded-full bg-cyan-400/20 blur-3xl transition-opacity group-hover:opacity-90" />
-            <p className="text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">Uygulama dagitimi</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">Uygulama dağıtımı</p>
             <h2 className="mt-2 text-xl font-black">BarkodX iOS indirme</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              Saha ekiplerinin BarkodX kurulumunu resmi App Store baglantisi ile standart hale getirin.
+              Saha ekiplerinin BarkodX kurulumunu resmi App Store bağlantısı ile standart hâle getirin.
             </p>
 
             <div className="mt-5 rounded-2xl border border-cyan-200/70 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10">
               <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider text-cyan-700 dark:text-cyan-200">
                 <span>Store Sync</span>
-                <span>LIVE</span>
+                <span>CANLI</span>
               </div>
               <div className="mt-3 space-y-2">
                 {[84, 62, 94].map((w, idx) => (
@@ -91,7 +92,7 @@ export default function BarkodxApplicationsUpdatePage() {
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(8,145,178,0.35)] transition hover:from-blue-600 hover:to-indigo-600"
             >
               <FaApple />
-              App Store'dan indir
+              App Store’dan indir
             </Link>
           </motion.article>
 
@@ -103,17 +104,17 @@ export default function BarkodxApplicationsUpdatePage() {
             className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.05]"
           >
             <div className="pointer-events-none absolute -right-16 -top-12 h-44 w-44 rounded-full bg-blue-400/20 blur-3xl transition-opacity group-hover:opacity-90" />
-            <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">Veri tasima</p>
-            <h2 className="mt-2 text-xl font-black">DataTransfer adimlari</h2>
+            <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">Veri aktarımı</p>
+            <h2 className="mt-2 text-xl font-black">Veri aktarım adımları</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              BarkodX cihaz degisimlerinde veri kaybi yasamamak icin standart transfer adimlarini uygulayin.
+              BarkodX cihaz değişimlerinde veri kaybı yaşamamak için standart aktarım adımlarını uygulayın.
             </p>
 
             <div className="relative mt-5 overflow-hidden rounded-2xl border border-blue-200/70 bg-blue-50/70 p-3 dark:border-blue-400/20 dark:bg-blue-400/10">
               <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-200">
-                <span>Backup</span>
-                <span>Transfer</span>
-                <span>Verify</span>
+                <span>Yedek</span>
+                <span>Aktar</span>
+                <span>Doğrula</span>
               </div>
               <motion.div
                 className="absolute left-2 right-2 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
@@ -127,7 +128,7 @@ export default function BarkodxApplicationsUpdatePage() {
               className="mt-5 inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-5 py-3 text-sm font-semibold text-blue-800 transition hover:border-blue-400 dark:border-blue-400/40 dark:bg-blue-400/10 dark:text-blue-200"
             >
               <FiDatabase />
-              DataTransfer sayfasini ac
+              Veri aktarımı sayfasını aç
             </Link>
           </motion.article>
 
@@ -139,10 +140,10 @@ export default function BarkodxApplicationsUpdatePage() {
             className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/72 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.05]"
           >
             <div className="pointer-events-none absolute -right-16 -top-12 h-44 w-44 rounded-full bg-fuchsia-400/20 blur-3xl transition-opacity group-hover:opacity-90" />
-            <p className="text-xs font-bold uppercase tracking-wide text-purple-700 dark:text-purple-300">Masaustu guncelleme</p>
-            <h2 className="mt-2 text-xl font-black">KunyeX update kaynaklari</h2>
+            <p className="text-xs font-bold uppercase tracking-wide text-purple-700 dark:text-purple-300">Masaüstü güncelleme</p>
+            <h2 className="mt-2 text-xl font-black">KunyeX güncelleme kaynakları</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              Entegrasyonlu surecler icin KunyeX istemci surum kontrolu ve manuel EXE dagitim baglantilari.
+              Entegrasyon süreçleri için KunyeX istemci sürüm kontrolü ve manuel EXE dağıtım bağlantıları.
             </p>
             <div className="mt-5 flex flex-col gap-2">
               <Link
@@ -174,12 +175,12 @@ export default function BarkodxApplicationsUpdatePage() {
         >
           <h3 className="inline-flex items-center gap-2 text-lg font-black">
             <FiShield className="text-emerald-500" />
-            Operasyon notlari
+            Operasyon notları
           </h3>
           <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            <li>Yeni cihaz kurulumu oncesi aktif BarkodX kullanicilarinin senkronizasyonunu tamamlayin.</li>
-            <li>DataTransfer akisini test ortaminda bir kez calistirip kayit uyumunu dogrulayin.</li>
-            <li>Canli ortama gecis sonrasi ilk vardiyada rastgele barkod okuma kontrolleri yapin.</li>
+            <li>Yeni cihaz kurulumu öncesi aktif BarkodX kullanıcılarının senkronizasyonunu tamamlayın.</li>
+            <li>Veri aktarımı akışını test ortamında bir kez çalıştırıp kayıt uyumunu doğrulayın.</li>
+            <li>Canlı ortama geçiş sonrası ilk vardiyada rastgele barkod okuma kontrolleri yapın.</li>
           </ol>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
@@ -187,13 +188,13 @@ export default function BarkodxApplicationsUpdatePage() {
               className="inline-flex items-center gap-2 rounded-full border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-800 transition hover:border-indigo-400 dark:border-indigo-400/40 dark:bg-indigo-400/10 dark:text-indigo-200"
             >
               <FiRefreshCw />
-              KunyeX manuel guncelleme
+              KunyeX manuel güncelleme
             </Link>
             <Link
               href="/guncelleme"
               className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-400 dark:border-white/20 dark:bg-white/10 dark:text-white"
             >
-              Merkeze don
+              Merkeze dön
               <FiArrowUpRight />
             </Link>
           </div>
