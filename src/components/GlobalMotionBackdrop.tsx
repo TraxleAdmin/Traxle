@@ -1,10 +1,10 @@
-const streaks = Array.from({ length: 12 }, (_, index) => index);
+const meteors = Array.from({ length: 4 }, (_, index) => index);
 
 export default function GlobalMotionBackdrop() {
   return (
     <div className="global-motion-backdrop" aria-hidden>
-      {streaks.map((streak) => (
-        <span key={streak} />
+      {meteors.map((meteor) => (
+        <span key={meteor} />
       ))}
     </div>
   );

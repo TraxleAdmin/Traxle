@@ -738,8 +738,8 @@ textarea:focus-visible {
 }
 
 .traxle-premium-landing {
-  --landing-mx: 50%;
-  --landing-my: 22%;
+  --landing-mx: 50vw;
+  --landing-my: 22vh;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -778,11 +778,19 @@ textarea:focus-visible {
 .landing-mouse-light {
   pointer-events: none;
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
   z-index: 0;
+  width: min(760px, 92vw);
+  height: min(760px, 92vw);
+  border-radius: 999px;
   background:
-    radial-gradient(520px circle at var(--landing-mx) var(--landing-my), rgba(34, 211, 238, 0.16), transparent 62%),
-    radial-gradient(760px circle at var(--landing-mx) var(--landing-my), rgba(16, 185, 129, 0.09), transparent 72%);
+    radial-gradient(circle at center, rgba(34, 211, 238, 0.18), transparent 58%),
+    radial-gradient(circle at center, rgba(16, 185, 129, 0.1), transparent 72%);
+  opacity: 0.9;
+  transform: translate3d(calc(var(--landing-mx) - 50%), calc(var(--landing-my) - 50%), 0);
+  will-change: transform;
+  contain: paint;
 }
 
 .landing-noise {
@@ -1771,8 +1779,8 @@ textarea:focus-visible {
 
 @media (max-width: 768px) {
   .traxle-premium-landing {
-    --landing-mx: 50%;
-    --landing-my: 12%;
+    --landing-mx: 50vw;
+    --landing-my: 12vh;
   }
 
   .landing-mouse-light {
@@ -3268,9 +3276,7 @@ footer {
   inset: 0;
   z-index: 4;
   overflow: hidden;
-  perspective: 1400px;
-  opacity: 0.34;
-  mix-blend-mode: screen;
+  opacity: 0.3;
   contain: paint;
 }
 
@@ -3285,8 +3291,9 @@ footer {
   background-position: 0 0, 62px 44px, center;
   background-size: 220px 180px, 330px 260px, auto;
   mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 76%);
-  opacity: 0.58;
-  animation: global-star-depth 54s linear infinite;
+  opacity: 0.46;
+  transform: translate3d(0, 0, 0);
+  animation: global-star-depth 96s linear infinite;
 }
 
 .global-motion-backdrop::after {
@@ -3297,10 +3304,9 @@ footer {
     radial-gradient(ellipse at 72% 10%, rgba(56, 189, 248, 0.18), transparent 28%),
     radial-gradient(ellipse at 18% 28%, rgba(20, 184, 166, 0.12), transparent 32%),
     radial-gradient(ellipse at 50% 92%, rgba(59, 130, 246, 0.1), transparent 34%);
-  filter: blur(22px);
-  opacity: 0.42;
-  transform: translate3d(0, 0, -180px);
-  animation: global-aurora-drift 64s ease-in-out infinite alternate;
+  opacity: 0.24;
+  transform: translate3d(0, 0, 0);
+  animation: global-aurora-drift 120s ease-in-out infinite alternate;
 }
 
 .global-motion-backdrop span {
@@ -3308,7 +3314,7 @@ footer {
   --meteor-y: 8vh;
   --meteor-l: 260px;
   --meteor-a: 18deg;
-  --meteor-d: 34s;
+  --meteor-d: 46s;
   --meteor-delay: -10s;
   --meteor-travel-x: 78vw;
   --meteor-travel-y: 42vh;
@@ -3319,8 +3325,7 @@ footer {
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent 0%, rgba(125, 211, 252, 0.05) 18%, rgba(147, 197, 253, 0.2) 56%, rgba(236, 254, 255, 0.82) 92%, transparent 100%);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.14), 0 0 28px rgba(59, 130, 246, 0.1);
-  filter: blur(0.05px);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.12);
   opacity: 0;
   transform-origin: right center;
   will-change: transform, opacity;
@@ -3337,7 +3342,7 @@ footer {
   height: 5px;
   border-radius: 999px;
   background: radial-gradient(circle, #ffffff 0 22%, rgba(191, 239, 255, 0.9) 36%, rgba(56, 189, 248, 0.2) 72%, transparent 76%);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 22px rgba(56, 189, 248, 0.34);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.46), 0 0 16px rgba(56, 189, 248, 0.24);
   transform: translate(50%, -50%);
 }
 
@@ -3347,55 +3352,49 @@ footer {
   inset: -10px -4px -10px 18%;
   border-radius: 999px;
   background: radial-gradient(closest-side, rgba(125, 211, 252, 0.2), transparent 72%);
-  filter: blur(8px);
-  opacity: 0.48;
+  opacity: 0.26;
 }
 
-.global-motion-backdrop span:nth-child(2) { --meteor-x: 14vw; --meteor-y: -8vh; --meteor-l: 320px; --meteor-a: 21deg; --meteor-d: 42s; --meteor-delay: -30s; --meteor-travel-x: 58vw; --meteor-travel-y: 36vh; }
-.global-motion-backdrop span:nth-child(3) { --meteor-x: 58vw; --meteor-y: 6vh; --meteor-l: 210px; --meteor-a: 15deg; --meteor-d: 38s; --meteor-delay: -18s; --meteor-travel-x: 38vw; --meteor-travel-y: 28vh; }
-.global-motion-backdrop span:nth-child(4) { --meteor-x: -22vw; --meteor-y: 36vh; --meteor-l: 230px; --meteor-a: -12deg; --meteor-d: 46s; --meteor-delay: -7s; --meteor-travel-x: 74vw; --meteor-travel-y: 18vh; }
-.global-motion-backdrop span:nth-child(5) { --meteor-x: 68vw; --meteor-y: 30vh; --meteor-l: 180px; --meteor-a: 24deg; --meteor-d: 44s; --meteor-delay: -36s; --meteor-travel-x: 32vw; --meteor-travel-y: 26vh; }
-.global-motion-backdrop span:nth-child(6) { --meteor-x: 24vw; --meteor-y: 54vh; --meteor-l: 260px; --meteor-a: -16deg; --meteor-d: 52s; --meteor-delay: -22s; --meteor-travel-x: 54vw; --meteor-travel-y: 18vh; }
-.global-motion-backdrop span:nth-child(n + 7) { display: none; }
+.global-motion-backdrop span:nth-child(2) { --meteor-x: 14vw; --meteor-y: -8vh; --meteor-l: 300px; --meteor-a: 21deg; --meteor-d: 58s; --meteor-delay: -38s; --meteor-travel-x: 58vw; --meteor-travel-y: 36vh; }
+.global-motion-backdrop span:nth-child(3) { --meteor-x: 58vw; --meteor-y: 6vh; --meteor-l: 200px; --meteor-a: 15deg; --meteor-d: 54s; --meteor-delay: -24s; --meteor-travel-x: 38vw; --meteor-travel-y: 28vh; }
+.global-motion-backdrop span:nth-child(4) { --meteor-x: -22vw; --meteor-y: 36vh; --meteor-l: 220px; --meteor-a: -12deg; --meteor-d: 64s; --meteor-delay: -12s; --meteor-travel-x: 74vw; --meteor-travel-y: 18vh; }
 
 @keyframes global-star-depth {
   0% {
-    transform: translate3d(0, 0, -140px) scale(0.98);
-    background-position: 0 0, 62px 44px, center;
+    transform: translate3d(0, 0, 0) scale(0.99);
   }
   100% {
-    transform: translate3d(-80px, 62px, 80px) scale(1.025);
-    background-position: 220px 180px, -268px 304px, center;
+    transform: translate3d(-34px, 28px, 0) scale(1.01);
   }
 }
 
 @keyframes global-aurora-drift {
   0% {
-    transform: translate3d(-2%, -1%, -180px) scale(0.98);
+    transform: translate3d(-1%, -0.5%, 0) scale(0.99);
   }
   100% {
-    transform: translate3d(3%, 2%, -140px) scale(1.04);
+    transform: translate3d(1.5%, 1%, 0) scale(1.015);
   }
 }
 
 @keyframes global-meteor-fall {
   0% {
     opacity: 0;
-    transform: translate3d(-16vw, -9vh, -260px) rotate(var(--meteor-a)) scaleX(0.45);
+    transform: translate3d(-16vw, -9vh, 0) rotate(var(--meteor-a)) scaleX(0.45);
   }
   7% {
-    opacity: 0.74;
+    opacity: 0.62;
   }
   22% {
-    opacity: 0.48;
+    opacity: 0.36;
   }
   46% {
     opacity: 0;
-    transform: translate3d(var(--meteor-travel-x), var(--meteor-travel-y), 90px) rotate(var(--meteor-a)) scaleX(1);
+    transform: translate3d(var(--meteor-travel-x), var(--meteor-travel-y), 0) rotate(var(--meteor-a)) scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: translate3d(var(--meteor-travel-x), var(--meteor-travel-y), 90px) rotate(var(--meteor-a)) scaleX(1);
+    transform: translate3d(var(--meteor-travel-x), var(--meteor-travel-y), 0) rotate(var(--meteor-a)) scaleX(1);
   }
 }
 
@@ -3416,28 +3415,25 @@ footer {
     repeating-linear-gradient(115deg, transparent 0 88px, rgba(125, 211, 252, 0.024) 89px 90px, transparent 91px 180px);
   background-size: auto, auto, 720px 460px, 420px 420px;
   background-position: center, center, -18% -10%, 0 0;
-  filter: blur(0.1px);
   mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 78%);
-  mix-blend-mode: screen;
-  opacity: 0.2;
-  animation: shell-star-streaks 48s ease-in-out infinite alternate;
+  opacity: 0.16;
+  transform: translate3d(0, 0, 0);
+  animation: shell-star-streaks 96s ease-in-out infinite alternate;
 }
 
 .dark :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
-  opacity: 0.28;
+  opacity: 0.22;
 }
 
 @keyframes shell-star-streaks {
   0% {
-    transform: translate3d(-2%, -1%, -120px) scale(0.98) rotateX(0deg);
-    background-position: center, center, -18% -10%, 0 0;
+    transform: translate3d(-1%, -0.5%, 0) scale(0.99);
   }
   50% {
-    transform: translate3d(1%, 1%, 20px) scale(1.01) rotateX(1deg);
+    transform: translate3d(0.5%, 0.4%, 0) scale(1.005);
   }
   100% {
-    transform: translate3d(2%, 2%, 80px) scale(1.03) rotateX(0deg);
-    background-position: center, center, 112% 94%, 160px 120px;
+    transform: translate3d(1%, 0.8%, 0) scale(1.01);
   }
 }
 
@@ -3547,22 +3543,26 @@ footer {
 
 @media (max-width: 768px) {
   .global-motion-backdrop {
-    opacity: 0.3;
+    opacity: 0.24;
   }
 
-  .global-motion-backdrop span:nth-child(n + 5) {
+  .global-motion-backdrop::after {
+    display: none;
+  }
+
+  .global-motion-backdrop span:nth-child(n + 4) {
     display: none;
   }
 
   :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
-    opacity: 0.2;
-    animation-duration: 28s;
+    opacity: 0.12;
+    animation-duration: 120s;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .global-motion-backdrop {
-    opacity: 0.3;
+    opacity: 0.2;
   }
 
   .global-motion-backdrop::before {
@@ -3572,27 +3572,25 @@ footer {
   }
 
   .global-motion-backdrop::after {
-    animation: global-aurora-drift 120s ease-in-out infinite alternate !important;
-    animation-duration: 120s !important;
-    animation-iteration-count: infinite !important;
+    display: none;
   }
 
   .global-motion-backdrop span {
-    animation: global-meteor-fall 58s linear infinite !important;
+    animation: global-meteor-fall 90s linear infinite !important;
     animation-delay: var(--meteor-delay) !important;
-    animation-duration: 58s !important;
+    animation-duration: 90s !important;
     animation-iteration-count: infinite !important;
   }
 
-  .global-motion-backdrop span:nth-child(n + 5) {
+  .global-motion-backdrop span:nth-child(n + 3) {
     display: none;
   }
 
   :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
-    animation: shell-star-streaks 56s linear infinite !important;
-    animation-duration: 56s !important;
+    animation: shell-star-streaks 140s linear infinite !important;
+    animation-duration: 140s !important;
     animation-iteration-count: infinite !important;
-    opacity: 0.18;
+    opacity: 0.1;
   }
 
   :where(.interactive-grid-card, .subpage-info-card, .subpage-product-card, .product-detail-capability, .product-ecosystem-card, .pricing-card, .ops-panel, .ops-feed, .realtime-section, .feature-card, .faq-item, .subpage-ops-visual, .product-detail-visual, .product-detail-actions, .subpage-final-cta, .auth-social-button):hover::after {

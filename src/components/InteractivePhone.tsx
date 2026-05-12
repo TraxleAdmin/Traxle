@@ -19,6 +19,8 @@ import ScreenWallet from './screens/ScreenWallet';
 interface PhoneProps { activeTab: string; }
 
 export default function InteractivePhone({ activeTab }: PhoneProps) {
+  const pointerFrame = React.useRef<number | null>(null);
+  const pointerPosition = React.useRef({ x: 0, y: 0 });
 
   // --- 1. SCROLL FİZİĞİ (YUMUŞAK YAYLANMA) ---
   const { scrollY } = useScroll();
@@ -34,15 +36,28 @@ export default function InteractivePhone({ activeTab }: PhoneProps) {
   const rotateY = useTransform(x, [-250, 250], [-12, 12]);
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const xPct = (event.clientX - rect.left - rect.width / 2);
-    const yPct = (event.clientY - rect.top - rect.height / 2);
+    const target = event.currentTarget;
+    pointerPosition.current = { x: event.clientX, y: event.clientY };
 
-    x.set(xPct);
-    y.set(yPct);
+    if (pointerFrame.current !== null) return;
+
+    pointerFrame.current = window.requestAnimationFrame(() => {
+      pointerFrame.current = null;
+      const rect = target.getBoundingClientRect();
+      const xPct = pointerPosition.current.x - rect.left - rect.width / 2;
+      const yPct = pointerPosition.current.y - rect.top - rect.height / 2;
+
+      x.set(xPct);
+      y.set(yPct);
+    });
   }
 
   function handleMouseLeave() {
+    if (pointerFrame.current !== null) {
+      window.cancelAnimationFrame(pointerFrame.current);
+      pointerFrame.current = null;
+    }
+
     x.set(0);
     y.set(0);
   }

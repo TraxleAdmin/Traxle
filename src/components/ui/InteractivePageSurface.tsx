@@ -16,29 +16,43 @@ export default function InteractivePageSurface({
   ...rest
 }: InteractivePageSurfaceProps) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const pointerFrame = useRef<number | null>(null);
+  const pointerPosition = useRef({ x: 0, y: 0 });
 
   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
-    const element = ref.current;
-    if (!element) return;
+    pointerPosition.current = { x: event.clientX, y: event.clientY };
 
-    const rect = element.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const midX = rect.width / 2;
-    const midY = rect.height / 2;
+    if (pointerFrame.current === null) {
+      pointerFrame.current = window.requestAnimationFrame(() => {
+        pointerFrame.current = null;
+        const element = ref.current;
+        if (!element) return;
 
-    const rotateY = ((x - midX) / midX) * (intensity * 0.58);
-    const rotateX = ((midY - y) / midY) * (intensity * 0.58);
+        const rect = element.getBoundingClientRect();
+        const x = pointerPosition.current.x - rect.left;
+        const y = pointerPosition.current.y - rect.top;
+        const midX = rect.width / 2;
+        const midY = rect.height / 2;
 
-    element.style.setProperty("--page-mx", `${x}px`);
-    element.style.setProperty("--page-my", `${y}px`);
-    element.style.setProperty("--page-rx", `${rotateX.toFixed(2)}deg`);
-    element.style.setProperty("--page-ry", `${rotateY.toFixed(2)}deg`);
+        const rotateY = ((x - midX) / midX) * (intensity * 0.58);
+        const rotateX = ((midY - y) / midY) * (intensity * 0.58);
+
+        element.style.setProperty("--page-mx", `${x}px`);
+        element.style.setProperty("--page-my", `${y}px`);
+        element.style.setProperty("--page-rx", `${rotateX.toFixed(2)}deg`);
+        element.style.setProperty("--page-ry", `${rotateY.toFixed(2)}deg`);
+      });
+    }
 
     onMouseMove?.(event);
   };
 
   const handleMouseLeave: MouseEventHandler<HTMLDivElement> = (event) => {
+    if (pointerFrame.current !== null) {
+      window.cancelAnimationFrame(pointerFrame.current);
+      pointerFrame.current = null;
+    }
+
     const element = ref.current;
     if (element) {
       element.style.setProperty("--page-rx", "0deg");

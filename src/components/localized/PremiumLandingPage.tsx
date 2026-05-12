@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type CSSProperties, type MouseEvent } from "react";
+import { useMemo, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
@@ -279,15 +279,28 @@ function routeForProduct(locale: Locale, key: ProductKey) {
 
 export default function PremiumLandingPage({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const landingRef = useRef<HTMLDivElement | null>(null);
+  const pointerFrame = useRef<number | null>(null);
+  const pointerPosition = useRef({ x: 0, y: 0 });
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--landing-mx", `${event.clientX - rect.left}px`);
-    event.currentTarget.style.setProperty("--landing-my", `${event.clientY - rect.top}px`);
+    pointerPosition.current = { x: event.clientX, y: event.clientY };
+
+    if (pointerFrame.current !== null) return;
+
+    pointerFrame.current = window.requestAnimationFrame(() => {
+      pointerFrame.current = null;
+      const element = landingRef.current;
+      if (!element) return;
+
+      const rect = element.getBoundingClientRect();
+      element.style.setProperty("--landing-mx", `${pointerPosition.current.x - rect.left}px`);
+      element.style.setProperty("--landing-my", `${pointerPosition.current.y - rect.top}px`);
+    });
   };
 
   return (
-    <div className="traxle-premium-landing" onMouseMove={handleMouseMove}>
+    <div ref={landingRef} className="traxle-premium-landing" onMouseMove={handleMouseMove}>
       <span className="landing-mouse-light" aria-hidden />
       <span className="landing-noise" aria-hidden />
       <HeroSection locale={locale} t={t} />
