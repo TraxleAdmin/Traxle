@@ -3276,7 +3276,7 @@ footer {
   inset: 0;
   z-index: 4;
   overflow: hidden;
-  opacity: 0.3;
+  opacity: 0.36;
   contain: paint;
 }
 
@@ -3291,7 +3291,7 @@ footer {
   background-position: 0 0, 62px 44px, center;
   background-size: 220px 180px, 330px 260px, auto;
   mask-image: radial-gradient(circle at 50% 18%, black 0%, transparent 76%);
-  opacity: 0.46;
+  opacity: 0.58;
   transform: translate3d(0, 0, 0);
   animation: global-star-depth 96s linear infinite;
 }
@@ -3314,8 +3314,8 @@ footer {
   --meteor-y: 8vh;
   --meteor-l: 260px;
   --meteor-a: 18deg;
-  --meteor-d: 46s;
-  --meteor-delay: -10s;
+  --meteor-d: 26s;
+  --meteor-delay: -2s;
   --meteor-travel-x: 78vw;
   --meteor-travel-y: 42vh;
   position: absolute;
@@ -3355,9 +3355,13 @@ footer {
   opacity: 0.26;
 }
 
-.global-motion-backdrop span:nth-child(2) { --meteor-x: 14vw; --meteor-y: -8vh; --meteor-l: 300px; --meteor-a: 21deg; --meteor-d: 58s; --meteor-delay: -38s; --meteor-travel-x: 58vw; --meteor-travel-y: 36vh; }
-.global-motion-backdrop span:nth-child(3) { --meteor-x: 58vw; --meteor-y: 6vh; --meteor-l: 200px; --meteor-a: 15deg; --meteor-d: 54s; --meteor-delay: -24s; --meteor-travel-x: 38vw; --meteor-travel-y: 28vh; }
-.global-motion-backdrop span:nth-child(4) { --meteor-x: -22vw; --meteor-y: 36vh; --meteor-l: 220px; --meteor-a: -12deg; --meteor-d: 64s; --meteor-delay: -12s; --meteor-travel-x: 74vw; --meteor-travel-y: 18vh; }
+.global-motion-backdrop span:nth-child(2) { --meteor-x: 14vw; --meteor-y: -8vh; --meteor-l: 300px; --meteor-a: 21deg; --meteor-d: 31s; --meteor-delay: -9s; --meteor-travel-x: 58vw; --meteor-travel-y: 36vh; }
+.global-motion-backdrop span:nth-child(3) { --meteor-x: 58vw; --meteor-y: 6vh; --meteor-l: 200px; --meteor-a: 15deg; --meteor-d: 24s; --meteor-delay: -15s; --meteor-travel-x: 38vw; --meteor-travel-y: 28vh; }
+.global-motion-backdrop span:nth-child(4) { --meteor-x: -22vw; --meteor-y: 36vh; --meteor-l: 220px; --meteor-a: -12deg; --meteor-d: 34s; --meteor-delay: -22s; --meteor-travel-x: 74vw; --meteor-travel-y: 18vh; }
+.global-motion-backdrop span:nth-child(5) { --meteor-x: 76vw; --meteor-y: 16vh; --meteor-l: 180px; --meteor-a: 28deg; --meteor-d: 28s; --meteor-delay: -6s; --meteor-travel-x: 30vw; --meteor-travel-y: 30vh; }
+.global-motion-backdrop span:nth-child(6) { --meteor-x: 4vw; --meteor-y: 58vh; --meteor-l: 240px; --meteor-a: -18deg; --meteor-d: 38s; --meteor-delay: -28s; --meteor-travel-x: 62vw; --meteor-travel-y: 16vh; }
+.global-motion-backdrop span:nth-child(7) { --meteor-x: 40vw; --meteor-y: -6vh; --meteor-l: 170px; --meteor-a: 12deg; --meteor-d: 30s; --meteor-delay: -18s; --meteor-travel-x: 44vw; --meteor-travel-y: 34vh; }
+.global-motion-backdrop span:nth-child(8) { --meteor-x: 82vw; --meteor-y: 46vh; --meteor-l: 210px; --meteor-a: -20deg; --meteor-d: 42s; --meteor-delay: -34s; --meteor-travel-x: 28vw; --meteor-travel-y: 14vh; }
 
 @keyframes global-star-depth {
   0% {
@@ -3543,14 +3547,14 @@ footer {
 
 @media (max-width: 768px) {
   .global-motion-backdrop {
-    opacity: 0.24;
+    opacity: 0.28;
   }
 
   .global-motion-backdrop::after {
     display: none;
   }
 
-  .global-motion-backdrop span:nth-child(n + 4) {
+  .global-motion-backdrop span:nth-child(n + 6) {
     display: none;
   }
 
@@ -3562,7 +3566,7 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .global-motion-backdrop {
-    opacity: 0.2;
+    opacity: 0.28;
   }
 
   .global-motion-backdrop::before {
@@ -3576,13 +3580,13 @@ footer {
   }
 
   .global-motion-backdrop span {
-    animation: global-meteor-fall 90s linear infinite !important;
+    animation: global-meteor-fall 58s linear infinite !important;
     animation-delay: var(--meteor-delay) !important;
-    animation-duration: 90s !important;
+    animation-duration: 58s !important;
     animation-iteration-count: infinite !important;
   }
 
-  .global-motion-backdrop span:nth-child(n + 3) {
+  .global-motion-backdrop span:nth-child(n + 6) {
     display: none;
   }
 
