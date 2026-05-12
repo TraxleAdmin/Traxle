@@ -1,4 +1,4 @@
-const meteors = Array.from({ length: 8 }, (_, index) => index);
+const meteors = Array.from({ length: 16 }, (_, index) => index);
 
 export default function GlobalMotionBackdrop() {
   return (
