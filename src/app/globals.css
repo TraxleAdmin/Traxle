@@ -3522,10 +3522,34 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .global-motion-backdrop,
-  .global-motion-backdrop::before,
-  .global-motion-backdrop span,
-  :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after,
+  .global-motion-backdrop {
+    opacity: 0.3;
+  }
+
+  .global-motion-backdrop::before {
+    animation: global-star-depth 90s linear infinite !important;
+    animation-duration: 90s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  .global-motion-backdrop span {
+    animation: global-star-streak 32s linear infinite !important;
+    animation-delay: var(--star-delay) !important;
+    animation-duration: 32s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  .global-motion-backdrop span:nth-child(n + 5) {
+    display: none;
+  }
+
+  :where(.traxle-premium-landing, .premium-subpage-shell, .auth-premium-shell, .page-neon-shell)::after {
+    animation: shell-star-streaks 56s linear infinite !important;
+    animation-duration: 56s !important;
+    animation-iteration-count: infinite !important;
+    opacity: 0.18;
+  }
+
   :where(.interactive-grid-card, .subpage-info-card, .subpage-product-card, .product-detail-capability, .product-ecosystem-card, .pricing-card, .ops-panel, .ops-feed, .realtime-section, .feature-card, .faq-item, .subpage-ops-visual, .product-detail-visual, .product-detail-actions, .subpage-final-cta, .auth-social-button):hover::after {
     animation: none !important;
   }
